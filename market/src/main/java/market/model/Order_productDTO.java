@@ -17,6 +17,9 @@ public class Order_productDTO {
 	private String op_refund_why;
 	private Date op_deli_date;
 	private Date op_cancel_date;
+	private int d_no;
+	private int s_no;
+	private String m_email;
 	
 	// order_tab
 	private Date o_date;
@@ -118,6 +121,24 @@ public class Order_productDTO {
 	}
 	public void setOp_cancel_date(Date op_cancel_date) {
 		this.op_cancel_date = op_cancel_date;
+	}
+	public int getD_no() {
+		return d_no;
+	}
+	public void setD_no(int d_no) {
+		this.d_no = d_no;
+	}
+	public int getS_no() {
+		return s_no;
+	}
+	public void setS_no(int s_no) {
+		this.s_no = s_no;
+	}
+	public String getM_email() {
+		return m_email;
+	}
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
 	}
 	public Date getO_date() {
 		return o_date;
