@@ -45,7 +45,7 @@
 				<td>팔로워할인가</td>
 				<td>재고</td>
 				<td>상품상태</td>
-				<td></td>
+				<td>상품상태변경</td>
 			</tr>
 			<c:if test="${empty list}">
 				<tr>
@@ -62,6 +62,7 @@
 						<td>${p.p_follow_price}</td>
 						<td>${p.p_stock}</td>
 						<td><c:if test="${p.p_status =='1'}">판매중</c:if></td>
+						<td><input type="button" value="상품상태변경" class="btn btn-success"></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -92,7 +93,7 @@
 				<td>상품명</td>
 				<td>재고</td>
 				<td>상품상태</td>
-				<td></td>
+				<td>상품상태변경</td>
 			</tr>
 			<c:if test="${empty list}">
 				<tr>
@@ -106,6 +107,7 @@
 						<td><a href="productUpdateForm.do?p_no=${p.p_no}">${p.p_name}</a></td>
 						<td>${p.p_stock}</td>
 						<td><c:if test="${p.p_status =='1'}">판매중</c:if></td>
+						<td><input type="button" value="상품상태변경" class="btn btn-success"></td>
 					</tr>
 				</c:forEach>
 			</c:if>
