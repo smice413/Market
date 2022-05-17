@@ -38,8 +38,8 @@ public class MemberDAOImpl {
 	}
 
 	// 회원수정
-	public int memberUpdate(MemberDTO member) throws Exception {
-		return sqlSession.update("memberns.memberUpdate", member);
+	public int memberUpdateForm(MemberDTO member) throws Exception {
+	return sqlSession.update("memberns.memberUpdateForm", member);
 	}
 
 	// 비밀번호찾기

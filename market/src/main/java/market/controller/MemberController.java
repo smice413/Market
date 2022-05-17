@@ -116,7 +116,7 @@ public class MemberController {
 	// 회원정보 수정
 	@RequestMapping(value = "/memberUpdate.do", method = RequestMethod.POST)
 	public String memberUpdate(HttpSession session, MemberDTO member, Model model) throws Exception {
-		int result = ms.memberUpdate(member);
+		int result = ms.memberUpdateForm(member);
 		model.addAttribute("result", result);
 		return "my_page/myPage";
 
@@ -138,35 +138,34 @@ public class MemberController {
 	 * }
 	 */
 	//비번찾기 폼
-	@RequestMapping(value = "/passwdSearch.do")
-	public String passwdSearch() {
-		return "member/passwdSearch";
+	@RequestMapping(value = "/passwdSearchForm.do")
+	public String passwdSearchForm() {
+		return "member/passwdSearchForm";
 	}
 
 	//비번찾기 완료 
-	@RequestMapping(value = "/passwdCheck.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/passwdSearch.do", method = RequestMethod.POST)
 	public String passwdCheck(@ModelAttribute MemberDTO member, HttpServletResponse response, Model model)
 			throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
 
 		MemberDTO mem = ms.passwdSearch(member);
 
 		if (mem == null) {// 값이 없는 경우
 
-			return "member/passwdSearch";
+			return "member/passwdSearchForm";
 
 		} else {
 			// Mail Server 설정
 			String charSet = "utf-8";
 			String hostSMTP = "smtp.naver.com";
 			String hostSMTPid = "su_jin924@naver.com";
-			String hostSMTPpwd = "1q1q1q"; // 비밀번호 입력해야함
+			String hostSMTPpwd = "000000"; // 비밀번호 입력해야함
 
 			// 보내는 사람 EMail, 제목, 내용
 			String fromEmail = "su_jin924@naver.com";
-			String fromName = "관리자";
-			String subject = "비밀번호 찾기";
+			String fromName = "마켓관리자";
+			String subject = "마켓의 비밀번호를 알려드립니다:-)";
 
 			// 받는 사람 E-Mail 주소
 			String mail = mem.getM_email();
@@ -184,15 +183,15 @@ public class MemberController {
 				email.addTo(mail, charSet);
 				email.setFrom(fromEmail, fromName, charSet);
 				email.setSubject(subject);
-				email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
-						+ member.getM_passwd() + "</div>");
+				email.setHtmlMsg("<p align = 'center'>마켓 비밀번호 알려드립니다</p><br>" + "<div align='center'> 마켓 비밀번호  "
+						+ mem.getM_passwd() + "</div>");
 				email.send();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 
 			model.addAttribute("passwdSearch", "등록된 email을 확인 하세요:-)");
-			return "member/passwdSearch";
+			return "member/loginForm";
 
 		}
 

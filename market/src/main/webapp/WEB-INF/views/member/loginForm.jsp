@@ -37,7 +37,7 @@
 					onClick="location='memberInsertForm.do'" /> 
 					<input type="button"
 					value="아이디/비번찾기" class="btn btn-outline-warning" 
-					onClick ="location ='passwdSearch.do'"/>
+					onClick ="location ='passwdSearchForm.do'"/>
 			</div>
 		</form>
 	</div>

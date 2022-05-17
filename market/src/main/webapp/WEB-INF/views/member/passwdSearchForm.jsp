@@ -8,8 +8,8 @@
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
 
-<script src="./js/jquery.js"></script>
-<script>
+
+<!--  <script>
  function passwdSearch(){
 	 if($.trim($("#m_email").val())==""){
 		 alert("이메일주소 를 입력하세요!");
@@ -22,7 +22,7 @@
 		 return false;
 	 }
  }
-</script>
+</script>-->
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -32,7 +32,7 @@
 		
 		<c:if test ="${empty passwdSearch}">
 		<h2 class="pwd_title">비밀번호찾기</h2>
-		<form method="post" action="passwdSearch.do" onsubmit="return passwdSearch()">
+		<form method="post" action="passwdSearch.do">
 		<table id="pwd_t1">
 		<tr>
 			<th>이메일</th>
@@ -44,7 +44,7 @@
 		</tr>
 		<tr>
 			<td colspan=2 align="center">
-				<input type ="summit" value="이메일발송" class="btn btn-warning" >
+				<input type ="submit" value="이메일발송" class="btn btn-warning" >
 			</td>
 		</tr>
 		</table>
