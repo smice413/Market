@@ -14,12 +14,16 @@ public class Order_productDAOImpl implements Order_productDAO {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	public List<Order_productDTO> orderlist() throws Exception{
-		return sst.selectList("order_product.orderlist");
+	public List<Order_productDTO> orderList() throws Exception{
+		return sst.selectList("order_product.orderList");
 	}
 	
-	public Order_productDTO orderdetail(int op_no) throws Exception{
-		return sst.selectOne("order_product.orderdetail", op_no);
+	public Order_productDTO orderDetail(int op_no) throws Exception{
+		return sst.selectOne("order_product.orderDetail", op_no);
+	}
+	
+	public List<Order_productDTO> detailList(int o_no) throws Exception{
+		return sst.selectList("order_product.detailList", o_no);
 	}
 	
 	public int cancel(int op_no) throws Exception{

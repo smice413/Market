@@ -15,13 +15,18 @@ public class Order_productServiceImpl implements Order_productService{
 	@Autowired
 	private Order_productDAOImpl opdao;
 	
-	public List<Order_productDTO> orderlist() throws Exception{
-		return opdao.orderlist();
+	public List<Order_productDTO> orderList() throws Exception{
+		return opdao.orderList();
 	}
 	
-	public Order_productDTO orderdetail(int op_no) throws Exception{
-		Order_productDTO orderdetail = opdao.orderdetail(op_no);
-		return orderdetail;
+	public Order_productDTO orderDetail(int op_no) throws Exception{
+		Order_productDTO detail = opdao.orderDetail(op_no);
+		return detail;
+	}
+	
+	public List<Order_productDTO> detailList(int o_no) throws Exception{
+		List<Order_productDTO> detailList = opdao.detailList(o_no);
+		return detailList;
 	}
 	
 	public int cancel(int op_no) throws Exception{

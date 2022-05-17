@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ include file="../common/viewConfiguration.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +10,7 @@
 </head>
 <body>
 
-<h2>주문 상세</h2>
+<%-- <h2>주문 상세</h2>
 
 <div class="outline" style="width:800px; border:1px solid;">
 	<div class="odetail" style="display: flex; padding: 10px 10px 0px 10px;">
@@ -60,7 +59,50 @@
 				<div>총 결제 금액</div>
 			</div>
 		</div>
+</div> --%>
+
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuMyPage.jsp"%>
+<div class="container" align="center">
+<div class="vf-wide700-card" align="center">
+<h3>주문 상품 목록</h3>
+
+
+<table align="center" class="table">
+	<tr>
+		<th>:-)</th>
+		<th>상품명</th>
+		<th>수량</th>
+		<th>가격</th>
+	</tr>
+<c:forEach var="list"  items="${detailList }">
+	<tr>
+		<td>${list.p_img }</td>
+		<td>${list.p_name }</td>
+		<td>${list.op_qty }</td>
+		<td>${list.op_price }</td>		
+	</tr>
+</c:forEach>
+</table>
 </div>
 
+<div class="vf-wide500-card" style="width: 400px;" align="center">
+<h3>수령인 정보</h3>
+<table align="center" class="table">
+	<tr>
+		<td width=100px>수령인</td>
+		<td>${detail.d_name }</td>
+	</tr>
+	<tr>
+		<td>전화번호</td>
+		<td>${detail.d_tel }</td>
+	</tr>
+	<tr>
+		<td>배송지 주소</td>
+		<td>${detail.d_address }  (${detail.d_post })</td>
+	</tr>
+</table>
+</div>
+</div>
 </body>
 </html>

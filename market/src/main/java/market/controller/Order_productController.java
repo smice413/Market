@@ -18,25 +18,28 @@ public class Order_productController {
 	@Autowired
 	private Order_productServiceImpl ops;
 
-
 	// 주문 목록 불러오기
-	@RequestMapping("orderlist.do")
-	public String orderlist(Model model) throws Exception {
+	@RequestMapping("orderList.do")
+	public String orderList(Model model) throws Exception {
 		
-		List<Order_productDTO> orderlist = ops.orderlist();
-		model.addAttribute("orderlist", orderlist);
+		List<Order_productDTO> orderList = ops.orderList();
+		model.addAttribute("orderList", orderList);
 		
 		
 		return "my_page/orderList";
 	}
 	
 	// 주문 상세 내용 불러오기
-	@RequestMapping("orderdetail.do")
-	public String orderdetail(Model model, 
-							  @RequestParam("op_no") int op_no, Order_productDTO opdto) throws Exception{
+	@RequestMapping("orderDetail.do")
+	public String orderDetail(Model model, @RequestParam("op_no") int op_no, 
+							  @RequestParam("o_no") int o_no, Order_productDTO detail) throws Exception{
 		
-		opdto = ops.orderdetail(op_no);
-		model.addAttribute("opdto", opdto);
+		detail = ops.orderDetail(op_no);
+		List<Order_productDTO> detailList = ops.detailList(o_no);
+		System.out.println("detailList: "+ detailList);
+		
+		model.addAttribute("detail", detail);
+		model.addAttribute("detailList", detailList);
 				
 		return "my_page/orderDetail";
 	}

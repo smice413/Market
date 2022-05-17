@@ -53,6 +53,7 @@
 /*3. 기타 폭이 다른 div를  container안에 넣고 싶을 경우 : 아래 3가지 폭을 card를 이용한다		*/
 	.vf-card  {	padding: 10px;	margin-top: 0px; }
 	.vf-wide700-card { width:700px; }
+	.vf-wide500-card { width:500px; }
 	.vf-wide300-card { width: 300px; }
 
 /* 풋터 (하단설명부분) */
