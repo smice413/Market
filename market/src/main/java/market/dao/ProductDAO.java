@@ -23,4 +23,6 @@ public interface ProductDAO {
 
 	
 	List<CategoryDTO> listCategory(ProductDTO product);
+	
+	List<CategoryDTO> listCateNo();
 }

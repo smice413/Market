@@ -46,4 +46,8 @@ public class ProductServiceImpl implements ProductService {
 	public List<CategoryDTO> listCategory(ProductDTO product) {
 		return pd.listCategory(product);
 	}
+	
+	public List<CategoryDTO> listCateNo(){
+		return pd.listCateNo();
+	}
 }
