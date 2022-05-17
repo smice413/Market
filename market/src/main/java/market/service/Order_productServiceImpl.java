@@ -15,8 +15,8 @@ public class Order_productServiceImpl implements Order_productService{
 	@Autowired
 	private Order_productDAOImpl opdao;
 	
-	public List<Order_productDTO> orderList() throws Exception{
-		return opdao.orderList();
+	public List<Order_productDTO> orderList(String m_email) throws Exception{
+		return opdao.orderList(m_email);
 	}
 	
 	public Order_productDTO orderDetail(int op_no) throws Exception{

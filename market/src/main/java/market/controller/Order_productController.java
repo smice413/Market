@@ -2,6 +2,8 @@ package market.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +22,11 @@ public class Order_productController {
 
 	// 주문 목록 불러오기
 	@RequestMapping("orderList.do")
-	public String orderList(Model model) throws Exception {
+	public String orderList(Model model, HttpSession session) throws Exception {
 		
-		List<Order_productDTO> orderList = ops.orderList();
+		String m_email = (String)session.getAttribute("m_email");
+		
+		List<Order_productDTO> orderList = ops.orderList(m_email);
 		model.addAttribute("orderList", orderList);
 		
 		

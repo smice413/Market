@@ -4,7 +4,7 @@
 <mapper namespace="order_product">
 
 <!-- 주문 목록 -->
-<select id="orderList" resultType="order_product">
+<select id="orderList" parameterType="string" resultType="order_product">
 select 
     OP.op_no as op_no,
     OP.o_no as o_no,
@@ -32,7 +32,7 @@ from order_product OP
     left join product_img PI on OP.p_no = PI.p_no
     left join delivery D on OP.d_no = D.d_no
 
-where OP.m_email = 'hamtori@gmail.com' 
+where OP.m_email = #{m_email} 
 order by OT.o_date desc
 </select>
 
