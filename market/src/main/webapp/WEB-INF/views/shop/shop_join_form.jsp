@@ -39,7 +39,7 @@ function openDaumPostcode() {
  		</tr>
  		<tr>
 			<td>비밀번호</td>
-			<td><input type="password" id="s_passwd" name="s_passwd" ></td> 		
+			<td><input type="password" id="s_passwd" name="s_passwd" ></td> 	
  		</tr>
  		<tr>
 			<td>비밀번호확인</td>
