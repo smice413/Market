@@ -81,7 +81,7 @@
 						</form>
 					</div>
 					<div style="width: 30px; padding: 0 0 0 10">
-						<a href="#"><img src="${path }/images/icon_cart.png"
+						<a href="cartList.do"><img src="${path }/images/icon_cart.png"
 							style="width: 24px; height: 24px"></a>
 					</div>
 				</div>
