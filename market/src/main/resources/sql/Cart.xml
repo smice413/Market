@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cartns">
+
+    <!-- 장바구니에 동일한 상품이 있는 지 확인 -->
+    <select id="findCartProduct" parameterType="cart" resultType="String">
+    	select decode(count(*), 0, 'false', 'true') from cart 
+    	where m_email=#{m_email} and p_no=#{p_no}
+    </select>
+    
+    <!-- 장바구니 상품 등록 -->
+    <insert id="insert" parameterType="cart">
+    	insert into cart values (cart_seq.nextval,'${m_email}',${p_no},${cart_qty},sysdate)
+    </insert>
+
+ 	<!-- 장바구니 목록 -->
+	<select id="list" parameterType="String" resultType="cart">
+		select c.*, p.*,s.s_name from cart c, product p, shop s where c.p_no=p.p_no 
+		and p.s_no=s.s_no and m_email = #{m_email}
+	</select>
+	
+	<!-- 상품 수량 수정 -->
+	<update id="update" parameterType="cart">
+		update cart set cart_qty = #{cart_qty} where cart_no = #{cart_no}
+	</update>
+	
+	<!-- 장바구니 상품 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from cart where cart_no = #{cart_no}
+	</delete>
+</mapper>

@@ -1,0 +1,119 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="viewConfiguration.jsp"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 댓글 게시판 불러오기 -->
+<script type="text/javascript">
+	$(function() {
+		$('#slist').load('${path}/slist.do?num=${board.num}')
+	});
+</script>
+
+	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+	<link rel="stylesheet" href="${path}/css/swiper.css">
+</head>
+<body>
+<%@ include file="header.jsp"%>
+
+<div class="container" align="center">
+	<div  style="width:100%; height:200px; overflow: hidden;">
+		<div class="swiper-container gallery-top">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event1.PNG" width=100%></div></div>
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event2.PNG" width=100%></div></div>
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event3.PNG" width=100%></div></div>
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event4.PNG" width=100%></div></div>
+		        <div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event5.PNG" width=100%></div></div>
+		    </div>
+		    <div class="swiper-pagination pagination_bullet"></div>
+		    <div class="swiper-pagination pagination_progress"></div>
+		</div>
+	</div>	
+</div>
+
+	<!-- 상품진열 -->
+<div id="slist" height=500px></div>
+
+<div class="container" align="center">
+	<h3 class="text-primary">공동구매 특가</h3>
+	<c:forEach var="p" items="${glist }">
+		<div class="${p.p_no}" style="float: left;">
+			<table style="font-size:15px">
+				<tr>
+					<td style="padding:7px">
+						<a href="${path }/productView.do?p_no=${p.p_no}">
+						<img src="${path}/images/${p.p_img}" width=210px height=210px></a></td>
+				</tr>
+				<tr>
+					<td>[${p.s_name}]<br>
+					<b>${p.p_name}</b><br>
+					일반구매가 : ${p.p_sell_price}<br>
+					<font color=red>공동구매가 : ${p.p_group_price}</font></td>
+				</tr>
+			</table>
+		</div>
+	</c:forEach>
+</div>
+
+<div class="container" align="center">
+	<h3 class="text-primary">follow 특가</h3>
+	<c:forEach var="p" items="${flist }">
+		<div class="${p.p_no}" style="float: left;">
+			<table style="font-size:15px">
+				<tr>
+					<td style="padding:8px">
+						<a href="${path }/productView.do?p_no=${p.p_no}">
+						<img src="${path}/images/${p.p_img}" width=210px height=210px></a></td>
+				</tr>
+				<tr>
+					<td>[${p.s_name}]<br>
+					<b>${p.p_name}</b><br>
+					일반구매가 : ${p.p_sell_price}원<br>
+					<font color=red>팔로워특가 : ${p.p_follow_price}원</font></td>
+				</tr>
+			</table>
+		</div>
+	</c:forEach>
+</div>
+
+
+<%@ include file="footer.jsp"%>
+
+</body>
+</html>
+
+<!-- 이벤트 슬라이드 -->
+<script src="${path}/js/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script>
+	var galleryTop = new Swiper('.gallery-top', {
+    	spaceBetween: 10,   //슬라이드 간격
+        pagination: {   //페이징 사용자 설정
+        	el: ".pagination_bullet",   //페이징 태그 클래스 설정 
+            clickable: true,    //버튼 클릭 여부
+            type : 'bullets',   //페이징 타입 설정(종류: bullets, fraction, progressbar)   
+            // Bullet Numbering 설정
+        	renderBullet: function (index, className) {
+        		return '<span class="' + className + '">' + (index + 1) + "</span>";
+        	},
+		},
+    });
+
+    //progress Bar
+	var pagingSwiper = new Swiper(".gallery-top", {
+		pagination: {
+			el: ".pagination_progress",
+			type: "progressbar",
+		},
+	});
+
+    //Main Swiper로 progress Bar 제어
+    galleryTop.controller.control = pagingSwiper;
+</script>
+
+

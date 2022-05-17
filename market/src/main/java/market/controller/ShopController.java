@@ -1,0 +1,126 @@
+package market.controller;
+
+import java.io.File;
+import java.util.StringTokenizer;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import market.model.ShopDTO;
+import market.service.ShopServiceImpl;
+
+
+
+@Controller
+public class ShopController {
+	@Autowired
+	private ShopServiceImpl shopService;
+	// 회원가입 폼
+	@RequestMapping("shop_join_form.do")
+	public String shop_join_form() {
+		return "shop/shop_join_form";
+	}
+//	@RequestMapping("shop_join.do")
+//	public String shop_join(Shop shop, Model model) throws Exception {
+//		return "shop_page/shop_join_form";
+//	}
+	// 회원가입 저장
+	@RequestMapping(value = "shop_join.do", method = RequestMethod.POST )
+	public String shop_join(@RequestParam("s_file1") MultipartFile mf, 
+			 								ShopDTO shop,
+			 								HttpServletRequest request,
+			 								Model model) throws Exception {
+		System.out.println("ShopDTO:"+ shop);
+		System.out.println("mf:"+ mf);
+		
+		
+		String filename = mf.getOriginalFilename();
+		int size = (int) mf.getSize();// 첨부파일 크기
+		
+		String path = request.getRealPath("upload");
+		System.out.println("mf=" + mf);
+		System.out.println("filename=" + filename); // filename="Koala.jpg"
+		System.out.println("size=" + size);
+		System.out.println("Path=" + path);
+		int result=0;
+		
+		String file[] = new String[2];
+		String newfilename="";
+		
+		if(filename != "") { //첨부파일이 전송된 경우
+			
+			// 파일 중복문제 해결
+			String extension = filename.substring(filename.lastIndexOf("."), filename.length());
+			System.out.println("extension:"+ extension);
+			
+			UUID uuid = UUID.randomUUID();
+			
+			newfilename = uuid.toString()+extension;
+			System.out.println("newfilename:"+ newfilename);
+			
+			StringTokenizer st = new StringTokenizer(filename, ".");
+			file[0] = st.nextToken(); //파일명
+			file[1] = st.nextToken(); //확장자 jpg
+			
+			if(size > 10000000) { //10MB
+				result=1;
+				model.addAttribute("result", result);
+				
+				return "shop/uploadResult";
+			}else if(!file[1].equals("jpg") &&
+					 !file[1].equals("gif") &&
+					 !file[1].equals("png") ){
+				
+				result=2;
+				model.addAttribute("result", result);
+				
+				return "shop/uploadResult";
+			}
+		}
+			
+			if(size > 0) { //첨부파일이 전송된 경우
+				mf.transferTo(new File(path + "/" + newfilename));
+			}
+		
+		
+			
+			shop.setS_file(newfilename);
+			
+			
+		int result1=0;	
+		result1 =shopService.insertShop_join(shop);
+		
+		model.addAttribute("result1", result1);
+		return "shop/joinResult";
+	}
+	// 판매자 페이지 경로
+	@RequestMapping("shop_page.do")
+	public String shop_page() {
+		return "shop_page/shop_page";
+	}
+	// 로그인 폼
+	@RequestMapping("shop_login_form.do")
+	public String shop_login_form() {
+		return "shop/shop_login_form";
+	}
+	// 로그인 인증
+	@RequestMapping(value= "shop_login.do", method=RequestMethod.POST)
+	public String shop_login(@RequestParam("s_email") String s_email,
+							 @RequestParam("s_passwd") String s_passwd,
+							 HttpSession session, Model model) {
+		
+		return "shop_page/shop_page";
+	}
+	
+}
