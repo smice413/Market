@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript">
+<script>
 
 	$(function() {
 		$('#slist').load('"${path }/productSearchList.do')
@@ -79,8 +79,18 @@
 					<td align=left>3000원 (3만원 이상 무료배송)</td>
 				</tr>
 				<tr>
+					<td class="cart_qty_td" colspan=2 align="left">
+				    	<div class="table_text_align_center cart_qty_div" style="display:flex;margin:0;">
+							<label style="margin-top:5px;">구매 수량 :</label> 
+						   	<button class="minus_btn btn btn-default" style="margin-left:7px;">-</button>
+							<input type="text" class="cart_qty form-control" value="1" style="width:50px;">
+						   	<button class="plus_btn btn btn-default">+</button>
+						</div>
+					</td>
+				</tr>
+				<tr>
 					<td colspan=2 align=center>
-						<a href="${path}/cartInsert.do?p_no=${p_no}" class="btn btn-success" >장바구니<br>담기</a>
+						<a  class="btn btn-success cart_btn" >장바구니<br>담기</a>
 						<a href="${path}/cartInsert.do?p_no=${p_no}" class="btn btn-warning">
 							<b>${product.p_follow_price}원<b><br>팔로워 구매하기</a>
 						<a href="${path}/orderInsert.do?p_no=${p_no}" class="btn btn-danger">
@@ -105,6 +115,43 @@
 <script src="${path}/js/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 <script>
+	// 구매 수량 버튼 
+	$(".plus_btn").on("click", function(){
+		let qty = $(this).parent("div").find("input").val();
+		$(this).parent("div").find("input").val(++qty);
+	});
+	$(".minus_btn").on("click", function(){
+		let qty = $(this).parent("div").find("input").val();
+		if(qty > 1){
+		$(this).parent("div").find("input").val(--qty);
+		}	
+	});
+
+</script>
+<script>
+    // 장바구니 추가 버튼
+	$(document).ready(function(){
+				
+		$(".cart_btn").click(function(){
+			var p_no = ${product.p_no};
+			var cart_qty = $(".cart_qty").val();
+			
+			$.post("cartInsert.do",{ p_no : p_no, cart_qty : cart_qty},function(result){
+			       if(result.trim() == 'success'){
+			           var check = confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?");
+					   if(check) { 
+						  location.assign("cartList.do?");
+						}else{
+						  return false;
+						}
+			        }else if(result.trim() == 'existed'){
+			            alert("이미 장바구니에 등록된 상품입니다.");
+			        }
+			}); // post() end
+		});					
+	});
+
+
 	var galleryTop = new Swiper('.gallery-top', {
     	spaceBetween: 10,   //슬라이드 간격
         pagination: {   //페이징 사용자 설정

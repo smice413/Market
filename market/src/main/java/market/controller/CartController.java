@@ -50,7 +50,7 @@ public class CartController {
 			String result = "existed";
 			model.addAttribute("result", result);
 			
-			return "cart/insertResult";
+			return "cart/cartInsertResult";
 		}else {
 			System.out.println("동일한 상품 없음 :"+isAlreadyExisted);
 			cs.insert(cart);
@@ -59,7 +59,7 @@ public class CartController {
 			String result = "success";
 			model.addAttribute("result", result);
 			
-			return "cart/insertResult";
+			return "cart/cartInsertResult";
 		}
 		
 		
@@ -69,6 +69,7 @@ public class CartController {
 	@RequestMapping("cartList.do")
 	public String cartList(HttpSession session, Model model) {
 		String m_email = (String)session.getAttribute("m_email");
+	    System.out.println("cartList.do");
 		System.out.println("m_email:"+m_email);
 
 		List<CartDTO> cartList = cs.list(m_email);
@@ -79,29 +80,27 @@ public class CartController {
 		return "cart/cartList";
 	}
 	
-	// 상품 수량 변경
+	// 장바구니 상품 수량 수정
 	@RequestMapping("cartQtyUpdate.do")
 	public String cartQtyUpdate(CartDTO cart, Model model) {
-		int result = cs.update(cart);
-		String m_email = cart.getM_email();
 		
-		System.out.println("result:"+result);
-		System.out.println("m_email:"+m_email);
+		System.out.println("cart_no:"+cart.getCart_no());
+		System.out.println("cart_qty:"+cart.getCart_qty());
+		System.out.println("m_email:"+cart.getM_email());
 		
-		model.addAttribute("result", result);
-		model.addAttribute("m_email", m_email);
+		cs.update(cart);
 		
-		return "cart/cartQtyUpdate";
+		return "redirect:cartList.do?m_email=m_email";
 	}
 	
 	// 장바구니 상품 삭제
 	@RequestMapping("cartDelete.do")
-	public String cartDelete(int cart_no, HttpSession session) {
+	public String cartDelete(CartDTO cart, Model model) {
 		System.out.println("cartDelete");
 		
-		String m_email = (String)session.getAttribute("m_email");
-		int result = cs.delete(cart_no);
-		System.out.println("result:"+result);
+		cs.delete(cart.getCart_no());
+		String m_email = cart.getM_email();
+		System.out.println("삭제 완료");
 		
 		return "redirect:cartList.do?m_email=m_email";
 	}
