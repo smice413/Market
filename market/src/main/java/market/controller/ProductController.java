@@ -13,7 +13,7 @@ import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.service.PagingPgm;
 import market.service.ProductService;
-
+ 
 @Controller
 public class ProductController {
 	@Autowired
