@@ -24,5 +24,7 @@ public interface ProductService {
 	
 
 	List<CategoryDTO> listCategory(ProductDTO product);
+	
+	List<CategoryDTO> listCateNo();
 
 }
