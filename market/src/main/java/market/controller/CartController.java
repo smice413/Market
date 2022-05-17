@@ -50,7 +50,7 @@ public class CartController {
 			String result = "existed";
 			model.addAttribute("result", result);
 			
-			return "cart/cartInsertResult";
+			return "cart/insertResult";
 		}else {
 			System.out.println("동일한 상품 없음 :"+isAlreadyExisted);
 			cs.insert(cart);
@@ -59,7 +59,7 @@ public class CartController {
 			String result = "success";
 			model.addAttribute("result", result);
 			
-			return "cart/cartInsertResult";
+			return "cart/insertResult";
 		}
 		
 		
@@ -79,32 +79,31 @@ public class CartController {
 		return "cart/cartList";
 	}
 	
-	// 장바구니 상품 수량 수정
+	// 상품 수량 변경
 	@RequestMapping("cartQtyUpdate.do")
 	public String cartQtyUpdate(CartDTO cart, Model model) {
+		int result = cs.update(cart);
+		String m_email = cart.getM_email();
 		
-		System.out.println("m_email:"+cart.getCart_no());
-		System.out.println("m_email:"+cart.getCart_qty());
-		System.out.println("m_email:"+cart.getM_email());
+		System.out.println("result:"+result);
+		System.out.println("m_email:"+m_email);
 		
-		cs.update(cart);
+		model.addAttribute("result", result);
+		model.addAttribute("m_email", m_email);
 		
-		return "redirect:cartList.do?m_email=m_email";
+		return "cart/cartQtyUpdate";
 	}
 	
 	// 장바구니 상품 삭제
 	@RequestMapping("cartDelete.do")
-	public String cartDelete(CartDTO cart, Model model) {
+	public String cartDelete(int cart_no, HttpSession session) {
 		System.out.println("cartDelete");
 		
-		int result = cs.delete(cart.getCart_no());
+		String m_email = (String)session.getAttribute("m_email");
+		int result = cs.delete(cart_no);
 		System.out.println("result:"+result);
-		System.out.println("m_email:"+cart.getM_email());
 		
-		model.addAttribute("result", result);
-		model.addAttribute("m_email", cart.getM_email());
-		
-		return "cart/cartDeleteResult";
+		return "redirect:cartList.do?m_email=m_email";
 	}
 	
 }

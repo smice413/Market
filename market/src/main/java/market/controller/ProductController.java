@@ -53,8 +53,6 @@ public class ProductController {
 	@RequestMapping("productInsertForm.do")	// 글작성 폼 (원문, 답변글)
 	public String productInsertForm(Model model) {
 
-		List<CategoryDTO> listCateNo = ps.listCateNo();
-		model.addAttribute("listCateNo", listCateNo);
 		return "product/productInsertForm";
 	}
 	

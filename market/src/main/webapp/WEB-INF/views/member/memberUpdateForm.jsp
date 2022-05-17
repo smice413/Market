@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../common/viewConfiguration.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +8,15 @@
 <title>회원정보수정 폼</title>
 </head>
 <body>
-
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuMyPage.jsp"%>
+<div class="container" align=center>
+<div class="vf-wide700-card">
 	<div id="join_wrap">
 		<h2 class="join_title">회원정보수정</h2>
 		<form name="f" method="post" action="memberUpdateForm.do">
 		<input type="hidden" id="m_seckey" name="m_seckey" value="111">
-			<table id="memberupdate">
+			<table id="memberupdate" class="table">
 				<tr>
 					<th>회원가입 메일</th>
 					<td>${m_email}</td>
@@ -40,11 +43,14 @@
 			</table>
 
 			<div id="join_menu">
-				<input type="submit" value="정보수정" class="input_button"/> 
-				<input type="reset" value="수정취소" class="input_button"
+				<input type="submit" value="정보수정" class="btn btn-success"
+			 /> 
+				<input type="reset" value="수정취소" class="btn btn-outline-success"
 					onclick="$('#m_passwd').focus();" />
 			</div>
 		</form>
+	</div>
+	</div>
 	</div>
 </body>
 </html>

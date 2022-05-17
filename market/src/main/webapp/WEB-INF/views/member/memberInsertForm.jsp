@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../common/viewConfiguration.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +8,15 @@
 <title>회원가입 폼</title>
 </head>
 <body>
-
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuMyPage.jsp"%>
+<div class="container" align=center>
+		<div class="vf-wide700-card">
 	<div id="join_wrap">
 		<h2 class="join_title">회원가입</h2>
 		<form name="f" method="post" action="memberInsert.do">
 		<input type="hidden" id="m_seckey" name="m_seckey" value="111">
-			<table id="memberjoin">
+			<table id="memberjoin" class="table">
 				<tr>
 					<th>회원가입 메일</th>
 					<td><input name="m_email" id="m_email" size="14" class="input_box" size="14" placeholder="ex)market@naver.com" /> 
@@ -39,12 +42,15 @@
 			</table>
 
 			<div id="join_menu">
-				<input type="submit" value="회원가입" class="input_button"
+				<input type="submit" value="회원가입" class="btn btn-success"
 				onClick  ="location='memberInsert.do'"/> 
-				<input type="reset" value="가입취소" class="input_button"
+				<input type="reset" value="가입취소" class="btn btn-outline-success"
 					onclick="$('#m_email').focus();" />
 			</div>
+			
 		</form>
 	</div>
+</div>
+</div>
 </body>
 </html>

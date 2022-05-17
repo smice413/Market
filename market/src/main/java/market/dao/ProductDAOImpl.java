@@ -45,9 +45,5 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<CategoryDTO> listCategory(ProductDTO product) {
 		return sst.selectList("productns.listCategory", product);
 	}
-	
-	public List<CategoryDTO> listCateNo(){
-		return sst.selectList("productns.listCateNo");
-	}
 
 }

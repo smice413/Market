@@ -30,6 +30,9 @@ public class MemberServiceImpl {
 		return md.select(m_email);
 	}
 	
+	public MemberDTO passwdSearch(MemberDTO member)throws Exception{
+		return md.passwdSearch(member);
+	}
 	
 	public int memberUpdate(MemberDTO member)throws Exception{
 	 return md.memberUpdate(member); 

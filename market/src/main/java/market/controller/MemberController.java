@@ -1,12 +1,17 @@
 package market.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -132,7 +137,68 @@ public class MemberController {
 	 * 
 	 * }
 	 */
-//로그아웃
+	//비번찾기 폼
+	@RequestMapping(value = "/passwdSearch.do")
+	public String passwdSearch() {
+		return "member/passwdSearch";
+	}
+
+	//비번찾기 완료 
+	@RequestMapping(value = "/passwdCheck.do", method = RequestMethod.POST)
+	public String passwdCheck(@ModelAttribute MemberDTO member, HttpServletResponse response, Model model)
+			throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		MemberDTO mem = ms.passwdSearch(member);
+
+		if (mem == null) {// 값이 없는 경우
+
+			return "member/passwdSearch";
+
+		} else {
+			// Mail Server 설정
+			String charSet = "utf-8";
+			String hostSMTP = "smtp.naver.com";
+			String hostSMTPid = "su_jin924@naver.com";
+			String hostSMTPpwd = "1q1q1q"; // 비밀번호 입력해야함
+
+			// 보내는 사람 EMail, 제목, 내용
+			String fromEmail = "su_jin924@naver.com";
+			String fromName = "관리자";
+			String subject = "비밀번호 찾기";
+
+			// 받는 사람 E-Mail 주소
+			String mail = mem.getM_email();
+
+			try {
+				HtmlEmail email = new HtmlEmail();
+				email.setDebug(true);
+				email.setCharset(charSet);
+				email.setSSL(true);
+				email.setHostName(hostSMTP);
+				email.setSmtpPort(587);
+
+				email.setAuthentication(hostSMTPid, hostSMTPpwd);
+				email.setTLS(true);
+				email.addTo(mail, charSet);
+				email.setFrom(fromEmail, fromName, charSet);
+				email.setSubject(subject);
+				email.setHtmlMsg("<p align = 'center'>비밀번호 찾기</p><br>" + "<div align='center'> 비밀번호 : "
+						+ member.getM_passwd() + "</div>");
+				email.send();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+			model.addAttribute("passwdSearch", "등록된 email을 확인 하세요:-)");
+			return "member/passwdSearch";
+
+		}
+
+	}
+
+	//로그아웃
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();

@@ -9,36 +9,6 @@
 <title>상품 등록</title>
 
 <script type="text/javascript" src="${path}/ckeditor/ckeditor.js" ></script>
-<script>
-$(function(){
-	$("#sel1").hide();
-	$("#sel3").hide();
-	
-	$("input[name='p_group_buying']:radio").change(function(){
-		var c = this.value;
-		if(c == 'N'){
-			$("#sel1").hide();
-			$("#sel2").show();
-		}else{
-			$("#sel1").show();
-			$("#sel2").hide();
-		}
-	});
-	
-	$("input[name='p_follow_sale']:radio").change(function(){
-		var d = this.value;
-		if(d == 'N'){
-			$("#sel3").hide();
-			$("#sel4").show();
-		}else{
-			$("#sel3").show();
-			$("#sel4").hide();
-		}
-	});
-	
-});
-
-</script>
 
 </head>
 <body>
@@ -61,14 +31,8 @@ $(function(){
 
 			<table class="table">
 				<tr>
-					<td width=130px>카테고리코드</td>
-					<td>
-						<select id="cate_no" name="cate_no" style="width:180px; height:30px">
-							<c:forEach var="c" items="${listCateNo}">
-								<option value="${c.cate_no}">${c.cate_large}/${c.cate_small}</option>
-							</c:forEach>
-						</select>
-					</td>
+					<td width=120px>카테고리코드</td>
+					<td>select박스 들어갈 곳</td>
 				</tr>
 				<tr>
 					<td>상품명</td>
@@ -84,39 +48,11 @@ $(function(){
 				</tr>
 				<tr>
 					<td>공동구매여부</td>
-					<td>
-						<input type="radio" name="p_group_buying" id="p_group_buying" value="Y">Y
-						<input type="radio" name="p_group_buying" id="p_group_buying" value="N" checked="checked">N
-					</td>
+					<td>라디오박스 들어갈 곳-라디오박스 선택하면 가격입력창 활성화</td>
 				</tr>
 				<tr>
-					<td>공동구매가</td>
-					<td>
-						<div id= "sel1">
-							<input type="text" name="p_group_price" required="required">
-						</div>
-						<div id = "sel2" style="font-family:나눔고딕; font-size:12; color:darkred">
-							※공동구매가는 공동구매여부가 'Y'일 경우에만 입력가능합니다.
-						</div>	
-					</td>
-				</tr>
-				<tr>
-					<td>팔로워할인여부</td>
-					<td>
-						<input type="radio" name="p_follow_sale" id="p_follow_sale" value="Y">Y
-						<input type="radio" name="p_follow_sale" id="p_follow_sale" value="N" checked="checked">N
-					</td>
-				</tr>
-				<tr>
-					<td>팔로워할인가</td>
-					<td>
-						<div id= "sel3">
-							<input type="text" name="p_follow_price" required="required">
-						</div>
-						<div id = "sel4" style="font-family:나눔고딕; font-size:12; color:darkred">
-							※팔로워할인가는 팔로워할인여부가 'Y'일 경우에만 입력가능합니다.
-						</div>
-					</td>
+					<td>공동구매여부</td>
+					<td>라디오박스 들어갈 곳-라디오박스 선택하면 가격입력창 활성화</td>
 				</tr>
 				<tr>
 					<td>상세설명</td>
