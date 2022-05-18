@@ -14,7 +14,9 @@
 	</script>
 	</c:if>
 	<c:if test="${sessionScope.s_email != null}">
-	
+	<script>
+	location.href="<%=request.getContextPath()%>/shop_info.do";
+	</script>
 	
 	</c:if>
 	

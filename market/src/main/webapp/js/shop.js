@@ -85,6 +85,13 @@
 		 return false;
 	 }*/	 	 
  }
+
+
+
+
+
+
+
  
 function post_search(){
 	alert("우편번호 검색 버튼을 클릭하세요!");

@@ -26,6 +26,7 @@ import market.service.ShopServiceImpl;
 public class ShopController {
 	@Autowired
 	private ShopServiceImpl shopService;
+	
 	// 회원가입 폼
 	@RequestMapping("shop_join_form.do")
 	public String shop_join_form() {
@@ -118,9 +119,42 @@ public class ShopController {
 	@RequestMapping(value= "shop_login.do", method=RequestMethod.POST)
 	public String shop_login(@RequestParam("s_email") String s_email,
 							 @RequestParam("s_passwd") String s_passwd,
-							 HttpSession session, Model model) {
+							 HttpSession session, Model model) throws Exception {
+		int result = 0;
+		ShopDTO shop= shopService.userCheck(s_email);
 		
-		return "shop_page/shop_page";
-	}
+		if(shop == null) { // 등록되지 않은 회원
+			result= 1;
+			model.addAttribute("result", result);
+			return "shop/loginResult";
+			
+		}else {	// 등록된 회원 일때
+		if(shop.getS_passwd().equals(s_passwd)) {
+			session.setAttribute("s_email", s_email);
+			model.addAttribute("shop", shop);
+			
+			return "shop_page/shop_page";
+			
+		}else { // 비번이 다를 때
+			
+			result = 2;
+			model.addAttribute("result", result);
+			
+			return "shop/loginResult";
+		}
+    }
+  }
+	
+	//상점 정보 보기
+		@RequestMapping("shop_info.do")
+		public String shop_info(HttpSession session, Model model)throws Exception {
+			
+			String s_email = (String) session.getAttribute("s_email");
+			
+			ShopDTO shop= shopService.userCheck(s_email);
+			model.addAttribute("shop", shop);
+			
+			return "shop/shop_info_form";
+		}
 	
 }

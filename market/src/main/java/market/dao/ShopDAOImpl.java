@@ -15,4 +15,10 @@ public class ShopDAOImpl {
   public int insertShop_join(ShopDTO shop) throws Exception {
 	  return sqlsession.insert("shopns.shop_insert", shop);
   }
+  
+  // 로그인 인증
+  public ShopDTO userCheck(String s_email) throws Exception {
+	  return sqlsession.selectOne("shopns.shop_select", s_email);
+  }
+  
 }
