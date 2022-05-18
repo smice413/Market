@@ -38,4 +38,14 @@ public class Order_productServiceImpl implements Order_productService{
 		int result = opdao.refundForm(opdto);
 		return result;
 	}
+	
+	public int confirm(int op_no) throws Exception{
+		int result = opdao.confirm(op_no);
+		return result;
+	}
+	
+	public Order_productDTO shopInfo(Order_productDTO opdto) throws Exception{
+		Order_productDTO shopInfo = opdao.shopInfo(opdto);
+		return shopInfo;
+	}
 }

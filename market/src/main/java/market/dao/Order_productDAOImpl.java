@@ -33,4 +33,12 @@ public class Order_productDAOImpl implements Order_productDAO {
 	public int refundForm(Order_productDTO opdto) throws Exception{
 		return sst.update("order_product.refundForm", opdto);
 	}
+	
+	public int confirm(int op_no) throws Exception{
+		return sst.update("order_product.confirm", op_no);
+	}
+	
+	public Order_productDTO shopInfo(Order_productDTO opdto) throws Exception{
+		return sst.selectOne("order_product.shopInfo", opdto);
+	}
 }

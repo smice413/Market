@@ -75,10 +75,31 @@ public class Order_productController {
 		opdto.setOp_refund_why(op_refund_why);
 		
 		int result = ops.refundForm(opdto);
-		System.out.println("result: "+result);
+		System.out.println("환불요청 결과: "+result);
 		
-		return "redirect:orderlist.do";
+		model.addAttribute("result", result);
 		
+		return "my_page/refundResult";
+	}
+	
+	// 구매확정
+	@RequestMapping("confirm.do")
+	public String confirm(Model model, @RequestParam("op_no") int op_no,
+						  @RequestParam("s_no") int s_no, Order_productDTO opdto) throws Exception{
+		
+		int result = ops.confirm(op_no);
+		System.out.println("구매확정 결과: "+result);
+		
+		opdto.setOp_no(op_no);
+		opdto.setS_no(s_no);
+		
+		Order_productDTO shopInfo = ops.shopInfo(opdto);
+		System.out.println("shopInfo" + shopInfo);
+		
+		model.addAttribute("result", result);
+		model.addAttribute("shopInfo", shopInfo);
+		
+		return "my_page/confirmResult";
 	}
 	
 }

@@ -20,12 +20,15 @@ public class Order_productDTO {
 	private int d_no;
 	private int s_no;
 	private String m_email;
+	private Date op_confirm_date;
+	private Date op_refund_date;
 	
 	// order_tab
 	private Date o_date;
 	private String d_msg;
 	private int o_total_price;
 	private int o_sale_price;
+	private int o_deli_price;
 	private int o_pay_price;
 	private String o_pay_type;
 	
@@ -40,6 +43,9 @@ public class Order_productDTO {
 	private String d_tel;
 	private String d_post;
 	private String d_address;
+	
+	// shop
+	private String s_name;
 	
 	
 	
@@ -140,6 +146,18 @@ public class Order_productDTO {
 	public void setM_email(String m_email) {
 		this.m_email = m_email;
 	}
+	public Date getOp_confirm_date() {
+		return op_confirm_date;
+	}
+	public void setOp_confirm_date(Date op_confirm_date) {
+		this.op_confirm_date = op_confirm_date;
+	}
+	public Date getOp_refund_date() {
+		return op_refund_date;
+	}
+	public void setOp_refund_date(Date op_refund_date) {
+		this.op_refund_date = op_refund_date;
+	}
 	public Date getO_date() {
 		return o_date;
 	}
@@ -163,6 +181,12 @@ public class Order_productDTO {
 	}
 	public void setO_sale_price(int o_sale_price) {
 		this.o_sale_price = o_sale_price;
+	}
+	public int getO_deli_price() {
+		return o_deli_price;
+	}
+	public void setO_deli_price(int o_deli_price) {
+		this.o_deli_price = o_deli_price;
 	}
 	public int getO_pay_price() {
 		return o_pay_price;
@@ -212,6 +236,12 @@ public class Order_productDTO {
 	}
 	public void setD_address(String d_address) {
 		this.d_address = d_address;
+	}
+	public String getS_name() {
+		return s_name;
+	}
+	public void setS_name(String s_name) {
+		this.s_name = s_name;
 	}
 	
 	
