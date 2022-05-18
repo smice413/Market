@@ -50,9 +50,10 @@ public class MemberController {
 
 	// 회원가입 저장
 	@RequestMapping(value = "/memberInsert.do", method = RequestMethod.POST)
-	public String memberInsert(MemberDTO dto, Model model) throws Exception {
+	public String memberInsert(MemberDTO member, Model model) throws Exception {
 		System.out.println("좋아 저장됐다");
-		int result = ms.memberInsert(dto);
+		
+		int result = ms.memberInsert(member);
 		if (result == 1)
 			System.out.println("회원가입 성공");
 		model.addAttribute("result", result);
@@ -114,14 +115,29 @@ public class MemberController {
 	}
 
 	// 회원정보 수정
-	@RequestMapping(value = "/memberUpdate.do", method = RequestMethod.POST)
-	public String memberUpdate(HttpSession session, MemberDTO member, Model model) throws Exception {
-		int result = ms.memberUpdateForm(member);
+	@RequestMapping(value = "/memberUpdate.do", method = RequestMethod.POST) 
+	public String memberUpdate(MemberDTO member, Model model) throws Exception {
+		int result = ms.memberUpdate(member);
 		model.addAttribute("result", result);
-		return "my_page/myPage";
+		
+		return "member/updateResult";
+		
+		
+/*		if(!member.getM_passwd().equals(m_passwd)){     //비번이 다른경우 
+			result =2; 
+			return "memberUpdate";
+			
+		}else {		
+			int resultu = ms.memberInsert(member);
+			ms.memberInsert(member);
+			
+			if (resultu == 1)
+				System.out.println("정보수정 성공");
+			model.addAttribute("result", resultu);*/
 
+		
 	}
-
+	
 	/*
 	 * //회원정보보기 (회원리스트)
 	 * 
@@ -204,5 +220,40 @@ public class MemberController {
 
 		return "member/logout";
 	}
+	//회원탈퇴 폼
+	@RequestMapping("memberDeleteForm.do")
+	public String memberDelete(HttpSession session, Model model)throws Exception{
+		
+		String email = (String)session.getAttribute("m_email");
+		MemberDTO deleteM = ms.select(email);
+		System.out.println("db비번:" + deleteM.getM_passwd());
+		
+		
+		model.addAttribute("m_email", email);
+		model.addAttribute("deleteM", deleteM);
 
+		System.out.println("탈퇴폼까지 왔다");
+		return "member/memberDeleteForm";
+	}
+	
+	//회원탈퇴 완료 
+	@RequestMapping(value= "/memberDelete.do", method= RequestMethod.POST)
+	public String memberDelete(HttpSession session, MemberDTO member, Model model)throws Exception{
+				
+		int result = ms.deleteMember(member);
+		System.out.println("회원 탈퇴 결과:" + result);
+		
+		model.addAttribute("result", result);
+		
+		session.invalidate();		
+		
+		return "member/memberDeleteResult";
+		
+	}
 }
+							
+	
+	
+	
+
+

@@ -38,4 +38,12 @@ public class MemberServiceImpl {
 	 return md.memberUpdateForm(member); 
   }
 	
+	public int memberUpdate(MemberDTO member)throws Exception{
+		return md.memberUpdate(member);
+	}
+	
+	public int deleteMember(MemberDTO member)throws Exception{
+		return md.deleteMember(member);
+		
+	}
 }

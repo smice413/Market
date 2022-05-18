@@ -15,20 +15,24 @@
   </select>
   
   <!-- 회원수정 -->
-  <update id="memberUpdateForm" parameterType="member">
-  update member set m_name=#{m_name}, m_tel=#{m_tel}  where m_email=#{m_email}
+  <update id="memberUpdate" parameterType="member">
+  update member set m_name=#{m_name}, m_tel=#{m_tel} where m_email=#{m_email}
   </update>
   
-  <!-- 비밀번호체크 -->
+  <!-- 비밀번호찾기 -->
   <select id="passwdSearch" resultType="member">
   select * from member where m_email=#{m_email} and m_name=#{m_name} and m_delstatus='N' 
   </select>
   
   <!-- 회원정보가져오기 -->
   <select id="select" parameterType="String" resultType="member">
-  
   select * from member where m_email = #{m_email}
+   </select>
   
-  </select>
   <!-- 회원삭제 -->
-   </mapper>
+   <update id="deleteMember" parameterType="member">
+  	update member set m_delstatus='Y', m_deldate = sysdate where m_email = #{m_email} and m_passwd = #{m_passwd}
+   </update>
+   
+   
+     </mapper>
