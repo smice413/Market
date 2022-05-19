@@ -47,6 +47,13 @@ local.properties
 
 # STS (Spring Tool Suite)
 .springBeans
+.settings/
+*/target/*
+.project
+.git
+.deployables
+.classpath
+*/.git/*
 
 # Code Recommenders
 .recommenders/
