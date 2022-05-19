@@ -8,5 +8,12 @@
 		#{s_name},#{s_ceo},#{s_bizno},#{s_tongsin},#{s_file,jdbcType=VARCHAR},
 		#{s_address},#{s_tel},#{s_bank},#{s_account},sysdate,'',#{s_reason,jdbcType=VARCHAR},1,#{s_post})
 	</insert>
-
+	
+	<select id="shop_select" parameterType="shop" resultType="shop">
+		select * from shop where s_email= #{s_email}
+	</select>
+	
+	
+	
+	
 </mapper>

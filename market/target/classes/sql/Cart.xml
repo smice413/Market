@@ -29,4 +29,6 @@
 	<delete id="delete" parameterType="int">
 		delete from cart where cart_no = #{cart_no}
 	</delete>
+	
+	
 </mapper>
