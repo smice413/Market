@@ -9,9 +9,7 @@
 </head>
 <body>
 <div class="shopcontainer">
-		<form id="shop_join" name="shop_join" method="post"
-			action="shop_join.do" enctype="multipart/form-data"
-			onSubmit="return Check()">
+		<form id="shop_info" name="shop_info" enctype="multipart/form-data" >
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" value="${shop.s_seckey}">
 			<table border="1">
@@ -71,7 +69,8 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-					<input type="button" id="button" value="상점정보수정">
+					<input type="button" id="button" value="상점정보수정" onClick="location.href='${path}/shop_info_edit_form.do'">
+					<input type="button" id="button" value="페점신청" onClick="location.href='${path}/shop_del_form.do'">
 				 	</td>
 				</tr>
 
