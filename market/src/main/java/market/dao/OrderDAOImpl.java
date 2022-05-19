@@ -25,4 +25,20 @@ public class OrderDAOImpl implements OrderDAO{
 		System.out.println("OrderDAOImpl");
 		return sst.selectOne("orderpagens.getDeliveryInfo", m_email);
 	}
+
+
+	@Override
+	public int getAddressCount(String m_email) {
+		return sst.selectOne("orderpagens.getAddressCount", m_email);
+	}
+	
+	@Override
+	public int deliveryInsertY(DeliveryDTO delivery) {
+		return sst.insert("orderpagens.deliveryInsertY", delivery);
+	}
+	
+	@Override
+	public int deliveryInsertN(DeliveryDTO delivery) {
+		return sst.insert("orderpagens.deliveryInsertN", delivery);
+	}
 }

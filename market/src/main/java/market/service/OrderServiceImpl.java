@@ -25,5 +25,21 @@ public class OrderServiceImpl implements OrdereService{
 		System.out.println("OrderServiceImpl");
 		return od.getDeliveryInfo(m_email);
 	}
+
+	@Override
+	public int getAddressCount(String m_email) {
+		return od.getAddressCount(m_email);
+	}
+	
+	@Override
+	public int deliveryInsertY(DeliveryDTO delivery) {
+		return od.deliveryInsertY(delivery);
+	}
+	
+	@Override
+	public int deliveryInsertN(DeliveryDTO delivery) {
+		return od.deliveryInsertN(delivery);
+	}
+
 	
 }

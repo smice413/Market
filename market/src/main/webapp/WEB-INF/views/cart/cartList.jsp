@@ -62,7 +62,7 @@
 					<c:forEach var="cl" items="${cartList}" >
 						<tr>
 							<td class="cart_info_td">
-								<input type="checkbox" class="chkbox_input" checked="checked">
+								<input type="checkbox" class="chkbox_input" name="cart_no" checked="checked" value="${cl.cart_no}">
 								<input type="hidden" class="p_sell_price_input" value="${cl.p_sell_price}">
 								<input type="hidden" class="cart_qty_input" value="${cl.cart_qty}">
 								<input type="hidden" class="totalPrice_input" value="${cl.p_sell_price * cl.cart_qty}">
@@ -215,14 +215,10 @@
 			
 			if($(element).find(".chkbox_input").is(":checked") === true){	//체크여부
 				
-				let p_no = $(element).find(".p_no_input").val();
-				let cart_qty = $(element).find(".cart_qty_input").val();
+				let cart_no = $(element).find(".chkbox_input").val();
 				
-				let p_no_input = "<input name='orders[" + orderNumber + "].bookId' type='hidden' value='" + p_no + "'>";
-				form_contents += p_no_input;
-				
-				let cart_qty_input = "<input name='orders[" + orderNumber + "].bookCount' type='hidden' value='" + cart_qty + "'>";
-				form_contents += cart_qty_input;
+				let cart_no_input = "<input name='orders[" + orderNumber + "].bookId' type='hidden' value='" + cart_no + "'>";
+				form_contents += cart_no_input;
 				
 				orderNumber += 1;
 				
