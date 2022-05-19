@@ -1,6 +1,7 @@
 select * from category;
 select * from product;
 select * from product_img;
+select * from shop;
 
 select * from product p inner join category c on p.cate_no = c.cate_no where c.cate_large='과일'
 
@@ -37,3 +38,5 @@ from product P
 			left outer join category C on P.cate_no = C.cate_no
        		left outer join product_img PI on P.p_no = PI.p_no
        		where p_group_buying='Y'
+       		
+delete from product where p_hit=3;

@@ -61,7 +61,12 @@
 						<td>${p.p_group_price}</td>
 						<td>${p.p_follow_price}</td>
 						<td>${p.p_stock}</td>
-						<td><c:if test="${p.p_status =='1'}">판매중</c:if></td>
+						<td>
+							<c:if test="${p.p_status =='1'}">판매중</c:if>
+							<c:if test="${p.p_status =='2'}">일시판매중지</c:if>
+							<c:if test="${p.p_status =='3'}">판매완료</c:if>
+							<c:if test="${p.p_status =='4'}">판매정지</c:if>
+						</td>
 						<td><input type="button" value="상품상태변경" class="btn btn-success"></td>
 					</tr>
 				</c:forEach>
@@ -106,7 +111,13 @@
 						<td>${p.p_no}</td>
 						<td><a href="productUpdateForm.do?p_no=${p.p_no}">${p.p_name}</a></td>
 						<td>${p.p_stock}</td>
-						<td><c:if test="${p.p_status =='1'}">판매중</c:if></td>
+						<td>
+							<c:if test="${p.p_status =='1'}">판매중</c:if>
+							<c:if test="${p.p_status =='2'}">일시판매중지</c:if>
+							<c:if test="${p.p_status =='3'}">판매완료</c:if>
+							<c:if test="${p.p_status =='4'}">판매정지</c:if>
+						
+						</td>
 						<td><input type="button" value="상품상태변경" class="btn btn-success"></td>
 					</tr>
 				</c:forEach>

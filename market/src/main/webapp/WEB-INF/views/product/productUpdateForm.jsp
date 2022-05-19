@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 등록</title>
+<title>상품 수정</title>
 
 <script type="text/javascript" src="${path}/ckeditor/ckeditor.js" ></script>
 <script>
@@ -51,17 +51,11 @@ $(function(){
 
 	<div class="container" align="center">
 	
-		<h3 class="text-primary">상품 등록</h3>
+		<h3 class="text-primary">상품 수정</h3>
 		<div class="vf-card">
-		<form action="${path}/productInsert.do" method="post">
-			<input type="hidden" name="s_no" value="3"> 
-<!--  		<input type="hidden" name="s_no" value="${s_no}"> -->
-<!-- 아래 입력창 만들 때까지 임의의 값 부여 -->
- 			<!-- <input type="hidden" name="cate_no" value="22">  -->
-			<!-- <input type="hidden" name="p_group_buying" value="Y">  -->
-			<!-- <input type="hidden" name="p_group_price" value=0>  -->
-			<!-- <input type="hidden" name="p_follow_sale" value="Y"> --> 
-			<!-- <input type="hidden" name="p_follow_price" value=0> -->
+		<form action="${path}/productUpdate.do" method="post">
+			<input type="hidden" name="s_no" value="${product.s_no}">
+
 			
 			<table class="table">
 				<tr>
@@ -76,28 +70,32 @@ $(function(){
 				</tr>
 				<tr>
 					<td>상품명</td>
-					<td><input type="text" name="p_name" width="400px" required="required"></td>
+					<td><input type="text" name="p_name" id="p_name" width="400px" required="required"
+							value="${product.p_name}"></td>
 				</tr>
 				<tr>
 					<td>일반구매가격</td>
-					<td><input type="text" name="p_sell_price" required="required"></td>
+					<td><input type="text" name="p_sell_price" required="required"
+							value="${product.p_sell_price}"></td>
 				</tr>
 				<tr>
 					<td>재고</td>
-					<td><input type="text" name="p_stock" required="required"></td>
+					<td><input type="text" name="p_stock" required="required"
+							value="${product.p_stock}"></td>
 				</tr>
 				<tr>
 					<td>공동구매여부</td>
 					<td>
 						<input type="radio" name="p_group_buying" value="Y">Y
-						<input type="radio" name="p_group_buying" value="N" checked="checked">N
+						<input type="radio" name="p_group_buying" value="N">N
 					</td>
 				</tr>
 				<tr>
 					<td>공동구매가</td>
 					<td>
 						<div id= "sel1">
-							<input type="text" name="p_group_price" required="required">
+							<input type="text" name="p_group_price" required="required"
+									value="${product.p_group_price}">
 						</div>
 						<div id = "sel2" style="font-family:나눔고딕; font-size:12; color:darkred">
 							※공동구매가는 공동구매여부가 'Y'일 경우에만 입력가능합니다.
@@ -115,7 +113,8 @@ $(function(){
 					<td>팔로워할인가</td>
 					<td>
 						<div id= "sel3">
-							<input type="text" name="p_follow_price" required="required">
+							<input type="text" name="p_follow_price" required="required"
+									value="${product.p_follow_price}">
 						</div>
 						<div id = "sel4" style="font-family:나눔고딕; font-size:12; color:darkred">
 							※팔로워할인가는 팔로워할인여부가 'Y'일 경우에만 입력가능합니다.
@@ -124,14 +123,18 @@ $(function(){
 				</tr>
 				<tr>
 					<td>상세설명</td>
-					<td><textarea rows="10" cols="30" name="p_detail" required="required"></textarea>
+					<td><textarea rows="10" cols="30" name="p_detail" required="required">${product.p_detail}</textarea>
 						<script>	// 글쓰기 editor 및 사진 업로드 기능
 							CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'/adm/fileUpload.do'});
 						</script>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="submit" value="확인" class="btn btn-success"></td>
+					<td colspan="2" align="center">
+						<input type="submit" value="수정" class="btn btn-success">
+						<input type="reset" value="취소" class="btn btn-success"
+    						onclick="$('#p_name').focus();" />
+					</td>
 				</tr>
 			</table>
 		</form>

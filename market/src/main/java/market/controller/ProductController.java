@@ -79,6 +79,25 @@ public class ProductController {
 		return "product/productView";
 	}
 	
+	@RequestMapping("productUpdateForm.do")  // 수정 폼
+	public String productUpdateForm(int p_no, String pageNum, Model model) {
+		ProductDTO product = ps.select(p_no);
+		System.out.println("product:"+product);
+		model.addAttribute("product", product);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "product/productUpdateForm";
+	}
+	
+	@RequestMapping("productUpdate.do")
+	public String productUpdate(ProductDTO product, String pageNum, Model model) {
+		
+		int result = ps.update(product);
+		model.addAttribute("result", result);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "product/productUpdate";
+	}
 	
 	@RequestMapping("productList.do")	// 전체 목록, 검색 목록
 	public String producList(String pageNum, ProductDTO product, Model model) {
