@@ -26,15 +26,14 @@
 					S.s_name as s_name
 				from product P
 				   	left outer join category C on P.cate_no = C.cate_no
-				   	left outer join product_img PI on P.p_no = PI.p_no
+				   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
 				   	left outer join shop S on P.s_no = S.s_no
 		<where>
-			<if test="keyword != null and search!='subcon'">
-				${search} like '%'||#{keyword}||'%'
+			<if test="keyword != null and status != null">
+				${search} like '%'||#{keyword}||'%' and p_status=#{status}
 			</if>
-			<if test="keyword != null and search=='subcon'">
-				subject like '%'||#{keyword}||'%' or
-				content like '%'||#{keyword}||'%'
+			<if test="keyword != null and status == null">
+				${search} like '%'||#{keyword}||'%' and p_status='1'
 			</if>
 		</where>			
 			 order by p_no desc) a )
@@ -43,15 +42,14 @@
 	<select id="getTotal" parameterType="product" resultType="int">
 		select count(*) from product P
 					left outer join category C on P.cate_no = C.cate_no
- 		       		left outer join product_img PI on P.p_no = PI.p_no
+ 		       		left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
  		       		left outer join shop S on P.s_no = S.s_no
 		<where>
-			<if test="keyword != null and search !='subcon'">
-				${search} like '%'||#{keyword}||'%'
+			<if test="keyword != null and status != null">
+				${search} like '%'||#{keyword}||'%' and p_status=#{status}
 			</if>
-			<if test="keyword != null and search=='subcon'">
-				subject like '%'||#{keyword}||'%' or
-				content like '%'||#{keyword}||'%'
+			<if test="keyword != null and status == null">
+				${search} like '%'||#{keyword}||'%' and p_status='1'
 			</if>
 		</where>
 	</select>
@@ -77,7 +75,7 @@
 					S.s_name as s_name
 				from product P
 				   	left outer join category C on P.cate_no = C.cate_no
-				   	left outer join product_img PI on P.p_no = PI.p_no
+				   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
 				   	left outer join shop S on P.s_no = S.s_no
 				where p.p_no=#{p_no}
 	</select>
@@ -121,7 +119,7 @@
 			where p_no=#{p_no} 
 	</update>
 	<update id="delete" parameterType="int">
-		update product set p_status='Y' where p_no=#{p_no}
+		update product set p_status='5' where p_no=#{p_no}
 	</update>
 	
 </mapper>

@@ -81,8 +81,12 @@ public class ProductController {
 	
 	@RequestMapping("productUpdateForm.do")  // 수정 폼
 	public String productUpdateForm(int p_no, String pageNum, Model model) {
+
+		List<CategoryDTO> listCateNo = ps.listCateNo();
 		ProductDTO product = ps.select(p_no);
+		System.out.println("listCateNo:"+listCateNo);
 		System.out.println("product:"+product);
+		model.addAttribute("listCateNo", listCateNo);
 		model.addAttribute("product", product);
 		model.addAttribute("pageNum", pageNum);
 		
@@ -189,5 +193,15 @@ public class ProductController {
 		model.addAttribute("keyword", product.getKeyword());
 		
 		return "product/productCategoryList";
+	}
+	
+	@RequestMapping("productDelete.do")
+	public String productDelete(int p_no, String pageNum, Model model) {
+		
+		int result = ps.delete(p_no);
+		model.addAttribute("result", result);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "product/productDelete";
 	}
 }

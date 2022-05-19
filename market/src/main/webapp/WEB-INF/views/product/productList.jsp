@@ -28,6 +28,7 @@
 						<option value="p_status">일시판매중지</option>
 						<option value="p_status">판매완료</option>
 						<option value="p_status">판매정지</option>
+						<option value="p_status">상품삭제</option>
 					</select> 
 				</form>
 				</td>
@@ -45,7 +46,8 @@
 				<td>팔로워할인가</td>
 				<td>재고</td>
 				<td>상품상태</td>
-				<td>상품상태변경</td>
+				<td>상품수정</td>
+				<td>상품삭제</td>
 			</tr>
 			<c:if test="${empty list}">
 				<tr>
@@ -66,8 +68,14 @@
 							<c:if test="${p.p_status =='2'}">일시판매중지</c:if>
 							<c:if test="${p.p_status =='3'}">판매완료</c:if>
 							<c:if test="${p.p_status =='4'}">판매정지</c:if>
+							<c:if test="${p.p_status =='5'}">상품삭제</c:if>
 						</td>
-						<td><input type="button" value="상품상태변경" class="btn btn-success"></td>
+						<td>
+							<input type="button" value="상품수정" class="btn btn-success" onclick="location.href='${path}/productUpdateForm.do?p_no=${p.p_no}&pageNum=1'">
+						</td>
+						<td>
+							<input type="button" value="상품삭제" class="btn btn-outline-success" onclick="location.href='${path}/productDelete.do?p_no=${p.p_no}&pageNum=1'">
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -85,6 +93,7 @@
 						<option value="p_status">일시판매중지</option>
 						<option value="p_status">판매완료</option>
 						<option value="p_status">판매정지</option>
+						<option value="p_status">상품삭제</option>
 					</select> 
 				</form>
 				</td>
@@ -98,7 +107,8 @@
 				<td>상품명</td>
 				<td>재고</td>
 				<td>상품상태</td>
-				<td>상품상태변경</td>
+				<td>상품수정</td>
+				<td>상품삭제</td>
 			</tr>
 			<c:if test="${empty list}">
 				<tr>
@@ -116,9 +126,14 @@
 							<c:if test="${p.p_status =='2'}">일시판매중지</c:if>
 							<c:if test="${p.p_status =='3'}">판매완료</c:if>
 							<c:if test="${p.p_status =='4'}">판매정지</c:if>
-						
+							<c:if test="${p.p_status =='5'}">상품삭제</c:if>
 						</td>
-						<td><input type="button" value="상품상태변경" class="btn btn-success"></td>
+						<td>
+							<input type="button" value="상품수정" class="btn btn-success" onclick="location.href='productUpdateForm.do?p_no=${p.p_no}&pageNum=1'">
+						</td>
+						<td>
+							<input type="button" value="상품삭제" class="btn btn-outline-success">
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>

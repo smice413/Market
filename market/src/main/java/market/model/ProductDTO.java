@@ -25,7 +25,8 @@ public class ProductDTO {
 	// 검색
 	private String search;
 	private String keyword;
-	
+	// 상품상태
+	private String status;
 	//카테고리
 	private String cate_large;
 	private String cate_small;
@@ -84,6 +85,12 @@ public class ProductDTO {
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public int getP_no() {
 		return p_no;

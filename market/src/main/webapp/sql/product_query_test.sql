@@ -3,6 +3,9 @@ select * from product;
 select * from product_img;
 select * from shop;
 
+update product_img set p_img_order=1
+update product_img set p_img_order=2 where p_img_no=13
+
 select * from product p inner join category c on p.cate_no = c.cate_no where c.cate_large='과일'
 
 select count(*) from product P

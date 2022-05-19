@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>상품 수정</title>
 
-<script type="text/javascript" src="${path}/ckeditor/ckeditor.js" ></script>
+<script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"/>
 <script>
 $(function(){
 	
@@ -59,11 +59,33 @@ $(function(){
 			
 			<table class="table">
 				<tr>
+					<td>상품상태</td>
+					<td>
+						<select id="p_status" name="p_status" style="width:180px; height:30px">
+							<option value="1"
+								<c:if test="${product.p_status == '1'}">selected</c:if>
+							>판매중</option>
+							<option value="2"
+								<c:if test="${product.p_status == '2'}">selected</c:if>
+							>일시판매중지</option>
+							<option value="3"
+								<c:if test="${product.p_status == '3'}">selected</c:if>
+							>판매완료</option>
+							<option value="5"
+								<c:if test="${product.p_status == '5'}">selected</c:if>
+							>판매삭제</option>
+						</select> 
+						<c:if test="${product.p_status == '4'}">판매정지</c:if>
+					</td>
+				</tr>
+				<tr>
 					<td width=130px>카테고리코드</td>
 					<td>
 						<select id="cate_no" name="cate_no" style="width:180px; height:30px">
 							<c:forEach var="c" items="${listCateNo}">
-								<option value="${c.cate_no}">${c.cate_large}/${c.cate_small}</option>
+								<option value="${c.cate_no}"
+								<c:if test="${product.cate_no == c.cate_no}">selected</c:if>
+								>${c.cate_large}/${c.cate_small}</option>
 							</c:forEach>
 						</select>
 					</td>
@@ -86,8 +108,10 @@ $(function(){
 				<tr>
 					<td>공동구매여부</td>
 					<td>
-						<input type="radio" name="p_group_buying" value="Y">Y
-						<input type="radio" name="p_group_buying" value="N">N
+						<input type="radio" name="p_group_buying" value="Y"
+						<c:if test="${product.p_group_buying eq 'Y'}">checked</c:if>/>Y
+						<input type="radio" name="p_group_buying" value="N"
+						<c:if test="${product.p_group_buying eq 'N'}">checked</c:if>/>N
 					</td>
 				</tr>
 				<tr>
@@ -105,8 +129,10 @@ $(function(){
 				<tr>
 					<td>팔로워할인여부</td>
 					<td>
-						<input type="radio" name="p_follow_sale" value="Y">Y
-						<input type="radio" name="p_follow_sale" value="N" checked="checked">N
+						<input type="radio" name="p_follow_sale" value="Y"
+						<c:if test="${product.p_follow_sale eq 'Y'}">checked</c:if>/>Y
+						<input type="radio" name="p_follow_sale" value="N"
+						<c:if test="${product.p_follow_sale eq 'N'}">checked</c:if>/>N
 					</td>
 				</tr>
 				<tr>
@@ -123,17 +149,18 @@ $(function(){
 				</tr>
 				<tr>
 					<td>상세설명</td>
-					<td><textarea rows="10" cols="30" name="p_detail" required="required">${product.p_detail}</textarea>
-						<script>	// 글쓰기 editor 및 사진 업로드 기능
-							CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'/adm/fileUpload.do'});
-						</script>
+					<td>
+						<textarea name="p_detail" required="required">${product.p_detail}</textarea>
+	                      <script>
+	                              CKEDITOR.replace( 'p_detail' );
+	                      </script>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
 						<input type="submit" value="수정" class="btn btn-success">
-						<input type="reset" value="취소" class="btn btn-success"
-    						onclick="$('#p_name').focus();" />
+						<input type="reset" value="취소" class="btn btn-outline-success"
+    						onclick="$('#cate_no').focus();" />
 					</td>
 				</tr>
 			</table>
