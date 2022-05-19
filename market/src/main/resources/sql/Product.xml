@@ -114,7 +114,11 @@
 		update product set p_hit = p_hit+1 where p_no=#{p_no}
 	</update>
 	<update id="update" parameterType="product">
-		
+		update product set cate_no=#{cate_no}, s_no=#{s_no}, p_group_buying=#{p_group_buying},
+			p_follow_sale=#{p_follow_sale}, p_name=#{p_name}, p_detail=#{p_detail},
+			p_group_price=#{p_group_price}, p_sell_price=#{p_sell_price}, p_follow_price=#{p_follow_price},
+			p_stock=#{p_stock} 
+			where p_no=#{p_no} 
 	</update>
 	<update id="delete" parameterType="int">
 		update product set p_status='Y' where p_no=#{p_no}
