@@ -28,7 +28,7 @@
 					<a href="${path }/myPage.do">마이페이지</a> |
 				</c:if>		
 
-					<a href="${path }/productInsertForm.do">SHOP매니저</a> |
+					<a href="order_tabList.do">SHOP매니저</a> |
 					<a href="${path }/shop_join_form.do">입점신청</a> 
 					<!--  SHOP매니저 | 입점신청 | 회원가입 | 로그인 | 마이페이지| 장바구니 | 로그아웃 | 관리자페이지  | 이벤트/공지 | 고객센터 -->
 			</td>
