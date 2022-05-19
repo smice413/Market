@@ -15,8 +15,8 @@
 
 <div class="container" align="center">
 		
-<h3 style="font-weight: bold;" >주문 목록</h3>
-<div class="vf-wide700-card" style="width: 900px;">
+<h3 style="font-weight: bold; margin: 30px 0px 30px 0px;" >주문 내역</h3>
+<div class="vf-wide700-card" style="width: 950px;">
 <table align="center" class="table">
 	<tr>
 		<th style="text-align: center;">주문번호</th>
@@ -35,13 +35,13 @@
 		</a>
 		</td>
 		
-		<td style="text-align: center;">${list.p_name}</td>
+		<td style="text-align: center;"><a href="productView.do?p_no=${list.p_no}">${list.p_name}</a></td>
 		
-		<td style="text-align: center;"><fmt:formatNumber value="${list.op_price }" pattern="#,###"/> 원</td>
+		<td style="text-align: center;"><fmt:formatNumber value="${list.op_price * list.op_qty }" pattern="#,###"/> 원</td>
 		
 		<td style="text-align: center;">${list.op_qty }</td>
 		
-		<td style="text-align: center;">
+		<td style="text-align: center; font-weight: bold;">
 			<c:if test="${list.op_status == '1' }">공동구매대기</c:if>
 			<c:if test="${list.op_status == '2' }">공동구매실패</c:if>
 			<c:if test="${list.op_status == '3' }">배송전 </c:if>
@@ -57,6 +57,9 @@
 		<td>
 			<c:if test="${list.op_status == '3' }">
 				<input type="button" class="btn btn-success" value="주문 취소" onClick="location='cancel.do?op_no=${list.op_no}'">
+			</c:if>
+			<c:if test="${list.op_status == '6' }">
+				${list.op_deli_no } (대한통운)
 			</c:if>
 			<c:if test="${list.op_status == '7' }">
 				<input type="button" class="btn btn-success" value="구매 확정" onClick="location='confirm.do?op_no=${list.op_no}&s_no=${list.s_no }'">

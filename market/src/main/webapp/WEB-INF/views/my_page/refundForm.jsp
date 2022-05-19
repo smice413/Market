@@ -21,15 +21,20 @@
 <input type="hidden" name="op_no" value="${op_no }">
 <table align="center" class="table">
 	<tr>
-		<td style="text-align: center; font-weight: bold;">환불 사유</td>
+		<td style="text-align: center; font-weight: bold;">
+			아래 칸에 환불 사유를 작성해 주세요.
+		</td>
+	</tr>
+	<tr>	
 		<td style="text-align: center;">
 			<textarea name="op_refund_why" id="op_refund_why" rows="10" cols="50"></textarea>
+		<div style="font-size: 12px; color: red;">※환불 수락 여부는 이후 주문 상태에서 확인 하실 수 있습니다.</div>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2" style="text-align: center;">
-			<input type="submit" value="등록" class="btn btn-outline-success">
-			<input type="button" value="취소" class="btn btn-outline-warning">
+			<input type="submit" value="등록" class="btn btn-success">
+			<input type="button" value="취소" class="btn btn-outline-warning" onclick="location='orderList.do'">
 		</td>
 	</tr>
 </table>
