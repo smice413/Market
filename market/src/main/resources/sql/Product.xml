@@ -119,4 +119,5 @@
 	<update id="delete" parameterType="int">
 		update product set p_status='Y' where p_no=#{p_no}
 	</update>
+	
 </mapper>
