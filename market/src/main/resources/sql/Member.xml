@@ -23,7 +23,11 @@
   <select id="passwdSearch" resultType="member">
   select * from member where m_email=#{m_email} and m_name=#{m_name} and m_delstatus='N' 
   </select>
+  <!-- 아이디찾기 -->
+  <select id="emailSearch" parameterType="member" resultType="member">
+  select * from member where m_name=#{m_name} and m_tel=#{m_tel} and m_delstatus='N' 
   
+  </select>
   <!-- 회원정보가져오기 -->
   <select id="select" parameterType="String" resultType="member">
   select * from member where m_email = #{m_email}

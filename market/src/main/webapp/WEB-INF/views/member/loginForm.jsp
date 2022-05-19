@@ -36,7 +36,10 @@
 					<input type="button" value="회원가입" class="btn btn-warning"
 					onClick="location='memberInsertForm.do'" /> 
 					<input type="button"
-					value="아이디/비번찾기" class="btn btn-outline-warning" 
+					value="아이디(이메일)찾기" class="btn btn-outline-warning" 
+					onClick ="location ='emailSearchForm.do'"/>
+					<input type="button"
+					value="비밀번호찾기" class="btn btn-warning" 
 					onClick ="location ='passwdSearchForm.do'"/>
 			</div>
 		</form>

@@ -164,14 +164,16 @@ public class MemberController {
 	public String passwdCheck(@ModelAttribute MemberDTO member, HttpServletResponse response, Model model)
 			throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
-
+		int result = 0;
 		MemberDTO mem = ms.passwdSearch(member);
 
 		if (mem == null) {// 값이 없는 경우
-
+			result=1;
+			model.addAttribute("result", result);
 			return "member/passwdSearchForm";
 
 		} else {
+			result=2;
 			// Mail Server 설정
 			String charSet = "utf-8";
 			String hostSMTP = "smtp.naver.com";
@@ -205,14 +207,42 @@ public class MemberController {
 			} catch (Exception e) {
 				System.out.println(e);
 			}
-
+			model.addAttribute("result", result);
 			model.addAttribute("passwdSearch", "등록된 email을 확인 하세요:-)");
 			return "member/loginForm";
 
 		}
 
 	}
-
+//아이디(이메일찾기)폼
+	//비번찾기 폼
+		@RequestMapping(value = "/emailSearchForm.do")
+		public String emailSearchForm() {
+			return "member/emailSearchForm";
+		}
+//아이디(이메일)찾기
+		@RequestMapping(value = "/emailSearch.do", method = RequestMethod.POST)
+		public String passwdCheck(MemberDTO mem, Model model) throws Exception {
+			
+			int result = 0;
+			MemberDTO member = ms.emailSearch(mem);
+			
+			if(member == null) {	//값이 없는경우 
+				result = 1;
+				model.addAttribute("result", result);
+				return "member/eamilSearchForm";
+			}else {
+				result = 2;
+				model.addAttribute("m_email", member.getM_email());
+				model.addAttribute("result", result);
+				System.out.println("아이디(이메일)찾기 성공");
+					
+				return "member/emailSearchResult";
+				
+			}
+				
+			}
+	
 	//로그아웃
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {

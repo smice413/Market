@@ -33,7 +33,9 @@ public class MemberServiceImpl {
 	public MemberDTO passwdSearch(MemberDTO member)throws Exception{
 		return md.passwdSearch(member);
 	}
-	
+	public MemberDTO emailSearch(MemberDTO member)throws Exception{
+		return md.emailSearch(member);
+	}
 	public int memberUpdateForm(MemberDTO member)throws Exception{
 	 return md.memberUpdateForm(member); 
   }

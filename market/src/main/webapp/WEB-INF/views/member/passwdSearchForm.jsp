@@ -32,7 +32,7 @@
 		
 		<c:if test ="${empty passwdSearch}">
 		<h2 class="pwd_title">비밀번호찾기</h2>
-		<form method="post" action="passwdSearch.do">
+		<form method="post" action="passwdSearchForm.do">
 		<table id="pwd_t1">
 		<tr>
 			<th>이메일</th>

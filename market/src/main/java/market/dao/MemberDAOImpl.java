@@ -2,6 +2,7 @@ package market.dao;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -58,7 +59,12 @@ public class MemberDAOImpl {
 	public MemberDTO passwdSearch(MemberDTO member) throws Exception {
 		return sqlSession.selectOne("memberns.passwdSearch", member);
 	}
-	
+	//아이디(이메일찾기)
+	public MemberDTO emailSearch(MemberDTO member)throws Exception{
+		List<MemberDTO> list = sqlSession.selectList("memberns.emailSearch", member);
+		System.out.println(list.get(0));
+		return (MemberDTO)list.get(0);
+	}
 	//회원삭제
 	public int deleteMember(MemberDTO member)throws Exception{
 		return sqlSession.update("memberns.deleteMember", member);
