@@ -24,7 +24,7 @@
 
    <div class="container">
 		<div class="row qnas" style="text-align: center;">
-			<h1 class="page-header">장바구니</h1>
+			<h3 class="page-header">장바구니</h3>
 			
 			<!-- 장바구니에 등록된 상품이 없는 경우  -->
 			<c:if test="${empty cartList}">
@@ -63,9 +63,10 @@
 						<tr>
 							<td class="cart_info_td">
 								<input type="checkbox" class="chkbox_input" checked="checked">
-								<input type="hidden" class="p_sell_price" value="${cl.p_sell_price}">
-								<input type="hidden" class="cart_qty" value="${cl.cart_qty}">
-								<input type="hidden" class="totalPrice" value="${cl.p_sell_price * cl.cart_qty}">
+								<input type="hidden" class="p_sell_price_input" value="${cl.p_sell_price}">
+								<input type="hidden" class="cart_qty_input" value="${cl.cart_qty}">
+								<input type="hidden" class="totalPrice_input" value="${cl.p_sell_price * cl.cart_qty}">
+								<input type="hidden" class="p_no_input" value="${cl.p_no}">
 							</td>
 							<td><img alt="" src=""></td>
 							<td>${cl.p_name} <br>
@@ -102,7 +103,7 @@
 			
 		
 		<div class="row" style="text-align: center; margin: 70px 0;">
-			<button class="btn btn-success">주문하기</button>
+			<button class="btn btn-success order_btn">주문하기</button>
 			<button class="btn btn-success">쇼핑 계속하기</button>
 			<button class="btn btn-success">장바구니 비우기</button>
 		</div>
@@ -122,27 +123,14 @@
 		<input type="hidden" name="cart_no" class="delete_cart_no">
 		<input type="hidden" name="m_email" value="${sessionScope.m_email}">
 	</form>
+	
+	<!-- 주문 form -->
+    <form action="order.do" method="get" class="order_form">
+ 
+    </form>
 
 <script>
-	//전체 상품 선택
-/* 	$(".allCheck_input").click(function(){
-		
-		// 체크박스 체크/해제
-		var chk = $(".allCheck_input").prop("checked");
-		if(chk){
-			$(".chkbox_input").prop("checked",true);
-		}else{
-			$(".chkbox_input").prop("checked",false);
-		}
-		
-		setTotalInfo($("cart_info_td"));
-	});
 
-	// 전체선택일때 하나라도 체크박스 해제할 경우 
-	$(".chkbox_input").click(function () {
-	   $(".allCheck_input").prop("checked", false);
-	});  */
- 
 	// 상품 수량 버튼
 	$(".plus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
@@ -174,9 +162,6 @@
 			$(".delete_form").submit();
 		}
 	});
-
-</script>
-<script>	
  
 	$(document).ready(function(){
 		// 총 결제 예상 금액 삽입
@@ -214,12 +199,40 @@
 	   $(".cart_info_td").each(function(index, element){
 		   if($(element).find(".chkbox_input").is(":checked")===true){
 				// 총 결제 예상 금액
-			   totalPrice += parseInt($(element).find(".totalPrice").val()); 
+			   totalPrice += parseInt($(element).find(".totalPrice_input").val()); 
 			}
 	   });
 	 
 	   $(".totalPricce_span").text(totalPrice.toLocaleString());
 	}	 
+	
+	// 주문 페이지 이동
+	$(".order_btn").on("click", function(){
+		let form_contents ='';
+		let orderNumber = 0;
+		
+		$(".cart_info_td").each(function(index, element){
+			
+			if($(element).find(".chkbox_input").is(":checked") === true){	//체크여부
+				
+				let p_no = $(element).find(".p_no_input").val();
+				let cart_qty = $(element).find(".cart_qty_input").val();
+				
+				let p_no_input = "<input name='orders[" + orderNumber + "].bookId' type='hidden' value='" + p_no + "'>";
+				form_contents += p_no_input;
+				
+				let cart_qty_input = "<input name='orders[" + orderNumber + "].bookCount' type='hidden' value='" + cart_qty + "'>";
+				form_contents += cart_qty_input;
+				
+				orderNumber += 1;
+				
+			}
+		});	
+		$(".order_form").html(form_contents);
+		$(".order_form").submit();
+		
+	});
+	
 </script>
 
 

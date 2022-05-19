@@ -9,6 +9,7 @@ public class DeliveryDTO {
 	private String d_cate;
 	private String d_post;
 	private String d_address;
+	private String d_default;
 	
 	public int getD_no() {
 		return d_no;
@@ -51,5 +52,11 @@ public class DeliveryDTO {
 	}
 	public void setD_address(String d_address) {
 		this.d_address = d_address;
+	}
+	public String getD_default() {
+		return d_default;
+	}
+	public void setD_default(String d_default) {
+		this.d_default = d_default;
 	}
 }

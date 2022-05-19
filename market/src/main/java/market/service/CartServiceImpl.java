@@ -31,8 +31,7 @@ public class CartServiceImpl implements CartService{
 	
 	@Override
 	public List<CartDTO> list(String m_email) {
-		System.out.println("Service m_email:"+m_email);
-		
+		// TODO Auto-generated method stub
 		return cd.list(m_email);
 	}
 
@@ -45,6 +44,8 @@ public class CartServiceImpl implements CartService{
 	public int delete(int cart_no) {
 		return cd.delete(cart_no);
 	}
+
+
 
 
 	

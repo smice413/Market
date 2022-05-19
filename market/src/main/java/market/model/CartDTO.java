@@ -28,6 +28,9 @@ public class CartDTO {
 	// shop
 	private String s_name;
 	
+	// 새로 만든  파라미터
+	private int total_price;
+	
 	public int getCart_no() {
 		return cart_no;
 	}
@@ -142,4 +145,18 @@ public class CartDTO {
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
 	}
+	
+	public int getTotal_price() {
+		return total_price;
+	}
+
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
+	
+	public void totalPrice() {
+		this.total_price = this.p_sell_price*this.cart_qty;
+	}
+	
 }
+

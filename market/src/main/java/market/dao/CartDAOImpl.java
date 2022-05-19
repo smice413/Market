@@ -27,8 +27,6 @@ public class CartDAOImpl implements CartDAO{
 	
 	@Override
 	public List<CartDTO> list(String m_email) {
-		System.out.println("DAO m_email:"+m_email);
-		
 		return sst.selectList("cartns.list", m_email);
 	}
 
@@ -41,6 +39,8 @@ public class CartDAOImpl implements CartDAO{
 	public int delete(int cart_no) {
 		return sst.delete("cartns.delete", cart_no);
 	}
+
+
 
 
 
