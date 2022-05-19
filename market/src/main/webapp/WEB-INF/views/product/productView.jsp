@@ -90,11 +90,14 @@
 				</tr>
 				<tr>
 					<td colspan=2 align=center>
-						<a  class="btn btn-success cart_btn" >장바구니<br>담기</a>
-						<a href="${path}/cartInsert.do?p_no=${p_no}" class="btn btn-warning">
+						<a href="#" class="btn btn-success">
+                   		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
+						<a href="#" class="btn btn-warning">
 							<b>${product.p_follow_price}원<b><br>팔로워 구매하기</a>
-						<a href="${path}/orderInsert.do?p_no=${p_no}" class="btn btn-danger">
+						<a href="#" class="btn btn-danger">
 							<b>${product.p_group_price}원<b><br>공동구매하기</a>
+						<a href="#" class="btn btn-outline-success" >
+                            <b>장바구니<br>담기<b></a>
 					</td>
 				</tr>
 			</table>
