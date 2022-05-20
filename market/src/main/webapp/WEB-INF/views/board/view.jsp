@@ -75,10 +75,7 @@
 				<td>이메일</td>
 				<td>${board.email}</td>
 			</tr>
-			<tr>
-				<td>내용</td>
-				<td><pre>${board.content}</pre></td>
-			</tr>
+
 		</table>
 		<a href="${path}/list.do?pageNum=${pageNum}" class="btn btn-success">목록</a>
 		<a href="${path}/updateForm.do?num=${board.num}&pageNum=${pageNum}" class="btn btn-success">수정</a>
@@ -91,6 +88,10 @@
 				<input type="hidden" name="replyer" value="${board.writer}">
 				<input type="hidden" name="bno" value="${board.num}"> 
 				<table width=100%>
+					<tr>
+						<td>내용</td>
+						<td><pre>${board.content}</pre></td>
+					</tr>
 					<tr>
 						<td width=50>댓글 :</td>
 						<td><textarea rows="3" cols="50" name="replytext" style="background-color: lightyellow;" class="form-control"></textarea></td>

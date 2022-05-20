@@ -23,10 +23,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.google.gson.JsonObject;
 
 @Controller
-@RequestMapping("/adm")
+@RequestMapping("/market")
 public class CkeditorFileUploadController {
 
-	@RequestMapping(value="fileUpload.do", method=RequestMethod.POST)
+	@RequestMapping(value="/fileUpload.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String fileUpload(HttpServletRequest req, HttpServletResponse resp,
 							 MultipartHttpServletRequest multiFile) throws Exception {
@@ -35,6 +35,7 @@ public class CkeditorFileUploadController {
 		OutputStream out = null;
 		BufferedOutputStream bos = null;
 
+		
 		MultipartFile file = multiFile.getFile("upload");
 		System.out.println(file);
 		if(file != null){
@@ -46,6 +47,7 @@ public class CkeditorFileUploadController {
 
 						byte[] bytes = file.getBytes();
 						String uploadPath = req.getSession().getServletContext().getRealPath("/upload");
+						System.out.println(uploadPath);
 						File uploadFile = new File(uploadPath);
 						if(!uploadFile.exists()){
 							uploadFile.mkdirs();

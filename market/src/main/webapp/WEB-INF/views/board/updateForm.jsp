@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 <script type="text/javascript">
 	function chk() {
 		if (frm.passwd.value != frm.passwd2.value) {
@@ -54,9 +55,11 @@
 				<tr>
 					<td>내용</td>
 					<td>
-						<textarea rows="5" cols="30" name="content" required="required">${board.content}
-			</textarea>
-						</td>
+						<textarea rows="5" cols="30" name="content" required="required">${board.content}</textarea>
+						<script>	// 글쓰기 editor 및 사진 업로드 기능
+							CKEDITOR.replace('content',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
+						</script>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center"><input type="submit"  class="btn btn-success" value="확인"></td>

@@ -8,8 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 등록</title>
-
-<script type="text/javascript" src="${path}/ckeditor/ckeditor.js" ></script>
+<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
+<%-- <script src="${path }/ckeditor/ckeditor.js"></script>  --%>
 <script>
 $(function(){
 	
@@ -124,9 +124,9 @@ $(function(){
 				</tr>
 				<tr>
 					<td>상세설명</td>
-					<td><textarea rows="10" cols="30" name="p_detail" required="required"></textarea>
+					<td><textarea rows="5" cols="30" name="p_detail"	required="required"></textarea>
 						<script>	// 글쓰기 editor 및 사진 업로드 기능
-							CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'/adm/fileUpload.do'});
+							CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
 						</script>
 					</td>
 				</tr>

@@ -12,6 +12,7 @@
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuShop.jsp"%>
 <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
+<%-- <script type="text/javascript" src="${path }/ckeditor/ckeditor.js"/> --%>
 	<div class="container" align="center">
 		<h2 class="text-primary">게시판 글쓰기</h2>
 		<div class="vf-wide700-card">
@@ -42,7 +43,7 @@
 					<td>내용</td>
 					<td><textarea rows="5" cols="30" name="content"	required="required"></textarea>
 						<script>	// 글쓰기 editor 및 사진 업로드 기능
-							CKEDITOR.replace('content',{filebrowserUploadUrl:'/fileUpload.do'});
+							CKEDITOR.replace('content',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
 						</script>
 					</td>
 				</tr>
