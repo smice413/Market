@@ -27,6 +27,8 @@ public class ProductDTO {
 	private String keyword;
 	// 상품상태
 	private String status;
+	// 정렬
+	private String orderCond;
 	//카테고리
 	private String cate_large;
 	private String cate_small;
@@ -38,6 +40,12 @@ public class ProductDTO {
 	private String s_name;
 
 	
+	public String getOrderCond() {
+		return orderCond;
+	}
+	public void setOrderCond(String orderCond) {
+		this.orderCond = orderCond;
+	}
 	public String getS_name() {
 		return s_name;
 	}

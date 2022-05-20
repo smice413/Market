@@ -230,6 +230,7 @@ public class ProductController {
 		// 검색
 		model.addAttribute("search", product.getSearch());
 		model.addAttribute("keyword", product.getKeyword());
+		model.addAttribute("orderCond", product.getOrderCond());
 		
 		return "product/productSearchList";
 	}

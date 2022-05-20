@@ -8,12 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 댓글 게시판 불러오기 -->
-<script type="text/javascript">
-	$(function() {
-		$('#slist').load('${path}/slist.do?num=${board.num}')
-	});
-</script>
-
 	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 	<link rel="stylesheet" href="${path}/css/swiper.css">
 </head>
@@ -42,42 +36,42 @@
 <div class="container" align="center">
 	<h3 class="text-primary">공동구매 특가</h3>
 	<c:forEach var="p" items="${glist }">
-		<div class="${p.p_no}" style="float: left;">
-			<table style="font-size:15px">
-				<tr>
-					<td style="padding:7px">
-						<a href="${path }/productView.do?p_no=${p.p_no}">
-						<img src="${path}/images/${p.p_img}" width=210px height=210px></a></td>
-				</tr>
-				<tr>
-					<td>[${p.s_name}]<br>
-					<b>${p.p_name}</b><br>
-					일반구매가 : ${p.p_sell_price}<br>
-					<font color=red>공동구매가 : ${p.p_group_price}</font></td>
-				</tr>
-			</table>
-		</div>
+			<div class="${p.p_no}" style="float: left;">
+				<table style="font-size:14px">
+					<tr>
+						<td style="padding:9px">
+							<a href="${path }/productView.do?p_no=${p.p_no}">
+							<img src="${path}/images/${p.p_img}" width=210px height=210px></a></td>
+					</tr>
+					<tr>
+						<td style="padding:0 9 9 9">[${p.s_name}]<br>
+						<b>${p.p_name}</b><br>
+						일반구매가 : ${p.p_sell_price}원<br>
+						<font color=red>공동구매가 : ${p.p_group_price}원</font><br>
+					</tr>
+				</table>
+			</div>
 	</c:forEach>
 </div>
 
 <div class="container" align="center">
 	<h3 class="text-primary">follow 특가</h3>
 	<c:forEach var="p" items="${flist }">
-		<div class="${p.p_no}" style="float: left;">
-			<table style="font-size:15px">
-				<tr>
-					<td style="padding:8px">
-						<a href="${path }/productView.do?p_no=${p.p_no}">
-						<img src="${path}/images/${p.p_img}" width=210px height=210px></a></td>
-				</tr>
-				<tr>
-					<td>[${p.s_name}]<br>
-					<b>${p.p_name}</b><br>
-					일반구매가 : ${p.p_sell_price}원<br>
-					<font color=red>팔로워특가 : ${p.p_follow_price}원</font></td>
-				</tr>
-			</table>
-		</div>
+			<div class="${p.p_no}" style="float: left;">
+				<table style="font-size:14px">
+					<tr>
+						<td style="padding:9px">
+							<a href="${path }/productView.do?p_no=${p.p_no}">
+							<img src="${path}/images/${p.p_img}" width=210px height=210px></a></td>
+					</tr>
+					<tr>
+						<td style="padding:0 9 9 9">[${p.s_name}]<br>
+						<b>${p.p_name}</b><br>
+						일반구매가 : ${p.p_sell_price}원<br>
+						<font color=blue>팔로워특가 : ${p.p_follow_price}원</font></td>
+					</tr>
+				</table>
+			</div>
 	</c:forEach>
 </div>
 

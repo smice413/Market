@@ -30,16 +30,22 @@
 				   	left outer join shop S on P.s_no = S.s_no
 		<where>
 			<if test="keyword != null and status != null">
-				${search} like '%'||#{keyword}||'%' and p_status=#{status}
-			</if>
+				${search} like '%'||#{keyword}||'%' and p_status=#{status}</if>
 			<if test="keyword != null and status == null">
-				${search} like '%'||#{keyword}||'%' and p_status='1'
-			</if>
-			<if test="keyword == null and status != null">
-				p_status=#{status}
-			</if>
+				${search} like '%'||#{keyword}||'%' and p_status='1'</if>
+			<if test="keyword == null and status != null">p_status=#{status}</if>
+			<if test="keyword == null and status == null">p_status='1'</if>
 		</where>			
-			 order by p_no desc) a )
+			 order by 
+	    <choose>
+	        <when test="orderCond == 'p_regdate_DESC'">p_regdate desc</when>
+	        <when test="orderCond == 'p_hit_DESC'">p_hit desc</when>
+	        <when test="orderCond == 'p_sell_ASC'">p_sell_price asc</when>
+	        <when test="orderCond == 'p_sell_DESC'">p_sell_price desc</when>
+	        <when test="orderCond == 'p_name_ASC'">p_name asc</when>
+	        <otherwise>p_no desc</otherwise>
+	    </choose>
+			 ) a )
 			where rn between #{startRow} and #{endRow}
 	</select>
 	<select id="getTotal" parameterType="product" resultType="int">
@@ -49,14 +55,11 @@
  		       		left outer join shop S on P.s_no = S.s_no
 		<where>
 			<if test="keyword != null and status != null">
-				${search} like '%'||#{keyword}||'%' and p_status=#{status}
-			</if>
+				${search} like '%'||#{keyword}||'%' and p_status=#{status}</if>
 			<if test="keyword != null and status == null">
-				${search} like '%'||#{keyword}||'%' and p_status='1'
-			</if>
-			<if test="keyword == null and status != null">
-				p_status=#{status}
-			</if>
+				${search} like '%'||#{keyword}||'%' and p_status='1'</if>
+			<if test="keyword == null and status != null">p_status=#{status}</if>
+			<if test="keyword == null and status == null">p_status='1'</if>
 		</where>
 	</select>
 	<select id="select" parameterType="int" resultType="product">
@@ -97,15 +100,12 @@
 		select cate_small from product P
 					left outer join category C on P.cate_no = C.cate_no
 		<where>
-			<if test="keyword != null and search !='subcon'">
-				${search} like '%'||#{keyword}||'%'
-			</if>
-			<if test="keyword != null and search=='subcon'">
-				subject like '%'||#{keyword}||'%' or
-				content like '%'||#{keyword}||'%'
+			<if test="keyword != null">
+				${search} like '%'||#{keyword}||'%' and p_status='1'
 			</if>
 		</where>
-		group by cate_small
+		group by cate_small 
+		order by cate_small asc
 	</select>
 	<select id="getMaxNum" resultType="int">
 		select nvl(max(p_no),0) from product
