@@ -38,23 +38,20 @@ public class MemberDAOImpl {
 		return sqlSession.selectOne("memberns.select", m_email);
 	}
 
-	// 회원수정폼
-	public int memberUpdateForm(MemberDTO member) throws Exception {
-	return sqlSession.update("memberns.memberUpdateForm", member);
+	// 회원확인폼
+	public int memberConfirmForm(MemberDTO member) throws Exception {
+	return sqlSession.update("memberns.memberConfirmForm", member);
 	}
 
-	//회원수정
-	public int memberUpdate(MemberDTO member)throws Exception{
-		return sqlSession.update("memberns.memberUpdate", member);
+	//회원확인
+	public int memberConfirm(MemberDTO member)throws Exception{
+		return sqlSession.update("memberns.memberConfirm", member);
 	}
-	// 비밀번호찾기
-	/*
-	 * public int passwdSearch(String m_eamil, String m_name)throws Exception{
-	 * Map<String, Object> map = new HashMap<String, Object>(); map.put("m_email",
-	 * m_eamil); map.put("m_name", m_name);
-	 * 
-	 * return sqlSession.passwdSearch("memberns.passwdSearch", m_eamil, m_name); }
-	 */
+	//회원정보수정
+	public int memberUpdate(MemberDTO member)throws Exception{
+		return sqlSession.update("memberns.memberUpdate",member);
+	}
+
 	// 비밀번호찾기
 	public MemberDTO passwdSearch(MemberDTO member) throws Exception {
 		return sqlSession.selectOne("memberns.passwdSearch", member);

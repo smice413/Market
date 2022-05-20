@@ -101,58 +101,72 @@ public class MemberController {
 		}
 	}
 
-	// 회원정보 수정 폼
-	@RequestMapping(value = "/memberUpdateForm.do", method = RequestMethod.GET)
-	public String memberUpdateForm(HttpSession session, Model model) throws Exception {
+	// 회원정보 확인 폼
+	@RequestMapping(value = "/memberConfirmForm.do", method = RequestMethod.GET)
+	public String memberConfirmForm(HttpSession session, Model model) throws Exception {
 
 		String m_email = (String) session.getAttribute("m_email");
 		System.out.println("email: " + m_email);
 
 		MemberDTO old = ms.select(m_email);
+		System.out.println("old"+old);
 		model.addAttribute("old", old);
 
-		return "member/memberUpdateForm";
+		return "member/memberConfirmForm";
 	}
 
-	// 회원정보 수정
-	@RequestMapping(value = "/memberUpdate.do", method = RequestMethod.POST) 
-	public String memberUpdate(MemberDTO member, Model model) throws Exception {
-		int result = ms.memberUpdate(member);
+/*	// 회원정보 확인
+	@RequestMapping(value = "/memberConfirm.do", method = RequestMethod.POST) 
+	public String memberConfirm(MemberDTO member, Model model) throws Exception {
+		int result = ms.memberConfirm(member);
 		model.addAttribute("result", result);
 		
-		return "member/updateResult";
-		
-		
-/*		if(!member.getM_passwd().equals(m_passwd)){     //비번이 다른경우 
-			result =2; 
-			return "memberUpdate";
-			
-		}else {		
-			int resultu = ms.memberInsert(member);
-			ms.memberInsert(member);
-			
-			if (resultu == 1)
-				System.out.println("정보수정 성공");
-			model.addAttribute("result", resultu);*/
-
-		
+		return "member/memberUpdatForm";
 	}
+	*/
+	//회원정보 수정 폼
+	@RequestMapping (value = "/memberUpdateForm.do", method = RequestMethod.GET)
+		public String memberUpdateForm(HttpSession session, Model model) throws Exception {
+
+			String m_email = (String) session.getAttribute("m_email");
+			System.out.println("email: " + m_email);
+
+			MemberDTO old = ms.select(m_email);
+			model.addAttribute("old", old);
+
+			return "member/memberUpdateForm";
+		}
 	
-	/*
-	 * //회원정보보기 (회원리스트)
-	 * 
-	 * @RequestMapping(value = "/memberList.do", method = RequestMethod.get) public
-	 * void memberList(HttpSession session, Model model)throws Exception{
-	 * 
-	 * String email = (String)session.getAttribute("email");
-	 * 
-	 * MemberDTO member = List list = MemberServiceImpl.select(email); int total =
-	 * ms.getTotal(member);
-	 * 
-	 * model.addAttribute("md", md);
-	 * 
-	 * }
-	 */
+	//	회원정보 수정 
+	@RequestMapping(value ="/memberUpdate", method = RequestMethod.POST)
+	public String memberUpdate(@RequestParam("m_passwd2")String passwd2, 
+								@RequestParam("m_passwd3") String passwd3, 
+								HttpSession session, MemberDTO old, Model model,
+								MemberDTO member)throws Exception{
+		
+		String m_email = (String)session.getAttribute("m_email");   //세션에서 이메일을 가져오는
+		
+		old = ms.select(m_email);      //db에 저장된 모든값을 가져와서 old에 돌려주기
+		
+		String oldPasswd = old.getM_passwd(); //db에 저장된 패스워드를 oldpasswd에 받은거
+		
+		if(oldPasswd.equals(passwd2)) {
+			member.setM_passwd(passwd3);
+			member.setM_email(m_email);
+			
+			int result = 0; 
+			
+			result = ms.memberUpdate(member);
+			System.out.println("result: "+result);
+			model.addAttribute("result", result);
+		}else {
+			int result = -1;
+			model.addAttribute("result",result);
+		}
+		
+		return "member/updateResult";
+	}
+
 	//비번찾기 폼
 	@RequestMapping(value = "/passwdSearchForm.do")
 	public String passwdSearchForm() {

@@ -12,6 +12,7 @@ public class MemberDTO {
 	private Date m_deldate;
 	private String m_delstatus;
 	private String m_tel;
+	private String m_del_why;
 	
 	public String getM_email() {
 		return m_email;
@@ -60,5 +61,11 @@ public class MemberDTO {
 	}
 	public void setM_tel(String m_tel) {
 		this.m_tel = m_tel;
+	}
+	public String getM_del_why() {
+		return m_del_why;
+	}
+	public void setM_del_why(String m_del_why) {
+		this.m_del_why = m_del_why;
 	}
 }

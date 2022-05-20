@@ -36,12 +36,14 @@ public class MemberServiceImpl {
 	public MemberDTO emailSearch(MemberDTO member)throws Exception{
 		return md.emailSearch(member);
 	}
-	public int memberUpdateForm(MemberDTO member)throws Exception{
-	 return md.memberUpdateForm(member); 
+	public int memberConfirmForm(MemberDTO member)throws Exception{
+	 return md.memberConfirmForm(member); 
   }
-	
 	public int memberUpdate(MemberDTO member)throws Exception{
 		return md.memberUpdate(member);
+	}
+	public int memberConfirm(MemberDTO member)throws Exception{
+		return md.memberConfirm(member);
 	}
 	
 	public int deleteMember(MemberDTO member)throws Exception{

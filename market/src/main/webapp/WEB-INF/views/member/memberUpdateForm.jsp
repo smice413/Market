@@ -8,9 +8,15 @@
 <title>회원정보수정 폼</title>
 <script type="text/javascript">
 	function chk() {
-		if (frm.m_passwd.value != frm.m_passwd2.value) {
-			alert("암호가 다르면 수정할 수 없습니다");
-			frm.m_passwd2.value="";
+		if (frm.m_passwd3.value != frm.m_passwd4.value) {
+			alert("새 비밀번호가 일치하지 않습니다");
+			frm.m_passwd4.value="";
+			frm.m_passwd4.focus();
+			return false;
+		}
+		if(frm.m_passwd.value != frm.m_passwd2){
+			alert("현재 비밀번호를 확인해주세요");
+			frm.m_passwd2.value = "";
 			frm.m_passwd2.focus();
 			return false;
 		}
@@ -35,11 +41,20 @@
 							<td>${m_email}</td>
 						</tr>
 						<tr>
-							<th>회원 비밀번호</th>
+							<th>현재 비밀번호</th>
 							<td><input type="password" name="m_passwd2" id="m_passwd2"
 								size="14" class="input_box" required="required"/></td>
 						</tr>
-
+						<tr>
+							<th>변경 비밀번호</th>
+							<td><input type="password" name="m_passwd3" id="m_passwd3"
+								size="14" class="input_box" required="required"/></td>
+						</tr>
+						<tr>
+							<th>변경 비밀번호 재입력</th>
+							<td><input type="password" name="m_passwd4" id="m_passwd4"
+								size="14" class="input_box" required="required"/></td>
+						</tr>
 						<tr>
 							<th>회원이름</th>
 							<td><input name="m_name" id="m_name" size="14"
@@ -53,18 +68,13 @@
 					</table>
 
 					<div id="join_menu">
-						<input type="submit" value="정보수정" class="btn btn-success" /> 
+						<input type="submit" value="정보수정" class="btn btn-success"/> 
 						<input type="reset" value="수정취소" class="btn btn-outline-success"
-							onclick="$('#m_passwd').focus();" />
+							onclick="history.go(-1)" />
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-</body>
-</html>
-</body>
-</html>
-</form>
 </body>
 </html>

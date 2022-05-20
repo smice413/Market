@@ -25,7 +25,7 @@
 
 				<tr>
 					<th>비밀번호</th>
-					<td><input type="m_passwd" name="m_passwd" id="pwd" size="20"
+					<td><input type="password" name="m_passwd" id="pwd" size="20"
 						class="input_box" /></td>
 				</tr>
 			</table>
