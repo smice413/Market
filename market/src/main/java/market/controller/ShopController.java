@@ -32,10 +32,16 @@ public class ShopController {
 	public String shop_join_form() {
 		return "shop/shop_join_form";
 	}
-//	@RequestMapping("shop_join.do")
-//	public String shop_join(Shop shop, Model model) throws Exception {
-//		return "shop_page/shop_join_form";
-//	}
+//	// ID중복검사 ajax함수로 처리부분
+//		@RequestMapping(value = "shop_checkemail.do", method = RequestMethod.POST)
+//		public String shop_checkemail(@RequestParam("memid") String s_email, Model model) throws Exception {
+//			System.out.println("s_email:"+s_email);
+//			
+//			int result = shopService.shop_checkemail(s_email);
+//			model.addAttribute("result", result);
+//
+//			return "";
+//		}
 	// 회원가입 저장
 	@RequestMapping(value = "shop_join.do", method = RequestMethod.POST )
 	public String shop_join(@RequestParam("s_file1") MultipartFile mf, 
@@ -155,6 +161,27 @@ public class ShopController {
 			model.addAttribute("shop", shop);
 			
 			return "shop/shop_info_form";
+		}
+	//상점 정보 수정 폼
+		@RequestMapping("shop_info_edit_form.do")
+		public String shop_info_edit_form(HttpSession session, Model model)throws Exception{
+			String s_email = (String) session.getAttribute("s_email");
+					
+			ShopDTO shop= shopService.userCheck(s_email);
+			model.addAttribute("shop", shop);
+					
+			return "shop/shop_info_edit_form";
+		}
+	
+	//상점 정보 수정
+		@RequestMapping(value ="shop_info_edit.do", method = RequestMethod.POST)
+		public String shop_info_edit(@RequestParam("s_file1") MultipartFile mf, 
+									 ShopDTO shop,
+									 HttpServletRequest request,
+									 Model model)throws Exception {
+			
+			
+			return "";
 		}
 	
 }

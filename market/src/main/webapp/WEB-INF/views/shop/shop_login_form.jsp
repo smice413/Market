@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
-<%@ include file="../common/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +8,9 @@
 <title>login</title>
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
 	<form id="shop_login"
-		action="<%=request.getContextPath()%>/shop_login.do" method="post">
+		action="shop_login.do" method="post">
 		<div class="form-group">
 			<label for="s_email">이메일</label> <input type="text" id="s_email"
 				name="s_email" class="form-control" placeholder="이메일">

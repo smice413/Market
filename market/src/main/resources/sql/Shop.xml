@@ -9,7 +9,7 @@
 		#{s_address},#{s_tel},#{s_bank},#{s_account},sysdate,'',#{s_reason,jdbcType=VARCHAR},1,#{s_post})
 	</insert>
 	
-	<select id="shop_select" parameterType="shop" resultType="shop">
+	<select id="shop_select" parameterType="String" resultType="shop">
 		select * from shop where s_email= #{s_email}
 	</select>
 	

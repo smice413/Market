@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,8 @@
 <title>상점 정보 보기</title>
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuShop.jsp"%>
 <div class="shopcontainer">
 		<form id="shop_info" name="shop_info" enctype="multipart/form-data" >
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->

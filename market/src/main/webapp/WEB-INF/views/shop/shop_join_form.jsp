@@ -69,9 +69,9 @@ function readImage(n){
 					<td>email</td>
 					<td>
 					<input type="text" id="s_email" name="s_email">
-					<!-- <input type="button" value="아이디 중복체크" class="input_button"
-      				onclick="id_check()" />
-      				<div id="idcheck"></div> -->
+					<input type="button" value="email 중복체크" class="input_button"
+      				onclick="email_check()" />
+      				<div id="emailcheck"></div>
 					</td>
 				</tr>
 				<tr>
