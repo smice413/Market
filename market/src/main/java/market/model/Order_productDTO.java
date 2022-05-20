@@ -47,6 +47,9 @@ public class Order_productDTO {
 	// shop
 	private String s_name;
 	
+	// page
+	private int startRow;
+	private int endRow;
 	
 	
 	// getters and setters
@@ -242,6 +245,18 @@ public class Order_productDTO {
 	}
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
+	}
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public int getEndRow() {
+		return endRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
 	}
 	
 	

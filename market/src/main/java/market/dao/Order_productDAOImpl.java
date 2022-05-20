@@ -14,8 +14,12 @@ public class Order_productDAOImpl implements Order_productDAO {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
-	public List<Order_productDTO> orderList(String m_email) throws Exception{
-		return sst.selectList("order_product.orderList",m_email);
+	public List<Order_productDTO> orderList(Order_productDTO opdto) throws Exception{
+		return sst.selectList("order_product.orderList",opdto);
+	}
+	
+	public int getTotal(String m_email) throws Exception{
+		return sst.selectOne("order_product.getTotal",m_email);
 	}
 	
 	public Order_productDTO orderDetail(int op_no) throws Exception{

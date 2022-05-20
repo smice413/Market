@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import market.model.Order_productDTO;
 import market.service.Order_productServiceImpl;
+import market.service.PagingPgm;
 
 
 @Controller
@@ -22,13 +23,38 @@ public class Order_productController {
 
 	// 주문 목록 불러오기
 	@RequestMapping("orderList.do")
-	public String orderList(Model model, HttpSession session) throws Exception {
+	public String orderList(Model model, HttpSession session, 
+							String pageNum, Order_productDTO opdto) throws Exception {
 		
+		// 세션 값 가져오기
 		String m_email = (String)session.getAttribute("m_email");
+		opdto.setM_email(m_email);
 		
-		List<Order_productDTO> orderList = ops.orderList(m_email);
+		// 페이징 처리
+		final int rowPerPage = 5;		// 한 번에 출력할 데이터 개수
+		
+		if(pageNum == null || pageNum.equals("")) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		
+		int total = ops.getTotal(m_email);		// 주문 상품 개수
+		
+		System.out.println("total: "+total);
+		
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+		
+		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
+		opdto.setStartRow(startRow);
+		opdto.setEndRow(endRow);
+		
+		int no = total - startRow + 1;		// 화면 출력 번호
+		List<Order_productDTO> orderList = ops.orderList(opdto);
+		
 		model.addAttribute("orderList", orderList);
-		
+		model.addAttribute("no", no);
+		model.addAttribute("pp", pp);
 		
 		return "my_page/orderList";
 	}

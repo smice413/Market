@@ -4,31 +4,41 @@
 <mapper namespace="order_product">
 
 <!-- 주문 목록 -->
-<select id="orderList" parameterType="string" resultType="order_product">
-select 
-    OP.op_no as op_no,
-    OP.o_no as o_no,
-    OP.p_no as p_no, 
-    OP.op_type as op_type,
-    OP.op_qty as op_qty,
-    OP.op_price as op_price,
-    OP.op_status as op_status,
-    OP.op_deli_no as op_deli_no,
-    OP.m_email as m_email,
-    OT.o_date as o_date,
-    PI.p_img as p_img,
-    P.p_name as p_name,
-    OP.s_no as s_no
+<select id="orderList" parameterType="order_product" resultType="order_product">
+select * from (select a.*, rowNum rn from(
+	select
+		OP.op_no as op_no,
+	    OP.o_no as o_no,
+	    OP.p_no as p_no, 
+	    OP.op_type as op_type,
+	    OP.op_qty as op_qty,
+	    OP.op_price as op_price,
+	    OP.op_status as op_status,
+	    OP.op_deli_no as op_deli_no,
+	    OP.m_email as m_email,
+	    OT.o_date as o_date,
+	    PI.p_img as p_img,
+	    P.p_name as p_name,
+	    OP.s_no as s_no
+	
+	from order_product OP
+	    left join product P on OP.p_no = P.p_no
+	    left join order_tab OT on OP.o_no = OT.o_no
+	    left join product_img PI on OP.p_no = PI.p_no
+	    left join shop S on OP.s_no = S.s_no
+	
+	where OP.m_email = #{m_email}  
+	order by OT.o_date desc) a )
+	
+ where rn between #{startRow} and #{endRow}
 
-from order_product OP
-    left join product P on OP.p_no = P.p_no
-    left join order_tab OT on OP.o_no = OT.o_no
-    left join product_img PI on OP.p_no = PI.p_no
-    left join shop S on OP.s_no = S.s_no
-
-where OP.m_email = #{m_email} 
-order by OT.o_date desc
 </select>
+
+<!-- 회원 주문 개수 구하기 -->
+<select id="getTotal" parameterType="String" resultType="int">
+select count(*) from order_product where m_email = #{m_email}
+</select>
+
 
 <!-- 주문 상세 -->
 <select id="orderDetail" parameterType="int" resultType="order_product">
