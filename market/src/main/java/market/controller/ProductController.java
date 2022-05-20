@@ -200,6 +200,8 @@ public class ProductController {
 		model.addAttribute("search", product.getSearch());
 		model.addAttribute("keyword", product.getKeyword());
 		
+		model.addAttribute("status", product.getStatus());
+		
 		return "product/productList";
 	}
 	

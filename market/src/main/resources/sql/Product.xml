@@ -35,6 +35,9 @@
 			<if test="keyword != null and status == null">
 				${search} like '%'||#{keyword}||'%' and p_status='1'
 			</if>
+			<if test="keyword == null and status != null">
+				p_status=#{status}
+			</if>
 		</where>			
 			 order by p_no desc) a )
 			where rn between #{startRow} and #{endRow}
@@ -50,6 +53,9 @@
 			</if>
 			<if test="keyword != null and status == null">
 				${search} like '%'||#{keyword}||'%' and p_status='1'
+			</if>
+			<if test="keyword == null and status != null">
+				p_status=#{status}
 			</if>
 		</where>
 	</select>

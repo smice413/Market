@@ -23,12 +23,12 @@
 			<tr><td align=left>정렬 박스 들어갈 곳</td>
 				<td align=right>
 				<form action="${path}/productList.do?pageNum=1">
-					<select name="search">
-						<option value="p_status">판매중</option>
-						<option value="p_status">일시판매중지</option>
-						<option value="p_status">판매완료</option>
-						<option value="p_status">판매정지</option>
-						<option value="p_status">상품삭제</option>
+					<select id="status" name="status">
+						<option value="${path}/productList.do?pageNum=1&status='1'">판매중</option>
+						<option value="${path}/productList.do?pageNum=1&status='2'">일시판매중지</option>
+						<option value="${path}/productList.do?pageNum=1&status='3'">판매완료</option>
+						<option value="${path}/productList.do?pageNum=1&status='4'">판매정지</option>
+						<option value="${path}/productList.do?pageNum=1&status='5'">상품삭제</option>
 					</select> 
 				</form>
 				</td>
@@ -88,12 +88,12 @@
 			<tr><td align=left>정렬 박스 들어갈 곳</td>
 				<td align=right>
 				<form action="${path}/productList.do?pageNum=1">
-					<select name="search">
+					<select id="status" name="status">
 						<option value="p_status">판매중</option>
 						<option value="p_status">일시판매중지</option>
 						<option value="p_status">판매완료</option>
 						<option value="p_status">판매정지</option>
-						<option value="p_status">상품삭제</option>
+						<option value="${path}/productList.do?pageNum=2">상품삭제</option>
 					</select> 
 				</form>
 				</td>

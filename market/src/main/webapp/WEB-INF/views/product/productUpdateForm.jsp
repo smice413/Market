@@ -9,14 +9,26 @@
 <meta charset="UTF-8">
 <title>상품 수정</title>
 
-<script src="https://cdn.ckeditor.com/4.19.0/standard/ckeditor.js"/>
+<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 <script>
 $(function(){
 	
-	$("#sel1").hide();
-	$("input[name='p_group_price']").attr('value',0);
-	$("#sel3").hide();
-	$("input[name='p_follow_price']").attr('value',0);
+	var inputG = $("input[name='p_group_buying']:checked").val(); 
+	var inputF = $("input[name='p_follow_sale']:checked").val();
+	if(inputG == 'N'){
+		$("#sel1").hide();
+		$("#sel2").show();
+	}else{
+		$("#sel1").show();
+		$("#sel2").hide();
+	}
+	if(inputF == 'N'){
+		$("#sel3").hide();
+		$("#sel4").show();
+	}else{
+		$("#sel3").show();
+		$("#sel4").hide();
+	}
 	
 	$("input[name='p_group_buying']:radio").change(function(){
 		var c = this.value;
@@ -54,6 +66,7 @@ $(function(){
 		<h3 class="text-primary">상품 수정</h3>
 		<div class="vf-card">
 		<form action="${path}/productUpdate.do" method="post">
+			<input type="hidden" name="p_no" value="${product.p_no}">
 			<input type="hidden" name="s_no" value="${product.s_no}">
 
 			
@@ -73,7 +86,7 @@ $(function(){
 							>판매완료</option>
 							<option value="5"
 								<c:if test="${product.p_status == '5'}">selected</c:if>
-							>판매삭제</option>
+							>상품삭제</option>
 						</select> 
 						<c:if test="${product.p_status == '4'}">판매정지</c:if>
 					</td>
@@ -150,9 +163,9 @@ $(function(){
 				<tr>
 					<td>상세설명</td>
 					<td>
-						<textarea name="p_detail" required="required">${product.p_detail}</textarea>
+						<textarea rows="5" cols="30" name="p_detail" required="required">${product.p_detail}</textarea>
 	                      <script>
-	                              CKEDITOR.replace( 'p_detail' );
+	                      		CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
 	                      </script>
 					</td>
 				</tr>
@@ -160,7 +173,7 @@ $(function(){
 					<td colspan="2" align="center">
 						<input type="submit" value="수정" class="btn btn-success">
 						<input type="reset" value="취소" class="btn btn-outline-success"
-    						onclick="$('#cate_no').focus();" />
+    						onclick="$('#p_status').focus();" />
 					</td>
 				</tr>
 			</table>
