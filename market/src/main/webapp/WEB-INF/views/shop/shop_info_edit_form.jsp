@@ -47,10 +47,10 @@ function openDaumPostcode() {
 <div class="shopcontainer">
 		<form id="shop_info_edit" name="shop_info_edit" method="post"
 			action="shop_info_edit.do" enctype="multipart/form-data"
-			onSubmit="return Check()">
+			onSubmit="return edit()">
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" name="s_seckey" value="1111">
-			<input type="hidden" id="s_passwd" name="s_passwd" value="${shop.s_passwd}">
+			<input type="hidden" id="s_passwd" value="${shop.s_passwd}">
 			<table border="1">
 				<tr>
 					<td>email</td>
@@ -104,14 +104,14 @@ function openDaumPostcode() {
 					<td>
 						<!-- <input type="file" id="s_file" name="s_file1" > -->
 						<!-- <input  type="file" id="s_file" name="s_file1" class="form-control" onChange="readImage(this)" multiple="multiple"/> -->
-					    <input type="file" id="s_file" name="s_file1" value="${shop.s_file1}" class="form-control" onChange="readImage(this)"/>
+					    <input type="file" id="s_file" name="s_file1" value="${shop.s_file}" class="form-control" onChange="readImage(this)"/>
 			            <img style="width: 200px;" id="previewImage" src="#">
 			            
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" id="submit" value="상점정보수정"></td>
+					<input type="submit" id="submit" value="수정"></td>
 				</tr>
 
 			</table>

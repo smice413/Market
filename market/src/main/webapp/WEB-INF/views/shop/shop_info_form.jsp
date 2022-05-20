@@ -66,7 +66,7 @@
        					&nbsp;
        					</c:if> 
        					<c:if test="${!empty shop.s_file}">
-						<img src="${path}/upload/${shop.s_file}" height="100" width="100" />
+						<img src="${path}/upload/shop/${shop.s_file}" height="100" width="100" />
 						</c:if> 
 					</td>
 				</tr>

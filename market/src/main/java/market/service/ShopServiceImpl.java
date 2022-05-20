@@ -18,4 +18,14 @@ public class ShopServiceImpl {
 	public ShopDTO userCheck(String s_email)throws Exception {
 		return shopDAO.userCheck(s_email);
 	}
+	// email중복 검사
+	public int shop_emailcheck(String s_email)throws Exception {
+		return shopDAO.shop_emailcheck(s_email);
+	}
+	
+	// 상점 정보 수정
+	public int shop_info_edit(ShopDTO shop)throws Exception {
+		return shopDAO.shop_info_edit(shop);
+	}
+	
 }

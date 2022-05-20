@@ -12,7 +12,12 @@
 	<select id="shop_select" parameterType="String" resultType="shop">
 		select * from shop where s_email= #{s_email}
 	</select>
-	
+	<update id="shop_update" parameterType="shop">
+		update shop set s_name=#{s_name}, s_ceo=#{s_ceo}, 
+		s_bizno=#{s_bizno}, s_tongsin=#{s_tongsin}, s_file=#{s_file,jdbcType=VARCHAR},
+		s_address=#{s_address}, s_tel=#{s_tel}, s_bank=#{s_bank}, s_account=#{s_account}, s_post=#{s_post}
+		where s_email=#{s_email}
+	</update>
 	
 	
 	

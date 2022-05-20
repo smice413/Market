@@ -32,16 +32,16 @@ public class ShopController {
 	public String shop_join_form() {
 		return "shop/shop_join_form";
 	}
-//	// ID중복검사 ajax함수로 처리부분
-//		@RequestMapping(value = "shop_checkemail.do", method = RequestMethod.POST)
-//		public String shop_checkemail(@RequestParam("memid") String s_email, Model model) throws Exception {
-//			System.out.println("s_email:"+s_email);
-//			
-//			int result = shopService.shop_checkemail(s_email);
-//			model.addAttribute("result", result);
-//
-//			return "";
-//		}
+	// email중복검사 ajax함수로 처리부분
+	@RequestMapping(value = "shop_emailcheck.do", method = RequestMethod.POST)
+	public String shop_checkemail(@RequestParam("email") String s_email, Model model) throws Exception {
+	System.out.println("s_email:"+s_email);
+			
+	int result = shopService.shop_emailcheck(s_email);
+	model.addAttribute("result", result);
+
+	return "shop/emailCheckResult";
+	}
 	// 회원가입 저장
 	@RequestMapping(value = "shop_join.do", method = RequestMethod.POST )
 	public String shop_join(@RequestParam("s_file1") MultipartFile mf, 
@@ -55,7 +55,7 @@ public class ShopController {
 		String filename = mf.getOriginalFilename();
 		int size = (int) mf.getSize();// 첨부파일 크기
 		
-		String path = request.getRealPath("upload");
+		String path = request.getRealPath("upload/shop");
 		System.out.println("mf=" + mf);
 		System.out.println("filename=" + filename); // filename="Koala.jpg"
 		System.out.println("size=" + size);
@@ -177,11 +177,80 @@ public class ShopController {
 		@RequestMapping(value ="shop_info_edit.do", method = RequestMethod.POST)
 		public String shop_info_edit(@RequestParam("s_file1") MultipartFile mf, 
 									 ShopDTO shop,
+									 HttpSession session,
 									 HttpServletRequest request,
 									 Model model)throws Exception {
+		
+			System.out.println("ShopDTO:"+ shop);
+			System.out.println("mf:"+ mf);
 			
 			
-			return "";
+			String filename = mf.getOriginalFilename();
+			int size = (int) mf.getSize();// 첨부파일 크기
+			
+			String path = request.getRealPath("upload/shop");
+			System.out.println("mf=" + mf);
+			System.out.println("filename=" + filename); // filename="Koala.jpg"
+			System.out.println("size=" + size);
+			System.out.println("Path=" + path);
+			int result=0;
+			
+			String file[] = new String[2];
+			String newfilename="";
+			
+			if(filename != "") { //첨부파일이 전송된 경우
+				
+				// 파일 중복문제 해결
+				String extension = filename.substring(filename.lastIndexOf("."), filename.length());
+				System.out.println("extension:"+ extension);
+				
+				UUID uuid = UUID.randomUUID();
+				
+				newfilename = uuid.toString()+extension;
+				System.out.println("newfilename:"+ newfilename);
+				
+				StringTokenizer st = new StringTokenizer(filename, ".");
+				file[0] = st.nextToken(); //파일명
+				file[1] = st.nextToken(); //확장자 jpg
+				
+				if(size > 10000000) { //10MB
+					result=1;
+					model.addAttribute("result", result);
+					
+					return "shop/uploadResult";
+				}else if(!file[1].equals("jpg") &&
+						 !file[1].equals("gif") &&
+						 !file[1].equals("png") ){
+					
+					result=2;
+					model.addAttribute("result", result);
+					
+					return "shop/uploadResult";
+				}
+			}
+				
+				if(size > 0) { //첨부파일이 전송된 경우
+					mf.transferTo(new File(path + "/" + newfilename));
+				}	
+			
+		    String s_email = (String) session.getAttribute("s_email");	
+			
+		    ShopDTO no_editfile = shopService.userCheck(s_email);
+			
+		    if(size>0) {	//첨부 파일이 수정됨
+		    	shop.setS_file(newfilename);
+		    }else {			//첨부 파일이 수정되지 않으면 다시 넣어줌
+		    	shop.setS_file(no_editfile.getS_file());
+		    }
+		    
+		    shop.setS_email(s_email);
+		    
+		    int result1;
+		    result1 =shopService.shop_info_edit(shop);
+		    
+		    model.addAttribute("result1", result1);
+		    
+			return "redirect:shop_info.do";
 		}
 	
 }

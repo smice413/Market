@@ -68,8 +68,8 @@ function readImage(n){
 				<tr>
 					<td>email</td>
 					<td>
-					<input type="text" id="s_email" name="s_email">
-					<input type="button" value="email 중복체크" class="input_button"
+					<input type="text" id="s_email" name="s_email" onClick="button()">
+					<input type="button" id="emailck" value="email중복체크" class="input_button"
       				onclick="email_check()" />
       				<div id="emailcheck"></div>
 					</td>
@@ -130,8 +130,8 @@ function readImage(n){
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center"><input type="submit"
-						id="submit" value="상점신청"></td>
+					<td colspan="2" align="center">
+					<input type="submit" id="submit" value="상점신청" disabled="disabled"></td>
 				</tr>
 
 			</table>
