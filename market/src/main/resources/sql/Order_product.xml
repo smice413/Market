@@ -97,6 +97,7 @@ from order_product OP
     left join shop S on OP.s_no = S.s_no
 
 where OP.o_no = #{o_no}
+order by OP.op_no asc
 </select>
 
 <!-- 주문 취소 -->
