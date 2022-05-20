@@ -43,7 +43,7 @@
 					<tr>
 						<td style="padding:8px">
 							<a href="${path }/productView.do?p_no=${p.p_no}">
-							<img src="${path}/images/${p.p_img}" width=210px height=210px></a></td>
+							<img src="${path}/upload/product/${p.p_img}" width=210px height=210px></a></td>
 					</tr>
 					<tr>
 						<td style="padding:0 8 8 8">[${p.s_name}]<br>
