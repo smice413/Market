@@ -101,12 +101,17 @@
 		</where>
 		group by cate_small
 	</select>
-	
+	<select id="getMaxNum" resultType="int">
+		select nvl(max(p_no),0) from product
+	</select>
 	
 	<insert id="insert" parameterType="product">
 		insert into product values (product_seq.nextval,#{cate_no},#{s_no},
 			#{p_group_buying},#{p_follow_sale},#{p_name},#{p_detail},#{p_group_price},
 			#{p_sell_price},#{p_follow_price},#{p_stock},sysdate,'1',0)
+	</insert>
+	<insert id="insertImg" parameterType="product_img">
+		insert into product_img values (product_img_seq.nextval,#{p_no},#{p_img},#{p_img_order})
 	</insert>
 	<update id="selectUpdate" parameterType="int">
 		update product set p_hit = p_hit+1 where p_no=#{p_no}

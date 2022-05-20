@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
+import market.model.Product_imgDTO;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -25,7 +26,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public int insert(ProductDTO product) {
 		return sst.insert("productns.insert", product);
 	}
-	
+
 	public ProductDTO select(int p_no) {
 		return sst.selectOne("productns.select", p_no);
 	}
@@ -41,6 +42,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public int delete(int p_no) {
 		return sst.update("productns.delete", p_no);
 	}
+
+	public int getMaxNum() {
+		return sst.selectOne("productns.getMaxNum");
+	}
 	
 	public List<CategoryDTO> listCategory(ProductDTO product) {
 		return sst.selectList("productns.listCategory", product);
@@ -50,4 +55,7 @@ public class ProductDAOImpl implements ProductDAO {
 		return sst.selectList("productns.listCateNo");
 	}
 
+	public int insertImg(Product_imgDTO product_img) {
+		return sst.insert("productns.insertImg", product_img);
+	}	
 }

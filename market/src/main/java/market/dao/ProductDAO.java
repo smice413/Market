@@ -4,6 +4,7 @@ import java.util.List;
 
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
+import market.model.Product_imgDTO;
 
 public interface ProductDAO {
 	
@@ -21,8 +22,11 @@ public interface ProductDAO {
 	
 	int delete(int p_no);
 
+	int getMaxNum();
 	
 	List<CategoryDTO> listCategory(ProductDTO product);
 	
 	List<CategoryDTO> listCateNo();
+	
+	int insertImg(Product_imgDTO product_img);
 }

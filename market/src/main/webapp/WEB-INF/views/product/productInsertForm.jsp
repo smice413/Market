@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <%@ include file="../common/viewConfiguration.jsp"%>
 
 <!DOCTYPE html>
@@ -10,6 +9,7 @@
 <title>상품 등록</title>
 <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 <%-- <script src="${path }/ckeditor/ckeditor.js"></script>  --%>
+<script type="text/javascript" src="${path }/js/upload.js"></script>
 <script>
 $(function(){
 	
@@ -39,10 +39,13 @@ $(function(){
 			$("#sel4").hide();
 		}
 	});
-	
 });
 
 </script>
+<style>
+  .thumb{display: none;}
+  .dellink{display: none;}
+</style>
 
 </head>
 <body>
@@ -53,19 +56,20 @@ $(function(){
 	
 		<h3 class="text-primary">상품 등록</h3>
 		<div class="vf-card">
-		<form action="${path}/productInsert.do" method="post">
+		<form action="${path}/productInsert.do" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="s_no" value="3"> 
 <!--  		<input type="hidden" name="s_no" value="${s_no}"> -->
-<!-- 아래 입력창 만들 때까지 임의의 값 부여 -->
- 			<!-- <input type="hidden" name="cate_no" value="22">  -->
-			<!-- <input type="hidden" name="p_group_buying" value="Y">  -->
-			<!-- <input type="hidden" name="p_group_price" value=0>  -->
-			<!-- <input type="hidden" name="p_follow_sale" value="Y"> --> 
-			<!-- <input type="hidden" name="p_follow_price" value=0> -->
-			
+
 			<table class="table">
 				<tr>
-					<td width=130px>카테고리코드</td>
+					<td width=130px>상품이미지</td>
+					<td>
+				      <input type="file" class="btn" id="product_img" name="product_img" 
+				      accept="image/*" multiple /> 
+					</td>
+				</tr>
+				<tr>
+					<td>카테고리코드</td>
 					<td>
 						<select id="cate_no" name="cate_no" style="width:180px; height:30px">
 							<c:forEach var="c" items="${listCateNo}">

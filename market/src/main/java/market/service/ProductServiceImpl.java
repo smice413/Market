@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import market.dao.ProductDAO;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
+import market.model.Product_imgDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -42,12 +43,19 @@ public class ProductServiceImpl implements ProductService {
 		return pd.delete(p_no);
 	}
 
-
+	public int getMaxNum() {
+		return pd.getMaxNum();
+	}
+	
 	public List<CategoryDTO> listCategory(ProductDTO product) {
 		return pd.listCategory(product);
 	}
 	
 	public List<CategoryDTO> listCateNo(){
 		return pd.listCateNo();
+	}
+
+	public int insertImg(Product_imgDTO product_img) {
+		return pd.insertImg(product_img);
 	}
 }

@@ -5,7 +5,16 @@ public class Product_imgDTO {
 	private int p_img_no;
 	private int p_no;
 	private String p_img;
+	private int p_img_order;
 	
+	
+	
+	public int getP_img_order() {
+		return p_img_order;
+	}
+	public void setP_img_order(int p_img_order) {
+		this.p_img_order = p_img_order;
+	}
 	public int getP_img_no() {
 		return p_img_no;
 	}

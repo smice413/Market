@@ -46,7 +46,7 @@ public class CkeditorFileUploadController {
 						String ext = FilenameUtils.getExtension(fileName);
 
 						byte[] bytes = file.getBytes();
-						String uploadPath = req.getSession().getServletContext().getRealPath("/upload");
+						String uploadPath = req.getSession().getServletContext().getRealPath("/upload/ckeditor");
 						System.out.println(uploadPath);
 						File uploadFile = new File(uploadPath);
 						if(!uploadFile.exists()){
@@ -63,7 +63,7 @@ public class CkeditorFileUploadController {
 
 						printWriter = resp.getWriter();
 						resp.setContentType("text/html");
-						String fileUrl = req.getContextPath() + "/upload/" + fileName;
+						String fileUrl = req.getContextPath() + "/upload/ckeditor/" + fileName;
 
 						// json 데이터로 등록
 						// {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
