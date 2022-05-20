@@ -16,8 +16,8 @@
 
  	<!-- 장바구니 목록 -->
 	<select id="list" parameterType="String" resultType="cart">
-		select c.*, p.*,s.s_name from cart c, product p, shop s where c.p_no=p.p_no 
-		and p.s_no=s.s_no and m_email = #{m_email}
+		select c.*, p.*,s.s_name,pi.p_img from cart c, product p, shop s, product_img pi where c.p_no=p.p_no 
+		and p.s_no=s.s_no and p.p_no=pi.p_no and m_email = #{m_email} and p_img_order=1
 	</select>
 	
 	<!-- 상품 수량 수정 -->

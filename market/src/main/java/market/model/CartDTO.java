@@ -28,6 +28,9 @@ public class CartDTO {
 	// shop
 	private String s_name;
 	
+	//product_img
+	private String p_img;
+	
 	// 새로 만든  파라미터
 	private int total_price;
 	
@@ -156,6 +159,12 @@ public class CartDTO {
 	
 	public void totalPrice() {
 		this.total_price = this.p_sell_price*this.cart_qty;
+	}
+	public String getP_img() {
+		return p_img;
+	}
+	public void setP_img(String p_img) {
+		this.p_img = p_img;
 	}
 	
 }

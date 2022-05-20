@@ -68,7 +68,7 @@
 								<input type="hidden" class="totalPrice_input" value="${cl.p_sell_price * cl.cart_qty}">
 								<input type="hidden" class="p_no_input" value="${cl.p_no}">
 							</td>
-							<td><img alt="" src=""></td>
+							<td><img src="${path}/images/${cl.p_img}"></td>
 							<td>${cl.p_name} <br>
 								<div style="font-size:13px;">
 									<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_sell_price}"/>&nbsp;원</label>
