@@ -22,7 +22,6 @@ public class OrderDAOImpl implements OrderDAO{
 
 	@Override
 	public DeliveryDTO getDeliveryInfo(String m_email) {
-		System.out.println("OrderDAOImpl");
 		return sst.selectOne("orderpagens.getDeliveryInfo", m_email);
 	}
 
@@ -40,5 +39,25 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public int deliveryInsertN(DeliveryDTO delivery) {
 		return sst.insert("orderpagens.deliveryInsertN", delivery);
+	}
+
+	@Override
+	public List<DeliveryDTO> getDeliveryList(String m_email) {
+		return sst.selectList("orderpagens.getDeliveryList", m_email);
+	}
+
+	@Override
+	public int UpdateDefaultN(String m_email) {
+		return sst.update("orderpagens.UpdateDefaultN", m_email);
+	}
+
+	@Override
+	public int UpdateDefaultY(int d_no) {
+		return sst.update("orderpagens.UpdateDefaultY", d_no);
+	}
+
+	@Override
+	public int addressUpdate(DeliveryDTO delivery) {
+		return sst.update("orderpagens.addressUpdate", delivery);
 	}
 }

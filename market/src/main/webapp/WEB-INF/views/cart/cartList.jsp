@@ -24,7 +24,7 @@
 
    <div class="container">
 		<div class="row qnas" style="text-align: center;">
-			<h3 class="page-header">장바구니</h3>
+			<h2 class="page-header"><label>장바구니</label></h2>
 			
 			<!-- 장바구니에 등록된 상품이 없는 경우  -->
 			<c:if test="${empty cartList}">
@@ -32,8 +32,8 @@
                      <img src="${path }/images/icon_cart.png" style="width:60px; height:60px; margin-bottom:20px;"> <br> 
 					 <label style="font-size:20px;" > 
 					 	장바구니에 담긴 상품이 없습니다.</label><br>
-				                 원하는 상품을 장바구니에 담아보세요!
-				     	<button class="btn btn-success" style="margin-top:20px;margin-bottom: 50px;">쇼핑 계속하기</button>  					
+				                 원하는 상품을 장바구니에 담아보세요!<br>
+				     	<button class="shoping_btn btn btn-success" style="margin-top:20px;margin-bottom: 50px;">쇼핑 계속하기</button>  					
 				</div>         
 			    
  			</c:if>
@@ -97,15 +97,14 @@
 				</tbody>
 			</table>
 			
-			<div class="totalPrice_div" style="text-align: center; margin: 70px 0; font-size:18px;">
+			<div class="totalPrice_div" style="text-align: right;font-size:25px; margin-top:20px;">
 				<strong>총 결제 예상 금액 :</strong> <span class="totalPricce_span"></span> 원 
 			</div>
 			
 		
-		<div class="row" style="text-align: center; margin: 70px 0;">
+		<div class="row" style="text-align:center; margin-bottom:70px; margin-top:30px;">
 			<button class="btn btn-success order_btn">주문하기</button>
-			<button class="btn btn-success">쇼핑 계속하기</button>
-			<button class="btn btn-success">장바구니 비우기</button>
+			<button class="btn btn-success shoping_btn">쇼핑 계속하기</button>
 		</div>
 		</c:if>
       </div>
@@ -130,6 +129,11 @@
     </form>
 
 <script>
+
+	// 쇼핑계속하기 버튼
+	$(".shoping_btn").on("click", function(){
+		history.go(-1);
+	});
 
 	// 상품 수량 버튼
 	$(".plus_btn").on("click", function(){
@@ -228,6 +232,8 @@
 		$(".order_form").submit();
 		
 	});
+	
+	
 	
 </script>
 

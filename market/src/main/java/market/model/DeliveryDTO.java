@@ -8,12 +8,10 @@ public class DeliveryDTO {
 	private String d_tel;
 	private String d_cate;
 	private String d_post;
-	private String d_address;
-	private String d_default;
+	private String d_address;  
+	private String d_detail_address;
 	
-	// 뷰에서 넘어오는 파라미터
-	private String addr1;  // 주소
-	private String addr2;  // 상세 주소
+	private String d_default;
 	
 	public int getD_no() {
 		return d_no;
@@ -63,21 +61,12 @@ public class DeliveryDTO {
 	public void setD_default(String d_default) {
 		this.d_default = d_default;
 	}
-	public String getAddr1() {
-		return addr1;
+	public String getD_detail_address() {
+		return d_detail_address;
 	}
-	public void setAddr1(String addr1) {
-		this.addr1 = addr1;
+	public void setD_detail_address(String d_detail_address) {
+		this.d_detail_address = d_detail_address;
 	}
-	public String getAddr2() {
-		return addr2;
-	}
-	public void setAddr2(String addr2) {
-		this.addr2 = addr2;
-	}
-	
-	public void d_address() {
-		this.d_address = this.addr1+" "+this.addr2;
-	}
+
 }
 

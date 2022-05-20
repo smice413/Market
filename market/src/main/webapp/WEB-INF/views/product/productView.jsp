@@ -96,7 +96,7 @@
 							<b>${product.p_follow_price}원<b><br>팔로워 구매하기</a>
 						<a href="#" class="btn btn-danger">
 							<b>${product.p_group_price}원<b><br>공동구매하기</a>
-						<a href="#" class="btn btn-outline-success" >
+						<a class="cart_btn btn btn-outline-success" >
                             <b>장바구니<br>담기<b></a>
 					</td>
 				</tr>

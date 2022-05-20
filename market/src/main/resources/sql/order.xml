@@ -16,12 +16,34 @@
 	<!-- 배송지 첫 등록 -->
 	<insert id="deliveryInsertY" parameterType="delivery">
 		insert into delivery values(delivery_seq.nextval,#{m_email},#{d_name},#{d_tel},
-		#{d_cate},#{d_post},#{d_address},'Y')
+		#{d_cate},#{d_post},#{d_address},'Y',#{d_detail_address})
 	</insert>
 	
 	<!-- 배송지 등록 -->
 	<insert id="deliveryInsertN" parameterType="delivery">
 		insert into delivery values(delivery_seq.nextval,#{m_email},#{d_name},#{d_tel},
-		#{d_cate},#{d_post},#{d_address},'N')
+		#{d_cate},#{d_post},#{d_address},'N',#{d_detail_address})
 	</insert>
+	
+	<!-- 배송지 목록 조회 -->
+	<select id="getDeliveryList" parameterType="String" resultType="delivery"> 
+		select * from delivery where m_email=#{m_email}
+	</select>
+	
+	<!-- 기본 배송지 d_default값 변경 -->
+	<!-- Y -> N -->
+	<update id="UpdateDefaultN" parameterType="String">
+		update delivery set d_default = 'N' where m_email=#{m_email} and d_default='Y'
+	</update>
+	<!-- N -> Y -->	
+	<update id="UpdateDefaultY" parameterType="int">
+		update delivery set d_default = 'Y' where d_no = #{d_no}
+	</update>
+	
+	<!-- 기본 배송지 수정  -->
+	<update id="addressUpdate" parameterType="String">
+		update delivery set d_name=#{d_name},d_tel=#{d_tel},d_cate=#{d_cate},d_post=#{d_post},
+		d_address=#{d_address},d_detail_address=#{d_detail_address} where d_no=#{d_no}
+	</update>
+	
 </mapper>

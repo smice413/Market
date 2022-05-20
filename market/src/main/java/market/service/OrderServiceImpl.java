@@ -41,5 +41,26 @@ public class OrderServiceImpl implements OrdereService{
 		return od.deliveryInsertN(delivery);
 	}
 
+	@Override
+	public List<DeliveryDTO> getDeliveryList(String m_email) {
+		return od.getDeliveryList(m_email);
+	}
+
+	@Override
+	public int UpdateDefaultN(String m_email) {
+		return od.UpdateDefaultN(m_email);
+	}
+
+	@Override
+	public int UpdateDefaultY(int d_no) {
+		return od.UpdateDefaultY(d_no);
+	}
+
+	@Override
+	public int addressUpdate(DeliveryDTO delivery) {
+		return od.addressUpdate(delivery);
+	}
+
+
 	
 }

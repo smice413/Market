@@ -17,7 +17,7 @@
 	</c:if>
 	<c:if test="${result <= 0 }">
 		<script type="text/javascript">
-			alert("배송지 등록에 실패했습니다.");
+			alert("배송지 등록에 실패하였습니다.");
 			history.go(-1);
 		</script>
 	</c:if>

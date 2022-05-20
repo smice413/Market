@@ -11,4 +11,8 @@ public interface OrderDAO {
 	int getAddressCount(String m_email);
 	int deliveryInsertY(DeliveryDTO delivery);
 	int deliveryInsertN(DeliveryDTO delivery);
+	List<DeliveryDTO> getDeliveryList(String m_email);
+	int UpdateDefaultN(String m_email);
+	int UpdateDefaultY(int d_no);
+	int addressUpdate(DeliveryDTO delivery);
 }
