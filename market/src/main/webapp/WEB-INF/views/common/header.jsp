@@ -15,10 +15,13 @@
 					<a href="${path }/loginForm.do">로그인</a> |
 				</c:if>
 			
-				<c:if test="${sessionScope.id == 'admin'}">
+				<%-- <c:if test="${sessionScope.id == 'admin'}">
 					<a href="${path }/view.do?num=1&pageNum=1">관리자페이지</a> | 
-				</c:if>
-					
+				</c:if>--%>
+				
+					<a href="${path }/memberList.do">관리자페이지</a> | 
+				
+				 	
 					
 	<!-- 세션이 있는 경우 --> 
 				<c:if test="${!empty sessionScope.m_email }">

@@ -1,5 +1,7 @@
 package market.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,7 +44,10 @@ public class ShopDAOImpl {
   public void shop_del(ShopDTO dels)throws Exception {
 	  sqlsession.update("shopns.shop_del",dels);
 	}
-
-
+  
+  //관리자 shoplist 입점 신청 내역
+  public List<ShopDTO> shoplist()throws Exception{
+		return sqlsession.selectList("shopns.shoplist");
+	}
   
 }

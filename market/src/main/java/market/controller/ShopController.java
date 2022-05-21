@@ -2,6 +2,7 @@ package market.controller;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
@@ -323,5 +324,29 @@ public class ShopController {
 
 				return "redirect:shop_login_form.do";
 			}
-	 } 
+	    } 
+	//관리자 shoplist 입점 신청 내역
+	 @RequestMapping("shoplist.do")
+	 public String shoplist(Model model)throws Exception {
+		
+		 List<ShopDTO> shoplist = shopService.shoplist();
+		 
+		 model.addAttribute("shoplist", shoplist);
+		 
+		 return "admin_page/shoplist";
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 }

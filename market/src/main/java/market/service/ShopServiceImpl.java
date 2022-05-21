@@ -1,5 +1,7 @@
 package market.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,11 @@ public class ShopServiceImpl {
 	// 폐점으로 바꾸기
 	public void shop_del(ShopDTO dels)throws Exception {
 		shopDAO.shop_del(dels);
+	}
+	
+	//관리자 shoplist 입점 신청 내역
+	public List<ShopDTO> shoplist()throws Exception{
+		return shopDAO.shoplist();
 	}
 	
 }

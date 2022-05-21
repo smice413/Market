@@ -3,7 +3,7 @@
 <!-- navigator 영역 -->
 	<div class="vf_sub_menu">
 		<div><a href="#">회원관리</a></div>
-		<div><a href="#">입점신청내역</a></div>
+		<div><a href="${path}/shoplist.do">입점신청내역</a></div>
 		<div><a href="#">상점관리</a></div>
 		<div><a href="#">정산신청내역</a></div>
 		<div><a href="#">상품관리</a></div>
