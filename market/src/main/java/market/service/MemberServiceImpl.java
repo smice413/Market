@@ -1,5 +1,7 @@
 package market.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -48,6 +50,8 @@ public class MemberServiceImpl {
 	
 	public int deleteMember(MemberDTO member)throws Exception{
 		return md.deleteMember(member);
-		
+	}
+	public List<MemberDTO> memberList()throws Exception{
+		return md.memberList();
 	}
 }

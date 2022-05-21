@@ -34,6 +34,10 @@
   select * from member where m_email = #{m_email}
    </select>
   
+  <!-- 회원리스트 가져오기  -->
+  <select id="memberList" resultType="member">
+  select * from member
+  </select>
   <!-- 회원삭제 -->
    <update id="deleteMember" parameterType="member">
   	update member set m_delstatus='Y', m_deldate = sysdate where m_email = #{m_email} and m_passwd = #{m_passwd} and m_del_why=#{m_del_why}

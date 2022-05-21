@@ -1,6 +1,7 @@
 package market.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -224,10 +225,23 @@ public class MemberController {
 			model.addAttribute("result", result);
 			model.addAttribute("passwdSearch", "등록된 email을 확인 하세요:-)");
 			return "member/loginForm";
-
 		}
+		}
+//회원리스트 
+	 @RequestMapping(value ="/memberList.do")
+	 public String memberList(Model model)throws Exception {
 
-	}
+		 List<MemberDTO> memberList = ms.memberList();
+		 
+		 model.addAttribute("memberList",memberList);
+		 return "admin_page/memberList";
+	 }
+	
+	 
+	 
+	 
+	 
+
 //아이디(이메일찾기)폼
 	//비번찾기 폼
 		@RequestMapping(value = "/emailSearchForm.do")

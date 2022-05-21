@@ -13,7 +13,21 @@ public class MemberDTO {
 	private String m_delstatus;
 	private String m_tel;
 	private String m_del_why;
+	private Date m_birthday;
+	private String m_sex;
+	public Date getM_birthday() {
+		return m_birthday;
+	}
 	
+	public void setM_birthday(Date m_birthday) {
+		this.m_birthday = m_birthday;
+	}
+	public String getM_sex() {
+		return m_sex;
+	}
+	public void setM_sex(String m_sex) {
+		this.m_sex = m_sex;
+	}
 	public String getM_email() {
 		return m_email;
 	}

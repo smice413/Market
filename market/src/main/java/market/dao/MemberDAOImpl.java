@@ -66,4 +66,8 @@ public class MemberDAOImpl {
 	public int deleteMember(MemberDTO member)throws Exception{
 		return sqlSession.update("memberns.deleteMember", member);
 	}
+	//회원목록출력
+	public List<MemberDTO> memberList()throws Exception{
+		return sqlSession.selectList("memberns.memberList");
+	}
 }
