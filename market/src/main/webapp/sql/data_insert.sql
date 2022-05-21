@@ -15,8 +15,9 @@ select * from product;
 select * from product_img;
 select * from qna_board;
 select * from restock;
+select * from shop;
 
-insert into product_img values(product_img_seq.nextval,38,'product3.PNG',1);
+insert into product_img values(product_img_seq.nextval,52,'product42.PNG',1);
 
 insert into category values(category_seq.nextval,'채소','친환경');
 

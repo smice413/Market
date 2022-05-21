@@ -65,7 +65,7 @@ $(function(){
 					<td width=130px>상품이미지</td>
 					<td>
 				      <input type="file" class="btn" id="product_img" name="product_img" 
-				      accept="image/*" multiple /> 
+				      accept="image/*,video/*" multiple /> 
 					</td>
 				</tr>
 				<tr>

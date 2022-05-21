@@ -87,7 +87,7 @@ public class ProductController {
 
 		// 등록한 이미지가 있으면
 		List<MultipartFile> fileList = mRequest.getFiles("product_img");
-//		if(fileList.size() > 0 && !fileList.get(0).getOriginalFilename().equals("")) {
+		if(fileList.size() > 0 && !fileList.get(0).getOriginalFilename().equals("")) {
 			int i=1;
 			// 이미지DTO에 상품번호 등록
 			product_img.setP_no(number);
@@ -132,7 +132,7 @@ public class ProductController {
 	        	product_img.setP_img_order(i++);
 	    		ps.insertImg(product_img);
 	       	}
-//        }
+        }
 
 		model.addAttribute("result", result);
 
@@ -196,10 +196,11 @@ public class ProductController {
 		model.addAttribute("list", list);
 		model.addAttribute("no", no);
 		model.addAttribute("pp", pp);
+		
 		// 검색
 		model.addAttribute("search", product.getSearch());
 		model.addAttribute("keyword", product.getKeyword());
-		
+		model.addAttribute("orderCond", product.getOrderCond());
 		model.addAttribute("status", product.getStatus());
 		
 		return "product/productList";
@@ -207,6 +208,7 @@ public class ProductController {
 	
 	@RequestMapping("productSearchList.do")	// 전체 목록, 검색 목록
 	public String productSearchList(String pageNum, ProductDTO product, Model model) {
+		
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
@@ -221,15 +223,17 @@ public class ProductController {
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);
-		int no = total - startRow + 1;		// 화면 출력 번호
+		
 		List<ProductDTO> list = ps.list(product);
 		
+		//상품목록
 		model.addAttribute("list", list);
-		model.addAttribute("no", no);
+		//페이징
 		model.addAttribute("pp", pp);
 		// 검색
 		model.addAttribute("search", product.getSearch());
 		model.addAttribute("keyword", product.getKeyword());
+		//정렬
 		model.addAttribute("orderCond", product.getOrderCond());
 		
 		return "product/productSearchList";
@@ -237,10 +241,8 @@ public class ProductController {
 	
 	@RequestMapping("productCategoryList.do")	// 전체 목록, 검색 목록
 	public String producCategoryList(String pageNum, ProductDTO product, Model model) {
-//		System.out.println(product.getP_no());
-//		List<ProductImgDTO> listImg = ps.listImg(product.getP_no());
 		
-		final int rowPerPage = 5;	// 화면에 출력할 데이터 갯수
+		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
 		}
@@ -254,21 +256,26 @@ public class ProductController {
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);
-		int no = total - startRow + 1;		// 화면 출력 번호
+
 		List<ProductDTO> list = ps.list(product);
 		List<CategoryDTO> listCategory = ps.listCategory(product);
 		
-		model.addAttribute("list", list);
+		//카테고리목록
 		model.addAttribute("listCategory", listCategory);
-		model.addAttribute("no", no);
+		//상품목록
+		model.addAttribute("list", list);
+		//페이징
 		model.addAttribute("pp", pp);
 		// 검색
 		model.addAttribute("search", product.getSearch());
 		model.addAttribute("keyword", product.getKeyword());
+		//정렬
+		model.addAttribute("orderCond", product.getOrderCond());
 		
 		return "product/productCategoryList";
 	}
-	
+
+
 	@RequestMapping("productDelete.do")
 	public String productDelete(int p_no, String pageNum, Model model) {
 		

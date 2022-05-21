@@ -13,21 +13,36 @@
 <%@ include file="../common/header.jsp"%>
 
 <div class="container" align="center">
-	<c:if test="${not empty keyword}">
-		<h3 class="text-primary">검색조건 : ${keyword }</h3>
-	</c:if>	
+	<div  class="container" style="width:100%;  border-radius: 10px; border-style: dotted; border-width: 2px;">
+		<c:if test="${empty keyword}">
+			<h5 class="text-primary"><b>과채마켓의 <font color=red>모든 상품</font>이 검색되었습니다.<b></h5>
+		</c:if>
+		
+		<c:if test="${(not empty keyword) and (search eq 'p_name')}">
+			<h5 class="text-primary"><b>상품명에 (<font color=red>${keyword }</font>)(이)가  포함된 상품입니다.<b></h5>
+		</c:if>
+		<c:if test="${search eq 's_name'}">
+			<h5 class="text-primary"><b>[ <font color=red>${keyword }</font> ] 상점의  모든 상품이 검색되었습니다.<b></h5>
+		</c:if>	
+	</div>
 	<c:if test="${empty list}">
 		<table class="table table-hover">
 			<tr>
-				<td colspan="8" align=center><br>검색하신 조건에 해당되는 상품이 없습니다</td>
+				<td align=center><br><br><br>검색조건에 해당하는 <font color=red>
+				<c:if test="${orderCond == 'p_group_price_ASC'}">공동구매특가</c:if>
+				<c:if test="${orderCond == 'p_follow_price_ASC'}">팔로워특가</c:if>
+				</font> 상품이 없습니다<br><br><br><br><br></td>
 			</tr>
 		</table>
 	</c:if>
 	<c:if test="${not empty list}"> 
-	<table width=95% style="font-size:12px">
+	<table width=100% style="font-size:13px">
 		<tr>
-			<td>검색된 상품개수 : ${pp.total}</td>
-			<td align=right><a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_regdate_DESC">최신순</a> | 
+			<td style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}</td>
+			<td  style="padding:5 10 0 0;" align=right>
+				<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC" style="color:red">공동구매특가</a> | 
+				<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_follow_price_ASC" style="color:blue">팔로워특가</a> | 
+				<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_regdate_DESC">최신순</a> | 
 				<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_hit_DESC">조회순</a> | 
 				<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_ASC">낮은가격순</a> | 
 				<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_DESC">높은가격순</a> | 
@@ -46,11 +61,17 @@
 							<img src="${path}/upload/product/${p.p_img}" width=210px height=210px></a></td>
 					</tr>
 					<tr>
-						<td style="padding:0 8 8 8">[${p.s_name}]<br>
-						<b>${p.p_name}</b><br>
-						일반구매가 : ${p.p_sell_price}원<br>
-						<font color=red>공동구매가 : ${p.p_group_price}원</font><br>
-						<font color=blue>팔로워특가 : ${p.p_follow_price}원</font></td>
+						<td style="padding:0 9 9 9" valign=top height=90px>
+							<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${p.s_name}">[${p.s_name}]</a><br>
+							<b>${p.p_name}</b><br>
+							일반구매가 : ${p.p_sell_price}원<br>
+							<c:if test="${p.p_group_buying == 'Y'}">
+								<font color=red>공동구매가 : ${p.p_group_price}원</font><br>
+							</c:if>
+							<c:if test="${p.p_follow_sale == 'Y'}">
+								<font color=blue>팔로워특가 : ${p.p_follow_price}원</font>
+							</c:if>
+						</td>
 					</tr>
 				</table>
 			</div>

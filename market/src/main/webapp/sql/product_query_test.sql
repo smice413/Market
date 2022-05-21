@@ -34,7 +34,8 @@ select
 from product P
    	left outer join category C on P.cate_no = C.cate_no
    	left outer join product_img PI on P.p_no = PI.p_no
-   	left outer join shop S on P.s_no = S.s_no where p.p_no=14
+   	left outer join shop S on P.s_no = S.s_no
+where p_group_buying = 'Y' order by p_group_price asc
    
 select *
 from product P

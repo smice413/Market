@@ -29,21 +29,29 @@
 				   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
 				   	left outer join shop S on P.s_no = S.s_no
 		<where>
-			<if test="keyword != null and status != null">
-				${search} like '%'||#{keyword}||'%' and p_status=#{status}</if>
-			<if test="keyword != null and status == null">
-				${search} like '%'||#{keyword}||'%' and p_status='1'</if>
-			<if test="keyword == null and status != null">p_status=#{status}</if>
-			<if test="keyword == null and status == null">p_status='1'</if>
+			<if test="status != null">
+				p_status=#{status} 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%' </if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
+			<if test="status == null">
+				p_status='1' 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%'</if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
 		</where>			
 			 order by 
 	    <choose>
+	        <when test="orderCond == 'p_group_price_ASC'">p_group_price asc</when>
+	        <when test="orderCond == 'p_follow_price_ASC'">p_follow_price asc</when>
 	        <when test="orderCond == 'p_regdate_DESC'">p_regdate desc</when>
 	        <when test="orderCond == 'p_hit_DESC'">p_hit desc</when>
 	        <when test="orderCond == 'p_sell_ASC'">p_sell_price asc</when>
 	        <when test="orderCond == 'p_sell_DESC'">p_sell_price desc</when>
 	        <when test="orderCond == 'p_name_ASC'">p_name asc</when>
-	        <otherwise>p_no desc</otherwise>
+	        <otherwise> p_no desc </otherwise>
 	    </choose>
 			 ) a )
 			where rn between #{startRow} and #{endRow}
@@ -54,13 +62,17 @@
  		       		left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
  		       		left outer join shop S on P.s_no = S.s_no
 		<where>
-			<if test="keyword != null and status != null">
-				${search} like '%'||#{keyword}||'%' and p_status=#{status}</if>
-			<if test="keyword != null and status == null">
-				${search} like '%'||#{keyword}||'%' and p_status='1'</if>
-			<if test="keyword == null and status != null">p_status=#{status}</if>
-			<if test="keyword == null and status == null">p_status='1'</if>
-		</where>
+			<if test="status != null">
+				p_status=#{status} 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%' </if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+			</if>
+			<if test="status == null">
+				p_status='1' 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%'</if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale ='Y' </if>
+			</if>
+		</where>	
 	</select>
 	<select id="select" parameterType="int" resultType="product">
 				select 

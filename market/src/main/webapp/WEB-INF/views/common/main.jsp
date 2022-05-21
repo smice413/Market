@@ -18,8 +18,8 @@
 	<div  style="width:100%; height:200px; overflow: hidden;">
 		<div class="swiper-container gallery-top">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event1.PNG" width=100%></div></div>
 				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event2.PNG" width=100%></div></div>
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event1.PNG" width=100%></div></div>
 				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event3.PNG" width=100%></div></div>
 				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event4.PNG" width=100%></div></div>
 		        <div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event5.PNG" width=100%></div></div>
@@ -31,7 +31,27 @@
 </div>
 
 	<!-- 상품진열 -->
-<div id="slist" height=500px></div>
+<div class="container" align="center">
+	<h3 class="text-primary">follow 특가</h3>
+	<c:forEach var="p" items="${flist }">
+			<div class="${p.p_no}" style="float: left;">
+				<table style="font-size:14px">
+					<tr>
+						<td style="padding:9px">
+							<a href="${path }/productView.do?p_no=${p.p_no}">
+							<img src="${path}/upload/product/${p.p_img}" width=210px height=210px></a></td>
+					</tr>
+					<tr>
+						<td style="padding:0 9 9 9">
+						<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${p.s_name}">[${p.s_name}]</a><br>
+						<b>${p.p_name}</b><br>
+						일반구매가 : ${p.p_sell_price}원<br>
+						<font color=blue>팔로워특가 : ${p.p_follow_price}원</font></td>
+					</tr>
+				</table>
+			</div>
+	</c:forEach>
+</div>
 
 <div class="container" align="center">
 	<h3 class="text-primary">공동구매 특가</h3>
@@ -44,7 +64,8 @@
 							<img src="${path}/upload/product/${p.p_img}" width=210px height=210px></a></td>
 					</tr>
 					<tr>
-						<td style="padding:0 9 9 9">[${p.s_name}]<br>
+						<td style="padding:0 9 9 9">
+						<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${p.s_name}">[${p.s_name}]</a><br>
 						<b>${p.p_name}</b><br>
 						일반구매가 : ${p.p_sell_price}원<br>
 						<font color=red>공동구매가 : ${p.p_group_price}원</font><br>
@@ -53,29 +74,6 @@
 			</div>
 	</c:forEach>
 </div>
-
-<div class="container" align="center">
-	<h3 class="text-primary">follow 특가</h3>
-	<c:forEach var="p" items="${flist }">
-			<div class="${p.p_no}" style="float: left;">
-				<table style="font-size:14px">
-					<tr>
-						<td style="padding:9px">
-							<a href="${path }/productView.do?p_no=${p.p_no}">
-							<img src="${path}/upload/product/${p.p_img}" width=210px height=210px></a></td>
-					</tr>
-					<tr>
-						<td style="padding:0 9 9 9">[${p.s_name}]<br>
-						<b>${p.p_name}</b><br>
-						일반구매가 : ${p.p_sell_price}원<br>
-						<font color=blue>팔로워특가 : ${p.p_follow_price}원</font></td>
-					</tr>
-				</table>
-			</div>
-	</c:forEach>
-</div>
-
-
 <%@ include file="footer.jsp"%>
 
 </body>
