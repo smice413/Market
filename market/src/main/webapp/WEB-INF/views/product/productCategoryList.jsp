@@ -18,8 +18,22 @@
 		
 		<div  class="container" style="width:100%;  border-radius: 10px; border-style: dotted; border-width: 2px;">
 			<c:forEach var="c" items="${listCategory }">
-				<div style="width: 115px; float: left; text-align: center; font-weight: bold; padding:7 0 7 0; ">
-				<a href="${path}/productCategoryList.do?search=cate_small&keyword=${c.cate_small }">${c.cate_small }</a>
+				<div style="width: 115px; height:32px; float: left; text-align: center; padding:7 0 7 0; ">
+				<c:if test="${search=='cate_large'}">
+					<font style="font-size: 15px; font-weight: bold;">
+						<a href="${path}/productCategoryList.do?search=cate_small&keyword=${c.cate_small }">${c.cate_small }</a>
+					</font>
+				</c:if>
+				<c:if test="${search!='cate_large'}">
+					<c:if test="${keyword == c.cate_small}">
+						<font style="font-size: 15px; font-weight: bold;">
+							<a href="${path}/productCategoryList.do?search=cate_small&keyword=${c.cate_small }">${c.cate_small }</a>
+						</font>
+					</c:if>
+					<c:if test="${keyword != c.cate_small}">
+							<a href="${path}/productCategoryList.do?search=cate_small&keyword=${c.cate_small }">${c.cate_small }</a>
+					</c:if>
+				</c:if>
 				</div>
 			</c:forEach>
 		</div>
@@ -76,37 +90,40 @@
 				</table>
 			</div>
 		</c:forEach>
-	
-		<div class="container" align="center">
-			<ul class="pagination">
-				<c:if test="${not empty keyword}">
-					<c:if test="${pp.startPage > pp.pagePerBlk }">
-						<li><a href="${path }/productCategoryList.do?pageNum=${pp.startPage - 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">이전</a></li>
-					</c:if>
-					<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
-						<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
-							href="${path }/productCategoryList.do?pageNum=${i}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">${i}</a></li>
-					</c:forEach>
-					<c:if test="${pp.endPage < pp.totalPage}">
-						<li><a href="${path }/productCategoryList.do?pageNum=${pp.endPage + 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">다음</a></li>
-					</c:if>
-				</c:if>
-				<c:if test="${empty keyword}">
-					<c:if test="${pp.startPage > pp.pagePerBlk }">
-						<li><a href="${path }/productCategoryList.do?pageNum=${pp.startPage - 1}&orderCond=${orderCond}">이전</a></li>
-					</c:if>
-					<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
-						<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
-							href="${path }/productCategoryList.do?pageNum=${i}&orderCond=${orderCond}">${i}</a></li>
-					</c:forEach>
-					<c:if test="${pp.endPage < pp.totalPage}">
-						<li><a href="${path }/productCategoryList.do?pageNum=${pp.endPage + 1}&orderCond=${orderCond}">다음</a></li>
-					</c:if>
-			  	</c:if>
-			</ul>
-		</div>
 	</c:if>
 </div>
+
+<c:if test="${pp.endPage > 1}">	
+	<div class="container" align="center">
+		<ul class="pagination">
+			<c:if test="${not empty keyword}">
+				<c:if test="${pp.startPage > pp.pagePerBlk }">
+					<li><a href="${path }/productCategoryList.do?pageNum=${pp.startPage - 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">이전</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
+					<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
+						href="${path }/productCategoryList.do?pageNum=${i}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">${i}</a></li>
+				</c:forEach>
+				<c:if test="${pp.endPage < pp.totalPage}">
+					<li><a href="${path }/productCategoryList.do?pageNum=${pp.endPage + 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">다음</a></li>
+				</c:if>
+			</c:if>
+			<c:if test="${empty keyword}">
+				<c:if test="${pp.startPage > pp.pagePerBlk }">
+					<li><a href="${path }/productCategoryList.do?pageNum=${pp.startPage - 1}&orderCond=${orderCond}">이전</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
+					<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
+						href="${path }/productCategoryList.do?pageNum=${i}&orderCond=${orderCond}">${i}</a></li>
+				</c:forEach>
+				<c:if test="${pp.endPage < pp.totalPage}">
+					<li><a href="${path }/productCategoryList.do?pageNum=${pp.endPage + 1}&orderCond=${orderCond}">다음</a></li>
+				</c:if>
+		  	</c:if>
+		</ul>
+	</div>
+</c:if>
+
 <br><br><br><br>
 <%@ include file="../common/footer.jsp"%>
 </body>

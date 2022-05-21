@@ -37,10 +37,12 @@ from product P
    	left outer join shop S on P.s_no = S.s_no
 where p_group_buying = 'Y' order by p_group_price asc
    
-select *
-from product P
+select cate_small from product P
 			left outer join category C on P.cate_no = C.cate_no
-       		left outer join product_img PI on P.p_no = PI.p_no
-       		where p_group_buying='Y'
-       		
+where p_status='1' and cate_large = (select cate_large from category where cate_small = '배')
+group by cate_small 
+order by cate_small asc
+
+select cate_large from category where cate_small = '배'
+
 delete from product where p_hit=3;

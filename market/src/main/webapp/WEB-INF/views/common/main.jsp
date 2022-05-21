@@ -32,7 +32,7 @@
 
 	<!-- 상품진열 -->
 <div class="container" align="center">
-	<h3 class="text-primary">follow 특가</h3>
+	<h3 class="text-primary"><b>follow 특가</b></h3>
 	<c:forEach var="p" items="${flist }">
 			<div class="${p.p_no}" style="float: left;">
 				<table style="font-size:14px">
@@ -54,7 +54,7 @@
 </div>
 
 <div class="container" align="center">
-	<h3 class="text-primary">공동구매 특가</h3>
+	<h3 class="text-primary"><b>공동구매 특가</b></h3>
 	<c:forEach var="p" items="${glist }">
 			<div class="${p.p_no}" style="float: left;">
 				<table style="font-size:14px">

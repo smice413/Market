@@ -66,54 +66,57 @@
 				p_status=#{status} 
 				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%' </if>
 				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
 			</if>
 			<if test="status == null">
 				p_status='1' 
 				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%'</if>
-				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale ='Y' </if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
 			</if>
 		</where>	
 	</select>
 	<select id="select" parameterType="int" resultType="product">
-				select 
-					P.p_no as p_no,
-					P.cate_no as cate_no,
-					P.s_no as s_no,
-					P.p_group_buying as p_group_buying,
-					P.p_follow_sale as p_follow_sale,
-					P.p_name as p_name,
-					P.p_detail as p_detail,
-					P.p_group_price as p_group_price,
-					P.p_sell_price as p_sell_price,
-					P.p_follow_price as p_follow_price,
-					P.p_stock as p_stock,
-					P.p_regdate as p_regdate,
-					P.p_status as p_status,
-					P.p_hit as p_hit,
-					C.cate_large as cate_large,
-					C.cate_small as cate_small,
-					PI.p_img as p_img,
-					S.s_name as s_name
-				from product P
-				   	left outer join category C on P.cate_no = C.cate_no
-				   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
-				   	left outer join shop S on P.s_no = S.s_no
-				where p.p_no=#{p_no}
-	</select>
-	<select id="listImg" parameterType="int" resultType="product_img">
-		select * from product_img where p_no=#{p_no}
+		select 
+			P.p_no as p_no,
+			P.cate_no as cate_no,
+			P.s_no as s_no,
+			P.p_group_buying as p_group_buying,
+			P.p_follow_sale as p_follow_sale,
+			P.p_name as p_name,
+			P.p_detail as p_detail,
+			P.p_group_price as p_group_price,
+			P.p_sell_price as p_sell_price,
+			P.p_follow_price as p_follow_price,
+			P.p_stock as p_stock,
+			P.p_regdate as p_regdate,
+			P.p_status as p_status,
+			P.p_hit as p_hit,
+			C.cate_large as cate_large,
+			C.cate_small as cate_small,
+			PI.p_img as p_img,
+			S.s_name as s_name
+		from product P
+		   	left outer join category C on P.cate_no = C.cate_no
+		   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
+		   	left outer join shop S on P.s_no = S.s_no
+		where p.p_no=#{p_no}
 	</select>
 	
 	<select id="listCateNo" resultType="category">
-		select * from category
+		select * from category order by cate_large, cate_small
 	</select>
 	
 	<select id="listCategory" parameterType="product" resultType="category">
 		select cate_small from product P
 					left outer join category C on P.cate_no = C.cate_no
 		<where>
-			<if test="keyword != null">
-				${search} like '%'||#{keyword}||'%' and p_status='1'
+		p_status='1'
+			<if test="search == 'cate_large'">
+				and ${search} like '%'||#{keyword}||'%'
+			</if>
+			<if test="search == 'cate_small'">
+				and cate_large=(select cate_large from category where ${search}=#{keyword})
 			</if>
 		</where>
 		group by cate_small 
@@ -128,9 +131,7 @@
 			#{p_group_buying},#{p_follow_sale},#{p_name},#{p_detail},#{p_group_price},
 			#{p_sell_price},#{p_follow_price},#{p_stock},sysdate,'1',0)
 	</insert>
-	<insert id="insertImg" parameterType="product_img">
-		insert into product_img values (product_img_seq.nextval,#{p_no},#{p_img},#{p_img_order})
-	</insert>
+
 	<update id="selectUpdate" parameterType="int">
 		update product set p_hit = p_hit+1 where p_no=#{p_no}
 	</update>
@@ -145,4 +146,11 @@
 		update product set p_status='5' where p_no=#{p_no}
 	</update>
 	
+	<insert id="insertImg" parameterType="product_img">
+		insert into product_img values (product_img_seq.nextval,#{p_no},#{p_img},#{p_img_order})
+	</insert>
+	
+	<select id="listImg" parameterType="int" resultType="product_img">
+		select * from product_img where p_no=#{p_no} order by p_img_order
+	</select>
 </mapper>

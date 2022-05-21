@@ -29,4 +29,6 @@ public interface ProductDAO {
 	List<CategoryDTO> listCateNo();
 	
 	int insertImg(Product_imgDTO product_img);
+	
+	List<Product_imgDTO> listImg(int p_no);
 }

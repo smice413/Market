@@ -58,4 +58,8 @@ public class ProductServiceImpl implements ProductService {
 	public int insertImg(Product_imgDTO product_img) {
 		return pd.insertImg(product_img);
 	}
+
+	public List<Product_imgDTO> listImg(int p_no) {
+		return pd.listImg(p_no);
+	}
 }

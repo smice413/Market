@@ -57,5 +57,9 @@ public class ProductDAOImpl implements ProductDAO {
 
 	public int insertImg(Product_imgDTO product_img) {
 		return sst.insert("productns.insertImg", product_img);
+	}
+
+	public List<Product_imgDTO> listImg(int p_no) {
+		return sst.selectList("productns.listImg", p_no);
 	}	
 }

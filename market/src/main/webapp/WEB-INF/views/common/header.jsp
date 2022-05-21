@@ -46,6 +46,7 @@
 			<td colspan=3>
 				<!-- 메인 메뉴 (아래부분) -->
 				<div class="vf_header_menu">
+
 					<div>
 						<a href="${path}/productCategoryList.do?search=cate_large&keyword=과일">
 							<c:if test="${keyword == '과일'}">
@@ -71,7 +72,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="#" style="">이벤트</a>
+						<a href="${path}/productSearchList.do">전체보기</a>
 					</div>
 					<div class="vf_header_menu_search" style="width: 225px; padding: 0px;">
 						<form action="${path}/productSearchList.do?pageNum=1">

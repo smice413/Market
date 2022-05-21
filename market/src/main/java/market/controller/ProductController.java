@@ -65,16 +65,6 @@ public class ProductController {
 		return "product/productInsertForm";
 	}
 	
-
-	/*
-	 * @RequestMapping("productInsert.do") // 글작성 폼 (원문, 답변글) public String
-	 * insert(ProductDTO product, Model model, HttpServletRequest request) {
-	 * 
-	 * int result = ps.insert(product); model.addAttribute("result", result);
-	 * 
-	 * return "product/productInsert"; }
-	 */
-	
 	@RequestMapping("productInsert.do")	// 글작성 폼 (원문, 답변글)
 	public String insert(ProductDTO product, Product_imgDTO product_img, Model model, 
 						MultipartHttpServletRequest mRequest,
@@ -140,11 +130,17 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productView.do")	// 상세 페이지
-	public String productView(int p_no, String pageNum, Model model) {
+	public String productView(int p_no, Product_imgDTO product_img, String pageNum, Model model) {
+		
 		ps.selectUpdate(p_no);	// 조회수 증가
 		ProductDTO product = ps.select(p_no);
+		List<Product_imgDTO> listImg = ps.listImg(p_no);
+		
 		System.out.println("product:"+product);
+		System.out.println("product_img:"+product);
+		
 		model.addAttribute("product", product);
+		model.addAttribute("listImg", listImg);
 		model.addAttribute("pageNum", pageNum);
 		
 		return "product/productView";

@@ -38,80 +38,88 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-<%@ include file="../common/menuAdmin.jsp"%>
-	<div class="container" align="center">
-		<div class="vf-left">
-			<div  style="width:100%; height:400px; overflow: hidden;">
-				<div class="swiper-container gallery-top">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/${product.p_img}" width=350px></div></div>
-						<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/${product.p_img}" width=350px></div></div>
 
-				    </div>
-				    <div class="swiper-pagination pagination_bullet"></div>
-				    <div class="swiper-pagination pagination_progress"></div>
-				</div>
+<div class="container" align="center">
+	<div class="vf-left">
+		<div  style="width:350px; height:350px; overflow: hidden;">
+			<div class="swiper-container gallery-top" >
+				<div class="swiper-wrapper">
+					<c:forEach var="p" items="${listImg}">
+					<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/upload/product/${p.p_img}" width=350px></div></div>
+					</c:forEach>
+			    </div>
+			    <div class="swiper-pagination pagination_bullet"></div>
+			    <div class="swiper-pagination pagination_progress"></div>
 			</div>
 		</div>
-		<div class="vf-right">
-			<table class="table">
-				<tr>
-					<td colspan=2  style="font-size:15px;">[${product.s_name}]</td>
-				</tr>
-				<tr>
-					<td colspan=2  style="font-size:25px;">${product.p_name}</td>
-				</tr>
-				<tr>
-					<td colspan=2 color=red>
-						<font>일반 구매가 : ${product.p_sell_price}원</font>/${product.p_follow_sale}/${product.p_group_buying}<br>
-						
-<%-- 						<c:if test=${product.p_follow_sale == 'Y'}> --%>
-							<b>팔로워 할인가 : <font style="font-size:30px;"> ${product.p_follow_price}원</font> </b><br>
-							<font color=blue size=2>팔로워 등록하고 팔로워 할인가로 구매하세요</font><br>
-<%-- 						</c:if>
-						<c:if test=${product.p_group_buying == 'Y'}> --%>
-							<b>공동구매가 : <font style="font-size:30px;">${product.p_group_price}원</font></b><br>
-							<font color=red size=2>공동구매로 더 저렴하게 구매하세요</font>
-<%-- 						</c:if> --%>
-				</tr>
-				<tr>
-					<td>배송비</td>
-					<td align=left>3000원 (3만원 이상 무료배송)</td>
-				</tr>
-				<tr>
-					<td class="cart_qty_td" colspan=2 align="left">
-				    	<div class="table_text_align_center cart_qty_div" style="display:flex;margin:0;">
-							<label style="margin-top:5px;">구매 수량 :</label> 
-						   	<button class="minus_btn btn btn-default" style="margin-left:7px;">-</button>
-							<input type="text" class="cart_qty form-control" value="1" style="width:50px;">
-						   	<button class="plus_btn btn btn-default">+</button>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan=2 align=center>
-						<a href="#" class="btn btn-success">
-                   		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
-						<a href="#" class="btn btn-warning">
-							<b>${product.p_follow_price}원<b><br>팔로워 구매하기</a>
-						<a href="#" class="btn btn-danger">
-							<b>${product.p_group_price}원<b><br>공동구매하기</a>
-						<a class="cart_btn btn btn-outline-success" >
-                            <b>장바구니<br>담기<b></a>
-					</td>
-				</tr>
-			</table>
-		</div>
 	</div>
-	<div class="container" align="center">
-		<div class="vf-card" height=100px style="border-style: double; border-color: gray; border-radius: 10px;">
-		${product.p_detail }
-		</div>
+	<div class="vf-right">
+		<table class="table" style="font-size:13px;">
+			<tr>
+				<td colspan=2  style="font-size:15px;">
+					<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${product.s_name}">
+						[${product.s_name}]</a>&nbsp;&nbsp;&nbsp;
+					<a href=""><img src="${path }/images/icon-follow.png" height=40px></a></td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<font style="font-size:20px;">${product.p_name}</font>&nbsp;&nbsp;
+					<a href="">>>관심상품 등록</a></td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<font>일반 구매가 : ${product.p_sell_price}원</font><br>
+					
+					<c:if test="${product.p_follow_sale == 'Y'}">
+						<b>팔로워 할인가 : <font style="font-size:20px;"> ${product.p_follow_price}원</font> </b><br>
+						<font color=blue size=2>팔로잉하고 팔로워 할인가로 구매하세요 
+						<a href="">>>팔로잉하기</a></font><br>
+					</c:if>
+					<c:if test="${product.p_group_buying == 'Y'}"> 
+						<b>공동구매가 : <font style="font-size:20px;">${product.p_group_price}원</font></b><br>
+						<font color=red size=2>공동구매로 더 저렴하게 구매하세요</font>
+					</c:if>
+			</tr>
+			<tr>
+				<td>배송비</td>
+				<td align=left>3000원 (3만원 이상 무료배송)</td>
+			</tr>
+			<tr>
+				<td class="cart_qty_td" colspan=2 align="left">
+			    	<div class="table_text_align_center cart_qty_div" style="display:flex; margin:0;">
+						<label style="margin-top:5px;">구매 수량 :</label> 
+					   	<button class="minus_btn btn btn-default" style="margin-left:10px;">-</button>
+						<input type="text" class="cart_qty form-control" value="1" style="width:45px;">
+					   	<button class="plus_btn btn btn-default">+</button>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan=2 align=center>
+					<a href="#" class="btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+                  		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
+				<c:if test="${product.p_follow_sale == 'Y'}">
+					<a href="#" class="btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+						<b>${product.p_follow_price}원<b><br>팔로워구매하기</a>
+				</c:if>
+				<c:if test="${product.p_group_buying == 'Y'}"> 
+					<a href="#" class="btn btn-danger" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+						<b>${product.p_group_price}원<b><br>공동구매하기</a>
+				</c:if>
+					<a class="cart_btn btn btn-outline-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+                           <b>${product.p_sell_price}원<b><br>장바구니담기</a>
+				</td>
+			</tr>
+		</table>
 	</div>
-
-
-	<div id="slist" height=500px></div>
-
+</div>
+<div class="container" align="center">
+<h4 class="text-primary"><b>상품상세설명</b></h4>
+	<div class="vf-card" height=100px style="border-style: double; border-color: gray; border-radius: 10px;">
+	${product.p_detail }
+	</div>
+</div>
+<br><br><br>
 <%@ include file="../common/footer.jsp"%>
 </body>
 </html>
@@ -154,7 +162,7 @@
 		});					
 	});
 
-
+	// 상품사진 슬라이스 부분
 	var galleryTop = new Swiper('.gallery-top', {
     	spaceBetween: 10,   //슬라이드 간격
         pagination: {   //페이징 사용자 설정

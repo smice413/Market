@@ -19,11 +19,11 @@ select * from shop;
 
 insert into product_img values(product_img_seq.nextval,52,'product42.PNG',1);
 
-insert into category values(category_seq.nextval,'채소','친환경');
+insert into category values(category_seq.nextval,'채소','완두콩');
 
 update category set  cate_large='과일', cate_small='수박' where cate_no=35;
 
-update category set cate_small='토마토' where cate_no=12;
+update category set cate_small='뿌리채소' where cate_no=49;
 
 update product set p_follow_sale='Y' where p_no=15;
 update product set p_follow_sale='N' where p_no=19;
