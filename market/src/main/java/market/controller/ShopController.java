@@ -1,10 +1,12 @@
 package market.controller;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import market.model.ShopDTO;
 import market.service.ShopServiceImpl;
+
 
 
 
@@ -179,6 +182,7 @@ public class ShopController {
 									 ShopDTO shop,
 									 HttpSession session,
 									 HttpServletRequest request,
+									 HttpServletResponse response,
 									 Model model)throws Exception {
 		
 			System.out.println("ShopDTO:"+ shop);
@@ -245,12 +249,79 @@ public class ShopController {
 		    
 		    shop.setS_email(s_email);
 		    
-		    int result1;
+		    int result1 = 0;
 		    result1 =shopService.shop_info_edit(shop);
 		    
-		    model.addAttribute("result1", result1);
+//		    PrintWriter out = response.getWriter();
+//		    if(result1 == 1) {
+//		    	out.println("<script>");
+//		    	out.println("alert('수정이 완료되었습니다');");
+//		    	out.println("</script>");
+//		    }else {
+//		    	out.println("<script>");
+//		    	out.println("alert('수정을 실패하였습니다');");
+//		    	out.println("history.go(-1);");
+//		    	out.println("</script>");
+//		    	out.close();
+//		    	return null;
+//		    }
 		    
 			return "redirect:shop_info.do";
 		}
-	
+		// 폐점 신청 폼
+	 @RequestMapping("shop_del_form.do")
+	 public String shop_del_form(HttpSession session, Model model) throws Exception{
+		 String s_email = (String)session.getAttribute("s_email");
+		 
+		 ShopDTO shop = shopService.userCheck(s_email);
+		 
+		 model.addAttribute("shop", shop);
+		 
+		 return "shop/shop_del_form";
+	 }
+	 	// 폐점으로 바꾸기
+	 @RequestMapping(value= "shop_del.do", method= RequestMethod.POST)
+	 public String shop_del(@RequestParam("s_passwd") String s_passwd,
+			 				@RequestParam("s_reason") String s_reason,
+			 				HttpSession session,
+			 				HttpServletRequest request)throws Exception {
+		 String s_email = (String)session.getAttribute("s_email");
+		 ShopDTO shop = shopService.userCheck(s_email);
+		 
+		 if(!shop.getS_passwd().equals(s_passwd)) {
+			 
+			 return "shop/shopdelResult";
+		 }else {				// 비번이 같은 경우
+				
+
+				String up = request.getRealPath("upload/shop");
+				String fname = shop.getS_file();
+				System.out.println("up:"+up);
+				System.out.println("fname:"+fname);
+				
+				// 디비에 저장된 기존 이진파일명을 가져옴
+				if (fname != "") {// 기존 이진파일이 존재하면
+					
+					File delFile = new File(up);
+					delFile.mkdir();
+					File[] f = delFile.listFiles();
+					
+					for(int i=0; i<f.length; i++) {
+						if(f[i].getName().equals(fname)) {
+							f[i].delete();	// 기존 이진파일을 삭제
+						}
+					}
+					
+				}
+				ShopDTO dels = new ShopDTO();
+				dels.setS_email(s_email);;
+				dels.setS_reason(s_reason);
+
+				shopService.shop_del(dels);// 삭제 메서드 호출
+
+				session.invalidate();	// 세션만료
+
+				return "redirect:shop_login_form.do";
+			}
+	 } 
 }

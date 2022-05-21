@@ -72,8 +72,8 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-					<input type="button" id="button" value="상점정보수정" onClick="location.href='${path}/shop_info_edit_form.do'">
-					<input type="button" id="button" value="페점신청" onClick="location.href='${path}/shop_del_form.do'">
+					<input type="button" id="button" value="상점정보수정" onClick="location.href='${path}/shop_info_edit_form.do?s_no=${shop.s_no}'">
+					<input type="button" id="button" value="페점신청" onClick="location.href='${path}/shop_del_form.do?s_no=${shop.s_no}'">
 				 	</td>
 				</tr>
 

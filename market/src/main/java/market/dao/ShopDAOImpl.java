@@ -38,4 +38,11 @@ public class ShopDAOImpl {
 	  return sqlsession.update("shopns.shop_update", shop);
   }
   
+  //폐점으로 바꾸기
+  public void shop_del(ShopDTO dels)throws Exception {
+	  sqlsession.update("shopns.shop_del",dels);
+	}
+
+
+  
 }

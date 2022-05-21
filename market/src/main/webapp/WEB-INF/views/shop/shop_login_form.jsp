@@ -12,13 +12,12 @@
 	<form id="shop_login"
 		action="shop_login.do" method="post">
 		<div class="form-group">
-			<label for="s_email">이메일</label> <input type="text" id="s_email"
-				name="s_email" class="form-control" placeholder="이메일">
+			<label for="s_email">이메일</label> 
+			<input type="text" id="s_email" name="s_email" class="form-control" placeholder="이메일">
 		</div>
 		<div class="form-group">
-			<label for="s_passwd">패스워드</label> <input type="password"
-				id="s_passwd" name="s_passwd" class="form-control"
-				placeholder="패스워드">
+			<label for="s_passwd">패스워드</label> 
+			<input type="password" id="s_passwd" name="s_passwd" class="form-control" placeholder="패스워드">
 		</div>
 
 		<input type="submit" id="login" class="btn btn-info btn-lg btn-block"

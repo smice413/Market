@@ -251,11 +251,7 @@ function edit(){
 		 $("#s_account").val("").focus();
 		 return false;
 	 }
-	  if($.trim($("#s_file").val())==""){
-		 alert("서류를 첨부해주세요!");
-		 $("#s_file").val("").focus();
-		 return false;
-	 }	 	 
+	//  alert("수정이 완료되었습니다.");
 }
  
  

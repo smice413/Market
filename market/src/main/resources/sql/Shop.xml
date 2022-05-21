@@ -6,9 +6,9 @@
 	<insert id="shop_insert" parameterType="shop">
 		insert into shop values (shop_seq.nextval,#{s_email},#{s_passwd},#{s_seckey},
 		#{s_name},#{s_ceo},#{s_bizno},#{s_tongsin},#{s_file,jdbcType=VARCHAR},
-		#{s_address},#{s_tel},#{s_bank},#{s_account},sysdate,'',#{s_reason,jdbcType=VARCHAR},1,#{s_post})
+		#{s_address},#{s_tel},#{s_bank},#{s_account},sysdate,'',#{s_reason,jdbcType=VARCHAR},'1',#{s_post})
 	</insert>
-	
+	<!-- s_email= #{s_email} and s_status='2' 로 수정해야함 -->
 	<select id="shop_select" parameterType="String" resultType="shop">
 		select * from shop where s_email= #{s_email}
 	</select>
@@ -18,7 +18,11 @@
 		s_address=#{s_address}, s_tel=#{s_tel}, s_bank=#{s_bank}, s_account=#{s_account}, s_post=#{s_post}
 		where s_email=#{s_email}
 	</update>
+	<update id="shop_del" parameterType="shop">
+		update shop set s_deldate=sysdate, s_reason=#{s_reason}, s_status='3'
+		where s_email=#{s_email}
 	
+	</update>
 	
 	
 </mapper>

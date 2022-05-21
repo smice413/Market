@@ -28,4 +28,9 @@ public class ShopServiceImpl {
 		return shopDAO.shop_info_edit(shop);
 	}
 	
+	// 폐점으로 바꾸기
+	public void shop_del(ShopDTO dels)throws Exception {
+		shopDAO.shop_del(dels);
+	}
+	
 }
