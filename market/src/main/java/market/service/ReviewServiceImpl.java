@@ -1,5 +1,7 @@
 package market.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,20 @@ public class ReviewServiceImpl implements ReviewService {
 	public int insert(ReviewDTO review) throws Exception{
 		int result = rd.insert(review);
 		return result;
+	}
+	
+	public List<ReviewDTO> myReviewList(String m_email) throws Exception{
+		List<ReviewDTO> reviewList = rd.myReviewList(m_email);
+		return reviewList;
+	}
+	
+	public int updateHit(int r_no) throws Exception{
+		int result = rd.updateHit(r_no);
+		return result;
+	}
+	
+	public ReviewDTO select (int r_no) throws Exception{
+		ReviewDTO review = rd.select(r_no);
+		return review;
 	}
 }

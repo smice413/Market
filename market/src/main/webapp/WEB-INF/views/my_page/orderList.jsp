@@ -64,9 +64,12 @@
 				${list.op_deli_no } (대한통운)
 			</c:if>
 			<c:if test="${list.op_status == '7' }">
-				<input type="button" class="btn btn-success" value="구매 확정" onClick="location='confirm.do?op_no=${list.op_no}&s_no=${list.s_no }'">
-				<input type="button" class="btn btn-outline-success" value="리뷰 작성" onclick="location='reviewForm.do?p_no=${list.p_no}'">
-				<input type="button" class="btn btn-outline-success" value="환불 요청" onClick="location='refund.do?op_no=${list.op_no}'">
+				<input type="button" class="btn btn-success" value="구매 확정" 
+				onClick="location='confirm.do?op_no=${list.op_no}&s_no=${list.s_no }'">
+				<input type="button" class="btn btn-outline-success" value="리뷰 작성" 
+				onclick="location='reviewForm.do?p_no=${list.p_no}'">
+				<input type="button" class="btn btn-outline-success" value="환불 요청" 
+				onClick="location='refund.do?op_no=${list.op_no}'">
 			</c:if>
 		</td>
 	</tr>

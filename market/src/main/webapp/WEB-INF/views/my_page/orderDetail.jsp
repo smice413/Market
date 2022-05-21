@@ -33,7 +33,7 @@
 	
 <c:forEach var="list"  items="${detailList }">
 	<tr>
-		<td style="text-align: center;"><img src="${path}/images/${list.p_img}" width=100px></td>
+		<td style="text-align: center;"><img src="${path}/upload/product/${list.p_img}" width="100px"></td>
 		<td style="text-align: center;">[${list.s_name }] <a href="productView.do?p_no=${list.p_no}">${list.p_name }</a></td>
 		<td style="text-align: center;">${list.op_qty }</td>
 		<td style="text-align: center;"><fmt:formatNumber value="${list.op_price * list.op_qty}" pattern="#,###"/> 원</td>		

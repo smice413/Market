@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,7 +54,6 @@ public class ReviewController {
 		
 		int result = 0;
 		
-		// 등록한 이미지가 있으면
 		List<MultipartFile> fileList = mRequest.getFiles("review_img");
 		
 		// 저장 경로
@@ -67,18 +67,11 @@ public class ReviewController {
 			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));  // 확장자
 			String savedFileName =UUID.randomUUID()+"_"+originalFileName;	// 저장될 파일명
 		
-			System.out.println("size: "+size);
-			System.out.println("originalFileName: "+originalFileName);
-			System.out.println("extension: "+extension);
-			System.out.println("savedFileName: "+savedFileName);
-			
 			if(size > 1024 * 1000) {	// 10MB
-				System.out.println("파일이 너무 큼");
-				result = 2;
+				result = 2;		// 파일 크기 10MB 초과
 			}
 			
 			try {
-				// 폴더에 파일 저장하기
 				mf.transferTo(new File(path + "/" + savedFileName));
 				System.out.println("사진입력");
 				
@@ -101,5 +94,43 @@ public class ReviewController {
 		model.addAttribute("result1", result1);
 		
 		return "review/reviewResult";
+	}
+	
+	// 내가 쓴 리뷰 목록 불러오기
+	@RequestMapping("myReviewList.do")
+	public String myReviewList(HttpSession session, Model model) throws Exception{
+		String m_email = (String) session.getAttribute("m_email");
+		
+		List<ReviewDTO> reviewList = rs.myReviewList(m_email);
+		
+		model.addAttribute("reviewList", reviewList);
+		
+		return "review/myReviewList";
+	}
+	
+	// 리뷰 상세 
+	@RequestMapping("reviewDetail.do")
+	public String reviewDetail(@RequestParam("r_no") int r_no, 
+							   @RequestParam("p_no") int p_no,
+							   Model model, ReviewDTO review) throws Exception{
+		
+		// 조회수 증가
+		int result = rs.updateHit(r_no);
+		System.out.println("조회수 증가 결과: "+ result);
+		
+		// 리뷰 내용 구해오기
+		review = rs.select(r_no);
+		System.out.println("리뷰 상세 내용: "+review);
+		
+		String content = review.getR_content().replace("\n","<br>");
+		
+		// 상품명 구해오기
+		ProductDTO product = rs.getProductName(p_no);
+		
+		model.addAttribute("review", review);
+		model.addAttribute("content", content);
+		model.addAttribute("product", product);
+		
+		return "review/reviewDetail";
 	}
 }
