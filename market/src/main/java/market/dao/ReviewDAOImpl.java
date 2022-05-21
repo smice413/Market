@@ -23,6 +23,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sst.insert("review.insert", review);
 	}
 	
+	public int reviewCount(String m_email) throws Exception{
+		return sst.selectOne("review.reviewCount", m_email);
+	}
+	
 	public List<ReviewDTO> myReviewList(String m_email) throws Exception{
 		return sst.selectList("review.myReviewList", m_email);
 	}

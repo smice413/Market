@@ -15,22 +15,12 @@
 <div class="container" align="center">
 
 <div class="vf-wide700-card">
-
+<h3 style="font-weight: bold; margin: 30px 0px 30px 0px;">리뷰 상세</h3>
 <table class="table">
 		<tr>
-			<td>상품명</td>
+			<th>상품명</th>
 			<td>${product.p_name }</td>
-		</tr>
-		<tr>
-			<td>제 목</td>
-			<td>${review.r_title }</td>
-			<td>작성일</td>
-			<td>
-				<fmt:formatDate value="${review.r_writedate }" pattern="yyyy-MM-dd"/>
-			</td>
-		</tr>
-		<tr>
-			<td>별 점</td>
+			<th>별 점</th>
 			<td>
 				<c:if test="${review.r_star == 0}">☆☆☆☆☆</c:if>
 				<c:if test="${review.r_star == 1}">★☆☆☆☆</c:if>
@@ -40,21 +30,39 @@
 				<c:if test="${review.r_star == 5}">★★★★★</c:if>
 			</td>
 		</tr>
+		
 		<tr>
-			<td>내 용</td>
-			<td>${content }</td>
+			<th>작성일</th>
+			<td>
+				<fmt:formatDate value="${review.r_writedate }" pattern="yyyy-MM-dd"/>
+			</td>
+			<th>조회수</th>
+			<td>${review.r_hit }</td>
 		</tr>
 		<tr>
-			<td colspan="2" style="text-align: center;">
-				<input type="button" value="수정">
-				<input type="button" value="삭제">
-				<input type="button" value="목록으로">
+			
+		</tr>
+		
+		<tr>
+			<th>제 목</th>
+			<td colspan="3">${review.r_title }</td>
+		</tr>
+		
+		<tr>
+			<th>내 용</th>
+			<td colspan="3">${content }</td>
+		</tr>
+		<tr>
+			<td colspan="4" style="text-align: center;">
+				<input type="button" class="btn btn-outline-success" value="수정">
+				<input type="button" class="btn btn-outline-success" value="삭제">
+				<input type="button" class="btn btn-success" value="목록으로"
+				onclick="location='myReviewList.do'">
 			</td>
 		</tr>
 	</table>
 
 </div>
-
 </div>
 
 </body>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import market.model.Order_productDTO;
 import market.model.ProductDTO;
 import market.model.ReviewDTO;
 import market.service.ReviewServiceImpl;
@@ -101,8 +102,13 @@ public class ReviewController {
 	public String myReviewList(HttpSession session, Model model) throws Exception{
 		String m_email = (String) session.getAttribute("m_email");
 		
+		// 내가 쓴 리뷰 개수
+		int reviewCount = rs.reviewCount(m_email);
+		
+		// 리뷰 목록
 		List<ReviewDTO> reviewList = rs.myReviewList(m_email);
 		
+		model.addAttribute("reviewCount",reviewCount);
 		model.addAttribute("reviewList", reviewList);
 		
 		return "review/myReviewList";

@@ -25,6 +25,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 	
+	public int reviewCount(String m_email) throws Exception{
+		int count = rd.reviewCount(m_email);
+		return count;
+	}
+	
 	public List<ReviewDTO> myReviewList(String m_email) throws Exception{
 		List<ReviewDTO> reviewList = rd.myReviewList(m_email);
 		return reviewList;

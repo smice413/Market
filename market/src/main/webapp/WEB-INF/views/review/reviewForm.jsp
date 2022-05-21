@@ -15,7 +15,7 @@
 <h3 style="font-weight: bold;">상품 리뷰</h3>
 
 <div class="vf-wide700-card">
-<form action="reviewInsert.do" method="post" enctype="multipart/form-data">
+<form action="reviewInsert.do" method="post" enctype="multipart/form-data" onSubmit="return Click()">
 <input type="hidden" name="p_no" value=${product.p_no }>
 <input type="hidden" name="m_email" value=${m_email }>
 	<table class="table">
@@ -57,8 +57,9 @@
 		</tr>
 		<tr>
 			<td colspan="2" style="text-align: center;">
-				<input type="submit" value="등록">
-				<input type="button" value="취소">
+				<input type="submit" class="btn btn-success" value="등록">
+				<input type="button" class="btn btn-outline-success" value="취소"
+				onclick="location='orderList.do'">
 			</td>
 		</tr>
 	</table>
