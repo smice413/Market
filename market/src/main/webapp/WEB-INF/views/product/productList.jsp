@@ -20,20 +20,27 @@
 		<div class="vf-wide-screen">
 
 		<table width=100%>
-			<tr><td align=left>정렬 박스 들어갈 곳</td>
+			<tr><td align=left>
+					<select id="order" name="order">
+						<option value="">===정렬유형을 선택하세요===</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_name_ASC">상품명순</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC">공동구매가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_follow_price_ASC">팔로워할인가순</option>
+					</select>
+				</td>
 				<td align=right>
-				<form action="${path}/productList.do?pageNum=1">
 					<select id="status" name="status">
+						<option value="">===상품상태를 선택하세요===</option>
 						<option value="${path}/productList.do?pageNum=1&status='1'">판매중</option>
 						<option value="${path}/productList.do?pageNum=1&status='2'">일시판매중지</option>
 						<option value="${path}/productList.do?pageNum=1&status='3'">판매완료</option>
 						<option value="${path}/productList.do?pageNum=1&status='4'">판매정지</option>
 						<option value="${path}/productList.do?pageNum=1&status='5'">상품삭제</option>
 					</select> 
-				</form>
 				</td>
 			</tr>
-		</table>
+		</table><br><br><br>
 
 		</div>
 		<div class="vf-wide-screen">
@@ -85,20 +92,27 @@
 		<!-- 폭이 좁은 스크린 -->
 		<div class="vf-less-wide-screen">
 		<table width=100%>
-			<tr><td align=left>정렬 박스 들어갈 곳</td>
+			<tr><td align=left>
+					<select id="order" name="order">
+						<option value="">===정렬유형을 선택하세요===</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_name_ASC">상품명순</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC">공동구매가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_follow_price_ASC">팔로워할인가순</option>
+					</select>
+				</td>
 				<td align=right>
-				<form action="${path}/productList.do?pageNum=1">
 					<select id="status" name="status">
-						<option value="p_status">판매중</option>
-						<option value="p_status">일시판매중지</option>
-						<option value="p_status">판매완료</option>
-						<option value="p_status">판매정지</option>
-						<option value="${path}/productList.do?pageNum=2">상품삭제</option>
+						<option value="">===상품상태를 선택하세요===</option>
+						<option value="${path}/productList.do?pageNum=1&status='1'">판매중</option>
+						<option value="${path}/productList.do?pageNum=1&status='2'">일시판매중지</option>
+						<option value="${path}/productList.do?pageNum=1&status='3'">판매완료</option>
+						<option value="${path}/productList.do?pageNum=1&status='4'">판매정지</option>
+						<option value="${path}/productList.do?pageNum=1&status='5'">상품삭제</option>
 					</select> 
-				</form>
 				</td>
 			</tr>
-		</table>
+		</table><br><br><br>
 		</div>
 		<div class="vf-less-wide-screen">
 		<table class="table table-hover">
