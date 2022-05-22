@@ -30,27 +30,32 @@ public class ProductController {
 
 	@RequestMapping("main.do")	// 글작성 폼 (원문, 답변글)
 	public String main(String pageNum, ProductDTO product, Model model) {
-		
+		//공동구매특가
 		String search = "p_group_buying";
 		String keyword = "Y";
+		String orderCond = "p_regdate_DESC";
+		
 		product.setSearch(search);
 		product.setKeyword(keyword);
+		product.setOrderCond(orderCond);
 		product.setStartRow(1);
 		product.setEndRow(5);
 		
 		List<ProductDTO> glist = ps.list(product);
+		System.out.println("glist:"+glist);
 
-		search = "p_follow_sale";
-		keyword = "Y";
+		//follow특가
+		search = "p_follow_sale"; 	//나머지 옵션은 공동구매와 동일
+		orderCond = "p_hit_DESC";
+		
 		product.setSearch(search);
 		product.setKeyword(keyword);
-		product.setStartRow(1);
-		product.setEndRow(5);
-		
+		product.setOrderCond(orderCond);
+
 		List<ProductDTO> flist = ps.list(product);		
-		System.out.println("glist:"+glist);
 		System.out.println("flist:"+flist);
 		
+		//공유
 		model.addAttribute("glist", glist);
 		model.addAttribute("flist", flist);
 		model.addAttribute("search", product.getSearch());
@@ -80,7 +85,7 @@ public class ProductController {
 		int result = ps.insert(product);
 		System.out.println("s_no:"+product.getS_no());
 		System.out.println("cate_no:"+product.getCate_no());
-		System.out.println("p_name:"+product.getP_name());
+		System.out.println("p_detail:"+product.getP_detail());
 		System.out.println("상품 저장성공");
 		
 		// 등록한 상품번호를 구해옴
@@ -135,7 +140,7 @@ public class ProductController {
 		       	}
 		       	strResult = "{ \"result\":\"OK\" }";
 	        } else 
-				strResult = "{ \"result\":\"OK\" }";  // 파일 아무것도 첨부 안했을때 탄다.(게시판일때, 업로드 없이 글을 등록하는경우)
+				strResult = "{ \"result\":\"OK\" }";  // 파일첨부 안하고 상품만 등록하는경우
 		}catch(Exception e){
 			e.printStackTrace();
 		}

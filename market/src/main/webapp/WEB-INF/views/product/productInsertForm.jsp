@@ -133,7 +133,9 @@ function registerAction(){
 		formData.append("p_group_price", dataForm.p_group_price.value);
 		formData.append("p_follow_sale", dataForm.p_follow_sale.value);
 		formData.append("p_follow_price", dataForm.p_follow_price.value);
-		formData.append("p_detail", dataForm.p_detail.value);
+//		formData.append("p_detail", dataForm.p_detail.value);
+		formData.set("p_detail", CKEDITOR.instances.p_detail.getData());
+
 
 	console.log(dataForm.p_name.value)
    /*
@@ -254,7 +256,7 @@ function registerAction(){
 				</tr>
 				<tr>
 					<td>상세설명</td>
-					<td><textarea rows="5" cols="30" name="p_detail" required="required">&nbsp;</textarea>
+					<td><textarea rows="5" cols="30" name="p_detail" required="required"></textarea>
 						<script>	// 글쓰기 editor 및 사진 업로드 기능
 							CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
 						</script>
