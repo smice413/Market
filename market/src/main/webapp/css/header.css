@@ -8,7 +8,7 @@
 /******************* header (logo + 메인 menu부분) *********************/
 
 /* 헤더부분 (아래쪽 메뉴) */	
-	.vf_header_menu { background-color: #fff; height:30px;  margin:0px; }
+	.vf_header_menu { background-color: #fff; height:35px;  margin:0px;}
 	.vf_header_menu a { text-decoration: none; color:#555; font-size:15px; }
 	.vf_header_menu a:hover {font-weight: bold;}
 	.vf_header_menu div { background-color: #fff; float: left; text-align: center; 
@@ -16,7 +16,7 @@
 
 /* 검색용 (input 태그) */	
 	.vf_search {border-style:none; border-radius:10px; 
-				background-color: #ddd; height: 25px; width:180px; padding: 2 5 2 5;}
+				background-color: #ddd; height: 25px; width:180px; padding:2 5 2 10; margin:0 5 0 0}
 
 
 /******************* menu (sub menu부분) *********************/
@@ -41,8 +41,8 @@
 		container안에 아래 div삽입 : 
 						왼쪽 <div class="left">
 						오른쪽 <div class="right">*/		
-	.vf-left { float: left; width: 50%; background-color: #fff; padding: 10px;	}
-	.vf-right { float: left; width: 50%; background-color: #fff; padding: 10px; }
+	.vf-left { float: left; width: 350px; background-color: #fff; padding: 10px; }
+	.vf-right { float: left; width: 850px; background-color: #fff; padding: 10px; }
 
 /*3. 한 화면에 좌우로 4가지 내용을 담을 경우(화면이 좁아지면 오른쪽 내용이 아래로 내려옴)
 		container안에 아래 div삽입 : 
@@ -85,19 +85,25 @@
 		.container{ padding: 0px; }	
 		.vf-wide-screen{ display: none; }
 		.vf-less-wide-screen{ display: flex; }
-		.vf-left{width: 100%; }
+		.vf-left{width: 100%;  padding: 10 0 0 0; }
 		.vf-right {width: 100%;  padding: 0px;}
 	}
     @media (min-width : 661px) and (max-width : 767px) {
 		.vf_header_menu div {width: 14%;}
 		.vf_sub_menu div { width: 90px; padding: 0px; }
 		.vf-menu9, .vf-menu8{ display: none; }
+		.vf-left{width: 63%; }
+		.vf-right {width: 37%;}
     }
     @media (min-width : 768px) and (max-width : 1024px) {
       	.vf_header_menu div {width: 16%}
 		.vf-menu9{ display: none; }
+		.vf-left{width: 54%; }
+		.vf-right {width: 46%;}
     }
     @media (min-width : 1025px){
       	.vf_header_menu div {width: 18%}
+      	.vf-left{width: 42%; }
+		.vf-right {width: 58%;}
     }
 </script>

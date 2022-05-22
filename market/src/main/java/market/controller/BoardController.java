@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -97,6 +100,67 @@ public class BoardController {
 		return "board/insert";
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/fileUpload.do", method = RequestMethod.POST)
+	public String fileUpload(Board board,
+			@RequestParam("article_file") List<MultipartFile> multipartFile
+			, HttpServletRequest request, Model model) {
+		
+		System.out.println("fileUpload");
+		System.out.println("subject:"+board.getSubject());
+		System.out.println("writer:"+board.getWriter());
+		System.out.println("email:"+board.getEmail());
+		System.out.println("passwd:"+board.getPasswd());
+		System.out.println("content:"+board.getContent());
+		String strResult = "{ \"result\":\"FAIL\" }";
+
+		try {
+			// 파일이 있을때 탄다.
+			if(multipartFile.size() > 0 && !multipartFile.get(0).getOriginalFilename().equals("")) {
+
+				String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+				String path = contextRoot + "upload/product";
+				System.out.println("path:"+path);
+
+				for(MultipartFile file:multipartFile) {
+					int size = (int) file.getSize(); // 첨부파일의 크기 (단위: Byte)
+					String originalFileName = file.getOriginalFilename();	//오리지날 파일명
+					String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+					String savedFileName = UUID.randomUUID() +"_" + originalFileName;	//저장될 파일 명
+					
+					System.out.println("size:"+size);
+					System.out.println("originalFileName:"+originalFileName);
+					System.out.println("extension:"+extension);
+					System.out.println("savedFileName:"+savedFileName);
+					
+					if(size > 10240000) { // 10MB
+						strResult = "{ \"result\":\"BIGfile\" }";
+						return strResult;
+					}
+					
+					try {
+						
+						//서버에 파일이 저장되는 부분
+						file.transferTo(new File(path + "/" + savedFileName));
+						
+
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+					//DB에 파일명을 저장하는 부분
+					
+				}
+				strResult = "{ \"result\":\"OK\" }";
+			}
+			// 파일 아무것도 첨부 안했을때 탄다.(게시판일때, 업로드 없이 글을 등록하는경우)
+			else
+				strResult = "{ \"result\":\"OK\" }";
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return strResult;
+	}
 	@RequestMapping("view.do")	// 상세 페이지
 	public String view(int num, String pageNum, Model model) {
 		bs.selectUpdate(num);	// 조회수 증가

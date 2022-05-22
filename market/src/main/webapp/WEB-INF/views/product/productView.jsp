@@ -7,33 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
+<script type="text/javascript">
 
 	$(function() {
-		$('#slist').load('"${path }/productSearchList.do')
+/* 		$('#reviewlist').load('${path}/myReviewList.do?p_no=1') */
+		$('#reviewlist').load('${path}/list.do')
+		$('#slist').load('${path}/slist.do?num=${product.p_no}')
 
-		$('#repInsert').click(function() {
-			if (!frm.replytext.value) {
-				alert('댓글 입력후에 클릭하시오');
-				frm.replytext.focus();
-				return false;
-			}
-			var frmData = $('form').serialize();
-			// var frmData = 'replyer='+frm.replyer.value+'&bno='+
-			//				  frm.bno.value+'&replytext='+frm.replytext.value;				  
-			$.post('${path}/sInsert.do', frmData, function(data) {
-				$('#slist').html(data);
-				frm.replytext.value = '';
-			});
-		});
 	});
-	
-
 </script>
-<%-- 	<link rel="stylesheet" href="${path}/css/reset.css"> --%>
- 	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"> 
-	<link rel="stylesheet" href="${path}/css/swiper.css">
 
+<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"> 
+<link rel="stylesheet" href="${path}/css/swiper.css">
 
 </head>
 <body>
@@ -41,11 +26,11 @@
 
 <div class="container" align="center">
 	<div class="vf-left">
-		<div  style="width:350px; height:350px; overflow: hidden;">
+		<div  style="width:380px; height:380px; overflow: hidden;">
 			<div class="swiper-container gallery-top" >
 				<div class="swiper-wrapper">
 					<c:forEach var="p" items="${listImg}">
-					<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/upload/product/${p.p_img}" width=350px></div></div>
+					<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/upload/product/${p.p_img}" width=380px></div></div>
 					</c:forEach>
 			    </div>
 			    <div class="swiper-pagination pagination_bullet"></div>
@@ -114,17 +99,43 @@
 	</div>
 </div>
 <div class="container" align="center">
-<h4 class="text-primary"><b>상품상세설명</b></h4>
-	<div class="vf-card" height=100px style="border-style: double; border-color: gray; border-radius: 10px;">
-	${product.p_detail }
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home"><b>&nbsp;&nbsp;&nbsp;&nbsp;상품상세설명&nbsp;&nbsp;&nbsp;&nbsp;</b></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1"><b>&nbsp;&nbsp;&nbsp;&nbsp;구매 후기&nbsp;&nbsp;&nbsp;&nbsp;</b></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2"><b>&nbsp;&nbsp;&nbsp;&nbsp;문의 게시판&nbsp;&nbsp;&nbsp;&nbsp;</b></a>
+    </li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="home" class="container tab-pane active" style="width:100%; padding: 0px;"><br>
+		<div class="vf-card" height=100px style="border-style: double; border-color: gray; border-radius: 10px;">
+			${product.p_detail }
+		</div>
+    </div>
+    <div id="menu1" class="container tab-pane fade" style="width:100%; padding: 0px;">
+ 		<div id="reviewlist"></div>
+    </div>
+    <div id="menu2" class="container tab-pane fade" style="width:100%; padding: 0px;">
+		<div id="slist"></div>
 	</div>
+  </div>
+</div>
+
+
+
+	
 </div>
 <br><br><br>
 <%@ include file="../common/footer.jsp"%>
 </body>
 </html>
-<script src="${path}/js/jquery-3.6.0.min.js"></script>
-<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
 <script>
 	// 구매 수량 버튼 
 	$(".plus_btn").on("click", function(){
@@ -138,8 +149,6 @@
 		}	
 	});
 
-</script>
-<script>
     // 장바구니 추가 버튼
 	$(document).ready(function(){
 				
@@ -162,6 +171,10 @@
 		});					
 	});
 
+</script>
+<script src="${path}/js/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script>
 	// 상품사진 슬라이스 부분
 	var galleryTop = new Swiper('.gallery-top', {
     	spaceBetween: 10,   //슬라이드 간격

@@ -13,11 +13,13 @@ select * from order_product;
 select * from order_tab;
 select * from product;
 select * from product_img;
+select * from board;
 select * from qna_board;
 select * from restock;
 select * from shop;
 
 insert into product_img values(product_img_seq.nextval,52,'product42.PNG',1);
+update product_img set p_img_order=5 where p_img_no = 36;
 
 insert into category values(category_seq.nextval,'채소','완두콩');
 

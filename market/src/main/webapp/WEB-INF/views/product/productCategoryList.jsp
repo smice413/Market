@@ -51,21 +51,36 @@
 		</table>
 	</c:if>
 	<c:if test="${not empty list}">
+		<!-- 상품개수와 공동구매특가,팔로우특가,각종 정렬부분 -->
 		<table style="font-size:13px; width:100%">
 			<tr>
 				<td style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}</td>
 				<td  style="padding:5 10 0 0;" align=right>
-					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC" style="color:red">공동구매특가</a> | 
-					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_follow_price_ASC" style="color:blue">팔로워특가</a> | 
-					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_regdate_DESC">최신순</a> | 
-					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_hit_DESC">조회순</a> | 
-					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_ASC">낮은가격순</a> | 
-					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_DESC">높은가격순</a> | 
-					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_name_ASC">상품명순</a>
+					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC" style="color:red">
+						<c:if test="${orderCond == 'p_group_price_ASC'}"><b>공동구매특가</b></c:if>
+						<c:if test="${orderCond != 'p_group_price_ASC'}">공동구매특가</c:if></a> | 
+					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_follow_price_ASC" style="color:blue">
+						<c:if test="${orderCond == 'p_follow_price_ASC'}"><b>팔로워특가</b></c:if>
+						<c:if test="${orderCond != 'p_follow_price_ASC'}">팔로워특가</c:if></a> |
+					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_regdate_DESC">
+						<c:if test="${orderCond == 'p_regdate_DESC'}"><b>최신순</b></c:if>
+						<c:if test="${orderCond != 'p_regdate_DESC'}">최신순</c:if></a> |
+					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_hit_DESC">
+						<c:if test="${orderCond == 'p_hit_DESC'}"><b>조회순</b></c:if>
+						<c:if test="${orderCond != 'p_hit_DESC'}">조회순</c:if></a> | 
+					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_ASC">
+						<c:if test="${orderCond == 'p_sell_ASC'}"><b>낮은가격순</b></c:if>
+						<c:if test="${orderCond != 'p_sell_ASC'}">낮은가격순</c:if></a> | 
+					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_DESC">
+						<c:if test="${orderCond == 'p_sell_DESC'}"><b>높은가격순</b></c:if>
+						<c:if test="${orderCond != 'p_sell_DESC'}">높은가격순</c:if></a> | 
+					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_name_ASC">
+						<c:if test="${orderCond == 'p_name_ASC'}"><b>상품명순</b></c:if>
+						<c:if test="${orderCond != 'p_name_ASC'}">상품명순</c:if></a>
 				</td>
 			</tr>
 		</table>
-		
+		<!-- 상품 리스트 -->
 		<c:forEach var="p" items="${list }">
 			<div class="${p.p_no}" style="float: left;">
 				<table style="font-size:14px;">
@@ -92,7 +107,7 @@
 		</c:forEach>
 	</c:if>
 </div>
-
+<!-- 페이징 -->
 <c:if test="${pp.endPage > 1}">	
 	<div class="container" align="center">
 		<ul class="pagination">
