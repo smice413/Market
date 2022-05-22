@@ -44,7 +44,6 @@ public class CartController {
 		System.out.println("isAlreadyExisted:"+isAlreadyExisted);
 		
 		if(isAlreadyExisted) {
-			System.out.println("동일한 상품 있음:"+isAlreadyExisted);
 			System.out.println("existed");
 			
 			String result = "existed";
@@ -52,7 +51,6 @@ public class CartController {
 			
 			return "cart/cartInsertResult";
 		}else {
-			System.out.println("동일한 상품 없음 :"+isAlreadyExisted);
 			cs.insert(cart);
 			System.out.println("success");
 			
@@ -69,38 +67,56 @@ public class CartController {
 	@RequestMapping("cartList.do")
 	public String cartList(HttpSession session, Model model) {
 		String m_email = (String)session.getAttribute("m_email");
-	    System.out.println("cartList.do");
 		System.out.println("m_email:"+m_email);
 
-		List<CartDTO> cartList = cs.list(m_email);
+		List<CartDTO> shopNo = cs.getShopNo(m_email);
+		System.out.println("shopNo:"+shopNo);
+		
+		List cartList = cs.list(m_email);
 		System.out.println("cartList:"+cartList);
 		
+		model.addAttribute("shopNo", shopNo);
 		model.addAttribute("cartList", cartList);
-		
+			
 		return "cart/cartList";
 	}
 	
 	// 장바구니 상품 수량 수정
 	@RequestMapping("cartQtyUpdate.do")
-	public String cartQtyUpdate(CartDTO cart, Model model) {
-		
+	public String cartQtyUpdate(HttpSession session, CartDTO cart, Model model) {
 		System.out.println("cart_no:"+cart.getCart_no());
 		System.out.println("cart_qty:"+cart.getCart_qty());
-		System.out.println("m_email:"+cart.getM_email());
+
+		String m_email = (String)session.getAttribute("m_email");
+		System.out.println("m_email:"+m_email);
 		
 		cs.update(cart);
 		
 		return "redirect:cartList.do?m_email=m_email";
 	}
 	
-	// 장바구니 상품 삭제
+	// 장바구니 개별상품 삭제
 	@RequestMapping("cartDelete.do")
-	public String cartDelete(CartDTO cart, Model model) {
-		System.out.println("cartDelete");
+	public String cartDelete(HttpSession session, int cart_no, Model model) {
+		System.out.println("cart_no:"+cart_no);
 		
-		cs.delete(cart.getCart_no());
-		String m_email = cart.getM_email();
+		String m_email = (String)session.getAttribute("m_email");
+		System.out.println("m_email:"+m_email);
+		
+		cs.delete(cart_no);
 		System.out.println("삭제 완료");
+		
+		return "redirect:cartList.do?m_email=m_email";
+	}
+	
+	// 장바구니 전체 삭제
+	@RequestMapping("allCartDelete.do")
+	public String allCartDelete(HttpSession session) {
+		String m_email = (String)session.getAttribute("m_email");
+		System.out.println("m_email:"+m_email);
+		
+		cs.allDelete(m_email);
+		System.out.println("전체 삭제 완료");
 		
 		return "redirect:cartList.do?m_email=m_email";
 	}

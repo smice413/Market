@@ -28,22 +28,33 @@ public class CartServiceImpl implements CartService{
 	public void insert(CartDTO cart) {
 		cd.insert(cart);
 	}
+
+	@Override
+	public List<CartDTO> getShopNo(String m_email) {
+		return cd.getShopNo(m_email);
+	}
 	
 	@Override
 	public List<CartDTO> list(String m_email) {
-		// TODO Auto-generated method stub
 		return cd.list(m_email);
 	}
 
 	@Override
-	public int update(CartDTO cart) {
-		return cd.update(cart);
+	public void update(CartDTO cart) {
+		cd.update(cart);
 	}
 
 	@Override
-	public int delete(int cart_no) {
-		return cd.delete(cart_no);
+	public void delete(int cart_no) {
+		cd.delete(cart_no);
 	}
+
+	@Override
+	public void allDelete(String m_email) {
+		cd.allDelete(m_email);
+	}
+
+
 
 
 

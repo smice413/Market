@@ -26,19 +26,32 @@ public class CartDAOImpl implements CartDAO{
 	}
 	
 	@Override
+	public List<CartDTO> getShopNo(String m_email) {
+		return sst.selectList("cartns.getShopNo", m_email);
+	}
+
+	@Override
 	public List<CartDTO> list(String m_email) {
 		return sst.selectList("cartns.list", m_email);
 	}
 
 	@Override
-	public int update(CartDTO cart) {
-		return sst.update("cartns.update", cart);
+	public void update(CartDTO cart) {
+		sst.update("cartns.update", cart);
 	}
 
 	@Override
-	public int delete(int cart_no) {
-		return sst.delete("cartns.delete", cart_no);
+	public void delete(int cart_no) {
+		sst.delete("cartns.delete", cart_no);
 	}
+
+	@Override
+	public void allDelete(String m_email) {
+		sst.delete("cartns.allDelete", m_email);
+	}
+
+
+
 
 
 

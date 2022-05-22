@@ -9,7 +9,9 @@ public interface CartDAO {
 	
 	boolean findCartProduct(CartDTO cart);
 	void insert (CartDTO cart);
+	List<CartDTO> getShopNo(String m_email);
 	List<CartDTO> list(String m_email);
-	int update(CartDTO cart);
-	int delete(int cart_no);
+	void update(CartDTO cart);
+	void delete(int cart_no);
+	void allDelete(String m_email);
 }
