@@ -12,14 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import market.model.Order_productDTO;
 import market.model.ProductDTO;
 import market.model.ReviewDTO;
 import market.service.ReviewServiceImpl;
@@ -34,6 +32,7 @@ public class ReviewController {
 	@RequestMapping("reviewForm.do")
 	public String reviewForm(Model model, @RequestParam("p_no") int p_no,
 							 HttpSession session) throws Exception{
+		
 		// session 에서 이메일 구해오기
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("이메일: "+m_email);
@@ -50,12 +49,12 @@ public class ReviewController {
 	// 리뷰 작성
 	@RequestMapping(value = "reviewInsert.do", method = RequestMethod.POST)
 	public String reviewInsert(Model model, ReviewDTO review,
-							   MultipartHttpServletRequest mRequest,
+							   MultipartHttpServletRequest multi,
 							   HttpServletRequest request) throws Exception{
 		
 		int result = 0;
 		
-		List<MultipartFile> fileList = mRequest.getFiles("review_img");
+		List<MultipartFile> fileList = multi.getFiles("review_img");
 		
 		// 저장 경로
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
@@ -67,6 +66,10 @@ public class ReviewController {
 			String originalFileName = mf.getOriginalFilename();	// 원래 파일 이름
 			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));  // 확장자
 			String savedFileName =UUID.randomUUID()+"_"+originalFileName;	// 저장될 파일명
+			
+			System.out.println("originalFileName: "+ originalFileName);
+			System.out.println("extension: "+ extension);
+			System.out.println("savedFileName: "+ savedFileName);
 		
 			if(size > 1024 * 1000) {	// 10MB
 				result = 2;		// 파일 크기 10MB 초과
@@ -124,19 +127,70 @@ public class ReviewController {
 		int result = rs.updateHit(r_no);
 		System.out.println("조회수 증가 결과: "+ result);
 		
+		// 상품명
+		ProductDTO product = rs.getProductName(p_no);
+		
 		// 리뷰 내용 구해오기
 		review = rs.select(r_no);
 		System.out.println("리뷰 상세 내용: "+review);
 		
 		String content = review.getR_content().replace("\n","<br>");
 		
-		// 상품명 구해오기
-		ProductDTO product = rs.getProductName(p_no);
-		
 		model.addAttribute("review", review);
 		model.addAttribute("content", content);
 		model.addAttribute("product", product);
 		
 		return "review/reviewDetail";
+	}
+	
+	// 리뷰 유무 확인후 리뷰작성 버튼 비활성화 처리 (ajax)
+	/*
+	 * @RequestMapping(value = "reviewCheck.do", method = RequestMethod.POST) public
+	 * String reviewCheck(Model model, ReviewDTO review) throws Exception{
+	 * 
+	 * int result = rs.reviewCheck(review); model.addAttribute("result", result);
+	 * 
+	 * return "review/reviewCheckResult"; }
+	 */
+	
+	// 리뷰 수정 폼 불러오기
+	@RequestMapping("reviewUpdateForm.do")
+	public String reviewUpdate(Model model, @RequestParam("r_no") int r_no,
+							   @RequestParam("p_no") int p_no) throws Exception{
+		
+		// 기존 리뷰 내용
+		ReviewDTO review = rs.select(r_no);
+		
+		String img = review.getR_img().replace("/", "<br>");
+		
+		// 상품명
+		ProductDTO product = rs.getProductName(p_no);
+		
+		model.addAttribute("review", review);
+		model.addAttribute("img", img);
+		model.addAttribute("product", product);
+		
+		return "review/reviewUpdateForm";
+	}
+	
+	// 리뷰 내용 수정
+	@RequestMapping(value = "reviewUpdate.do", method = RequestMethod.POST)
+	public String reviewUpdate(Model model, ReviewDTO review,
+							   MultipartHttpServletRequest multi) throws Exception{
+		
+		return "";
+	}
+	
+	// 리뷰 삭제
+	@RequestMapping("reviewDelete.do")
+	public String reviewDelete(Model model, @RequestParam("r_no") int r_no) throws Exception{
+		
+		// r_delstatus 값 Y로 업데이트
+		int result = rs.delete(r_no);
+		System.out.println("리뷰 삭제 결과: "+ result);
+		
+		model.addAttribute("result", result);
+		
+		return "review/reviewDeleteResult";
 	}
 }

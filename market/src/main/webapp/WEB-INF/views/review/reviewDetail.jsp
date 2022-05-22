@@ -54,8 +54,10 @@
 		</tr>
 		<tr>
 			<td colspan="4" style="text-align: center;">
-				<input type="button" class="btn btn-outline-success" value="수정">
-				<input type="button" class="btn btn-outline-success" value="삭제">
+				<input type="button" class="btn btn-outline-success" value="수정"
+				onclick="location='reviewUpdateForm.do?r_no=${review.r_no}&p_no=${review.p_no }'">
+				<input type="button" class="btn btn-outline-success" value="삭제"
+				onclick="location='reviewDelete.do?r_no=${review.r_no}'">
 				<input type="button" class="btn btn-success" value="목록으로"
 				onclick="location='myReviewList.do'">
 			</td>

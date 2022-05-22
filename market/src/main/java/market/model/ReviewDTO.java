@@ -14,6 +14,10 @@ public class ReviewDTO {
 	private Date r_writedate;
 	private int r_hit;
 	private String r_delstatus;
+	private int o_no;
+	
+	// product
+	private String p_name;
 	
 	public int getR_no() {
 		return r_no;
@@ -74,5 +78,17 @@ public class ReviewDTO {
 	}
 	public void setR_delstatus(String r_delstatus) {
 		this.r_delstatus = r_delstatus;
+	}
+	public int getO_no() {
+		return o_no;
+	}
+	public void setO_no(int o_no) {
+		this.o_no = o_no;
+	}
+	public String getP_name() {
+		return p_name;
+	}
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
 	}
 }

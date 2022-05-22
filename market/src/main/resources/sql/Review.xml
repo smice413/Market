@@ -22,7 +22,8 @@ select count(*) from review where m_email = #{m_email}
 
 <!-- 내가 작성한 리뷰 목록 불러오기 -->
 <select id="myReviewList" parameterType="String" resultType="review">
-select * from review where m_email = #{m_email}
+select * from review where m_email = #{m_email} and r_delstatus = 'N'
+order by r_writedate desc
 </select>
 
 <!-- 조회수 증가 -->
@@ -30,9 +31,20 @@ select * from review where m_email = #{m_email}
 update review set r_hit = r_hit + 1 where r_no = #{r_no}
 </update>
 
-<!-- 리뷰 상세 페이지 -->
+<!-- 리뷰 상세 내용 불러오기 -->
 <select id="select" parameterType="int" resultType="review">
 select * from review where r_no = #{r_no}
 </select>
 
+<!-- 리뷰 유무 체크 -->
+<!--<select id="reviewCheck" parameterType="review" resultType="int">
+select * from review where p_no = #{p_no} and m_email = #{m_email} and o_no = #{o_no}
+</select>
+ -->
+ 
+ <!-- 리뷰 삭제 -->
+ <update id="delete" parameterType="int">
+ update review set r_delstatus = 'Y' where r_no = #{r_no}
+ </update>
+ 
 </mapper>

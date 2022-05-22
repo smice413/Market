@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-${result1}
+
 <c:if test="${result1 == 1 }">
 	<script>
 		alert("리뷰 작성이 완료 되었습니다!");

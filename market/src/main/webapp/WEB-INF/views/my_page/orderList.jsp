@@ -10,9 +10,11 @@
 
 <!-- <script>
 function Click(){
+
+
 $.ajax({
     type:"POST",
-    url:"shop_emailcheck.do",
+    url:"reviewCheck.do",
     data: {"email":email},        
     success: function (data) { 
     	//alert("return success="+data);
@@ -41,7 +43,6 @@ $.ajax({
   });//$.ajax	
 }
 </script> -->
-
 </head>
 <body>
 
@@ -96,7 +97,7 @@ $.ajax({
 				<input type="button" class="btn btn-success" value="주문 취소" onClick="location='cancel.do?op_no=${list.op_no}'">
 			</c:if>
 			<c:if test="${list.op_status == '6' }">
-				${list.op_deli_no } (대한통운)
+				${list.op_deli_no }
 			</c:if>
 			<c:if test="${list.op_status == '7' }">
 				<input type="button" class="btn btn-success" value="구매 확정" 

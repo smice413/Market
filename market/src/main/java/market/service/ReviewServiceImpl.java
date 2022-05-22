@@ -16,7 +16,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDAOImpl rd;
 	
 	public ProductDTO getProductName(int p_no) throws Exception{
-		ProductDTO product = rd.getProductName(p_no);
+		ProductDTO product= rd.getProductName(p_no);
 		return product;
 	}
 	
@@ -43,5 +43,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public ReviewDTO select (int r_no) throws Exception{
 		ReviewDTO review = rd.select(r_no);
 		return review;
+	}
+	
+	/*
+	 * public int reviewCheck(ReviewDTO review) throws Exception{ int result =
+	 * rd.reviewCheck(review); return result; }
+	 */
+	
+	public int delete(int r_no) throws Exception{
+		return rd.delete(r_no);
 	}
 }
