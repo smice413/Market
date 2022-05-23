@@ -21,7 +21,9 @@ public class MemberServiceImpl {
 		System.out.println("insert 서비스까지왔구나");
 		return md.memberInsert(member);
 	}
-
+	public int memberEmailCheck(String m_email)throws Exception{
+		return md.memberEmailCheck(m_email);
+	}
 	public MemberDTO loginCheck(String m_email) throws Exception {
 		System.out.println("로그인인증 슝");
 		return md.loginCheck(m_email);
@@ -54,4 +56,5 @@ public class MemberServiceImpl {
 	public List<MemberDTO> memberList()throws Exception{
 		return md.memberList();
 	}
+	
 }

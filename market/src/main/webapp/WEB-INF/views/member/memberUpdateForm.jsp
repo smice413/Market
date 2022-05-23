@@ -43,17 +43,17 @@
 						<tr>
 							<th>현재 비밀번호</th>
 							<td><input type="password" name="m_passwd2" id="m_passwd2"
-								size="14" class="input_box" required="required"/></td>
+								size="14" class="input_box" /></td>
 						</tr>
 						<tr>
 							<th>변경 비밀번호</th>
 							<td><input type="password" name="m_passwd3" id="m_passwd3"
-								size="14" class="input_box" required="required"/></td>
+								size="14" class="input_box" /></td>
 						</tr>
 						<tr>
 							<th>변경 비밀번호 재입력</th>
 							<td><input type="password" name="m_passwd4" id="m_passwd4"
-								size="14" class="input_box" required="required"/></td>
+								size="14" class="input_box" /></td>
 						</tr>
 						<tr>
 							<th>회원이름</th>

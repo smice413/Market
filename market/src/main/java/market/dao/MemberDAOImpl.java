@@ -25,6 +25,17 @@ public class MemberDAOImpl {
 	public int memberInsert(MemberDTO member) throws Exception {
 		return sqlSession.insert("memberns.insertMember", member);
 	}
+	//이메일 중복검사 
+	public int memberEmailCheck(String m_email)throws Exception{
+		
+		int result = -1;  //사용가능아이디 
+		
+		MemberDTO member = sqlSession.selectOne("memberns.memberEmailCheck", m_email);
+				if(m_email != null)
+					result = 1; 	//중복아이디
+				
+				return result; 
+	}
 
 	// 로그인인증
 	public MemberDTO loginCheck(String m_email) throws Exception {

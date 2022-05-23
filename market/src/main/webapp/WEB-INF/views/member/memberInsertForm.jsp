@@ -14,14 +14,14 @@
 		<div class="vf-wide700-card">
 	<div id="join_wrap">
 		<h2 class="join_title">회원가입</h2>
-		<form name="f" method="post" action="memberInsert.do">
+		<form name="f" method="post" action="memberInsert.do" onSubmit="return insert()">
 		<input type="hidden" id="m_seckey" name="m_seckey" value="111">
 			<table id="memberjoin" class="table">
 				<tr>
 					<th>회원가입 메일</th>
 					<td><input name="m_email" id="m_email" size="14" class="input_box" size="14" placeholder="ex)market@naver.com" /> 
-					    <input type="button" value="이메일 중복체크" 	class="input_button" onclick="id_check()" />
-						<div id="idcheck"></div></td>
+					    <input type="button" value="이메일 중복체크" id =emailcheck class="input_button" onclick="emailcheck()" />
+						<div id="emailcheck"></div></td>
 				</tr>
 				<tr>
 					<th>회원 비밀번호</th>

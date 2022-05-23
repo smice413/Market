@@ -48,7 +48,18 @@ public class MemberController {
 		return "member/memberInsertForm";
 
 	}
+	//회원가입 중 email중복검사 ajax함수 
+	
+		@RequestMapping(value = "memberEmailCheck.do", method = RequestMethod.POST)
+		public String memberEmailCheck(@RequestParam("email") String m_email, Model model) throws Exception {
+		System.out.println("m_email:"+m_email);
+				
+		int result = ms.memberEmailCheck(m_email);
+		model.addAttribute("result", result);
 
+		return "member/memberEmailCheckResult";
+		}
+	
 	// 회원가입 저장
 	@RequestMapping(value = "/memberInsert.do", method = RequestMethod.POST)
 	public String memberInsert(MemberDTO member, Model model) throws Exception {
