@@ -44,7 +44,9 @@
 		</where>			
 			 order by 
 	    <choose>
+	        <when test="orderCond == 'p_group_price_shop_ASC'">p_group_price asc</when>
 	        <when test="orderCond == 'p_group_price_ASC'">p_group_price asc</when>
+	        <when test="orderCond == 'p_follow_price_shop_ASC'">p_follow_price asc</when>
 	        <when test="orderCond == 'p_follow_price_ASC'">p_follow_price asc</when>
 	        <when test="orderCond == 'p_regdate_DESC'">p_regdate desc</when>
 	        <when test="orderCond == 'p_hit_DESC'">p_hit desc</when>

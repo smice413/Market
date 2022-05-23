@@ -8,6 +8,23 @@
 <meta charset="UTF-8">
 <title>상품 목록</title>
 
+<script>
+$(function() {
+
+   $("#order").change(function(){
+      if($("#order").val()!=""){
+         location.href=$("#order").val();
+         return false;
+      }
+   });
+   $("#status").change(function(){
+      if($("#status").val()!=""){
+         location.href=$("#status").val();
+         return false;
+      }
+   });
+});
+</script>
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -23,24 +40,28 @@
 			<tr><td align=left>
 					<select id="order" name="order">
 						<option value="">===정렬유형을 선택하세요===</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_name_ASC">상품명순</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC">공동구매가순</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_follow_price_ASC">팔로워할인가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_group_price_ASC">공동구매상품</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_follow_price_ASC">팔로워할인상품</option>
+						<option value="">----------------------</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_name_ASC">상품명순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_regdate_DESC">최신순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_hit_DESC">조회순</option>
+						
 					</select>
 				</td>
 				<td align=right>
 					<select id="status" name="status">
 						<option value="">===상품상태를 선택하세요===</option>
-						<option value="${path}/productList.do?pageNum=1&status='1'">판매중</option>
-						<option value="${path}/productList.do?pageNum=1&status='2'">일시판매중지</option>
-						<option value="${path}/productList.do?pageNum=1&status='3'">판매완료</option>
-						<option value="${path}/productList.do?pageNum=1&status='4'">판매정지</option>
-						<option value="${path}/productList.do?pageNum=1&status='5'">상품삭제</option>
+						<option value="${path}/productList.do?pageNum=1&status=1">판매중</option>
+						<option value="${path}/productList.do?pageNum=1&status=2">일시판매중지</option>
+						<option value="${path}/productList.do?pageNum=1&status=3">판매완료</option>
+						<option value="${path}/productList.do?pageNum=1&status=4">판매정지</option>
+						<option value="${path}/productList.do?pageNum=1&status=5">상품삭제</option>
 					</select> 
 				</td>
 			</tr>
-		</table><br><br><br>
+		</table><br><br>
 
 		</div>
 		<div class="vf-wide-screen">
@@ -95,24 +116,27 @@
 			<tr><td align=left>
 					<select id="order" name="order">
 						<option value="">===정렬유형을 선택하세요===</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_name_ASC">상품명순</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC">공동구매가순</option>
-						<option value="${path}/productList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_follow_price_ASC">팔로워할인가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_group_price_ASC">공동구매상품</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_follow_price_ASC">팔로워할인상품</option>
+						<option value="">----------------------</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_name_ASC">상품명순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_regdate_DESC">최신순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_hit_DESC">조회순</option>
 					</select>
 				</td>
 				<td align=right>
 					<select id="status" name="status">
 						<option value="">===상품상태를 선택하세요===</option>
-						<option value="${path}/productList.do?pageNum=1&status='1'">판매중</option>
-						<option value="${path}/productList.do?pageNum=1&status='2'">일시판매중지</option>
-						<option value="${path}/productList.do?pageNum=1&status='3'">판매완료</option>
-						<option value="${path}/productList.do?pageNum=1&status='4'">판매정지</option>
-						<option value="${path}/productList.do?pageNum=1&status='5'">상품삭제</option>
+						<option value="${path}/productList.do?pageNum=1&status=1">판매중</option>
+						<option value="${path}/productList.do?pageNum=1&status=2">일시판매중지</option>
+						<option value="${path}/productList.do?pageNum=1&status=3">판매완료</option>
+						<option value="${path}/productList.do?pageNum=1&status=4">판매정지</option>
+						<option value="${path}/productList.do?pageNum=1&status=5">상품삭제</option>
 					</select> 
 				</td>
 			</tr>
-		</table><br><br><br>
+		</table><br><br>
 		</div>
 		<div class="vf-less-wide-screen">
 		<table class="table table-hover">
@@ -166,26 +190,26 @@
 		<ul class="pagination">
 			<c:if test="${not empty keyword}">
 				<c:if test="${pp.startPage > pp.pagePerBlk }">
-					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}&search=${search}&keyword=${keyword}">이전</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">이전</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
 					<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
-						href="${path }/productList.do?pageNum=${i}&search=${search}&keyword=${keyword}">${i}</a></li>
+						href="${path }/productList.do?pageNum=${i}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">${i}</a></li>
 				</c:forEach>
 				<c:if test="${pp.endPage < pp.totalPage}">
-					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}&search=${search}&keyword=${keyword}">다음</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">다음</a></li>
 				</c:if>
 			</c:if>
 			<c:if test="${empty keyword}">
 				<c:if test="${pp.startPage > pp.pagePerBlk }">
-					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}">이전</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}&orderCond=${orderCond}">이전</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
 					<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
-						href="${path }/productList.do?pageNum=${i}">${i}</a></li>
+						href="${path }/productList.do?pageNum=${i}&orderCond=${orderCond}">${i}</a></li>
 				</c:forEach>
 				<c:if test="${pp.endPage < pp.totalPage}">
-					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}">다음</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}&orderCond=${orderCond}">다음</a></li>
 				</c:if>
 		  </c:if>
 		</ul>
