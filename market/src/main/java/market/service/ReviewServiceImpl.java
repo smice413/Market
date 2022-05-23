@@ -45,15 +45,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return review;
 	}
 	
-	/*
-	 * public int reviewCheck(ReviewDTO review) throws Exception{ int result =
-	 * rd.reviewCheck(review); return result; }
-	 */
-	
-	public int reviewUpdate(ReviewDTO review) throws Exception{
-		return rd.reviewUpdate(review);
-	}
-	
 	public int delete(int r_no) throws Exception{
 		return rd.delete(r_no);
 	}

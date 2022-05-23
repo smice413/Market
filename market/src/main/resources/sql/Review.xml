@@ -17,7 +17,7 @@ sysdate, 0, 'N' )
 
 <!-- 내가 작성한 리뷰 개수 -->
 <select id="reviewCount" parameterType="String" resultType="int">
-select count(*) from review where m_email = #{m_email}
+select count(*) from review where m_email = #{m_email} and r_delstatus = 'N'
 </select>
 
 <!-- 내가 작성한 리뷰 목록 불러오기 -->
@@ -35,19 +35,6 @@ update review set r_hit = r_hit + 1 where r_no = #{r_no}
 <select id="select" parameterType="int" resultType="review">
 select * from review where r_no = #{r_no}
 </select>
-
-<!-- 리뷰 유무 체크 -->
-<!--<select id="reviewCheck" parameterType="review" resultType="int">
-select * from review where p_no = #{p_no} and m_email = #{m_email} and o_no = #{o_no}
-</select>
- -->
- 
- <!-- 리뷰 수정 -->
- <update id="update" parameterType="review">
- update review set r_title = #{r_title}, r_star = #{r_star}, r_content = #{r_content}, 
- r_img = #{r_img, jdbcType = VARCHAR}, r_writedate = sysdate 
- where r_no = #{r_no}
- </update>
  
  
  <!-- 리뷰 삭제 -->

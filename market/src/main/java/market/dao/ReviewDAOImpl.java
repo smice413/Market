@@ -39,20 +39,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sst.selectOne("review.select", r_no);
 	}
 	
-	/*
-	 * public int reviewCheck(ReviewDTO review) throws Exception{ int result = -1;
-	 * // 해당 제품 리뷰 X
-	 * 
-	 * ReviewDTO r = sst.selectOne("review.reviewCheck", review); if(r != null)
-	 * result = 1; // 리뷰 O
-	 * 
-	 * return result; }
-	 */
-	
-	public int reviewUpdate(ReviewDTO review) throws Exception{
-		return sst.update("review.update", review);
-	}
-	
 	public int delete(int r_no) throws Exception{
 		return sst.update("review.delete", r_no);
 	}

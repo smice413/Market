@@ -7,42 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>주문 내역</title>
-
-<!-- <script>
-function Click(){
-
-
-$.ajax({
-    type:"POST",
-    url:"reviewCheck.do",
-    data: {"email":email},        
-    success: function (data) { 
-    	//alert("return success="+data);
-  	  if(data==1){	//중복 ID
-  		var newtext='<font color="red">중복 email입니다.</font>';
-  			$("#emailcheck").text('');
-    		$("#emailcheck").show();
-    		$("#emailcheck").append(newtext);
-      		$("#s_email").val('').focus();
-      		$("#submit").attr("disabled", true);
-      		return false;
-     
-  	  }else{	//사용 가능한 ID
-  		var newtext='<font color="blue">사용가능한 email입니다.</font>';
-  		$("#emailcheck").text('');
-  		$("#emailcheck").show();
-  		$("#emailcheck").append(newtext);
-  		$("#s_passwd").focus();
-  		$("#submit").attr("disabled", false);
-  	  }  	    	  
-    }
-    ,
-	  error:function(e){
-		  alert("data error"+e);
-	  }
-  });//$.ajax	
-}
-</script> -->
 </head>
 <body>
 
@@ -102,10 +66,12 @@ $.ajax({
 			<c:if test="${list.op_status == '7' }">
 				<input type="button" class="btn btn-success" value="구매 확정" 
 				onClick="location='confirm.do?op_no=${list.op_no}&s_no=${list.s_no }'">
-				<input type="button" class="btn btn-outline-success" value="리뷰 작성" 
-				onclick="location='reviewForm.do?p_no=${list.p_no}'">
 				<input type="button" class="btn btn-outline-success" value="환불 요청" 
 				onClick="location='refund.do?op_no=${list.op_no}'">
+			</c:if>
+			<c:if test="${list.op_status == '11' }">
+				<input type="button" class="btn btn-outline-success" value="리뷰 작성" 
+					onclick="location='reviewForm.do?p_no=${list.p_no}'">
 			</c:if>
 		</td>
 	</tr>

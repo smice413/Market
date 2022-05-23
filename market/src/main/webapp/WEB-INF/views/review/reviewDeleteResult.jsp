@@ -9,10 +9,10 @@
 </head>
 <body>
 
-<c:if test="${result1 == 1 }">
+<c:if test="${result == 1 }">
 	<script>
 		alert("리뷰가 삭제 되었습니다!");
-		location.href = "<%= request.getContextPath()%>/myReviewList.do?r_no=${r_no}&p_no=${p_no}";
+		location.href = "myReviewList.do";
 	</script>
 </c:if>
 

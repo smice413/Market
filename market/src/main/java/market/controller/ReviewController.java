@@ -2,6 +2,7 @@ package market.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,50 +50,44 @@ public class ReviewController {
 	// 리뷰 작성
 	@RequestMapping(value = "reviewInsert.do", method = RequestMethod.POST)
 	public String reviewInsert(Model model, ReviewDTO review,
+			/* @RequestParam(value="review_img[]") List<MultipartFile> review_img, */
 							   MultipartHttpServletRequest multi,
 							   HttpServletRequest request, String img) throws Exception{
 		
 		int result = 0;
+		int result1 = 0;
 		
-		List<MultipartFile> fileList = multi.getFiles("review_img");
+
+		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
+		
+		if(multi.getFiles("review_img").get(0).getSize() != 0) {
+			fileList = multi.getFiles("review_img");
+		}
 		
 		// 저장 경로
-		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		String path = contextRoot + "upload/review";
+		String contextRoot = request.getRealPath("upload");
+		String path = contextRoot + "/review";
 		System.out.println("path: "+path);
 		
 		for (MultipartFile mf : fileList) {
 			int size = (int) mf.getSize();	// 첨부파일의 크기 (byte)
 			String originalFileName = mf.getOriginalFilename();	// 원래 파일 이름
-			String extension = originalFileName.substring(originalFileName.lastIndexOf("."));  // 확장자
-			String savedFileName =UUID.randomUUID()+"_"+originalFileName;	// 저장될 파일명
+			String savedFileName = System.currentTimeMillis() + originalFileName;
 			
 			System.out.println("originalFileName: "+ originalFileName);
-			System.out.println("extension: "+ extension);
 			System.out.println("savedFileName: "+ savedFileName);
 		
 			if(size > 1024 * 1000) {	// 10MB
 				result = 2;		// 파일 크기 10MB 초과
 			}
 			
-			try {
-				mf.transferTo(new File(path + "/" + savedFileName));
-				System.out.println("사진입력");
-				
-			}catch (IllegalStateException e) {
-				e.printStackTrace();
-				
-			}catch (IOException e){
-				e.printStackTrace();
-			}
+			mf.transferTo(new File(path + "/" + savedFileName));
+			System.out.println("사진입력");			
 			
-			img += savedFileName + "/";
-			
-		}
+			img += savedFileName + "/";	
+		}	// for end
 		
 		review.setR_img(img);
-		
-		int result1 = 0;
 		
 		result1 = rs.insert(review);
 		System.out.println("입력 결과:"+result1);
@@ -148,41 +143,6 @@ public class ReviewController {
 		model.addAttribute("img", img);
 		
 		return "review/reviewDetail";
-	}
-	
-	// 리뷰 수정 폼 불러오기
-	@RequestMapping("reviewUpdateForm.do")
-	public String reviewUpdate(Model model, @RequestParam("r_no") int r_no,
-							   @RequestParam("p_no") int p_no) throws Exception{
-		
-		// 기존 리뷰 내용
-		ReviewDTO review = rs.select(r_no);
-		
-		// 상품명
-		ProductDTO product = rs.getProductName(p_no);
-		
-		model.addAttribute("review", review);
-		model.addAttribute("product", product);
-		
-		return "review/reviewUpdateForm";
-	}
-	
-	// 리뷰 내용 수정
-	@RequestMapping(value = "reviewUpdate.do", method = RequestMethod.POST)
-	public String reviewUpdate(Model model, ReviewDTO review) throws Exception{
-		
-		// DB 내용 수정
-		int result = rs.reviewUpdate(review);
-		System.out.println("리뷰 수정 결과: "+ result);
-		
-		int r_no = review.getR_no();
-		int p_no = review.getP_no();
-		
-		model.addAttribute("result", result);
-		model.addAttribute("r_no", r_no);
-		model.addAttribute("p_no", p_no);
-		
-		return "review/reviewUpdateResult";
 	}
 	
 	// 리뷰 삭제
