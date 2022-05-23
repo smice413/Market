@@ -36,10 +36,10 @@
 				<fmt:formatDate value="${o.o_date}" pattern="yyyy-MM-dd HH:mm"/>
 			</td>
 			<td>
-				<input type=button value="주문처리">
+				<a href="shopOrderDetail.do?o_no=${o.o_no}"><input type=button value="주문처리"></a>
 				<input type=button value="주문일괄취소"
 				 onclick="if(confirm('취소하시겠습니까?'))location.href=
-				 'OrderCancel.do?o_no=${o.o_no}'">
+				 'orderAllCancel.do?o_no=${o.o_no}'">
 			</td>
 			</tr>
 		</c:forEach>

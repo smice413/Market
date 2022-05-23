@@ -21,5 +21,9 @@ public class Order_tabDAO {
 	public List<Order_manageDTO> olist() {
 		return sst.selectList("order_managens.list");
 	}
+	
+	public List<Order_manageDTO> odlist(int o_no) {
+		return sst.selectList("order_managens.odlist",o_no);
+	}
 
 }
