@@ -47,6 +47,7 @@ $(function() {
 						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
 						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_regdate_DESC">최신순</option>
 						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_hit_DESC">조회순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_stock_ASC">재고순</option>
 						
 					</select>
 				</td>
@@ -55,7 +56,6 @@ $(function() {
 						<option value="">===상품상태를 선택하세요===</option>
 						<option value="${path}/productList.do?pageNum=1&status=1">판매중</option>
 						<option value="${path}/productList.do?pageNum=1&status=2">일시판매중지</option>
-						<option value="${path}/productList.do?pageNum=1&status=3">판매완료</option>
 						<option value="${path}/productList.do?pageNum=1&status=4">판매정지</option>
 						<option value="${path}/productList.do?pageNum=1&status=5">상품삭제</option>
 					</select> 
@@ -76,10 +76,11 @@ $(function() {
 				<td>상품상태</td>
 				<td>상품수정</td>
 				<td>상품삭제</td>
+				<td>조회수</td>
 			</tr>
 			<c:if test="${empty list}">
 				<tr>
-					<td colspan="8">데이터가 없습니다</td>
+					<td colspan="10">데이터가 없습니다</td>
 				</tr>
 			</c:if>
 			<c:if test="${not empty list}">
@@ -94,7 +95,6 @@ $(function() {
 						<td>
 							<c:if test="${p.p_status =='1'}">판매중</c:if>
 							<c:if test="${p.p_status =='2'}">일시판매중지</c:if>
-							<c:if test="${p.p_status =='3'}">판매완료</c:if>
 							<c:if test="${p.p_status =='4'}">판매정지</c:if>
 							<c:if test="${p.p_status =='5'}">상품삭제</c:if>
 						</td>
@@ -104,6 +104,7 @@ $(function() {
 						<td>
 							<input type="button" value="상품삭제" class="btn btn-outline-success" onclick="location.href='${path}/productDelete.do?p_no=${p.p_no}&pageNum=1'">
 						</td>
+						<td>${p.p_hit}</td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -123,6 +124,7 @@ $(function() {
 						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_sell_ASC">일반판매가순</option>
 						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_regdate_DESC">최신순</option>
 						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_hit_DESC">조회순</option>
+						<option value="${path}/productList.do?pageNum=1&search=p_name&keyword=${keyword}&orderCond=p_stock_ASC">재고순</option>
 					</select>
 				</td>
 				<td align=right>
@@ -130,7 +132,6 @@ $(function() {
 						<option value="">===상품상태를 선택하세요===</option>
 						<option value="${path}/productList.do?pageNum=1&status=1">판매중</option>
 						<option value="${path}/productList.do?pageNum=1&status=2">일시판매중지</option>
-						<option value="${path}/productList.do?pageNum=1&status=3">판매완료</option>
 						<option value="${path}/productList.do?pageNum=1&status=4">판매정지</option>
 						<option value="${path}/productList.do?pageNum=1&status=5">상품삭제</option>
 					</select> 
@@ -147,10 +148,11 @@ $(function() {
 				<td>상품상태</td>
 				<td>상품수정</td>
 				<td>상품삭제</td>
+				<td>조회수</td>
 			</tr>
 			<c:if test="${empty list}">
 				<tr>
-					<td colspan="8">데이터가 없습니다</td>
+					<td colspan="10">데이터가 없습니다</td>
 				</tr>
 			</c:if>
 			<c:if test="${not empty list}">
@@ -162,7 +164,6 @@ $(function() {
 						<td>
 							<c:if test="${p.p_status =='1'}">판매중</c:if>
 							<c:if test="${p.p_status =='2'}">일시판매중지</c:if>
-							<c:if test="${p.p_status =='3'}">판매완료</c:if>
 							<c:if test="${p.p_status =='4'}">판매정지</c:if>
 							<c:if test="${p.p_status =='5'}">상품삭제</c:if>
 						</td>
@@ -172,6 +173,7 @@ $(function() {
 						<td>
 							<input type="button" value="상품삭제" class="btn btn-outline-success">
 						</td>
+						<td>${p.p_hit}</td>
 					</tr>
 				</c:forEach>
 			</c:if>
