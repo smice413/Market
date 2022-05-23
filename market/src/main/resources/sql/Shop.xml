@@ -25,9 +25,18 @@
 		update shop set s_deldate=sysdate, s_reason=#{s_reason}, s_status='3'
 		where s_email=#{s_email}
 	</update>
-	<!-- 관리자 shoplist 입점 신청 내역 -->	
+	<!-- 관리자 shoplist 입점 신청 내역 s_status='1' -->	
 	<select id="shoplist" resultType="shop">
 		select * from shop
 	</select>
+	<!-- 총데이터 갯수 구하기 -->
+	<select id="shoptotal" parameterType="shop" resultType="int">
+		select count(*) from shop
+	</select>
+	<!-- 체크박스로 입점승인 -->
+	<update id="shopupdate" parameterType="String">
+		update shop set s_status='2' where s_email=#{email}
+	
+	</update>
 	
 </mapper>

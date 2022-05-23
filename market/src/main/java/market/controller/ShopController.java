@@ -1,8 +1,8 @@
 package market.controller;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
@@ -13,14 +13,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import market.model.ShopDTO;
+import market.service.PagingPgm;
 import market.service.ShopServiceImpl;
 
 
@@ -326,15 +326,59 @@ public class ShopController {
 			}
 	    } 
 	//관리자 shoplist 입점 신청 내역
-	 @RequestMapping("shoplist.do")
-	 public String shoplist(Model model)throws Exception {
-		
-		 List<ShopDTO> shoplist = shopService.shoplist();
+	 @RequestMapping("shopList.do")
+	 public String shoplist(String pageNum,ShopDTO shop , Model model)throws Exception {
 		 
-		 model.addAttribute("shoplist", shoplist);
+		 final int rowPerPage = 10;
+			if (pageNum == null || pageNum.equals("")) {
+				pageNum = "1";
+			}
+			int currentPage = Integer.parseInt(pageNum);
+			// 총데이터 갯수 구하기
+			int total = shopService.getTotal(shop); 
+			int startRow = (currentPage - 1) * rowPerPage + 1;
+			int endRow = startRow + rowPerPage - 1;
+			// 페이징처리 클래스 import받기 
+			PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
+			shop.setStartRow(startRow);
+			shop.setEndRow(endRow);
+			int no = total - startRow + 1;
+			// 모든 데이터 list로 구해오기
+			List<ShopDTO> shoplist = shopService.shoplist();
+			
+			model.addAttribute("no", no);
+			model.addAttribute("pp", pp);
+			model.addAttribute("shoplist", shoplist);
 		 
-		 return "admin_page/shoplist";
+		 return "admin_page/shopList";
 	 }
+	 // 체크박스로 입점승인
+	 @RequestMapping(value="shopList_check.do" , method=RequestMethod.POST)
+	// @ResponseBody @RequestBody 
+//	 public String shopList_check(Map<String, Object> arr) throws Exception{
+//		 public String shopList_check(HttpServletRequest request) throws Exception{
+		 public String shopList_check(@RequestParam(value="arr[]") List<String> arrlist
+				 					, Model model) throws Exception{
+		 
+//		 String[] str = request.getParameterValues("arr");
+		 System.out.println(arrlist);
+		 
+		 int result = 0;
+		 for(String e : arrlist) {
+			 result = shopService.shopList_check(e);
+		 }
+//		 Map<String, String> param = new HashMap<String,String>();
+//		 param.putAll(paramMap);
+//		 System.out.println(paramMap.entrySet());
+//		 System.out.println("arr:"+ arr); 
+//		 System.out.println("arr:"+paramMap.get("arr")); 
+	   
+	   
+	  // shopService.shopList_check(param);
+	    model.addAttribute("result", result);
+	 return "shop/shopList_checkResult";
+	 }
+
 	 
 	 
 	 

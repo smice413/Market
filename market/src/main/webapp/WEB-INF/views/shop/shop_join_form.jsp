@@ -52,7 +52,19 @@ function readImage(n){
 		});
 } */
 
-
+$( document ).ready(function() {
+	$("#showfileBtn").click(function(e){
+		//e.stopPropagation();
+		$("#s_file").click();
+	});
+	
+	$("#s_file").change(function(){
+		var fileNm = $(this).val();
+		var index = fileNm.lastIndexOf("\\");
+		fileNm = fileNm.substring(index+1);
+		$("#s_file_nm").val(fileNm);
+	});
+});
 
 </script>
 
@@ -124,7 +136,14 @@ function readImage(n){
 					<td>
 						<!-- <input type="file" id="s_file" name="s_file1" > -->
 						<!-- <input  type="file" id="s_file" name="s_file1" class="form-control" onChange="readImage(this)" multiple="multiple"/> -->
-					    <input type="file" id="s_file" name="s_file1" class="form-control" onChange="readImage(this)"/>
+					    <input type="file" id="s_file" name="s_file1" class="form-control" onChange="readImage(this)" style="display:none;"/>
+					    
+					    <div class="input-group" style="display: flex;">
+						    <input type="text" id="s_file_nm" name="s_file_nm" class="form-control" readonly="readonly" style="width: 74%;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"/>
+						    <div class="input-group-append">
+						    	<button type="button" id="showfileBtn" style="line-height: 28px;">파일선택</button>
+							</div>
+			            </div>
 			            <img style="width: 200px;" id="previewImage" src="#">
 			            
 					</td>

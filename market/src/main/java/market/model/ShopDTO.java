@@ -22,6 +22,23 @@ public class ShopDTO {
 	private String s_status; /* 상태 */
 	private String s_post; /*우편번호*/
 	
+	// page
+	private int startRow;
+	private int endRow;
+	
+	
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public int getEndRow() {
+		return endRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
 	public int getS_no() {
 		return s_no;
 	}

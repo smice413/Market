@@ -49,5 +49,13 @@ public class ShopDAOImpl {
   public List<ShopDTO> shoplist()throws Exception{
 		return sqlsession.selectList("shopns.shoplist");
 	}
+  //총 데이터 개수 구하기
+  public int getTotal(ShopDTO shop)throws Exception{
+		return sqlsession.selectOne("shopns.shoptotal",shop);
+	}
+  // 체크박스로 입점승인
+  public int shopList_check(String email) throws Exception {
+	    return sqlsession.update("shopns.shopupdate", email);
+  }
   
 }

@@ -1,6 +1,8 @@
 package market.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,16 @@ public class ShopServiceImpl {
 	//관리자 shoplist 입점 신청 내역
 	public List<ShopDTO> shoplist()throws Exception{
 		return shopDAO.shoplist();
+	}
+	
+	//총 데이터 개수 구하기
+	public int getTotal(ShopDTO shop)throws Exception{
+		return shopDAO.getTotal(shop);
+	}
+	
+	//체크박스로 입점승인
+	public int shopList_check(String email)throws Exception{
+		return shopDAO.shopList_check(email);
 	}
 	
 }
