@@ -176,7 +176,7 @@
 			       if(result.trim() == 'success'){
 			           var check = confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?");
 					   if(check) { 
-						  location.assign("cartList.do?");
+						  location.assign("cartList.do");
 						}else{
 						  return false;
 						}

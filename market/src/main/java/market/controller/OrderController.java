@@ -2,7 +2,10 @@ package market.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,12 +16,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sun.istack.logging.Logger;
 
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
 import market.model.MemberDTO;
+import market.model.OrderPageDTO;
+import market.model.OrderPageItemDTO;
 import market.service.MemberServiceImpl;
 import market.service.OrdereService;
 
@@ -33,11 +39,20 @@ public class OrderController {
 	
 	// 주문페이지
 	@RequestMapping("order.do")
-	public String orderPage(HttpSession session, CartDTO cart, Model model) throws Exception {
+	public String orderPage(HttpSession session,OrderPageDTO opd ,HttpServletRequest request, Model model, OrderPageDTO MemberDTO) throws Exception {
+
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
-		System.out.println("p_no:"+cart.getP_no());
-		System.out.println("cart_no:"+cart.getCart_qty());
+		System.out.println("orders:"+opd.getOrders());
+		
+		int productCount = 0;
+		for(int i=0; i<opd.getOrders().size(); i++) {
+			productCount++;	
+		}
+		System.out.println("productCount:"+productCount);
+		
+		// 주문 상품 정보
+		List<OrderPageItemDTO> productInfo = os.getProductInfo(opd.getOrders());
 		
 		// 주문자 정보 조회
 		MemberDTO memberList = ms.select(m_email);
@@ -47,6 +62,8 @@ public class OrderController {
 		DeliveryDTO deliveryInfo = os.getDeliveryInfo(m_email);
 		System.out.println("deliveryInfo:"+deliveryInfo);
 		
+		model.addAttribute("productInfo",productInfo);
+		model.addAttribute("productCount",productCount);
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("deliveryInfo", deliveryInfo);
 		

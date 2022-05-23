@@ -1,12 +1,14 @@
 package market.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
+import market.model.OrderPageItemDTO;
 
 public interface OrdereService {
-	List<CartDTO> getCartInfo(String m_email);
+	public List<OrderPageItemDTO> getProductInfo(List<OrderPageItemDTO> orders);
 	DeliveryDTO getDeliveryInfo(String m_email);
 	int getAddressCount(String m_email);
 	int deliveryInsertY(DeliveryDTO delivery);

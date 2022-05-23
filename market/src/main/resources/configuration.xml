@@ -23,7 +23,7 @@
 		<typeAlias alias="review" type="market.model.ReviewDTO" />
 		<typeAlias alias="shop" type="market.model.ShopDTO" />
 		<typeAlias alias="md" type="market.dao.MemberDAO" />
-		<typeAlias alias="orderpage" type="market.model.OrderPageDTO" />
+		<typeAlias alias="orderpage" type="market.model.OrderPageItemDTO" />
 		<typeAlias alias="order_manage" type="market.model.Order_manageDTO" />
 	</typeAliases>
 	<!-- 

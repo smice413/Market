@@ -1,12 +1,15 @@
 package market.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
+import market.model.OrderPageItemDTO;
+import scala.PartialFunction.OrElse;
 
 public interface OrderDAO {
-	List<CartDTO> getCartInfo(String m_email);
+	public OrderPageItemDTO getProductInfo(int cart_no);
 	DeliveryDTO getDeliveryInfo(String m_email);
 	int getAddressCount(String m_email);
 	int deliveryInsertY(DeliveryDTO delivery);

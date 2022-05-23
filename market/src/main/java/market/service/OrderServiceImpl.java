@@ -1,5 +1,7 @@
 package market.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import market.dao.OrderDAO;
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
+import market.model.OrderPageItemDTO;
 
 @Service
 public class OrderServiceImpl implements OrdereService{
@@ -16,8 +19,24 @@ public class OrderServiceImpl implements OrdereService{
 	private OrderDAO od;
 
 	@Override
-	public List<CartDTO> getCartInfo(String m_email) {
-		return od.getCartInfo(m_email);
+	public List<OrderPageItemDTO> getProductInfo(List<OrderPageItemDTO> orders) {
+
+		List<OrderPageItemDTO> result = new ArrayList<OrderPageItemDTO>();		
+		
+		for(OrderPageItemDTO ord : orders) {
+			
+			OrderPageItemDTO productInfo = od.getProductInfo(ord.getCart_no());			
+
+			productInfo.setCart_qty(ord.getCart_qty());
+			
+			productInfo.totalPrice();
+			System.out.println("productInfo:"+productInfo);
+			
+			result.add(productInfo);			
+		}		
+		
+		return result;
+		
 	}
 
 	@Override

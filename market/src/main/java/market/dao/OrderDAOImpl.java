@@ -1,5 +1,6 @@
 package market.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
+import market.model.OrderPageItemDTO;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO{
@@ -16,8 +18,8 @@ public class OrderDAOImpl implements OrderDAO{
 	private SqlSessionTemplate sst;
 
 	@Override
-	public List<CartDTO> getCartInfo(String m_email) {
-		return sst.selectList("cartns.list", m_email);
+	public OrderPageItemDTO getProductInfo(int cart_no) {
+		return sst.selectOne("orderpagens.getProductInfo", cart_no);
 	}
 
 	@Override

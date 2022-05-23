@@ -50,6 +50,7 @@ $(".post_btn").on("click", function(){
 </script>
 
 
+
 </head>
 <body>
 
@@ -65,21 +66,39 @@ $(".post_btn").on("click", function(){
 		<table class="table orderProduct_table">
 			<thead>
 				<tr>
-					<th></th>
-					<th>상품정보</th>
-					<th>판매자</th>
-					<th>수량</th>
-					<th>상품금액</th>
+					<th colspan="1"></th>
+					<th>상품정보</th> 
+					<th>판매자</th> 
+					<th>수량</th> 
+					<th>합계</th> 
 				</tr>
 			</thead>
 			<tbody>
+				<c:forEach var="pi" items="${productInfo}">
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+					<td align="center"><img src="${path}/upload/product/${pi.p_img}" width=100px></td>
+					<td align="left">
+						<div style="margin-top:30px;">
+						   <b>${pi.p_name}</b> <br>
+						<div style="font-size:13px;margin-top:2px;">
+						<fmt:formatNumber pattern="#,###,###" value="${pi.p_sell_price}"/>&nbsp;원
+						   | ${pi.s_name} 
+					    </div>
+						</div>
+					</td>
+					<td>
+						<div style="margin-top:35px;">
+							${pi.s_name}
+						</div>
+					</td>
+					<td><div style="margin-top:35px;">${pi.cart_qty} 개 </div></td>
+					<td>
+						<div style="margin-top:35px;font-weight:bold;">	
+							<fmt:formatNumber value="${pi.total_price}" pattern="#,###,### 원" />
+						</div>
+					</td>
+				</tr>	
+				</c:forEach>
 			</tbody>
 		</table>
 		
@@ -107,6 +126,8 @@ $(".post_btn").on("click", function(){
 				         정보 변경은 마이페이지>개인정보 수정 메뉴에서 가능합니다.</div></td>
 			</tr>
 		</table>
+		
+	
 		
 <!-- 배송지 정보 -->
 		<table class="delivery_table" style="width:100%; margin-top:50px;">
@@ -267,15 +288,15 @@ $(".post_btn").on("click", function(){
 			</tr>
 		    <tr>
 				<td><label style="margin-left:20px;">배송비</label></td>
-				<td>주문금액</td>
+				<td>3,000원</td>
 		    </tr>
 		    <tr>
 				<td><label style="margin-left:20px;">쿠폰할인금액</label></td>
-				<td>주문금액</td>
+				<td></td>
 		    </tr>
 		    <tr>
 				<td><label style="margin-left:20px;">최종결제금액</label></td>
-				<td>주문금액</td>
+				<td></td>
 		    </tr>
 		</table>
 		
