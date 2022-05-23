@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import market.model.Order_manageDTO;
 import market.model.Order_productDTO;
-import market.model.Order_tabDTO;
 import market.service.ShopManageService;
 
 @Controller
@@ -29,7 +29,7 @@ public class ShopManageController {
 		 * s_no); session.setAttribute("s_email", s_email);
 		 */
 
-		List<Order_tabDTO> olist = sms.olist();
+		List<Order_manageDTO> olist = sms.olist();
 		model.addAttribute("olist", olist);
 		
 		System.out.println("샵매니저 컨트롤러");

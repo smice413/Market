@@ -18,9 +18,10 @@
 	<table class="table table-hover">
 		<tr>
 			<td>주문번호</td>
-			<td>회원이메일</td>
-			<td>총주문액</td>
-			<td>결제방법</td>
+			<td>주문자</td>
+			<td>배송주소</td>
+			<td>받는사람</td>
+			<td>배송메시지</td>
 			<td>주문일자</td>
 			<td>기타</td>
 		</tr>
@@ -28,21 +29,19 @@
 			<tr>
 			<td>${o.o_no}</td>
 			<td>${o.m_email}</td>
-			<td>${o.o_total_price}</td>
-			<td>${o.o_pay_type}</td>
+			<td>${o.d_address}</td>
+			<td>${o.d_name}</td>
+			<td>${o.d_msg}</td>
 			<td>
 				<fmt:formatDate value="${o.o_date}" pattern="yyyy-MM-dd HH:mm"/>
 			</td>
 			<td>
-				배송번호 : &nbsp;&nbsp;
-				<input type="text" maxlength="8">
-				<input type=button value="입력">
-				<input type=button value="주문취소"
+				<input type=button value="주문처리">
+				<input type=button value="주문일괄취소"
 				 onclick="if(confirm('취소하시겠습니까?'))location.href=
 				 'OrderCancel.do?o_no=${o.o_no}'">
 			</td>
 			</tr>
-		
 		</c:forEach>
 	</table>
 <%@ include file="../common/footer.jsp" %>

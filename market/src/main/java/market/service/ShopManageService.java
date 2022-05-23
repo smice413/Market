@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import market.dao.Order_productDAO;
 import market.dao.Order_tabDAO;
+import market.model.Order_manageDTO;
 import market.model.Order_productDTO;
-import market.model.Order_tabDTO;
 
 @Service
 public class ShopManageService {
@@ -19,7 +19,7 @@ public class ShopManageService {
 	private Order_productDAO opdao;
 
 	// 주문리스트 불러오기
-	public List<Order_tabDTO> olist() {
+	public List<Order_manageDTO> olist() {
 		return otdao.olist();
 	}
 	

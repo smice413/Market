@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order_managens">
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<!-- <resultMap id="boardResult"      type="board">
+		<result property="num"	     column="num" />
+	</resultMap> -->
+	<!-- <select id="list" parameterType="hashMap" resultMap="boardResult"> -->
+	
+	<select id="list" resultType="order_manage">
+	select
+	op.o_no as o_no, 
+	op.op_no as op_no,
+	p.s_no as s_no,
+	ot.m_email as m_email,
+	d.d_address as d_address,
+	d.d_detail_address as d_detail_address,
+	d.d_name as d_name,
+	ot.d_msg as d_msg,
+	ot.o_total_price as o_total_price,
+	ot.o_sale_price as o_sale_price,
+	ot.o_pay_price as o_pay_price,
+	ot.o_pay_type as o_pay_type,
+	ot.o_date as o_date,
+	p.p_no as p_no,
+	p.p_name as p_name,
+	op.op_qty as op_qty,
+	p.p_sell_price as p_sell_price
+	
+	from order_tab ot
+	left join ORDER_PRODUCT op on ot.o_no = op.o_no
+	left join DELIVERY d on ot.d_no = d.d_no
+	left join PRODUCT p on op.p_no = p.p_no
+	order by ot.o_no desc
+	</select>
+	
+</mapper>
