@@ -90,14 +90,14 @@
 								<td><input type=text name="keyword" class="vf_search"></td>
 								<td>
 	<!-- 							<input type="submit" id="search" value="검색" style="width: 40px; font-size: 13px;"> -->
-									<input type = "image" src = "${path }/images/icon_search.png" width=24px alt = "검색버튼" ></td>
+									<input type = "image" src = "${path }/images/search.svg" width=22px alt = "검색버튼" ></td>
 							</tr>
 						</table>
 					</form>
 					</div>
 					
-					<div style="width: 24px; padding: 0 0 0 10">
-						<a href="cartList.do"><img src="${path }/images/icon_cart.png" style="width: 24px; height: 24px"></a>
+					<div style="width: 24px; margin:0 0 0 10;">
+						<a href="cartList.do"><img src="${path }/images/cart2.svg" style="height: 24px;"></a>
 					</div>
 				</div>
 			</td>

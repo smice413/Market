@@ -7,6 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- <style>
+.follow a {height:30;}
+.follow a:hover {height:40;}
+</style> -->
 <script type="text/javascript">
 
 	$(function() {
@@ -26,8 +30,8 @@
 
 <div class="container" align="center">
 	<div class="vf-left">
-		<div  style="width:380px; height:380px; overflow: hidden;">
-			<div class="swiper-container gallery-top" >
+		<div  style="width:380px; height:380px; overflow: hidden; padding:0px">
+			<div class="swiper-container gallery-top">
 				<div class="swiper-wrapper">
 					<c:forEach var="p" items="${listImg}">
 					<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/upload/product/${p.p_img}" width=380px></div></div>
@@ -39,12 +43,12 @@
 		</div>
 	</div>
 	<div class="vf-right">
-		<table class="table" style="font-size:13px;">
+		<table class="table" style="font-size:15px; margin:0px;">
 			<tr>
 				<td colspan=2  style="font-size:15px;">
 					<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${product.s_name}">
 						[${product.s_name}]</a>&nbsp;&nbsp;&nbsp;
-					<a href=""><img src="${path }/images/icon-follow.png" height=40px></a></td>
+					<a href=""><img src="${path }/images/house-heart.svg" id="follow" alt="상점을 팔로잉하세요~" height=30px></a></td>
 			</tr>
 			<tr>
 				<td colspan=2>
@@ -71,28 +75,40 @@
 			</tr>
 			<tr>
 				<td class="cart_qty_td" colspan=2 align="left">
+					<!-- 재고가 없을 경우 -->
+					<c:if test="${product.p_stock < 1}">
+						해당 제품이 품절되었습니다 .
+					</c:if>
+					<c:if test="${product.p_stock > 0}">
+					<!-- 구매수량 변경 -->
 			    	<div class="table_text_align_center cart_qty_div" style="display:flex; margin:0;">
 						<label style="margin-top:5px;">구매 수량 :</label> 
 					   	<button class="minus_btn btn btn-default" style="margin-left:10px;">-</button>
 						<input type="text" class="cart_qty form-control" value="1" style="width:45px;">
 					   	<button class="plus_btn btn btn-default">+</button>
 					</div>
+					</c:if>
 				</td>
 			</tr>
 			<tr>
 				<td colspan=2 align=center>
+				<c:if test="${product.p_stock < 1}">
+					<a href="#" class="btn btn-success">재입고 신청하기</a>
+				</c:if>
+				<c:if test="${product.p_stock > 0}">
 					<a href="#" class="btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
                   		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
-				<c:if test="${product.p_follow_sale == 'Y'}">
+					<c:if test="${product.p_follow_sale == 'Y'}">
 					<a href="#" class="btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
 						<b>${product.p_follow_price}원<b><br>팔로워구매하기</a>
-				</c:if>
-				<c:if test="${product.p_group_buying == 'Y'}"> 
+					</c:if>
+					<c:if test="${product.p_group_buying == 'Y'}"> 
 					<a href="#" class="btn btn-danger" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
 						<b>${product.p_group_price}원<b><br>공동구매하기</a>
-				</c:if>
+					</c:if>
 					<a class="cart_btn btn btn-outline-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
                            <b>${product.p_sell_price}원<b><br>장바구니담기</a>
+                </c:if>
 				</td>
 			</tr>
 		</table>

@@ -16,7 +16,7 @@
 	<c:if test="${not empty keyword}">
 		<c:if test="${not empty listCategory}"> 
 		
-		<div  class="container" style="width:100%;  border-radius: 10px; border-style: dotted; border-width: 2px;">
+		<div  class="container" style="width:100%;  padding:0 0 3 0; border-radius: 10px; border-style: dotted; border-width: 2px;">
 			<c:forEach var="c" items="${listCategory }">
 				<div style="width: 115px; height:32px; float: left; text-align: center; padding:7 0 7 0; ">
 				<c:if test="${search=='cate_large'}">

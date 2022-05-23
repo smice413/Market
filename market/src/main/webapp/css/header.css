@@ -41,8 +41,8 @@
 		container안에 아래 div삽입 : 
 						왼쪽 <div class="left">
 						오른쪽 <div class="right">*/		
-	.vf-left { float: left; width: 350px; background-color: #fff; padding: 10px; }
-	.vf-right { float: left; width: 850px; background-color: #fff; padding: 10px; }
+	.vf-left { float: left; width: 350px; background-color: #fff; padding: 10 0 0 0; }
+	.vf-right { float: left; width: 850px; background-color: #fff; padding: 10 0 0 0; }
 
 /*3. 한 화면에 좌우로 4가지 내용을 담을 경우(화면이 좁아지면 오른쪽 내용이 아래로 내려옴)
 		container안에 아래 div삽입 : 
