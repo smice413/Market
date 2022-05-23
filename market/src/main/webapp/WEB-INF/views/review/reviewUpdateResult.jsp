@@ -11,14 +11,14 @@
 
 <c:if test="${result1 == 1 }">
 	<script>
-		alert("리뷰가 삭제 되었습니다!");
-		location.href = "<%= request.getContextPath()%>/myReviewList.do?r_no=${r_no}&p_no=${p_no}";
+		alert("리뷰가 수정 되었습니다!");
+		location.href = "<%= request.getContextPath()%>/reviewDetail.do";
 	</script>
 </c:if>
 
 <c:if test="${result != 1 }">
 	<script>
-		alert("리뷰가 삭제 되지 못했습니다. \n 잠시 후 다시 시도해 주세요!")
+		alert("리뷰가 수정 되지 못했습니다. \n 잠시 후 다시 시도해 주세요!")
 		history.go(-1);
 	</script>
 </c:if>

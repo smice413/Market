@@ -50,7 +50,7 @@ public class ReviewController {
 	@RequestMapping(value = "reviewInsert.do", method = RequestMethod.POST)
 	public String reviewInsert(Model model, ReviewDTO review,
 							   MultipartHttpServletRequest multi,
-							   HttpServletRequest request) throws Exception{
+							   HttpServletRequest request, String img) throws Exception{
 		
 		int result = 0;
 		
@@ -86,8 +86,11 @@ public class ReviewController {
 				e.printStackTrace();
 			}
 			
-			review.setR_img(savedFileName + "/");
+			img += savedFileName + "/";
+			
 		}
+		
+		review.setR_img(img);
 		
 		int result1 = 0;
 		
@@ -135,23 +138,17 @@ public class ReviewController {
 		System.out.println("리뷰 상세 내용: "+review);
 		
 		String content = review.getR_content().replace("\n","<br>");
+		String imgs = review.getR_img();
+		
+		String[] img = imgs.split("/");
 		
 		model.addAttribute("review", review);
 		model.addAttribute("content", content);
 		model.addAttribute("product", product);
+		model.addAttribute("img", img);
 		
 		return "review/reviewDetail";
 	}
-	
-	// 리뷰 유무 확인후 리뷰작성 버튼 비활성화 처리 (ajax)
-	/*
-	 * @RequestMapping(value = "reviewCheck.do", method = RequestMethod.POST) public
-	 * String reviewCheck(Model model, ReviewDTO review) throws Exception{
-	 * 
-	 * int result = rs.reviewCheck(review); model.addAttribute("result", result);
-	 * 
-	 * return "review/reviewCheckResult"; }
-	 */
 	
 	// 리뷰 수정 폼 불러오기
 	@RequestMapping("reviewUpdateForm.do")
@@ -161,13 +158,10 @@ public class ReviewController {
 		// 기존 리뷰 내용
 		ReviewDTO review = rs.select(r_no);
 		
-		String img = review.getR_img().replace("/", "<br>");
-		
 		// 상품명
 		ProductDTO product = rs.getProductName(p_no);
 		
 		model.addAttribute("review", review);
-		model.addAttribute("img", img);
 		model.addAttribute("product", product);
 		
 		return "review/reviewUpdateForm";
@@ -175,10 +169,20 @@ public class ReviewController {
 	
 	// 리뷰 내용 수정
 	@RequestMapping(value = "reviewUpdate.do", method = RequestMethod.POST)
-	public String reviewUpdate(Model model, ReviewDTO review,
-							   MultipartHttpServletRequest multi) throws Exception{
+	public String reviewUpdate(Model model, ReviewDTO review) throws Exception{
 		
-		return "";
+		// DB 내용 수정
+		int result = rs.reviewUpdate(review);
+		System.out.println("리뷰 수정 결과: "+ result);
+		
+		int r_no = review.getR_no();
+		int p_no = review.getP_no();
+		
+		model.addAttribute("result", result);
+		model.addAttribute("r_no", r_no);
+		model.addAttribute("p_no", p_no);
+		
+		return "review/reviewUpdateResult";
 	}
 	
 	// 리뷰 삭제

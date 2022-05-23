@@ -16,8 +16,8 @@
 
 <div class="vf-wide700-card">
 <form action="reviewUpdate.do" method="post" enctype="multipart/form-data">
-<input type="hidden" name="p_no" value=${product.p_no }>
 <input type="hidden" name="m_email" value=${m_email }>
+<input type="hidden" name="r_no" value=${review.r_no }>
 
 	<table class="table">
 		<tr>
@@ -34,12 +34,12 @@
 			<div>
 				<select id="r_star" name="r_star">
 					<option value="">선택하세요</option>
-					<option value="0">☆☆☆☆☆</option>
-					<option value="1">★☆☆☆☆</option>
-					<option value="2">★★☆☆☆</option>
-					<option value="3">★★★☆☆</option>
-					<option value="4">★★★★☆</option>
-					<option value="5">★★★★★</option>
+					<option value="0" <c:if test="${review.r_star == 0}"> selected </c:if>>☆☆☆☆☆</option>
+					<option value="1" <c:if test="${review.r_star == 1}"> selected </c:if>>★☆☆☆☆</option>
+					<option value="2" <c:if test="${review.r_star == 2}"> selected </c:if>>★★☆☆☆</option>
+					<option value="3" <c:if test="${review.r_star == 3}"> selected </c:if>>★★★☆☆</option>
+					<option value="4" <c:if test="${review.r_star == 4}"> selected </c:if>>★★★★☆</option>
+					<option value="5" <c:if test="${review.r_star == 5}"> selected </c:if>>★★★★★</option>
 				</select>	
 			</div>
 			</td>
@@ -53,7 +53,11 @@
 		<tr>
 			<td>첨부파일</td>
 			<td>
-				<div>${img }</div>
+				<%-- <c:if test="${review.r_img != null }">
+					<input type="hidden" name="old_img" value="${review.r_img }">
+					<div>${img }</div>
+					<font size=1 color=blue>새로운 파일을 선택하시면 예전 파일은 자동으로 삭제됩니다.</font>
+				</c:if> --%>
 				<input type="file" class="btn" id="review_img" name="review_img" accept="image/*" multiple />
 			</td>
 		</tr>

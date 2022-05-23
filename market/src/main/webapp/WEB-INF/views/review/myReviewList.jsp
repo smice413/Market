@@ -19,6 +19,7 @@
 <div align="right">리뷰 개수 : ${reviewCount }</div>
 <table class="table">
 	<tr>
+		<th style="text-align: center;">주문번호</th>
 		<th style="text-align: center;">제목</th>
 		<th style="text-align: center;">별점</th>
 		<th style="text-align: center;">작성일</th>
@@ -28,6 +29,9 @@
 <c:forEach var="list" items="${reviewList }">
 
 	<tr>
+		<td style="text-align: center;">
+			주문번호 들어갈 곳
+		</td>
 		<td style="text-align: center;">
 			<a href="reviewDetail.do?r_no=${list.r_no }&p_no=${list.p_no}">${list.r_title }</a>
 		</td>

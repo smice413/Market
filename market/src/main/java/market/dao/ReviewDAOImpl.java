@@ -49,6 +49,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 	 * return result; }
 	 */
 	
+	public int reviewUpdate(ReviewDTO review) throws Exception{
+		return sst.update("review.update", review);
+	}
+	
 	public int delete(int r_no) throws Exception{
 		return sst.update("review.delete", r_no);
 	}
