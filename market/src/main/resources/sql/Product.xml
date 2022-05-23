@@ -155,4 +155,5 @@
 	<select id="listImg" parameterType="int" resultType="product_img">
 		select * from product_img where p_no=#{p_no} order by p_img_order
 	</select>
+	
 </mapper>
