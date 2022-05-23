@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import market.model.MemberDTO;
+import market.model.ShopDTO;
 import scala.collection.mutable.HashMap;
 
 @Repository
@@ -80,5 +81,13 @@ public class MemberDAOImpl {
 	//회원목록출력
 	public List<MemberDTO> memberList()throws Exception{
 		return sqlSession.selectList("memberns.memberList");
+	}
+	//총 회원 수 구하기 
+	 public int getTotal(MemberDTO member)throws Exception{
+			return sqlSession.selectOne("memberns.getTotal",member);
+		}
+	//체크박스로 회원강제탈퇴
+	public int memberListCheck(String email)throws Exception{
+		return sqlSession.update("memberns.memberListCheck", email);
 	}
 }

@@ -15,6 +15,27 @@ public class MemberDTO {
 	private String m_del_why;
 	private Date m_birthday;
 	private String m_sex;
+	
+	//페이징처리
+	private int StartRow;
+	private int EndRow;
+	
+	public int getStartRow() {
+		return StartRow;
+	}
+
+	public void setStartRow(int startRow) {
+		StartRow = startRow;
+	}
+
+	public int getEndRow() {
+		return EndRow;
+	}
+
+	public void setEndRow(int endRow) {
+		EndRow = endRow;
+	}
+
 	public Date getM_birthday() {
 		return m_birthday;
 	}

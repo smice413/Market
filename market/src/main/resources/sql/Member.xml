@@ -31,7 +31,6 @@
   <!-- 아이디찾기 -->
   <select id="emailSearch" parameterType="member" resultType="member">
   select * from member where m_name=#{m_name} and m_tel=#{m_tel} and m_delstatus='N' 
-  
   </select>
   <!-- 회원정보가져오기 -->
   <select id="select" parameterType="String" resultType="member">
@@ -42,6 +41,16 @@
   <select id="memberList" resultType="member">
   select * from member
   </select>
+<!-- 회원리스트 총 갯수 구하기 -->
+<select id = "getTotal" parameterType="member" resultType="int">
+	select count(*) from member
+</select>
+
+  <!-- 리스트에서 체크박스 강제탈퇴 -->
+	<update id="memberListCheck" parameterType="String">
+ 	update member set m_delstatus='Y' where m_email=#{email}
+	</update>
+
   <!-- 회원삭제 -->
    <update id="deleteMember" parameterType="member">
   	update member set m_delstatus='Y', m_deldate = sysdate where m_email = #{m_email} and m_passwd = #{m_passwd} and m_del_why=#{m_del_why}

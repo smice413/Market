@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import market.dao.MemberDAO;
 import market.model.MemberDTO;
 import market.service.MemberServiceImpl;
+import market.service.PagingPgm;
 
 @Controller
 public class MemberController {
@@ -238,7 +239,7 @@ public class MemberController {
 			return "member/loginForm";
 		}
 		}
-//회원리스트 
+/*회원리스트 
 	 @RequestMapping(value ="/memberList.do")
 	 public String memberList(Model model)throws Exception {
 
@@ -246,23 +247,55 @@ public class MemberController {
 		 
 		 model.addAttribute("memberList",memberList);
 		 return "admin_page/memberList";
-	 }
+	 }*/
 	
-//회원리스트 체크박스 	 
+//회원리스트+ 페이징처리 
+	 @RequestMapping("memberList.do")
+	 public String memberList(String pageNum, MemberDTO member, Model model)throws Exception{
+	 
+		 final int rowPerPage = 10;
+		 if (pageNum == null  || pageNum.equals("")) {
+			 pageNum ="1";
+	 }
+		 int currentPage = Integer.parseInt(pageNum);
+		 //총데이터 갯수 구하기 
+		 int total = ms.getTotal(member);
+		 int startRow = (currentPage -1) * rowPerPage +1;
+		 int endRow = startRow + rowPerPage -1;
+		
+		 //페이징처리 클래스 import받기 
+		 PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
+		 member.setStartRow(startRow);   //DTO에 StartRow, EndRow 를 만들어야해 getter,setter까지:-)
+		 member.setEndRow(endRow);
+		 int no = total - startRow +1;
+	
+		 //모든 데이터를 list로 구해오기 
+		 List<MemberDTO> memberList = ms.memberList();
+		 
+		 model.addAttribute("no", no);
+		 model.addAttribute("pp", pp);
+		 model.addAttribute("memberList", memberList);
+		 
+		 
+		 return "admin_page/memberList";
+	 }
+
+
+//회원리스트 체크박스로 강제탈퇴 
 	 @RequestMapping(value="memberListCheck.do", method= RequestMethod.POST)
 	 public String memberListCheck(@RequestParam(value="arr[]") 
 	  								List<String> arrlist, Model model) throws Exception{
 		 
 		 int result = 0;
 		 for(String e : arrlist) {
-			 result = ms.memberListCheck(e);
+			 result = ms.memberListCheck(e);       
 		 }
 		 return "member/memberListCheckResult";
 	 }
 	 
 
-//아이디(이메일찾기)폼
-	//비번찾기 폼
+
+//비번찾기 폼
 		@RequestMapping(value = "/emailSearchForm.do")
 		public String emailSearchForm() {
 			return "member/emailSearchForm";

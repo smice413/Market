@@ -56,5 +56,11 @@ public class MemberServiceImpl {
 	public List<MemberDTO> memberList()throws Exception{
 		return md.memberList();
 	}
-	
-}
+	public int memberListCheck(String email)throws Exception{
+		return md.memberListCheck(email);
+	}
+//총 데이터 갯수 구하기 
+		public int getTotal(MemberDTO member)throws Exception{
+			return md.getTotal(member);
+		}
+	}

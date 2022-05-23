@@ -34,19 +34,20 @@
 				<tr>
 			<!-- 	<td align="center" height=50px> -->	
 					<td align="center" style="padding-bottom: 5px">    
-						<input type="submit" value="로그인" class="btn btn-success" /> 
-						<input type="button" value="회원가입" class="btn btn-warning"
-							onClick="location='memberInsertForm.do'" /> 
-						<input type="reset" value="취소" class="btn btn-outline-success"
-							onClick="$('#m_email').focus();" /> 
+						<input type="submit" value="로그인" class="btn btn-lg btn-primary btn-block btn-success" /> 
+						<!-- <input type="button" value="회원가입" class="btn btn-warning"
+							onClick="location='memberInsertForm.do'" />  -->
+						
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:0 0 0 0">
-						<input type="button" value="아이디(이메일)찾기" class="btn btn-outline-warning" 
-							onClick ="location ='emailSearchForm.do'"/>
-						<input type="button" value="비밀번호찾기" class="btn btn-warning" 
-							onClick ="location ='passwdSearchForm.do'"/>
+		<!-- 				<input type="button" value="아이디(이메일)찾기" class="btn btn-outline-warning" 
+							onClick ="location =''"/> -->
+							<a href="emailSearchForm.do"><small>아이디(이메일)찾기</small></a> |
+						<!-- <input type="button" value="비밀번호찾기" class="btn btn-warning" 
+							onClick ="location ='passwdSearchForm.do'"/> -->
+							<a href="passwdSearchForm.do"><small>비밀번호 찾기</small></a>
 					</td>
 				</tr>
 			</table>
