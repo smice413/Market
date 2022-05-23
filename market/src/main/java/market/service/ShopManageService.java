@@ -23,6 +23,11 @@ public class ShopManageService {
 		return otdao.olist();
 	}
 	
+	// 주문상세리스트 불러오기
+	public List<Order_manageDTO> odlist(int o_no) {
+		return otdao.odlist(o_no);
+	}
+	
 	// 환불신청 리스트 불러오기
 	public List<Order_productDTO> oplist() {
 		return opdao.oplist();

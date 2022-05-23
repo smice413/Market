@@ -21,6 +21,15 @@ public class Order_manageDTO {
 	private String p_name;
 	private int op_qty;
 	private int p_sell_price;
+	private String op_status;
+
+	public String getOp_status() {
+		return op_status;
+	}
+
+	public void setOp_status(String op_status) {
+		this.op_status = op_status;
+	}
 
 	public int getO_no() {
 		return o_no;

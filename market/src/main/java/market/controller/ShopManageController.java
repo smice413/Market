@@ -32,9 +32,18 @@ public class ShopManageController {
 		List<Order_manageDTO> olist = sms.olist();
 		model.addAttribute("olist", olist);
 		
-		System.out.println("샵매니저 컨트롤러");
-
 		return "shop/order_tabList";
+	}
+	
+	@RequestMapping("shopOrderDetail.do")
+	public String orderDetail(int o_no, Model model) {
+		
+		System.out.println("넘겨받은주문번호: "+o_no);
+		
+		List<Order_manageDTO> odlist = sms.odlist(o_no);
+		model.addAttribute("odlist", odlist);
+		
+		return "shop/shopOrderDetail";
 	}
 	
 	//환불관리
