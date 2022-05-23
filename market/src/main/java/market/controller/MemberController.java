@@ -248,9 +248,17 @@ public class MemberController {
 		 return "admin_page/memberList";
 	 }
 	
-	 
-	 
-	 
+//회원리스트 체크박스 	 
+	 @RequestMapping(value="memberListCheck.do", method= RequestMethod.POST)
+	 public String memberListCheck(@RequestParam(value="arr[]") 
+	  								List<String> arrlist, Model model) throws Exception{
+		 
+		 int result = 0;
+		 for(String e : arrlist) {
+			 result = ms.memberListCheck(e);
+		 }
+		 return "member/memberListCheckResult";
+	 }
 	 
 
 //아이디(이메일찾기)폼

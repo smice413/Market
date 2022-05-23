@@ -19,6 +19,7 @@
 		 $("#m_tel").val("").focus();
 		 return false;
 	 }
+//loginForm
 	
 //memberInsertForm 이메일 중복검사버튼 눌러라------이메일중복검사 start
 	function emailcheck(){
@@ -95,9 +96,9 @@
 		$("#m_email").val("").focus();
 		return false;
 	}
-	if ($.trim($("#m_passwd").val()) == "") {
+	if ($.trim($("#m_passwd1").val()) == "") {
 		alert("비밀번호를 입력하세요.");
-		$("#m_passwd").val("").focus();
+		$("#m_passwd1").val("").focus();
 		return false;
 	}
 	

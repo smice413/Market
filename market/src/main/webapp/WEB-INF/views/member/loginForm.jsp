@@ -9,13 +9,12 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-<%@ include file="../common/menuMyPage.jsp"%>
 
 	<div class="container" align=center>
 		<div class="vf-wide300-card">
 	<div id="loginform">
 		<h2 class="login_title">로그인</h2>
-		<form name="l" method="post" action="loginCheck.do" onsubmit="return kk()">
+		<form name="l" method="post" action="loginCheck.do" >
 			<table id="logintable" class = "table" style = "margin:3px">
 				<tr>
 					<th>이메일</th>
@@ -25,13 +24,13 @@
 
 				<tr>
 					<th>비밀번호</th>
-					<td><input type="password" name="m_passwd1" id="m_passwd1" size="20"
+					<td><input type="password" name="m_passwd" id="m_passwd" size="20"
 						class="input_box" /></td>
 				</tr>
 			</table>             
 			<div id="login_menu">
 				
-			<table border=1>
+			<table border=0>
 				<tr>
 			<!-- 	<td align="center" height=50px> -->	
 					<td align="center" style="padding-bottom: 5px">    
