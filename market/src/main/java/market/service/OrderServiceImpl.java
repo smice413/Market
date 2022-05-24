@@ -19,24 +19,8 @@ public class OrderServiceImpl implements OrdereService{
 	private OrderDAO od;
 
 	@Override
-	public List<OrderPageItemDTO> getProductInfo(List<OrderPageItemDTO> orders) {
-
-		List<OrderPageItemDTO> result = new ArrayList<OrderPageItemDTO>();		
-		
-		for(OrderPageItemDTO ord : orders) {
-			
-			OrderPageItemDTO productInfo = od.getProductInfo(ord.getCart_no());			
-
-			productInfo.setCart_qty(ord.getCart_qty());
-			
-			productInfo.totalPrice();
-			System.out.println("productInfo:"+productInfo);
-			
-			result.add(productInfo);			
-		}		
-		
-		return result;
-		
+	public OrderPageItemDTO getProductInfo(int cart_no){	
+		return od.getProductInfo(cart_no);
 	}
 
 	@Override
@@ -50,14 +34,10 @@ public class OrderServiceImpl implements OrdereService{
 		return od.getAddressCount(m_email);
 	}
 	
-	@Override
-	public int deliveryInsertY(DeliveryDTO delivery) {
-		return od.deliveryInsertY(delivery);
-	}
 	
 	@Override
-	public int deliveryInsertN(DeliveryDTO delivery) {
-		return od.deliveryInsertN(delivery);
+	public int deliveryInsert(DeliveryDTO delivery) {
+		return od.deliveryInsert(delivery);
 	}
 
 	@Override
@@ -78,6 +58,17 @@ public class OrderServiceImpl implements OrdereService{
 	@Override
 	public int addressUpdate(DeliveryDTO delivery) {
 		return od.addressUpdate(delivery);
+	}
+
+	@Override
+	public int deleteAddr(int d_no) {
+		return od.deleteAddr(d_no);
+	}
+
+	@Override
+	public DeliveryDTO getDelivery(int d_no) {
+		// TODO Auto-generated method stub
+		return od.getDelivery(d_no);
 	}
 
 

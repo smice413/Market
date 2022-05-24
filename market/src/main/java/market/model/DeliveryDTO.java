@@ -10,8 +10,8 @@ public class DeliveryDTO {
 	private String d_post;
 	private String d_address;  
 	private String d_detail_address;
-	
 	private String d_default;
+	private String d_delstatus;
 	
 	public int getD_no() {
 		return d_no;
@@ -66,6 +66,12 @@ public class DeliveryDTO {
 	}
 	public void setD_detail_address(String d_detail_address) {
 		this.d_detail_address = d_detail_address;
+	}
+	public String getD_delstatus() {
+		return d_delstatus;
+	}
+	public void setD_delstatus(String d_delstatus) {
+		this.d_delstatus = d_delstatus;
 	}
 
 }

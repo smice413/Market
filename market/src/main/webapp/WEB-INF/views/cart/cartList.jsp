@@ -192,24 +192,6 @@ input[type="checkbox"]{
 		
 	}); 
 	
-/* 	$(document).ready(function(){
-		
-		$(".qty_modify_btn").click(function(){
-			var cart_no = $(".cart_no_input").val;
-			var cart_qty = $(".cart_qty_input").val();
-			
-			$.post("cartQtyUpdate.do",{ cart_no : cart_no, cart_qty : cart_qty},function(result){
-			       if(result == 1){
-						  location.assign("cartList.do");
-						  return false;
-						}
-			        }else{
-			        	return false;
-			        }
-			}); // post() end
-		});					
-	}); */
-	
 	// 장바구니 개별 상품 삭제 버튼
 	$(".delete_btn").on("click",function(e){
 		e.preventDefault();

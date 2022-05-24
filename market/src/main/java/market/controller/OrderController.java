@@ -39,20 +39,33 @@ public class OrderController {
 	
 	// 주문페이지
 	@RequestMapping("order.do")
-	public String orderPage(HttpSession session,OrderPageDTO opd ,HttpServletRequest request, Model model, OrderPageDTO MemberDTO) throws Exception {
+	public String orderPage(HttpSession session,OrderPageDTO opd ,HttpServletRequest request, Model model) throws Exception {
 
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
 		System.out.println("orders:"+opd.getOrders());
 		
-		int productCount = 0;
-		for(int i=0; i<opd.getOrders().size(); i++) {
-			productCount++;	
-		}
-		System.out.println("productCount:"+productCount);
+//		int productCount = 0;
+//		for(int i=0; i<opd.getOrders().size(); i++) {
+//			productCount++;	
+//		}
+//		System.out.println("productCount:"+productCount);
 		
 		// 주문 상품 정보
-		List<OrderPageItemDTO> productInfo = os.getProductInfo(opd.getOrders());
+		List<OrderPageItemDTO> orders = opd.getOrders();
+		List<OrderPageItemDTO> result = new ArrayList<OrderPageItemDTO>();
+		
+		for(OrderPageItemDTO ord : orders) {
+			
+			OrderPageItemDTO productInfo = os.getProductInfo(ord.getCart_no());			
+
+			productInfo.setCart_qty(ord.getCart_qty());
+			
+			productInfo.totalPrice();
+			System.out.println("productInfo:"+productInfo);
+			
+		    result.add(productInfo);			
+		}	
 		
 		// 주문자 정보 조회
 		MemberDTO memberList = ms.select(m_email);
@@ -62,8 +75,7 @@ public class OrderController {
 		DeliveryDTO deliveryInfo = os.getDeliveryInfo(m_email);
 		System.out.println("deliveryInfo:"+deliveryInfo);
 		
-		model.addAttribute("productInfo",productInfo);
-		model.addAttribute("productCount",productCount);
+		model.addAttribute("productInfo",result);
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("deliveryInfo", deliveryInfo);
 		
@@ -71,28 +83,24 @@ public class OrderController {
 		return "order/order";
 	}
 	
+	// 배송지 등록 폼
+	@RequestMapping("deliveryInsertForm.do")
+	public String deliveryInsertForm() {
+		return "order/deliveryInsertForm";	
+	}
+	
+	
 	// 배송지 등록
 	@RequestMapping("deliveryInsert.do")
-	public String deliveryInsert(HttpSession session, DeliveryDTO delivery, Model model, HttpServletRequest request) throws Exception {
+	public String deliveryInsert(HttpSession session,DeliveryDTO delivery, Model model, HttpServletRequest request) throws Exception {
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
-		System.out.println("p_post:"+delivery.getD_post());
+		System.out.println("delivery:"+delivery);
+		
 		delivery.setM_email(m_email);
 		
-		// 배송지 등록이 처음인지 여부 확인
-		int addressCount = os.getAddressCount(m_email);
-		System.out.println("addressCount:"+addressCount);
-		
-		int result = 0;
-		
-		// 첫 등록하는 주소를 기본 배송지로 설정
-		if(addressCount == 0) {
-			result = os.deliveryInsertY(delivery);
-			System.out.println("result:"+result);
-		}else if(addressCount>=1) {
-			result = os.deliveryInsertN(delivery);
-			System.out.println("result:"+result);
-		}
+		int result = os.deliveryInsert(delivery);
+		System.out.println("result:"+result);
 		
 		model.addAttribute("result", result);
 		
@@ -118,8 +126,9 @@ public class OrderController {
 		return "order/deliveryListPop";
 	}
 	
+	
 	// 기본배송지 변경
-	@RequestMapping("UpdateDefaultAddr.do")
+	@RequestMapping("updateDefaultAddr.do")
 	public String UpdateDefaultAddr(int d_no, HttpSession session, Model model) throws Exception{
 		System.out.println("d_no:"+d_no);
 		
@@ -139,15 +148,40 @@ public class OrderController {
 		return "order/updateDefaultResult";
 	}
 	
-	// 기본배송지 수정
-	@RequestMapping("addressUpdate.do")
-	public String  deliveryUpdate(DeliveryDTO delivery, HttpSession session) throws Exception{
-		String m_email = (String)session.getAttribute("m_email");
+	// 배송지 수정 폼
+	@RequestMapping("deliveryUpdateForm.do")
+	public String deliveryUpdateForm(int d_no, Model model) {
+		System.out.println("d_no:"+d_no);
+		
+		DeliveryDTO delivery = os.getDelivery(d_no);
+		
+		model.addAttribute("dl", delivery);
+		
+		return "order/deliveryUpdateForm";
+	}
+	
+	// 배송지 수정
+	@RequestMapping("deliveryUpdate.do")
+	public String  deliveryUpdate(DeliveryDTO delivery) throws Exception{
+		System.out.println("delivery:"+delivery);
 		
 		int result = os.addressUpdate(delivery);
 		System.out.println("result:"+result);
 		
-		return "redirect:order.do";
+		return "order/deliveryUpdateResult";
+	}
+	
+	// 배송지 삭제
+	@RequestMapping("deleteAddr.do")
+	public String deleteAddr( int d_no, Model model) throws Exception{
+		System.out.println("d_no:"+d_no);
+		
+		int result = os.deleteAddr(d_no);
+		System.out.println("result:"+result);
+		
+		model.addAttribute("result", result);
+		
+		return "order/deleteAddrResult.jsp";
 	}
 	
 }

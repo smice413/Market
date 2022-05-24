@@ -10,44 +10,7 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 <link rel="stylesheet" href="${path}/css/swiper.css">
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<!-- 다음주소 -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-$(".post_btn").on("click", function(){
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-        }
-    }).open();
-});    
-    
-    function openDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('d_post').value = data.zonecode;
-                document.getElementById('addr1').value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('addr2').focus();
-            }
-        }).open();
-    }
-</script>
 
 
 
@@ -70,7 +33,7 @@ $(".post_btn").on("click", function(){
 					<th>상품정보</th> 
 					<th>판매자</th> 
 					<th>수량</th> 
-					<th>합계</th> 
+					<th>합계</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -96,6 +59,12 @@ $(".post_btn").on("click", function(){
 						<div style="margin-top:35px;font-weight:bold;">	
 							<fmt:formatNumber value="${pi.total_price}" pattern="#,###,### 원" />
 						</div>
+					</td>
+					<td class="goods_table_price_td">
+						<input type="hidden" class="p_sell_price_input" value="${pi.p_sell_price}">
+						<input type="hidden" class="cart_qty_input" value="${pi.cart_qty}">
+						<input type="hidden" class="total_price_input" value="${pi.total_price}">
+						<input type="hidden" class="p_no_input" value="${pi.p_no}">
 					</td>
 				</tr>	
 				</c:forEach>
@@ -134,14 +103,6 @@ $(".post_btn").on("click", function(){
 			<tr>
 				<td colspan="2"><h3 style="margin-left:20px;">배송 정보</h3></td>
 			</tr>
-			<tr style="border-top:3px solid;border-top-color:#dddddd;">
-				<td style="width:230px;"><label style="margin-left:20px;">배송지 선택</label></td>
-				<td class="address_info_td">
-					<input type="radio" name="address" onClick="showAdress('1')" value="default_Address" checked="checked"> 기본배송지
-					<input type="radio" name="address" onClick="showAdress('2')" value="new_Address" style="margin-left:20px;"> 신규배송지
-					<button type="button" class="deliveryList_btn btn btn-success" style="margin-left:10px;margin-top:5px;margin-bottom:5px">배송지 목록</button>
-				</td>
-			</tr>
 		</table>
 		     <!-- 기본 배송지 -->
 				<div class="addressInfo_input_div addressInfo_input_div_1" style="display:block;">
@@ -150,47 +111,52 @@ $(".post_btn").on("click", function(){
 						<col width="230px">
 						<col width="*">
 					</colgroup>
-					<form method="post" action="addressUpdate.do">
-					<input type="hidden" name="d_no" value="${deliveryInfo.d_no}">
 					<tbody>
 						<tr>
-							<th><label style="margin-left:20px; margin-top:10px;">구분</label></th>
+							<th><label style="margin-left:20px; margin-top:10px;" >구분</label></th>
 							<td>
-							<input class="d_cate_input form-control" name="d_cate" value="${deliveryInfo.d_cate}">
-							<div style="font-size:13px; color:#218838;margin-top:5px;margin-bottom:5px;">※ 집, 회사, 기타 등등 </div>
+								<div style="display:flex;">
+									<input class="d_cate_input form-control" name="d_cate" value="${deliveryInfo.d_cate}" readonly>
+									<button type="button" class="deliveryList_btn btn btn-success" 
+					       			 style="margin-left:10px;">배송지 목록</button>
+					       	    </div>
+								<div style="font-size:13px; color:#218838;margin-top:5px;margin-bottom:5px;">
+									※ 집, 회사, 기타 등등 
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<th><label style="margin-left:20px;margin-top:10px;" >이름</label></th>
-							<td><input class="d_name_input form-control" value="${deliveryInfo.d_name}" style="margin-bottom:10px;" name="d_name"></td>
+							<td><input class="d_name_input form-control" value="${deliveryInfo.d_name}" 
+							           style="margin-bottom:10px;" name="d_name" readonly></td>
 						</tr>
 						<tr>
 							<th><label style="margin-left:20px;margin-top:10px;">전화번호</label></th>
 							<td>
-								<input class="d_tel_input form-control" value="${deliveryInfo.d_tel}" style="margin-bottom:10px;" name="d_tel">
-								<div style="font-size:13px; color:#218838;margin-top:5px;margin-bottom:5px;">※ '-'는 제외하고 입력하세요.</div>
+								<input class="d_tel_input form-control" value="${deliveryInfo.d_tel}" 
+								       style="margin-bottom:10px;" name="d_tel" readonly>
+								<div style="font-size:13px; color:#218838;margin-top:5px;margin-bottom:5px;">
+								      ※ '-'는 제외하고 입력하세요.</div>
 							</td>
 				 		</tr>
 						<tr>
 							<th><label style="margin-left:20px;margin-top:10px;">우편번호</label></th>
 							<td>
-							  <div style="display:flex;"> 
-								<input class="post_input form-control" value="${deliveryInfo.d_post}" name="d_post" id="post_input" size="5" readonly style="width:100px;margin-bottom:10px;"">
-							    <button type="button" class="post_btn btn btn-outline-success " onclick="openDaumPostcode()" style="margin-bottom:10px;margin-left:5px;">우편번호검색</button>
-							  </div>
+								<input class="post_input form-control" value="${deliveryInfo.d_post}" readonly
+								       name="d_post" id="d_post" size="5" readonly style="width:100px;margin-bottom:10px;">
 							</td>
 						</tr>	
 						<tr>
 							<td><label style="margin-left:20px;margin-top:10px;">주소</label></td>
 							<td>		
-								<input class="addr1 form-control" value="${deliveryInfo.d_address}" name="d_address" id="d_address" size="50" readonly ><br>
+								<input class="addr1 form-control" value="${deliveryInfo.d_address}" 
+								        name="d_address" id="d_address" size="50" readonly ><br>
 								<div style="display:flex;">	
-									<input class="addr2 form-control" value="${deliveryInfo.d_detail_address}" name="d_detail_address" id="d_detail_address" size="37" >
-									<input type="submit" class="Update_btn btn btn-success" style="margin-left:5px;" value="수정">
+									<input class="addr2 form-control" value="${deliveryInfo.d_detail_address}" 
+									        name="d_detail_address" id="d_detail_address"readonly>
 								</div>
 							</td>
 						</tr>
-						</form>
 				 		<tr>
 							<td><div class="form-group" style="margin-left:20px;margin-top:10px;">
 							   	<label>요청사항</label>
@@ -203,64 +169,7 @@ $(".post_btn").on("click", function(){
 				 </table>		
 				</div>
 				
-			<!-- 신규 배송지 -->	
-				<div class="addressInfo_input_div addressInfo_input_div_2" style="display:none;">
-			      <table>
-					<colgroup>
-						<col width="230px">
-						<col width="*">
-					</colgroup>
-					<tbody>
-						<form method="post" action="deliveryInsert.do">
-						<tr>
-							<th><label style="margin-left:20px; margin-top:10px;">구분</label></th>
-							<td>
-							<input class="d_cate_input form-control" name="d_cate" >
-							<div style="font-size:13px; color:#218838;margin-top:5px;margin-bottom:5px;">※ 집, 회사, 기타 등등 </div>
-							</td>
-						</tr>
-						<tr>
-							<th><label style="margin-left:20px;margin-top:10px;">이름</label></th>
-							<td><input class="d_name_input form-control" style="margin-bottom:10px;" name="d_name"></td>
-						</tr>
-						<tr>
-							<th><label style="margin-left:20px;margin-top:10px;">전화번호</label></th>
-							<td>
-								<input class="d_tel_input form-control" style="margin-bottom:10px;" name="d_tel">
-								<div style="font-size:13px; color:#218838;margin-top:5px;margin-bottom:5px;">※ '-'는 제외하고 입력하세요.</div>
-							</td>
-				 		</tr>
-						<tr>
-							<th><label style="margin-left:20px;margin-top:10px;">우편번호</label></th>
-							<td>
-							  <div style="display:flex;"> 
-								<input class="d_post_input form-control" name="d_post" id="d_post" size="5" readonly style="width:100px;margin-bottom:10px;">
-							    <button type="button" class="post_btn btn btn-outline-success " onclick="openDaumPostcode()" style="margin-bottom:10px;margin-left:5px;">우편번호검색</button>
-							  </div>
-							</td>
-						</tr>	
-						<tr>
-							<td><label style="margin-left:20px;margin-top:10px;">주소</label></td>
-							<td>
-								<input class="d_address form-control" name="d_address" id="addr1" size="50" readonly ><br>
-								<div style="display:flex;">	
-									<input class="d_detail_address form-control" name="d_detail_address" id="addr2" size="37" >
-									<button class="deliveryInsert_btn btn btn-success" style="margin-left:5px;">등록</button>
-								</div>	
-							</td>
-						</tr>
-						</form>
-				 		<tr>
-							<td><div class="form-group" style="margin-left:20px;margin-top:10px;">
-							   	<label>요청사항</label>
-							</td> 
-							<td>
-								<input type="text" class="form-control" id="d_msg" placeholder="배송 관련 요청사항을 입력하세요."></div>
-							</td>
-						</tr>					
-					</tbody>
-				</table>
-				</div>
+			
 		
 		<!-- 쿠폰 정보 -->
 		<table class="coupon_table" style="width:100%; margin-top:50px;">
@@ -278,17 +187,19 @@ $(".post_btn").on("click", function(){
 		</table>
 		
 		<!-- 주문 종합 정보 -->
+	  <div class="total_info_div">
+		<div class="total_info_price_div">
 		<table class="price_table" style="width:100%; margin-top:50px;">
 			<tr>
 				<td colspan="1"><h3 style="margin-left:20px;">결제 금액</h3></td>
 			</tr>
 			<tr style="border-top:3px solid;border-top-color:#dddddd;">
 				<td><label style="margin-left:20px;margin-top:20px;">주문 금액</label></td>
-	            <td></td>		
+	            <td><span class="totalPrice_span"></span></td>		
 			</tr>
 		    <tr>
 				<td><label style="margin-left:20px;">배송비</label></td>
-				<td>3,000원</td>
+				<td><span class="delivery_price_span"></span></td>
 		    </tr>
 		    <tr>
 				<td><label style="margin-left:20px;">쿠폰할인금액</label></td>
@@ -296,16 +207,19 @@ $(".post_btn").on("click", function(){
 		    </tr>
 		    <tr>
 				<td><label style="margin-left:20px;">최종결제금액</label></td>
-				<td></td>
+				<td><span class="finalTotalPrice_span"></span></td>
 		    </tr>
 		</table>
+		</div>
+	  </div>	
 		
 		<table class="payment_table" style="width:100%; margin-top:50px;">
 			<tr>
 				<td colspan="2"><h3 style="margin-left:20px;">결제 수단</h3></td>
 			</tr>
 			<tr style="border-top:3px solid;border-top-color:#dddddd;">
-				<td rowspan="2"><div style="margin-left:20px;margin-top:20px;"><label>결제수단 선택</label></div></td>
+				<td rowspan="2"><div style="margin-left:20px;margin-top:20px;">
+				  <label>결제수단 선택</label></div></td>
 				<td>
 					<div class="box">카카오페이</div>
 				</td>
@@ -329,12 +243,6 @@ $(".post_btn").on("click", function(){
 </footer>
 
 <script>
-
-	// 주소입력란 버튼 동작(숨김,등장)
-	function showAdress(className){
-		$(".addressInfo_input_div").css('display','none');
-		$(".addressInfo_input_div_"+className).css('display','block');
-	}
 	
 	// 배송지 목록 팝업창
 	$(".deliveryList_btn").on("click",function(){
@@ -343,9 +251,7 @@ $(".post_btn").on("click", function(){
 		
 		window.open(popUrl,"배송지 목록",popOption);
 	});
-	
-	
-	
+
 </script>
 
 </body>
