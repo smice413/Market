@@ -4,11 +4,12 @@
 
 <!-- navigator 영역 -->
 
-
 	<div class="vf_sub_menu">
-		<div style="width: 20%;"><a href="memberConfirmForm.do">회원정보수정</a></div>
-		<div style="width: 20%;"><a href="#">배송지목록</a></div>
-		<div style="width: 20%;"><a href="#">팔로우상점목록</a></div>
-		<div style="width: 20%;"><a href="orderList.do">주문목록</a></div>
-		<div style="width: 20%;"><a href="myReviewList.do">내가 쓴 리뷰</a></div>
+		<div style="width: 15%;"><a href="memberConfirmForm.do">회원정보수정</a></div>
+		<div style="width: 14%;"><a href="#">배송지목록</a></div>
+		<div style="width: 14%;"><a href="orderList.do">주문목록</a></div>
+		<div style="width: 14%;"><a href="myReviewList.do">내가 쓴 리뷰</a></div>
+		<div style="width: 14%;"><a href="loveList.do">관심상품목록</a></div>
+		<div style="width: 14%;"><a href="followList.do">팔로우상점목록</a></div>
+		<div style="width: 15%;"><a href="myQnaList.do">문의글목록</a></div>
 	</div>

@@ -34,6 +34,8 @@
 </script>
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuShop.jsp"%>
 	<div class="container">
 		<table style="width:100%; margin:0px; padding:0px; font-size:13px;" align=left>
 			<tr>
@@ -50,6 +52,8 @@
 		</table>
 		<table class="table" style="font-size:14px; margin:0px; padding:0px;">
 			<tr align=center>
+				<td width=45>번호</td>
+				<td width=95>문의 유형</td>
 				<td>제목</td>
 				<td width=65>작성자</td>
 				<td width=110>작성일</td>
@@ -62,13 +66,18 @@
 			<div class="card-header" style="margin:0px; padding:0px;">
 				<table id="list_${qna.qna_no}" class="table" style=" font-size:15px; margin:0px;">
 					<tr style="padding:10px;">
+						<td width=45>${qna.qna_no}</td>
+						<td width=95><c:if test="${qna.p_no != 0}"><font color=blue>상품문의</font></c:if>
+							<c:if test="${qna.op_no != 0}"><font color=red>주문문의</font></c:if></td>
 						<td id="td_${qna.qna_no}">
 							<a class="card-link" data-toggle="collapse" href="#detail_${qna.qna_no}">
-							${qna.qna_title}///${qna.qna_no}</td>
+							${qna.qna_title}</td>
 						<td width=65>${qna.m_name}</td>
 						<td width=110><fmt:formatDate value="${qna.qna_writedate }" pattern="yyyy-MM-dd"/></td>
 						<td width=95 id="btn_${qna.qna_no}">
-						<c:if test="${empty qna.qna_answer}"><font color=gray>답변대기중</font></c:if>
+						<c:if test="${empty qna.qna_answer}">
+							<input type='button' id="qna_btn"class='edit1 btn btn-success' onclick='lst()' 
+							 value="답글달기"></c:if>
 							<c:if test="${not empty qna.qna_answer}"><b>답변완료</b></c:if></td>
 					</tr>
 				</table>
@@ -76,17 +85,24 @@
 		<!--  문의글 상세내용    -->
 			<div id="detail_${qna.qna_no}" class="collapse hide" data-parent="#accordion">
 		       <div class="card-body" style="margin:0px; padding:0px;">
-		       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f3f3f3">
+		       	<table style="width: 100%; font-size:14px; margin:0px; background-color: #f3f3f3">
+		       		<tr>
+						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b></b></td>
+						<td style="padding:12px;">
+							<c:if test="${qna.p_no != 0}"><font color=blue>${qna.p_name} 상품에 대한 문의글입니다.</font>
+								<a href="productView.do?p_no=${qna.p_no}">>>상품 보러가기</a></c:if>
+							<c:if test="${qna.op_no != 0}"><font color=red>주문번호 :${qna.op_no} 주문건에 대한 문의글입니다.</font></c:if></td>
+					</tr>
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>Q</b></td>
-						<td style="font-size:14px; padding:12px;">${qna.qna_question}<br>
+						<td style="padding:12px;">${qna.qna_question}<br>
 						${qna.qna_question}${qna.qna_question}${qna.qna_question}${qna.qna_question}<br>
 						${qna.qna_question}${qna.qna_question}${qna.qna_question}${qna.qna_question}<br></td>
 					</tr>
 				<c:if test="${empty qna.qna_answer }">
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>A</b></td>
-						<td style="font-size:14px; padding:12px;">${qna.qna_question}${qna.qna_question}${qna.qna_answer}</td>
+						<td style="padding:12px;">${qna.qna_question}${qna.qna_question}${qna.qna_answer}</td>
 					</tr>
 				</c:if>
 				</table>
@@ -95,6 +111,6 @@
 		</c:forEach>
 		</div>
 	</div>
-	
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

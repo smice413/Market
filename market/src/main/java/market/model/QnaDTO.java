@@ -27,6 +27,17 @@ public class QnaDTO {
 	
 	//회원이름(member join)
 	private String m_name;
+	
+	//상품이름 (product join)
+	private String p_name;
+
+	public String getP_name() {
+		return p_name;
+	}
+
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
+	}
 
 	public int getQna_no() {
 		return qna_no;

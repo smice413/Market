@@ -18,9 +18,11 @@ select * from (select a.*,rowNum rn from (
 		Q.qna_readcount as qna_readcount,
 		Q.qna_writedate as qna_writedate,
 		Q.qna_delstatus as qna_delstatus,
-		M.m_name as m_name
+		M.m_name as m_name,
+		P.p_name as p_name
 	from qna Q 
 	   	left join member M on M.m_email = Q.m_email
+	   	left join product P on P.p_no = Q.p_no
 	order by qna_ref desc, qna_writedate asc ) a)
 
 insert into qna values (qna_board_seq.nextval,63,null,
@@ -28,3 +30,4 @@ insert into qna values (qna_board_seq.nextval,63,null,
 			'N',0,sysdate,'N')
 			
 update qna set qna_question='문의게시판 테스트입니다3' where qna_no=7
+update qna set p_no=null where qna_no=5

@@ -23,7 +23,7 @@
 /* 네비게이션 (관리자페이지, SHOP매니저, 마이페이지 메뉴부분) */	
 	.vf_sub_menu { background-color: #31AA4D; height:25px; padding:2px; display:block }
 	.vf_sub_menu a { color: #fff; text-decoration: none;}
-	.vf_sub_menu a:hover { color: #FFC107;}
+	.vf_sub_menu a:hover { color: #000;}
 	.vf_sub_menu div { float: left; width: 11%; text-align: center; padding: 0px;}
 
 /******************* body (본문부분) ***********************/

@@ -18,9 +18,11 @@
 				Q.qna_readcount as qna_readcount,
 				Q.qna_writedate as qna_writedate,
 				Q.qna_delstatus as qna_delstatus,
-				M.m_name as m_name
+				M.m_name as m_name,
+				P.p_name as p_name
 			from qna Q 
 			   	left join member M on M.m_email = Q.m_email
+			   	left join product P on P.p_no = Q.p_no
 		<where>
 			<if test="keyword != null and search!='subcon'">
 				${search} like '%'||#{keyword}||'%'

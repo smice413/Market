@@ -14,7 +14,7 @@ select * from order_tab;
 select * from product;
 select * from product_img;
 select * from board;
-select * from qna_board;
+select * from qna;
 select * from restock;
 select * from shop;
 

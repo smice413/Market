@@ -53,6 +53,41 @@ public class QnaController {
 		
 		return "qna/list";
 	}
+
+	@RequestMapping("shopQnaList.do")	// 전체 목록, 검색 목록
+	public String shopQnalist(String pageNum, QnaDTO qna, Model model) {
+		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
+		if (pageNum == null || pageNum.equals("")) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum); // 현재 페이지 번호
+		
+		int total = qs.getTotal(qna); // 검색 (데이터 갯수)
+		System.out.println("total:"+total);
+		
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+		
+		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
+		System.out.println("startRow:"+startRow);
+		System.out.println("endRow:"+endRow);
+		
+		qna.setStartRow(startRow);
+		qna.setEndRow(endRow);
+
+		int no = total - startRow + 1;		// 화면 출력 번호
+		List<QnaDTO> list = qs.list(qna);
+		System.out.println("list:"+list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("no", no);
+		model.addAttribute("pp", pp);
+		// 검색
+		model.addAttribute("search", qna.getSearch());
+		model.addAttribute("keyword", qna.getKeyword());
+		
+		return "qna/shopQnaList";
+	}	
 	
 
 	@RequestMapping("qna/insertForm.do")	// 글작성 폼 (원문, 답변글)
