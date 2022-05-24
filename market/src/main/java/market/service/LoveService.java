@@ -6,11 +6,17 @@ import market.model.LoveDTO;
 
 public interface LoveService {
 
+	boolean findLoveProduct(LoveDTO love);
+	
+	void insert (LoveDTO love);
+	
 	int getTotal(LoveDTO love);
 	
-	List<LoveDTO> list(LoveDTO love);
+	List<LoveDTO> getShopNo(String m_email);
 	
-	int insert(LoveDTO love);
+	List<LoveDTO> list(String m_email);
 	
-	int delete(int love_no);
+	void delete(int love_no);
+	
+	void allDelete(String m_email);
 }

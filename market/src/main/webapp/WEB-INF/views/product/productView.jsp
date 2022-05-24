@@ -55,7 +55,7 @@
 			<tr>
 				<td colspan=2>
 					<font style="font-size:20px;">${product.p_name}</font>&nbsp;&nbsp;
-					<a href="">>>관심상품 등록</a></td>
+					<a href="${path}/loveInsert.do?p_no=${product.p_no}">>>관심상품 등록</a></td>
 			</tr>
 			<tr>
 				<td colspan=2>
