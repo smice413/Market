@@ -23,12 +23,12 @@
 						<tr>
 							<th>회원이름</th>
 							<td><input name="m_name" id="m_name" size="14"
-								class="input_box" required="required"/></td>
+								class="input_box" /></td>
 						</tr>
 						<tr>
 							<th>핸드폰번호</th>
 							<td><input name="m_tel" id="m_tel" size="14"
-								class="input_box" required="required"/></td>
+								class="input_box" /></td>
 						</tr>
 					</table>
 

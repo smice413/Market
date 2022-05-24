@@ -26,7 +26,7 @@
 							<input type ="text"  id="m_email" name="m_email" size="14" 
 								class="input_box" size="14" placeholder="ex)market@naver.com">
 							
-							<input type="button" id="emailcheck" value="이메일 중복체크" class="input_button" 
+							<input type="button" id="emailcheckb" value="이메일 중복체크" class="input_button" 
 							onclick="emailcheck1()" />
 								<div id="emailcheck"></div></td>
 						</tr>

@@ -38,7 +38,7 @@
 						<tr>
 							<th>현재 비밀번호</th>
 							<td><input type="password" name="m_passwd2" id="m_passwd2"
-								size="14" class="input_box" required="required"/></td>
+								size="14" class="input_box" /></td>
 						</tr>
 					</table>
 

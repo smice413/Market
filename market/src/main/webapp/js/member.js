@@ -60,8 +60,8 @@ function emailsearch() {
 	function emailcheck1(){
 //		alert("email");
 		$("#emailcheck").hide();
-		var email=$("m_email").val();
-		
+		var email=$("#m_email").val();
+		console.log(email);
 //		$("#submit").attr("disabled", true);
 //		alert("email중복검사를 해주세요");
 
@@ -73,14 +73,15 @@ function emailsearch() {
 		
 		
 //입력한 이메일 유효성 검사 	
-	/*if(!(validate_userid(email))){ //밑에서 정의한 validate_userid(memid)함수는 일치하지 않을 때 false를 리턴하기 때문에 !를 붙여 true로 조건을 만듬
+		if(!(validate_userid(email))){ //밑에서 정의한 validate_userid(memid)함수는 일치하지 않을 때 false를 리턴하기 때문에 !를 붙여 true로 조건을 만듬
+		//console.log(email);
 		var newtext='<font color="red">email에 @와 .com을 입력해주세요</font>';
 		$("#emailcheck").text('');//문자 초기화
 		$("#emailcheck").show(); //span 아이디 영역을 보이게 한다.
 		$("#emailcheck").append(newtext);
 		$("#m_email").val("").focus();
 		return false;
-	}*/
+	}
 	
 //이메일 중복확인 
 	 $.ajax({
@@ -126,6 +127,7 @@ function emailsearch() {
 			//대소문자는 무시한다.
 			
 			//영문 소문자,숫자 ,_가능,정규표현식
+			console.log(email);
 			return pattern.test(email); //pattern.test()는 값이 일치하면 true리턴함
 	}
 	
