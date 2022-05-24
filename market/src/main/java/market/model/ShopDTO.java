@@ -25,8 +25,22 @@ public class ShopDTO {
 	// page
 	private int startRow;
 	private int endRow;
+	//
+	private int startRow1;
+	private int endRow1;
 	
-	
+	public int getStartRow1() {
+		return startRow1;
+	}
+	public void setStartRow1(int startRow1) {
+		this.startRow1 = startRow1;
+	}
+	public int getEndRow1() {
+		return endRow1;
+	}
+	public void setEndRow1(int endRow1) {
+		this.endRow1 = endRow1;
+	}
 	public int getStartRow() {
 		return startRow;
 	}

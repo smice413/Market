@@ -41,15 +41,27 @@ public class ShopServiceImpl {
 	public List<ShopDTO> shoplist()throws Exception{
 		return shopDAO.shoplist();
 	}
+	//관리자 shoplist 회원 내역
+	public List<ShopDTO> shoplist1()throws Exception{
+		return shopDAO.shoplist1();
+	}
 	
-	//총 데이터 개수 구하기
+	//입점 신청 총 데이터 개수 구하기
 	public int getTotal(ShopDTO shop)throws Exception{
 		return shopDAO.getTotal(shop);
+	}
+	//회원 총 데이터 개수 구하기
+	public int getTotal2(ShopDTO shop)throws Exception{
+		return shopDAO.getTotal2(shop);
 	}
 	
 	//체크박스로 입점승인
 	public int shopList_check(String email)throws Exception{
 		return shopDAO.shopList_check(email);
+	}
+	//체크박스로 강제폐점
+	public int shopList_del(String email)throws Exception{
+		return shopDAO.shopList_del(email);
 	}
 	
 }

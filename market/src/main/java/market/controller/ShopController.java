@@ -267,7 +267,7 @@ public class ShopController {
 //		    	return null;
 //		    }
 		    
-			return "redirect:shop_info.do";
+			return "shop/shop_info_editResult";
 		}
 		// 폐점 신청 폼
 	 @RequestMapping("shop_del_form.do")
@@ -334,8 +334,9 @@ public class ShopController {
 				pageNum = "1";
 			}
 			int currentPage = Integer.parseInt(pageNum);
-			// 총데이터 갯수 구하기
-			int total = shopService.getTotal(shop); 
+			// 입점 신청 총데이터 갯수 구하기
+			int total = shopService.getTotal(shop);
+			System.out.println("total:"+total);
 			int startRow = (currentPage - 1) * rowPerPage + 1;
 			int endRow = startRow + rowPerPage - 1;
 			// 페이징처리 클래스 import받기 
@@ -343,7 +344,7 @@ public class ShopController {
 			shop.setStartRow(startRow);
 			shop.setEndRow(endRow);
 			int no = total - startRow + 1;
-			// 모든 데이터 list로 구해오기
+			// 입점신청 데이터 list로 구해오기
 			List<ShopDTO> shoplist = shopService.shoplist();
 			
 			model.addAttribute("no", no);
@@ -378,7 +379,66 @@ public class ShopController {
 	    model.addAttribute("result", result);
 	 return "shop/shopList_checkResult";
 	 }
-
+	
+	//관리자 shoplist  회원 내역
+		 @RequestMapping("shopListdel.do")
+		 public String shoplistdel(String pageNum1,ShopDTO shop , Model model)throws Exception {
+			 
+			 final int rowPerPage = 10;
+				if (pageNum1 == null || pageNum1.equals("")) {
+					pageNum1 = "1";
+				}
+				int currentPage = Integer.parseInt(pageNum1);
+				// 회원 총데이터 갯수 구하기
+				int total = shopService.getTotal2(shop); 
+				int startRow1 = (currentPage - 1) * rowPerPage + 1;
+				int endRow1 = startRow1 + rowPerPage - 1;
+				// 페이징처리 클래스 import받기 
+				PagingPgm pp1 = new PagingPgm(total, rowPerPage, currentPage);
+				shop.setStartRow(startRow1);
+				shop.setEndRow(endRow1);
+				int no1 = total - startRow1 + 1;
+				// 모든 데이터 list로 구해오기
+				List<ShopDTO> shoplist1 = shopService.shoplist1();
+				
+				model.addAttribute("no1", no1);
+				model.addAttribute("pp1", pp1);
+				model.addAttribute("shoplist1", shoplist1);
+			 
+			// return "admin_page/shopList_del";
+			 return "redirect:shopList.do";
+		 }
+	 
+	 
+	 
+	 // 체크박스로 강제폐점
+	 @RequestMapping(value="shopList_del.do" , method=RequestMethod.POST)
+	// @ResponseBody @RequestBody 
+//	 public String shopList_check(Map<String, Object> arr) throws Exception{
+//		 public String shopList_check(HttpServletRequest request) throws Exception{
+		 public String shopList_del(@RequestParam(value="arrdel[]") List<String> arrdelList
+				 					, Model model) throws Exception{
+		 
+//		 String[] str = request.getParameterValues("arr");
+		 System.out.println(arrdelList);
+		 
+		 int result = 0;
+		 for(String e : arrdelList) {
+			 result = shopService.shopList_del(e);
+		 }
+//		 Map<String, String> param = new HashMap<String,String>();
+//		 param.putAll(paramMap);
+//		 System.out.println(paramMap.entrySet());
+//		 System.out.println("arr:"+ arr); 
+//		 System.out.println("arr:"+paramMap.get("arr")); 
+	   
+	   
+	  // shopService.shopList_check(param);
+	    model.addAttribute("result", result);
+	    
+	 return "shop/shopList_checkResult";
+	 }
+	 
 	 
 	 
 	 

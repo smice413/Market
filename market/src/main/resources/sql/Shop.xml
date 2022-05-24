@@ -25,17 +25,30 @@
 		update shop set s_deldate=sysdate, s_reason=#{s_reason}, s_status='3'
 		where s_email=#{s_email}
 	</update>
-	<!-- 관리자 shoplist 입점 신청 내역 s_status='1' -->	
+	<!-- 관리자 shoplist 입점 신청 내역  -->	
 	<select id="shoplist" resultType="shop">
-		select * from shop
+		select * from shop where s_status='1' or s_status='2' 
 	</select>
-	<!-- 총데이터 갯수 구하기 -->
+	<!-- 관리자 shoplist 회원 내역  -->	
+	<select id="shoplist1" resultType="shop">
+		select * from shop where s_status='2'
+	</select>
+	<!-- 입점 신청 총데이터 갯수 구하기 -->
 	<select id="shoptotal" parameterType="shop" resultType="int">
-		select count(*) from shop
+		select count(*) from shop where s_status='1'
+	</select>
+	<!-- 회원 총데이터 갯수 구하기 -->
+	<select id="shoptotal2" parameterType="shop" resultType="int">
+		select count(*) from shop where s_status='2'
 	</select>
 	<!-- 체크박스로 입점승인 -->
 	<update id="shopupdate" parameterType="String">
-		update shop set s_status='2' where s_email=#{email}
+		update shop set s_status='2', s_regdate=sysdate where s_email=#{email}
+	
+	</update>
+	<!-- 체크박스로 강제폐점 -->
+	<update id="shopdel" parameterType="String">
+		update shop set s_status='3', s_deldate=sysdate where s_email=#{email}
 	
 	</update>
 	

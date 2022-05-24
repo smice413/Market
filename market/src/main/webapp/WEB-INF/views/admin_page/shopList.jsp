@@ -50,7 +50,53 @@ function shopList_check(){
 }
 
 </script>
+<script>
+function shopList_del(){
+	
+	var arrdel = new Array();
+	 $("input:checkbox[name=s_email]:checked").each(function() {
+	    	arrdel.push($(this).val());
+	 });
+	 if(arrdel == null || arrdel.length == 0){
+	        alert("강제 폐점할 항목을 선택해주세요.");
+	        return false;
+	    }
+	 var delalert = confirm("폐점하시겠습니까?");
+	    if(delalert){
+	    	
+	    	 alert(arrdel);
+	        $.ajax({
+	            type: "POST",
+	        	url: "shopList_del.do",
+	            data: {"arrdel": arrdel },
+	            //dataType: "json",
+	            //contentType:"application/json; charset=utf-8", 
+	            success: function(data){
+	               // alert(data);
+	                if(data==1){
+	                	alert("강제폐점 되었습니다.");
+	               	 	location.href="shopListdel.do";
+	                }
+	            },error:function(request,status,error){
+	                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	            }
 
+
+	           // ,error: function(e){alert("서버통신 오류"+e);}
+	        });
+	    }
+
+
+}
+
+</script>
+<!-- <script>
+	$(document).ready(function(){
+	
+		$("#shopListDel").load("shopListdel.do");
+	});
+
+</script> -->
 
 
 </head>
@@ -58,6 +104,9 @@ function shopList_check(){
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuAdmin.jsp"%>
 <!-- <form method="post" onSubmit="return shopList_del()"> -->
+
+<center><h1>입점승인</h1></center>
+<div style="overflow-y:scroll; height:150px;">
 <table border="1" align="center">
 		<tr>
 			<th>선택</th>
@@ -76,7 +125,7 @@ function shopList_check(){
 			<th>상태</th>
 		</tr>
 	<c:forEach var="shop" items="${shoplist}">
-		
+		<c:if test="${shop.s_status=='1'}">
 		<tr>
 			<td>
 		    <input type="checkbox" id="checkbox" name="s_email" value="${shop.s_email}">
@@ -97,12 +146,17 @@ function shopList_check(){
 		 	</td>
 		 	<td>${shop.s_status}</td>
 		</tr>
-		
+		</c:if>
 	</c:forEach>
 </table>
+</div>
 
-<div class="container" align="center">
-<ul class="pagination">
+
+<div class="shopList_ck" align="center" style="display:flex; align-items:center;">
+<div class="check" style="margin-left:20px;">
+<input type="button" id="button" value="입점승인" onclick="shopList_check()">
+</div>
+<%-- <ul class="pagination" style="margin-left:43%;">
 			
 		<c:if test="${pp.startPage > pp.pagePerBlk }">
 			<li><a href="${path}/shopList.do?pageNum=${pp.startPage - 1}">이전</a></li>
@@ -115,11 +169,76 @@ function shopList_check(){
 			<li><a href="${path}/shopList.do?pageNum=${pp.endPage + 1}">다음</a></li>
 		</c:if>
 		 
-</ul>
-</div>	
-<div>
-<input type="button" id="button" value="입점승인" onclick="shopList_check()">
+</ul> --%>
 </div>
-<!-- </form> -->
+
+<!-- <div id="shopListDel"></div> -->
+<center><h1>강제폐점</h1></center>
+<div class="shopList_exit" style="overflow-y:scroll; height:150px;">
+<table border="1" align="center">
+		<tr>
+			<th>선택</th>
+			<th>email</th>
+			<th>상호명</th>
+			<th>대표자명</th>
+			<th>사업자번호</th>
+			<th>통신판매업번호</th>
+			<th>서류첨부</th>
+			<th>우편번호</th>
+			<th>주소</th>
+			<th>전화번호</th>
+			<th>은행명</th>
+			<th>정산계좌</th>
+			<th>가입일</th>
+			<th>상태</th>
+		</tr>
+	
+	<c:forEach var="shopdel" items="${shoplist}">
+		<c:if test="${shopdel.s_status=='2'}">
+		<tr>
+			<td>
+		    <input type="checkbox" id="checkbox" name="s_email" value="${shopdel.s_email}">
+		    </td>
+		 	<td>${shopdel.s_email}</td>
+		 	<td>${shopdel.s_name}</td>
+		 	<td>${shopdel.s_ceo}</td>
+		 	<td>${shopdel.s_tongsin}</td>
+		 	<td>${shopdel.s_bizno}</td>
+		 	<td>${shopdel.s_file}</td>
+		 	<td>${shopdel.s_post}</td>
+		 	<td>${shopdel.s_address}</td>
+		 	<td>${shopdel.s_tel}</td>
+		 	<td>${shopdel.s_bank}</td>
+		 	<td>${shopdel.s_account}</td>
+		 	<td>
+		 	<fmt:formatDate value="${shopdel.s_regdate}" pattern="yy-MM-dd"/>
+		 	</td>
+		 	<td>${shopdel.s_status}</td>
+		</tr>
+		</c:if>
+	
+	</c:forEach>
+</table>
+</div>
+
+<div class="shopList_ck" align="center" style="display:flex; align-items:center;">
+<div class="check" style="margin-left:20px;">
+<input type="button" id="button" value="강제폐점" onclick="shopList_del()">
+</div>
+<%-- <ul class="pagination" style="margin-left:43%;">
+			
+		<c:if test="${pp1.startPage > pp1.pagePerBlk }">
+			<li><a href="${path}/shopListdel.do?pageNum=${pp1.startPage - 1}">이전</a></li>
+		</c:if>
+		<c:forEach var="i" begin="${pp1.startPage}" end="${pp1.endPage}">
+			<li <c:if test="${pp1.currentPage == i}">class="active"</c:if>>
+			<a href="${path}/shopListdel.do?pageNum=${i}">${i}</a></li>
+		</c:forEach>
+		<c:if test="${pp1.endPage < pp1.totalPage}">
+			<li><a href="${path}/shopListdel.do?pageNum=${pp1.endPage + 1}">다음</a></li>
+		</c:if>
+		 
+</ul> --%>
+</div>	
 </body>
 </html>

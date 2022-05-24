@@ -49,13 +49,24 @@ public class ShopDAOImpl {
   public List<ShopDTO> shoplist()throws Exception{
 		return sqlsession.selectList("shopns.shoplist");
 	}
-  //총 데이터 개수 구하기
+  //관리자 shoplist 회원  내역
+  public List<ShopDTO> shoplist1()throws Exception{
+	  return sqlsession.selectList("shopns.shoplist1");
+  }
+  //입점 신청 총 데이터 개수 구하기
   public int getTotal(ShopDTO shop)throws Exception{
 		return sqlsession.selectOne("shopns.shoptotal",shop);
 	}
+  //회원 총 데이터 개수 구하기
+  public int getTotal2(ShopDTO shop)throws Exception{
+	  return sqlsession.selectOne("shopns.shoptotal2",shop);
+  }
   // 체크박스로 입점승인
   public int shopList_check(String email) throws Exception {
 	    return sqlsession.update("shopns.shopupdate", email);
   }
-  
+//체크박스로 강제폐점
+	public int shopList_del(String email)throws Exception{
+		return sqlsession.update("shopns.shopdel",email);
+	}
 }
