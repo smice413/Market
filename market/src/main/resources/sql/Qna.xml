@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qnans">
+
+	<select id="list" parameterType="qna" resultType="qna">
+		select * from (select a.*,rowNum rn from (
+			select 
+				Q.qna_no as qna_no,
+				Q.p_no as p_no,
+				Q.op_no as op_no,
+				Q.m_email as m_email,
+				Q.qna_title as qna_title,
+				Q.qna_question as qna_question,
+				Q.qna_answer as qna_answer,
+				Q.qna_ref as qna_ref,
+				Q.qna_secret as qna_secret,
+				Q.qna_readcount as qna_readcount,
+				Q.qna_writedate as qna_writedate,
+				Q.qna_delstatus as qna_delstatus,
+				M.m_name as m_name
+			from qna Q 
+			   	left join member M on M.m_email = Q.m_email
+		<where>
+			<if test="keyword != null and search!='subcon'">
+				${search} like '%'||#{keyword}||'%'
+			</if>
+			<if test="keyword != null and search=='subcon'">
+				qna_question like '%'||#{keyword}||'%' or
+				qna_answer like '%'||#{keyword}||'%'
+			</if>
+		</where>			
+			 order by qna_ref desc, qna_writedate asc ) a)
+			where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getTotal" parameterType="qna" resultType="int">
+ 		select count(*) from qna 
+		<where>
+			<if test="keyword != null and search !='subcon'">
+				${search} like '%'||#{keyword}||'%'
+			</if>
+			<if test="keyword != null and search=='subcon'">
+				qna_question like '%'||#{keyword}||'%' or
+				qna_answer like '%'||#{keyword}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="select" parameterType="int" resultType="qna">
+<!-- 		select * from qna where qna_no=#{qna_no} -->
+	</select>
+	
+	<select id="getMaxNum" resultType="int">
+<!-- 		select nvl(max(qna_no),0) + 1 from qna
+ -->	</select>
+	
+	<insert id="insert" parameterType="qna">
+<!-- 		insert into qna values (qna_board_seq.nextval,#{p_no},#{op_no},
+			#{m_email},#{qna_title},#{qna_question},#{qna_answer},#{qna_ref},
+			#{qna_secret},#{qna_readcount},sysdate,'n') -->
+	</insert>
+	
+	<update id="selectUpdate" parameterType="int">
+<!-- 		update qna set qna_readcount = qna_readcount+1 where qna_no=#{qna_no} -->
+	</update>
+	
+	<update id="update" parameterType="qna">
+<!-- 		update qna set qna_title=#{qna_title},qna_question=#{qna_question},
+			qna_answer=#{qna_answer},qna_secret=#{qna_secret} 
+			where qna_no=#{qna_no} -->
+	</update>
+	
+	<update id="delete" parameterType="int">
+<!-- 		update qna set qna_del='y' where qna_no=#{qna_no} -->
+	</update>
+
+</mapper>

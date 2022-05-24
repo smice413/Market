@@ -15,8 +15,10 @@
 
 	$(function() {
 /* 		$('#reviewlist').load('${path}/myReviewList.do?p_no=1') */
-		$('#reviewlist').load('${path}/list.do')
-		$('#slist').load('${path}/slist.do?num=${product.p_no}')
+		$('#reviewlist').load('${path}/list.do');
+/* 		$('#slist').load('${path}/qna/list.do?num=${product.p_no}') */
+/* 		$('#slist').load('${path}/qna/insertForm.do') */
+		$('#slist').load('${path}/qna/list.do');
 
 	});
 </script>
@@ -96,14 +98,14 @@
 					<a href="#" class="btn btn-success">재입고 신청하기</a>
 				</c:if>
 				<c:if test="${product.p_stock > 0}">
-					<a href="#" class="btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+					<a href="${path}/qna/insertForm.do" class="btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
                   		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
 					<c:if test="${product.p_follow_sale == 'Y'}">
-					<a href="#" class="btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+					<a href="#home" class="btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
 						<b>${product.p_follow_price}원<b><br>팔로워구매하기</a>
 					</c:if>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
-					<a href="#" class="btn btn-danger" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+					<a href="#menu1" class="btn btn-danger" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
 						<b>${product.p_group_price}원<b><br>공동구매하기</a>
 					</c:if>
 					<a class="cart_btn btn btn-outline-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">

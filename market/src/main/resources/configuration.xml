@@ -18,7 +18,7 @@
 		<typeAlias alias="order_tab" type="market.model.Order_tabDTO" />
 		<typeAlias alias="product_img" type="market.model.Product_imgDTO" />
 		<typeAlias alias="product" type="market.model.ProductDTO" />
-		<typeAlias alias="qna_board" type="market.model.Qna_boardDTO" />
+		<typeAlias alias="qna" type="market.model.QnaDTO" />
 		<typeAlias alias="restock" type="market.model.RestockDTO" />
 		<typeAlias alias="review" type="market.model.ReviewDTO" />
 		<typeAlias alias="shop" type="market.model.ShopDTO" />

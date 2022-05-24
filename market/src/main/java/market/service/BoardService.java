@@ -5,7 +5,7 @@ import java.util.List;
 import market.model.Board;
 
 public interface BoardService {
-	// List<Board> list(int startRow, int endRow);
+
 	List<Board> list(Board board);
 
 	int getTotal(Board board);

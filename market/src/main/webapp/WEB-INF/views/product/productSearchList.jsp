@@ -13,7 +13,7 @@
 <%@ include file="../common/header.jsp"%>
 
 <div class="container" align="center">
-	<div  class="container" style="width:100%; padding:2px; border-radius: 10px; border-style: dotted; border-width: 2px;">
+	<div  class="container" style="width:100%; padding:2px; border-color:#999; border-radius: 10px; border-style: dotted; border-width: 2px;">
 		<c:if test="${empty keyword}">
 			<h5 class="text-primary"><b>과채마켓의 <font color=red>모든 상품</font>이 검색되었습니다.<b></h5>
 		</c:if>

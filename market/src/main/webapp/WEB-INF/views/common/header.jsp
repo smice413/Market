@@ -14,22 +14,18 @@
 					<a href="${path }/memberInsertForm.do">회원가입</a> |
 					<a href="${path }/loginForm.do">로그인</a> |
 				</c:if>
-			
+
+	<!-- 세션이 있는 경우 --> 
+				<c:if test="${!empty sessionScope.m_email }">
+				   	<img src="${path}/images/person-hearts.svg" width=15px> ${sessionScope.m_email }님 환영합니다 &nbsp;|
+					<a href="${path }/logout.do"><img src="${path}/images/power.svg"></a> |
+					<a href="${path }/orderList.do">마이페이지</a> |
+				</c:if>		
 				<%-- <c:if test="${sessionScope.id == 'admin'}">
 					<a href="${path }/view.do?num=1&pageNum=1">관리자페이지</a> | 
 				</c:if>--%>
 				
 					<a href="${path }/memberList.do">관리자페이지</a> | 
-				
-				 	
-					
-	<!-- 세션이 있는 경우 --> 
-				<c:if test="${!empty sessionScope.m_email }">
-				   	${sessionScope.m_email }님 환영합니다.  &nbsp;|
-					<a href="${path }/logout.do">로그아웃</a> |
-					<a href="${path }/myPage.do">마이페이지</a> |
-				</c:if>		
-
 					<a href="order_tabList.do">SHOP매니저</a> |
 					<a href="${path }/shop_join_form.do">입점신청</a> |
 					<a href="${path }/shop_login_form.do">판매자로그인테스트</a>
@@ -83,21 +79,20 @@
 					</div>
 
 					<div class="vf_header_menu_search" style="width: 210px; padding: 0px;">
-					<form action="${path}/productSearchList.do?pageNum=1" style="padding: 0px; margin:0px;">
-						<input type=hidden name="search" value="p_name">
-						<table>
-							<tr>
-								<td><input type=text name="keyword" class="vf_search"></td>
-								<td>
-	<!-- 							<input type="submit" id="search" value="검색" style="width: 40px; font-size: 13px;"> -->
-									<input type = "image" src = "${path }/images/search.svg" width=22px alt = "검색버튼" ></td>
-							</tr>
-						</table>
-					</form>
+						<form action="${path}/productSearchList.do?pageNum=1" style="padding: 0px; margin:0px;">
+							<input type=hidden name="search" value="p_name">
+							<table>
+								<tr>
+									<td><input type=text name="keyword" class="vf_search" autocomplete="on"></td>
+									<td>
+		<!-- 							<input type="submit" id="search" value="검색" style="width: 40px; font-size: 13px;"> -->
+										<input type = "image" src = "${path }/images/search.svg" width=22px alt = "검색버튼" ></td>
+								</tr>
+							</table>
+						</form>
 					</div>
-					
-					<div style="width: 24px; margin:0 0 0 10;">
-						<a href="cartList.do"><img src="${path }/images/cart2.svg" style="height: 24px;"></a>
+					<div style="width: 24px; margin:0 0 0 10; padding:0 0 0 0;">
+						<a href="cartList.do"><img src="${path }/images/cart2.svg" style="width:100%"></a>
 					</div>
 				</div>
 			</td>

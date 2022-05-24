@@ -9,7 +9,7 @@
 
 /* 헤더부분 (아래쪽 메뉴) */	
 	.vf_header_menu { background-color: #fff; height:35px;  margin:0px;}
-	.vf_header_menu a { text-decoration: none; color:#555; font-size:15px; }
+	.vf_header_menu a: { text-decoration: none; color:#555; font-size:15px; }
 	.vf_header_menu a:hover {font-weight: bold;}
 	.vf_header_menu div { background-color: #fff; float: left; text-align: center; 
 							margin: 0px; padding:5 0 0 0;}
@@ -17,7 +17,6 @@
 /* 검색용 (input 태그) */	
 	.vf_search {border-style:none; border-radius:10px; 
 				background-color: #ddd; height: 25px; width:180px; padding:2 5 2 10; margin:0 5 0 0}
-
 
 /******************* menu (sub menu부분) *********************/
 				
