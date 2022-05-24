@@ -5,18 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입 폼</title>
+<title>회원탈퇴 </title>
+<script src="<%=request.getContextPath()%>/js/member.js"></script>
 
 <script type="text/javascript">
 	function chk() {
-		var dbpass = frm.m_passwd.value;
+		var dbpass = del.m_passwd.value;
 		alert("db_passwd:" + dbpass);
-		alert("input_passwd:" + frm.m_passwd2.value);
+		alert("input_passwd:" + del.m_passwd2.value);
 
-		if (frm.m_passwd.value != frm.m_passwd2.value) {
+		if (del.m_passwd.value != del.m_passwd2.value) {
 			alert("암호가 다르면 수정할 수 없습니다");
-			frm.m_passwd2.value = "";
-			frm.m_passwd2.focus();
+			del.m_passwd2.value = "";
+			del.m_passwd2.focus();
 			return false;
 		}
 	}
@@ -29,8 +30,8 @@
 		<div class="vf-wide700-card">
 			<div id="join_wrap">
 				<h2 class="join_title">회원탈퇴</h2>
-				<form name="frm" method="post" action="memberDelete.do"
-					onsubmit="return chk()">
+				<form name="del" method="post" action="memberDelete.do"
+					onsubmit="return deleteform()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
 					<input type="hidden" id="m_passwd" name="m_passwd"
 						value="${deleteM.m_passwd}"> <input type="hidden"
@@ -43,7 +44,7 @@
 						<tr>
 							<th>회원 비밀번호</th>
 							<td><input type="password" name="m_passwd2" id="m_passwd2"
-								size="14" class="input_box" required="required" /></td>
+								size="14" class="input_box"  /></td>
 						</tr>
 
 

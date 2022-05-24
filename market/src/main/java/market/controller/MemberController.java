@@ -290,7 +290,8 @@ public class MemberController {
 		 for(String e : arrlist) {
 			 result = ms.memberListCheck(e);       
 		 }
-		 return "member/memberListCheckResult";
+//		 return "member/memberListCheckResult";
+		 return "redirect:memberList.do";		 
 	 }
 	 
 

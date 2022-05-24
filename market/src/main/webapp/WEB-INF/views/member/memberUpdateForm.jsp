@@ -8,16 +8,16 @@
 <title>회원정보수정 폼</title>
 <script type="text/javascript">
 	function chk() {
-		if (frm.m_passwd3.value != frm.m_passwd4.value) {
+		if (update.m_passwd3.value != update.m_passwd4.value) {
 			alert("새 비밀번호가 일치하지 않습니다");
-			frm.m_passwd4.value="";
-			frm.m_passwd4.focus();
+			update.m_passwd4.value="";
+			update.m_passwd4.focus();
 			return false;
 		}
-		if(frm.m_passwd.value != frm.m_passwd2){
+		if(update.m_passwd.value != update.m_passwd2){
 			alert("현재 비밀번호를 확인해주세요");
-			frm.m_passwd2.value = "";
-			frm.m_passwd2.focus();
+			update.m_passwd2.value = "";
+			update.m_passwd2.focus();
 			return false;
 		}
 	}
@@ -30,7 +30,7 @@
 		<div class="vf-wide700-card">
 			<div id="join_wrap">
 				<h2 class="join_title">회원정보수정</h2>
-				<form method="post" action="memberUpdate.do" name="frm" onsubmit="return chk()">
+				<form method="post" action="memberUpdate.do" name="update" onsubmit="return update()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
 					<input type="hidden" id="m_passwd" name="m_passwd"	value="${old.m_passwd}">
 					<input type="hidden" id="m_email" name="m_email"	value="${old.m_email}">

@@ -11,17 +11,17 @@
 <body>
 
 <c:if test="${result == 1 }">
-<script>
+	<script>
 	alert("가입정보를 찾을 수 없습니다.");
-	location.href="main.do";
+	history.go(-1);
 	</script>
 </c:if>
 	
-	<c:if test="${result == 2 }">
+<c:if test="${result == 2 }">
 	<script>
-		alert("회원정보를 정확히 입력해주세요.");
-		location.href="loginForm.do";
-</script>
+	alert("회원정보를 정확히 입력해주세요.");
+	history.go(-1);
+	</script>
 </c:if>
 
 <%@ include file="../common/header.jsp"%>

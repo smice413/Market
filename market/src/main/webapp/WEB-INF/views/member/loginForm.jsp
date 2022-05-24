@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="<%=request.getContextPath()%>/js/member.js"></script>
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -14,7 +15,7 @@
 		<div class="vf-wide300-card">
 	<div id="loginform">
 		<h2 class="login_title">로그인</h2>
-		<form name="l" method="post" action="loginCheck.do" >
+		<form name="l" method="post" action="loginCheck.do">
 			<table id="logintable" class = "table" style = "margin:3px">
 				<tr>
 					<th>이메일</th>
@@ -59,6 +60,3 @@
 </body>
 </html>
 
-</form>
-</body>
-</html>

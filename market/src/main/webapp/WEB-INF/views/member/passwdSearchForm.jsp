@@ -7,22 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
-
-
-<!--  <script>
- function passwdSearch(){
-	 if($.trim($("#m_email").val())==""){
-		 alert("이메일주소 를 입력하세요!");
-		 $("#m_email").val("").focus();
-		 return false;
-	 }
-	 if($.trim($("#m_name").val())==""){
-		 alert("회원이름을 입력하세요!");
-		 $("#m_name").val("").focus();
-		 return false;
-	 }
- }
-</script>-->
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -32,7 +16,7 @@
 		
 		<c:if test ="${empty passwdSearch}">
 		<h2 class="pwd_title">비밀번호찾기</h2>
-		<form method="post" action="passwdSearchForm.do">
+		<form method="post" action="passwdSearchForm.do" onsubmit="return passwdsearch()">
 		<table id="pwd_t1">
 		<tr>
 			<th>이메일</th>
@@ -60,7 +44,7 @@
      </tr>
     </table>
     <div id="pwd_close2">
-    <input type="button" value="닫기" class="input_button"
+    <input type="submit" value="닫기" class="input_button"
     onclick="self.close();" />
     <!-- close()메서드로 공지창을 닫는다. self.close()는 자바스크립트이다. -->
     </div>

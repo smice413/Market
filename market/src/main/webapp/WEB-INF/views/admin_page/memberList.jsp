@@ -34,10 +34,11 @@ function memberListCheck(){
             //contentType:"application/json; charset=utf-8", 
             success: function(data){
                // alert(data);
-                if(data==1){
+ //               if(data==1){
                 	alert("강제탈퇴 되었습니다.");
-               	 	location.href="memberList.do";
-                }
+ //              	 	location.href="memberList.do";
+ 					location.reload();
+ //               }
             },error:function(request,status,error){
                 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
             }

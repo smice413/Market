@@ -6,22 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디(이메일) 찾기</title>
-<script type="text/javascript">
-	function chk() {
-		if (frm.m_name.value == "") {
-			alert("이름을 작성해주세요");  
-			frm.m_name.focus();
-			return false;
-		}
-	}
-	function chk() {
-		if (frm.m_tel.value == "") {
-			alert("전화번호를 작성해주세요");  
-			frm.m_tel.focus();
-			return false;
-		}
-	}
-</script>
+<script src="<%=request.getContextPath()%>/js/member.js"></script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -30,7 +15,7 @@
 		<div class="vf-wide700-card">
 			<div id="join_wrap">
 				<h2 class="join_title">아이디(이메일) 찾기</h2>
-				<form method="post" action="emailSearch.do" name="frm" onsubmit="return chk()">
+				<form method="post" action="emailSearch.do" name="frm" onsubmit="return emailsearch()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
 
 					<table id="emailSearch" class="table">
