@@ -7,6 +7,39 @@
 <head>
 <meta charset="UTF-8">
 <title>주문 내역</title>
+
+<script>
+
+function review_click(a,b){
+	
+	var p_no = a;
+	var o_no = b;
+	
+	 $.ajax({
+	        type:"POST",
+	        url:"reviewCheck.do",
+	        data: {"p_no":p_no, "o_no":o_no},        
+	        success: function (data) { 
+	         // alert(data);
+	        	
+	      	  if(data == 1){	// DB에 리뷰 존재
+	      		alert("해당 제품에 대한 리뷰를 이미 작성하였습니다!");
+	      	  	/* history.go(-1); */
+	          	return false;
+		     
+	      	  }else{	//리뷰 작성 가능
+	      		location.href = "reviewForm.do?p_no="+p_no+"&o_no="+o_no
+	      	  }
+	        }
+	        ,
+	    	  error:function(e){
+	    		  alert("data error"+e);
+	    	  }
+	      });//$.ajax	
+}
+
+</script>
+
 </head>
 <body>
 
@@ -70,8 +103,7 @@
 				onClick="location='refund.do?op_no=${list.op_no}'">
 			</c:if>
 			<c:if test="${list.op_status == '11' }">
-				<input type="button" class="btn btn-outline-success" value="리뷰 작성" 
-					onclick="location='reviewForm.do?p_no=${list.p_no}'">
+				<input type="button" class="btn btn-outline-success" value="리뷰작성" onclick="review_click(${list.p_no},${list.o_no })">
 			</c:if>
 		</td>
 	</tr>

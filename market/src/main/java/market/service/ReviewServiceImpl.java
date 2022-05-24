@@ -48,4 +48,8 @@ public class ReviewServiceImpl implements ReviewService {
 	public int delete(int r_no) throws Exception{
 		return rd.delete(r_no);
 	}
+	
+	public int reviewCheck(ReviewDTO review) throws Exception{
+		return rd.reviewCheck(review);
+	}
 }

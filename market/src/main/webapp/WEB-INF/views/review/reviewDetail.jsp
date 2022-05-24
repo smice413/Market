@@ -51,10 +51,12 @@
 		<tr>
 			<th>내 용</th>
 			<td colspan="3">
-				<c:forEach var="img" items="${img }">
-					<img src="${path}/upload/review/${img }" width="200px">
-				</c:forEach>
+				<c:if test="${img != null }">
+					<c:forEach var="img" items="${img }">
+						<img src="${path}/upload/review/${img }" width="200px">
+					</c:forEach>
 				<br>
+				</c:if>
 				${content }
 			
 			</td>

@@ -42,4 +42,18 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public int delete(int r_no) throws Exception{
 		return sst.update("review.delete", r_no);
 	}
+	
+	public int reviewCheck(ReviewDTO review) throws Exception{
+		
+		int result = -1; 		// 리뷰가 존재하지 않음
+		
+		ReviewDTO re = sst.selectOne("review.reviewCheck", review);
+		
+		if(re != null) { 
+			result = 1;
+			return result;
+		}
+		
+		return result;
+	}
 }

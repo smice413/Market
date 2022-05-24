@@ -10,9 +10,9 @@ select * from product where p_no = #{p_no}
 
 <!-- 리뷰 저장 -->
 <insert id="insert" parameterType="review"> 
-insert into review (r_no, p_no, m_email, r_title, r_star, r_content, r_img, r_writedate, r_hit, r_delstatus) 
+insert into review (r_no, p_no, m_email, r_title, r_star, r_content, r_img, r_writedate, r_hit, r_delstatus, o_no) 
  values (review_seq.nextval, #{p_no}, #{m_email}, #{r_title}, #{r_star}, #{r_content}, #{r_img, jdbcType = VARCHAR},
-sysdate, 0, 'N' )
+sysdate, 0, 'N', #{o_no} )
 </insert>
 
 <!-- 내가 작성한 리뷰 개수 -->
@@ -36,10 +36,14 @@ update review set r_hit = r_hit + 1 where r_no = #{r_no}
 select * from review where r_no = #{r_no}
 </select>
  
- 
- <!-- 리뷰 삭제 -->
- <update id="delete" parameterType="int">
+<!-- 리뷰 삭제 -->
+<update id="delete" parameterType="int">
  update review set r_delstatus = 'Y' where r_no = #{r_no}
- </update>
+</update>
+
+<!-- 리뷰 중복 체크 -->
+<select id="reviewCheck" parameterType="review" resultType="review">
+select * from review where m_email = #{m_email} and p_no = #{p_no} and o_no = #{o_no} and r_delstatus = 'N'
+</select>
  
 </mapper>

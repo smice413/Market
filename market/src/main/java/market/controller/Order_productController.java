@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import market.model.Order_productDTO;
+import market.model.ReviewDTO;
 import market.service.Order_productServiceImpl;
 import market.service.PagingPgm;
+import market.service.ReviewServiceImpl;
 
 
 @Controller
@@ -20,6 +23,9 @@ public class Order_productController {
 
 	@Autowired
 	private Order_productServiceImpl ops;
+	
+	@Autowired
+	private ReviewServiceImpl rs;
 
 	// 주문 목록 불러오기
 	@RequestMapping("orderList.do")

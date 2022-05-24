@@ -18,6 +18,7 @@
 <form action="reviewInsert.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="p_no" value=${product.p_no }>
 <input type="hidden" name="m_email" value=${m_email }>
+<input type="hidden" name="o_no" value=${o_no }>
 
 	<table class="table">
 		<tr>

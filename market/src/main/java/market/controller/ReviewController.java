@@ -32,6 +32,7 @@ public class ReviewController {
 	// 리뷰 작성 폼
 	@RequestMapping("reviewForm.do")
 	public String reviewForm(Model model, @RequestParam("p_no") int p_no,
+							 @RequestParam("o_no") int o_no,
 							 HttpSession session) throws Exception{
 		
 		// session 에서 이메일 구해오기
@@ -43,6 +44,7 @@ public class ReviewController {
 		
 		model.addAttribute("product", product);
 		model.addAttribute("m_email", m_email);
+		model.addAttribute("o_no", o_no);
 		
 		return "review/reviewForm";
 	}
@@ -133,15 +135,19 @@ public class ReviewController {
 		System.out.println("리뷰 상세 내용: "+review);
 		
 		String content = review.getR_content().replace("\n","<br>");
-		String imgs = review.getR_img();
-		
-		String[] img = imgs.split("/");
 		
 		model.addAttribute("review", review);
 		model.addAttribute("content", content);
 		model.addAttribute("product", product);
-		model.addAttribute("img", img);
+
+		if(review.getR_img() != null) {
 		
+			String imgs = review.getR_img();		
+			String[] img = imgs.split("/");
+			model.addAttribute("img", img);
+		}
+		
+				
 		return "review/reviewDetail";
 	}
 	
@@ -157,4 +163,29 @@ public class ReviewController {
 		
 		return "review/reviewDeleteResult";
 	}
+	
+	// 리뷰 존재 여부 확인 (ajax)
+		@RequestMapping(value = "reviewCheck.do", method = RequestMethod.POST)
+		public String reviewCheck(Model model, @RequestParam("p_no") int p_no,
+								  @RequestParam("o_no") int o_no, HttpSession session, ReviewDTO review) throws Exception{
+			
+			String m_email = (String) session.getAttribute("m_email");
+			
+			System.out.println("p_no: "+p_no);
+			System.out.println("o_no: "+o_no);
+			System.out.println("m_email: "+m_email);
+			
+			review.setM_email(m_email);
+			review.setP_no(p_no);
+			review.setO_no(o_no);
+			
+			int result = 0;
+			result = rs.reviewCheck(review);
+			
+			System.out.println("result:"+result);
+			
+			model.addAttribute("result", result);
+			
+			return "review/reviewCheckResult";
+		}
 }
