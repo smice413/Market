@@ -52,4 +52,13 @@
 	
 	</update>
 	
+	<!-- 임시비밀번호로 수정 -->
+	<update id="shop_passwdUp" parameterType="shop">
+		update shop set s_passwd=#{s_passwd} where s_email=#{s_email} and s_ceo=#{s_ceo} and s_tel=#{s_tel}
+	
+	</update>
+	<!-- 비밀번호 수정 -->
+	<update id="shop_passwdedit" parameterType="shop">
+		update shop set s_passwd=#{s_passwd} where s_email=#{s_email}
+	</update>
 </mapper>
