@@ -51,7 +51,7 @@
 			<td>${od.p_name }</td>
 			<td>${od.op_qty }</td>
 			<td>${od.p_sell_price }</td>
-			<td style="text-align: center;">
+			<td style="text-align: left;">
 			<c:if test="${od.op_status == '1' }">공동구매대기</c:if>
 			<c:if test="${od.op_status == '2' }">공동구매실패</c:if>
 			<c:if test="${od.op_status == '3' }">배송전 </c:if>
