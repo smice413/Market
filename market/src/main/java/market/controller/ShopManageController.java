@@ -16,66 +16,69 @@ import market.service.ShopManageService;
 
 @Controller
 public class ShopManageController {
-	
+
 	@Autowired
 	private ShopManageService sms;
 
 	// 판매자 주문 관리
 	@RequestMapping("order_tabList.do")
-	public String order_tabList(HttpSession session, HttpServletRequest request ,
-			Model model) {
+	public String order_tabList(HttpSession session, HttpServletRequest request, Model model) {
 
 		session = request.getSession();
-		
-		int s_no = (int)session.getAttribute("s_no");
-		
+
+		int s_no = (int) session.getAttribute("s_no");
+
 		List<Order_manageDTO> olist = sms.olist(s_no);
 		model.addAttribute("olist", olist);
-		
-		return "shop/order_tabList";
+
+		return "shop_page/order_tabList";
 	}
-	
+
 	@RequestMapping("shopOrderDetail.do")
 	public String orderDetail(int o_no, Model model) {
-		
-		System.out.println("넘겨받은주문번호: "+o_no);
-		
+
+		System.out.println("넘겨받은주문번호: " + o_no);
+
 		List<Order_manageDTO> odlist = sms.odlist(o_no);
 		model.addAttribute("odlist", odlist);
-		
-		return "shop/shopOrderDetail";
+
+		return "shop_page/shopOrderDetail";
 	}
-	
-	//환불관리
+
+	// 환불관리
 	@RequestMapping("refundList.do")
 	public String refundList(Model model) {
-		
+
 		List<Order_productDTO> oplist = sms.oplist();
 		model.addAttribute("oplist", oplist);
-		
-		return "shop/refundList";
+
+		return "shop_page/refundList";
 	}
-	
-	//운송장 입력버튼 눌렀을때
+
+	// 운송장 입력버튼 눌렀을때
 	@RequestMapping("deliInsert.do")
-	public String delivery(Model model, String dno, String opno) {
-		
-		System.out.println("상품번호 : "+opno);
-		System.out.println("운송장번호 : "+dno);
-		
-		Order_manageDTO omdto= new Order_manageDTO();
-		
+	public String delivery(Model model, String dno, int opno, int o_no) {
+
+		System.out.println("상품번호 : " + opno);
+		System.out.println("운송장번호 : " + dno);
+		System.out.println("받아온 o_no값은 ? : " + o_no);
+
+		Order_manageDTO omdto = new Order_manageDTO();
+
 		omdto.setOp_deli_no(dno);
-		omdto.setOp_status("7");
-		
-		//int result = sms.deliNoInsert(omdto);
-		int result=0;
-		if(result==1) {
+		omdto.setOp_status("6");
+		omdto.setOp_no(opno);
+
+		int result = sms.deliNoInsert(omdto);
+
+		if (result == 1) {
 			System.out.println("운송장번호 입력성공!");
 		}
-		
-		return "";
+
+		model.addAttribute("o_no", o_no);
+		model.addAttribute("result", result);
+
+		return "shop_page/deliResult";
 	}
-	
 
 }

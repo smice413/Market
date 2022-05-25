@@ -58,7 +58,12 @@
 	</select>
 	
 	<update id="dinsert" parameterType="order_manage">
-		
+		update order_product
+		set
+		op_deli_no = #{op_deli_no},
+		op_status = #{op_status}
+		where
+		op_no = #{op_no}
 	</update>
 	
 </mapper>
