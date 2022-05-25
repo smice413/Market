@@ -33,10 +33,15 @@ public class MemberServiceImpl {
 		
 		return md.select(m_email);
 	}
-	
+	//비밀번호찾기
 	public MemberDTO passwdSearch(MemberDTO member)throws Exception{
 		return md.passwdSearch(member);
 	}
+	//임시비밀번호로 수정 
+	public int passwdUpdate(MemberDTO member)throws Exception{
+		return md.passwdUpdate(member);
+	}
+	//이메일찾기
 	public MemberDTO emailSearch(MemberDTO member)throws Exception{
 		return md.emailSearch(member);
 	}

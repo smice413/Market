@@ -2,6 +2,7 @@ package market.controller;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -188,55 +189,70 @@ public class MemberController {
 
 	//비번찾기 완료 
 	@RequestMapping(value = "/passwdSearch.do", method = RequestMethod.POST)
-	public String passwdCheck(@ModelAttribute MemberDTO member, HttpServletResponse response, Model model)
+	public String passwdCheck(@ModelAttribute MemberDTO member, HttpServletResponse response,
+							  @RequestParam("m_email") String m_email,
+							  @RequestParam("m_name") String m_name,  Model model)
 			throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
+		
 		int result = 0;
 		MemberDTO mem = ms.passwdSearch(member);
 
 		if (mem == null) {// 값이 없는 경우
 			result=1;
 			model.addAttribute("result", result);
-			return "member/passwdSearchForm";
+			return "member/passwdSearchResult";
 
 		} else {
 			result=2;
+			String uupw = UUID.randomUUID().toString().replaceAll("-", "");
+			uupw = uupw.substring(0,10);   //uupw를 앞에서부터 10자리까지 잘라줌 
+			System.out.println("uupw:"+uupw);
+			
+			mem.setM_email(m_email);
+			mem.setM_name(m_name);
+			mem.setM_passwd(uupw);
+			
+			ms.passwdUpdate(mem);
+			
+			
 			// Mail Server 설정
 			String charSet = "utf-8";
-			String hostSMTP = "smtp.naver.com";
-			String hostSMTPid = "su_jin924@naver.com";
-			String hostSMTPpwd = "000000"; // 비밀번호 입력해야함
+			String hostSMTP = "smtp.gmail.com";
+			String hostSMTPid = "gcmarket99@gmail.com";
+			String hostSMTPpwd = "rhkcoakzpt99"; // 비밀번호 입력해야함
 
 			// 보내는 사람 EMail, 제목, 내용
-			String fromEmail = "su_jin924@naver.com";
+			String fromEmail = "gcmarket99@gmail.com";
 			String fromName = "마켓관리자";
-			String subject = "마켓의 비밀번호를 알려드립니다:-)";
+			String subject = "마켓에서 비밀번호를 알려드립니다:-)";
 
 			// 받는 사람 E-Mail 주소
 			String mail = mem.getM_email();
-
+			System.out.println("m_email"+mail);
 			try {
 				HtmlEmail email = new HtmlEmail();
 				email.setDebug(true);
 				email.setCharset(charSet);
 				email.setSSL(true);
 				email.setHostName(hostSMTP);
-				email.setSmtpPort(587);
+				email.setSmtpPort(465);
 
 				email.setAuthentication(hostSMTPid, hostSMTPpwd);
 				email.setTLS(true);
 				email.addTo(mail, charSet);
 				email.setFrom(fromEmail, fromName, charSet);
 				email.setSubject(subject);
-				email.setHtmlMsg("<p align = 'center'>마켓 비밀번호 알려드립니다</p><br>" + "<div align='center'> 마켓 비밀번호  "
-						+ mem.getM_passwd() + "</div>");
+				email.setHtmlMsg("<p align = 'center'>마켓 임시 비밀번호를 발송 해 드립니다</p><br>" + 
+				"<div align='center'> 임시 비밀번호 :"  + uupw + "</div>");
 				email.send();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 			model.addAttribute("result", result);
+			System.out.println("result"+ result);
 			model.addAttribute("passwdSearch", "등록된 email을 확인 하세요:-)");
-			return "member/loginForm";
+			return "member/passwdSearchResult";
 		}
 		}
 /*회원리스트 
@@ -311,7 +327,7 @@ public class MemberController {
 			if(member == null) {	//값이 없는경우 
 				result = 1;
 				model.addAttribute("result", result);
-				return "member/eamilSearchForm";
+				return "member/emailSearchForm";
 			}else {
 				result = 2;
 				model.addAttribute("m_email", member.getM_email());

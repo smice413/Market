@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보수정 폼</title>
+<script src="<%=request.getContextPath()%>/js/member.js"></script>
 <script type="text/javascript">
-	function chk() {
+/* 	function chk() {
 		if (update.m_passwd3.value != update.m_passwd4.value) {
 			alert("새 비밀번호가 일치하지 않습니다");
 			update.m_passwd4.value="";
@@ -20,7 +21,7 @@
 			update.m_passwd2.focus();
 			return false;
 		}
-	}
+	} */
 </script>
 </head>
 <body>
@@ -30,7 +31,7 @@
 		<div class="vf-wide700-card">
 			<div id="join_wrap">
 				<h2 class="join_title">회원정보수정</h2>
-				<form method="post" action="memberUpdate.do" name="update" onsubmit="return update()">
+				<form  name="u" method="post" action="memberUpdate.do" onSubmit="return update()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
 					<input type="hidden" id="m_passwd" name="m_passwd"	value="${old.m_passwd}">
 					<input type="hidden" id="m_email" name="m_email"	value="${old.m_email}">

@@ -16,8 +16,7 @@
 		<!-- <div class="vf-wide700-card"> -->
 			<div id="join_wrap">
 				<h2 class="join_title">회원가입</h2>
-				<form name="f" method="post" action="memberInsert.do"
-					onSubmit="return insert()">
+				<form name="f" method="post" action="memberInsert.do" onSubmit="return insert()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
 					<table id="memberjoin" class="table">
 						<tr>

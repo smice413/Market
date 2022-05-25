@@ -27,8 +27,19 @@ function insert(){
 	alert("email중복검사를 해주세요!");
 }*/
 
-	//loginForm는 logincheck.jsp:-)
-	
+	//★ loginForm는 logincheck.jsp:-)
+function loginf(){
+	if($.trim($("#m_email").val())==""){
+		 alert("이메일을 입력하세요.");
+		 $("#m_email").val("").focus();
+		 return false;
+	 }
+	if($.trim($("#m_passwd").val())==""){
+		 alert("비밀번호를 입력하세요");
+		 $("#m_passwd").val("").focus();
+		 return false;
+	 }
+}
 	//emailsearchform & emailSearchResult.jsp:-)
 function emailsearch() {
 	if (frm.m_name.value == "") {
@@ -144,19 +155,32 @@ function emailsearch() {
 
 
 	//회원정보수정 전 확인폼
-	function kk() {
+	function confirm() {
+	if (c.m_passwd.value != c.m_passwd2.value) {
+		alert("정보를 입력해주세요");
+		c.m_passwd2.value="";
+		c.m_passwd2.focus();
+		return false;
+		}
 	if ($.trim($("#m_email").val()) == "") {
 		alert("이메일을 입력하세요.");
 		$("#m_email").val("").focus();
 		return false;
 	}
-	if ($.trim($("#m_passwd1").val()) == "") {
+	if ($.trim($("#m_passwd2").val()) == "") {
 		alert("비밀번호를 입력하세요.");
-		$("#m_passwd1").val("").focus();
+		$("#m_passwd2").val("").focus();
 		return false;
 	}
 	}
-	
+/*	//수정 전 회원정보 확인폼 
+	function confirm() {
+		if($.trim($("#m_passwd").val()) == "") {
+		alert("비밀번호를 입력하세요");
+			$("#m_passwd").val("").focus();
+			return false;
+		}
+	}*/
 	//회원정보수정폼
 	function update() {  //form네임값
 		if ($.trim($("#m_passwd2").val()) == "") {
@@ -184,6 +208,18 @@ function emailsearch() {
 			$("#m_passwd").val("").focus();
 			return false;
 			}
+		if (u.m_passwd3.value != u.m_passwd4.value) {
+			alert("새 비밀번호가 일치하지 않습니다");
+			u.m_passwd4.value="";
+			u.m_passwd4.focus();
+			return false;
+		}
+		if(u.m_passwd.value != u.m_passwd2.value){
+			alert("현재 비밀번호를 확인해주세요");
+			u.m_passwd2.value = "";
+			u.m_passwd2.focus();
+			return false;
+		}
 	}
 	
 	//memberDeleteForm 회원탈퇴
@@ -194,5 +230,3 @@ function emailsearch() {
 			return false;
 		}
 	}
-	
-	

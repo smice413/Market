@@ -43,8 +43,3 @@
 	</div>
 </body>
 </html>
-</body>
-</html>
-</form>
-</body>
-</html>

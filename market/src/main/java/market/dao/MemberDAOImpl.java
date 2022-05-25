@@ -68,6 +68,11 @@ public class MemberDAOImpl {
 	public MemberDTO passwdSearch(MemberDTO member) throws Exception {
 		return sqlSession.selectOne("memberns.passwdSearch", member);
 	}
+	//임시비밀번호로 수정 
+	public int passwdUpdate(MemberDTO member)throws Exception {
+		return sqlSession.update("memberns.passwdUpdate", member);
+		
+	}
 	//아이디(이메일찾기)
 	public MemberDTO emailSearch(MemberDTO member)throws Exception{
 		List<MemberDTO> list = sqlSession.selectList("memberns.emailSearch", member);

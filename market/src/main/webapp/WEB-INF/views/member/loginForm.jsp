@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="<%=request.getContextPath()%>/js/member.js"></script>
+
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -15,18 +15,18 @@
 		<div class="vf-wide300-card">
 	<div id="loginform">
 		<h2 class="login_title">로그인</h2>
-		<form name="l" method="post" action="loginCheck.do">
+		<form name="l" method="post" action="loginCheck.do" onSubmit="return loginf()">
 			<table id="logintable" class = "table" style = "margin:3px">
 				<tr>
 					<th>이메일</th>
-					<td><input name="m_email" id="m_email" size="20"
-						class="input_box" /></td>
+					<td><input type="text" name="m_email" id="m_email" size="20"
+						class="input_box" required="required"/></td>
 				</tr>
 
 				<tr>
 					<th>비밀번호</th>
 					<td><input type="password" name="m_passwd" id="m_passwd" size="20"
-						class="input_box" /></td>
+						class="input_box" required="required"/></td>
 				</tr>
 			</table>             
 			<div id="login_menu">
