@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import market.model.Order_manageDTO;
+import market.model.Order_productDTO;
 
 @Repository
 public class Order_tabDAO {
@@ -34,6 +35,11 @@ public class Order_tabDAO {
 	// 품절 취소 처리
 	public int cancel(Order_manageDTO omdto) {
 		return sst.insert("order_managens.cancel",omdto);
+	}
+	
+	// 환불 승인 처리
+	public List<Order_productDTO> oplist() {
+		return sst.selectList("order_managens.refundList");
 	}
 
 }

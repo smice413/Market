@@ -74,4 +74,9 @@
 		op_no = #{op_no}
 	</update>
 	
+	<select id="refundList" resultType="order_product">
+		select * from order_product
+		where op_status=8
+	</select>
+	
 </mapper>

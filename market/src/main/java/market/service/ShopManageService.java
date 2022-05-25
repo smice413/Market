@@ -15,9 +15,6 @@ public class ShopManageService {
 	@Autowired
 	private Order_tabDAO otdao;
 	
-	@Autowired
-	private Order_productDAO opdao;
-
 	// 주문리스트 불러오기
 	public List<Order_manageDTO> olist(int s_no) {
 		return otdao.olist(s_no);
@@ -30,7 +27,7 @@ public class ShopManageService {
 	
 	// 환불신청 리스트 불러오기
 	public List<Order_productDTO> oplist() {
-		return opdao.oplist();
+		return otdao.oplist();
 	}
 	
 	// 운송번호 입력

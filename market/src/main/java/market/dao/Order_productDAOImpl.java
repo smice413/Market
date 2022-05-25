@@ -46,7 +46,4 @@ public class Order_productDAOImpl implements Order_productDAO {
 		return sst.selectOne("order_product.shopInfo", opdto);
 	}
 	
-	public List<Order_productDTO> oplist() {
-		return sst.selectList("order_product.refundList");
-	}
 }
