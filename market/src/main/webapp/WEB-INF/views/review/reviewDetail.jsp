@@ -49,8 +49,7 @@
 		</tr>
 		
 		<tr>
-			<th>내 용</th>
-			<td colspan="3">
+			<td colspan="4">
 				<c:if test="${img != null }">
 					<c:forEach var="img" items="${img }">
 						<img src="${path}/upload/review/${img }" width="200px">

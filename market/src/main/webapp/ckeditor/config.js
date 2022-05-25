@@ -11,21 +11,23 @@ CKEDITOR.editorConfig = function( config ) {
 
     CKEDITOR.editorConfig = function( config ) {
         // Define changes to default configuration here. For example:
+    	config.enterMode = CKEDITOR.ENTER_BR; // 엔터모드는 <br/>
         config.language = 'ko'; // 언어는 한글
         // config.uiColor = '#AADC6E'; // 배경색
-        config.enterMode = '2' ,// 엔터모드는 <br/>
-            config.toolbarCanCollapse = true; // 에디터 메뉴 축소/확대 가능 버튼 보이기
+        config.toolbarCanCollapse = true; // 에디터 메뉴 축소/확대 가능 버튼 보이기
         config.resize_dir = 'both'  //  사이즈 둘 다 조정
         config.resize_minWidth = 200;
         //config.resize_maxWidth = 400;
         config.resize_minHeight = 200;
         config.resize_maxHeight = 600;
+        
         // 업로드 설정
         	config.filebrowserUploadUrl      = '/adm/fileUpload.do?type=Files',
             config.filebrowserImageUploadUrl = '/adm/fileUpload.do?type=Images',
             config.filebrowserWindowWidth = '640',
             config.filebrowserWindowHeight= '480'
-        // 메뉴 버튼
+        
+            	// 메뉴 버튼
         config.toolbarGroups = [
             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
@@ -49,9 +51,9 @@ CKEDITOR.editorConfig = function( config ) {
 
             // 자동 크기조절(autogrow)
             config.extraPlugins = 'autogrow';
-        config.autoGrow_minHeight = 200;
-        config.autoGrow_maxHeight = 600;
-        config.autoGrow_bottomSpace = 50;
+        	config.autoGrow_minHeight = 200;
+        	config.autoGrow_maxHeight = 600;
+        	config.autoGrow_bottomSpace = 50;
 
         // 화면에 보여질 버튼들..
         // 이걸 싹지우면 버튼이 아예 안보입니다 ..

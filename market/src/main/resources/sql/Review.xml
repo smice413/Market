@@ -40,7 +40,7 @@ from review R
 left join order_tab OT on R.o_no = OT.o_no
 
 where R.m_email = #{m_email} and R.r_delstatus = 'N'
-order by R.o_no desc
+order by R.r_writedate desc
 </select>
 
 <!-- 조회수 증가 -->

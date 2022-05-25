@@ -6,7 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 작성 페이지</title>
-<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script> -->
+<link rel="stylesheet" href="${path}/ckeditor/contents.css">
+<script type="text/javascript" src="${path}/ckeditor/ckeditor.js" ></script>
+
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -50,7 +53,7 @@
 			<td colspan="2">
 				<textarea id="r_content" name="r_content" rows="10" cols="50"></textarea>
 				<script>
-					CKEDITOR.replace('r_content',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
+					CKEDITOR.replace('r_content',{filebrowserUploadUrl:'${path}/market/reviewFileUpload.do'});
 				</script>
 			</td>
 		</tr>

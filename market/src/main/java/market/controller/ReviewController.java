@@ -54,44 +54,8 @@ public class ReviewController {
 	// 리뷰 작성
 	@RequestMapping(value = "reviewInsert.do", method = RequestMethod.POST)
 	public String reviewInsert(Model model, ReviewDTO review) throws Exception{
-							   //MultipartHttpServletRequest multi, HttpServletRequest request
 		
 		int result = 0;
-
-//		String img = null;
-//		
-//
-//		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
-//		
-//		if(multi.getFiles("review_img").get(0).getSize() != 0) {
-//			fileList = multi.getFiles("review_img");
-//		}
-//		
-//		// 저장 경로
-//		String contextRoot = request.getRealPath("upload");
-//		String path = contextRoot + "/review";
-//		System.out.println("path: "+path);
-//		
-//		for (MultipartFile mf : fileList) {
-//			int size = (int) mf.getSize();	// 첨부파일의 크기 (byte)
-//			String originalFileName = mf.getOriginalFilename();	// 원래 파일 이름
-//			String savedFileName = System.currentTimeMillis() + originalFileName;
-//			
-//			System.out.println("originalFileName: "+ originalFileName);
-//			System.out.println("savedFileName: "+ savedFileName);
-//		
-//			if(size > 1024 * 1000) {	// 10MB
-//				result = 2;		// 파일 크기 10MB 초과
-//			}
-//			
-//			mf.transferTo(new File(path + "/" + savedFileName));
-//			System.out.println("사진입력");			
-//			
-//			img += savedFileName + "/";	
-//		}	// for end
-//		
-//		review.setR_img(img);
-//		System.out.println("image" + review.getR_img());
 		
 		result = rs.insert(review);
 		System.out.println("입력 결과:"+result);
