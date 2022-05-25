@@ -6,13 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 작성 페이지</title>
+<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuMyPage.jsp"%>
 
 <div class="container" align="center">
-<h3 style="font-weight: bold;">상품 리뷰</h3>
+<h3 style="font-weight: bold; margin: 30px 0px 30px 0px;">상품 리뷰</h3>
 
 <div class="vf-wide700-card">
 <form action="reviewInsert.do" method="post" enctype="multipart/form-data">
@@ -22,15 +23,15 @@
 
 	<table class="table">
 		<tr>
-			<td>상품명</td>
+			<td style="font-weight: bold;" align="center">상품명</td>
 			<td>${product.p_name }</td>
 		</tr>
 		<tr>
-			<td>제 목</td>
+			<td style="font-weight: bold;" align="center">제 목</td>
 			<td><input type="text" name="r_title" size="50"></td>
 		</tr>
 		<tr>
-			<td>별 점</td>
+			<td style="font-weight: bold;" align="center">별 점</td>
 			<td>
 			<div>
 				<select id="r_star" name="r_star">
@@ -46,22 +47,17 @@
 			</td>
 		</tr>
 		<tr>
-			<td>내 용</td>
-			<td>
+			<td colspan="2">
 				<textarea id="r_content" name="r_content" rows="10" cols="50"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>첨부파일</td>
-			<td>
-				<input type="file" class="btn" id="review_img" name="review_img" accept="image/*" multiple />
+				<script>
+					CKEDITOR.replace('r_content',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
+				</script>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" style="text-align: center;">
 				<input type="submit" class="btn btn-success" value="등록">
-				<input type="button" class="btn btn-outline-success" value="취소"
-				onclick="location='orderList.do'">
+				<input type="button" class="btn btn-outline-success" value="취소" onclick="history.go(-1)">
 			</td>
 		</tr>
 	</table>

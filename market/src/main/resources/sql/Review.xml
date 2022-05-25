@@ -22,8 +22,25 @@ select count(*) from review where m_email = #{m_email} and r_delstatus = 'N'
 
 <!-- 내가 작성한 리뷰 목록 불러오기 -->
 <select id="myReviewList" parameterType="String" resultType="review">
-select * from review where m_email = #{m_email} and r_delstatus = 'N'
-order by r_writedate desc
+select
+R.r_no as r_no,
+R.p_no as p_no,
+R.m_email as m_email,
+R.r_title as r_title,
+R.r_star as r_star,
+R.r_content as content,
+R.r_img as r_img,
+R.r_writedate as r_writedate,
+R.r_hit as r_hit,
+R.r_delstatus as r_delstatus,
+R.o_no as o_no,
+OT.o_date as o_date
+
+from review R
+left join order_tab OT on R.o_no = OT.o_no
+
+where R.m_email = #{m_email} and R.r_delstatus = 'N'
+order by R.o_no desc
 </select>
 
 <!-- 조회수 증가 -->
@@ -46,4 +63,14 @@ select * from review where r_no = #{r_no}
 select * from review where m_email = #{m_email} and p_no = #{p_no} and o_no = #{o_no} and r_delstatus = 'N'
 </select>
  
+<!-- 상품별 리뷰 개수 --> 
+<select id="total" parameterType="int" resultType="int">
+select count(*) from review where p_no = #{p_no}
+</select>
+
+<!-- 상품별 리뷰 목록 -->
+<select id="list" parameterType="int" resultType="review">
+select * from review where p_no = #{p_no}
+</select>
+
 </mapper>

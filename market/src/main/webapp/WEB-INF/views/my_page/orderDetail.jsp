@@ -24,6 +24,7 @@
 <!-- 주문 상품 목록 -->
 <table align="center" class="table">
 	<tr>
+		<th style="text-align: center;">주문상품번호</th>
 		<th style="text-align: center;">:-)</th>
 		<th style="text-align: center;">상품명</th>
 		<th style="text-align: center;">수량</th>
@@ -33,6 +34,7 @@
 	
 <c:forEach var="list"  items="${detailList }">
 	<tr>
+		<td style="text-align: center;">${list.op_no }</td>
 		<td style="text-align: center;"><img src="${path}/upload/product/${list.p_img}" width="100px"></td>
 		<td style="text-align: center;">[${list.s_name }] <a href="productView.do?p_no=${list.p_no}">${list.p_name }</a></td>
 		<td style="text-align: center;">${list.op_qty }</td>

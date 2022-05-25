@@ -19,6 +19,13 @@ public class ReviewDTO {
 	// product
 	private String p_name;
 	
+	// order_tab
+	private Date o_date;
+	
+	// paging
+	private int startRow;
+	private int endRow;
+	
 	public int getR_no() {
 		return r_no;
 	}
@@ -90,5 +97,23 @@ public class ReviewDTO {
 	}
 	public void setP_name(String p_name) {
 		this.p_name = p_name;
+	}
+	public Date getO_date() {
+		return o_date;
+	}
+	public void setO_date(Date o_date) {
+		this.o_date = o_date;
+	}
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public int getEndRow() {
+		return endRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
 	}
 }

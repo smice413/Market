@@ -14,9 +14,9 @@
 
 <div class="container" align="center">
 <div class="vf-wide700-card">
-<h3 style="font-weight: bold; margin: 30px 0px 30px 0px;">내가 쓴 리뷰 목록</h3>
+<h3 style="font-weight: bold; margin: 30px 0px 30px 0px;">내가 쓴 리뷰</h3>
 
-<div align="right">리뷰 개수 : ${reviewCount }</div>
+<div align="right" style="margin-bottom: 20px;">리뷰 개수 : ${reviewCount }</div>
 <table class="table">
 	<tr>
 		<th style="text-align: center;">주문번호</th>
@@ -30,7 +30,8 @@
 
 	<tr>
 		<td style="text-align: center;">
-			주문번호 들어갈 곳
+			<fmt:formatDate value="${list.o_date }" pattern="yyMMdd"/> -
+			<fmt:formatNumber value="${list.o_no }" pattern="#####" minIntegerDigits="5"/>
 		</td>
 		<td style="text-align: center;">
 			<a href="reviewDetail.do?r_no=${list.r_no }&p_no=${list.p_no}">${list.r_title }</a>
@@ -54,6 +55,23 @@
 </table>
 
 </div>
+</div>
+
+<div class="container" align="center">
+<ul class="pagination">
+			
+		<c:if test="${pp.startPage > pp.pagePerBlk }">
+			<li><a href="${path }/orderList.do?pageNum=${pp.startPage - 1}">이전</a></li>
+		</c:if>
+		<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
+			<li <c:if test="${pp.currentPage == i}">class="active"</c:if>><a
+				href="${path }/orderList.do?pageNum=${i}">${i}</a></li>
+		</c:forEach>
+		<c:if test="${pp.endPage < pp.totalPage}">
+			<li><a href="${path }/orderList.do?pageNum=${pp.endPage + 1}">다음</a></li>
+		</c:if>
+		 
+</ul>
 </div>
 
 </body>

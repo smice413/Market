@@ -93,17 +93,23 @@ function review_click(a,b){
 			<c:if test="${list.op_status == '3' }">
 				<input type="button" class="btn btn-success" value="주문 취소" onClick="location='cancel.do?op_no=${list.op_no}'">
 			</c:if>
+			
 			<c:if test="${list.op_status == '6' }">
 				${list.op_deli_no }
+				<input type="button" class="btn btn-success" value="배송추적" 
+				onClick="location.href='https://www.cjlogistics.com//ko/tool/parcel/tracking'">
 			</c:if>
+			
 			<c:if test="${list.op_status == '7' }">
 				<input type="button" class="btn btn-success" value="구매 확정" 
 				onClick="location='confirm.do?op_no=${list.op_no}&s_no=${list.s_no }'">
 				<input type="button" class="btn btn-outline-success" value="환불 요청" 
 				onClick="location='refund.do?op_no=${list.op_no}'">
 			</c:if>
+			
 			<c:if test="${list.op_status == '11' }">
-				<input type="button" class="btn btn-outline-success" value="리뷰작성" onclick="review_click(${list.p_no},${list.o_no })">
+				<input type="button" class="btn btn-outline-success" value="리뷰작성" 
+				onclick="review_click(${list.p_no},${list.o_no })">
 			</c:if>
 		</td>
 	</tr>

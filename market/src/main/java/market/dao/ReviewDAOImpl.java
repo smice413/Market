@@ -56,4 +56,12 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 		return result;
 	}
+	
+	public int getTotal(int p_no) throws Exception{
+		return sst.selectOne("review.total", p_no);
+	}
+	
+	public List<ReviewDTO> reviewList(int p_no) throws Exception{
+		return sst.selectList("review.list", p_no);
+	}
 }

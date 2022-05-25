@@ -52,4 +52,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public int reviewCheck(ReviewDTO review) throws Exception{
 		return rd.reviewCheck(review);
 	}
+	
+	public int getTotal(int p_no) throws Exception{
+		return rd.getTotal(p_no);
+	}
+	
+	public List<ReviewDTO> reviewList(int p_no) throws Exception{
+		return rd.reviewList(p_no);
+	}
 }

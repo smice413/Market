@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import market.model.Order_productDTO;
 import market.model.ProductDTO;
 import market.model.ReviewDTO;
+import market.service.PagingPgm;
 import market.service.ReviewServiceImpl;
 
 @Controller
@@ -51,68 +53,90 @@ public class ReviewController {
 	
 	// 리뷰 작성
 	@RequestMapping(value = "reviewInsert.do", method = RequestMethod.POST)
-	public String reviewInsert(Model model, ReviewDTO review,
-			/* @RequestParam(value="review_img[]") List<MultipartFile> review_img, */
-							   MultipartHttpServletRequest multi,
-							   HttpServletRequest request, String img) throws Exception{
+	public String reviewInsert(Model model, ReviewDTO review) throws Exception{
+							   //MultipartHttpServletRequest multi, HttpServletRequest request
 		
 		int result = 0;
-		int result1 = 0;
-		
 
-		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
+//		String img = null;
+//		
+//
+//		List<MultipartFile> fileList = new ArrayList<MultipartFile>();
+//		
+//		if(multi.getFiles("review_img").get(0).getSize() != 0) {
+//			fileList = multi.getFiles("review_img");
+//		}
+//		
+//		// 저장 경로
+//		String contextRoot = request.getRealPath("upload");
+//		String path = contextRoot + "/review";
+//		System.out.println("path: "+path);
+//		
+//		for (MultipartFile mf : fileList) {
+//			int size = (int) mf.getSize();	// 첨부파일의 크기 (byte)
+//			String originalFileName = mf.getOriginalFilename();	// 원래 파일 이름
+//			String savedFileName = System.currentTimeMillis() + originalFileName;
+//			
+//			System.out.println("originalFileName: "+ originalFileName);
+//			System.out.println("savedFileName: "+ savedFileName);
+//		
+//			if(size > 1024 * 1000) {	// 10MB
+//				result = 2;		// 파일 크기 10MB 초과
+//			}
+//			
+//			mf.transferTo(new File(path + "/" + savedFileName));
+//			System.out.println("사진입력");			
+//			
+//			img += savedFileName + "/";	
+//		}	// for end
+//		
+//		review.setR_img(img);
+//		System.out.println("image" + review.getR_img());
 		
-		if(multi.getFiles("review_img").get(0).getSize() != 0) {
-			fileList = multi.getFiles("review_img");
-		}
-		
-		// 저장 경로
-		String contextRoot = request.getRealPath("upload");
-		String path = contextRoot + "/review";
-		System.out.println("path: "+path);
-		
-		for (MultipartFile mf : fileList) {
-			int size = (int) mf.getSize();	// 첨부파일의 크기 (byte)
-			String originalFileName = mf.getOriginalFilename();	// 원래 파일 이름
-			String savedFileName = System.currentTimeMillis() + originalFileName;
-			
-			System.out.println("originalFileName: "+ originalFileName);
-			System.out.println("savedFileName: "+ savedFileName);
-		
-			if(size > 1024 * 1000) {	// 10MB
-				result = 2;		// 파일 크기 10MB 초과
-			}
-			
-			mf.transferTo(new File(path + "/" + savedFileName));
-			System.out.println("사진입력");			
-			
-			img += savedFileName + "/";	
-		}	// for end
-		
-		review.setR_img(img);
-		
-		result1 = rs.insert(review);
-		System.out.println("입력 결과:"+result1);
+		result = rs.insert(review);
+		System.out.println("입력 결과:"+result);
 		
 		model.addAttribute("result", result);
-		model.addAttribute("result1", result1);
 		
 		return "review/reviewResult";
 	}
 	
 	// 내가 쓴 리뷰 목록 불러오기
 	@RequestMapping("myReviewList.do")
-	public String myReviewList(HttpSession session, Model model) throws Exception{
+	public String myReviewList(HttpSession session, Model model,
+							   String pageNum, ReviewDTO review) throws Exception{
+		
 		String m_email = (String) session.getAttribute("m_email");
 		
-		// 내가 쓴 리뷰 개수
+		// 페이징 처리
+		final int rowPerPage = 10;		// 한 번에 출력할 데이터 개수
+					
+		if(pageNum == null || pageNum.equals("")) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+					
 		int reviewCount = rs.reviewCount(m_email);
-		
+					
+		System.out.println("내가 쓴 리뷰 개수: " + reviewCount);
+					
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+					
+		PagingPgm pp = new PagingPgm(reviewCount, rowPerPage, currentPage);
+		review.setStartRow(startRow);
+		review.setEndRow(endRow);
+					
+		int no = reviewCount - startRow + 1;		// 화면 출력 번호
+					
 		// 리뷰 목록
 		List<ReviewDTO> reviewList = rs.myReviewList(m_email);
-		
-		model.addAttribute("reviewCount",reviewCount);
+					
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("no", no);
+		model.addAttribute("pp", pp);
+		model.addAttribute("reviewCount",reviewCount);
+
 		
 		return "review/myReviewList";
 	}
@@ -187,5 +211,40 @@ public class ReviewController {
 			model.addAttribute("result", result);
 			
 			return "review/reviewCheckResult";
+		}
+		
+	// 상품 상세 페이지에 불러올 리뷰 목록
+		@RequestMapping("productReviewList.do")
+		public String productReviewList(Model model, String pageNum,
+										@RequestParam("p_no") int p_no,
+										ReviewDTO review) throws Exception{
+			// 페이징 처리
+			final int rowPerPage = 10;		// 한 번에 출력할 데이터 개수
+			
+			if(pageNum == null || pageNum.equals("")) {
+				pageNum = "1";
+			}
+			int currentPage = Integer.parseInt(pageNum);
+			
+			int total = rs.getTotal(p_no);		// 해당 상품에 대한 리뷰 개수
+			
+			System.out.println("total: "+total);
+			
+			int startRow = (currentPage - 1) * rowPerPage + 1;
+			int endRow = startRow + rowPerPage - 1;
+			
+			PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
+			review.setStartRow(startRow);
+			review.setEndRow(endRow);
+			
+			int no = total - startRow + 1;		// 화면 출력 번호
+			
+			List<ReviewDTO> list = rs.reviewList(p_no);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("no", no);
+			model.addAttribute("pp", pp);
+			
+			return "review/productReviewList";
 		}
 }
