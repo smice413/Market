@@ -30,5 +30,10 @@ public class Order_tabDAO {
 	public int deliNoInsert(Order_manageDTO omdto) {
 		return sst.insert("order_managens.dinsert",omdto);
 	}
+	
+	// 품절 취소 처리
+	public int cancel(Order_manageDTO omdto) {
+		return sst.insert("order_managens.cancel",omdto);
+	}
 
 }

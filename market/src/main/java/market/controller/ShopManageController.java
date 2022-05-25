@@ -80,5 +80,27 @@ public class ShopManageController {
 
 		return "shop_page/deliResult";
 	}
+	
+	//품절취소
+	@RequestMapping("shopOrderCancel.do")
+	public String shopOrderCancel(int o_no, int op_no, Model model) {
+		
+		Order_manageDTO omdto = new Order_manageDTO();
+		
+		omdto.setOp_status("5");
+		omdto.setOp_no(op_no);
+
+		int result = sms.cancel(omdto);
+		
+		if (result == 1) {
+			System.out.println("품절취소 상태변경 성공!");
+		}
+
+		model.addAttribute("o_no", o_no);
+		model.addAttribute("result", result);
+		
+		return "shop_page/shopCancelResult";
+	}
+	
 
 }

@@ -66,4 +66,12 @@
 		op_no = #{op_no}
 	</update>
 	
+	<update id="cancel" parameterType="order_manage">
+		update order_product
+		set
+		op_status = #{op_status}
+		where
+		op_no = #{op_no}
+	</update>
+	
 </mapper>

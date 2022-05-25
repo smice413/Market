@@ -38,4 +38,9 @@ public class ShopManageService {
 		return otdao.deliNoInsert(omdto);
 	}
 	
+	// 품절취소처리
+	public int cancel(Order_manageDTO omdto) {
+		return otdao.cancel(omdto);
+	}
+	
 }

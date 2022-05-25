@@ -65,9 +65,11 @@
 			<c:if test="${od.op_status == '11' }">거래완료</c:if>
 			</td>	
 			<td>
+			<c:if test="${od.op_status == '3'}">
 				운송장번호:<input type=text id="op_deli_no" name="op${od.op_no}" size="8">
 				<input type="button" value="배송" onclick="check_ok(${od.op_no})">
-				<input type="button" value="품절취소">
+				<input type="button" value="품절취소" onclick="check_cancel(${od.op_no})">
+			</c:if>
 			</td>
 		</tr>
 		</c:forEach>
@@ -76,13 +78,13 @@
 </div>
 <script>
 	function check_ok(n) {
-		
-		
  		var text = $('input[name=op'+n+']').val();
- 		//var text = 'hello';
- 		
    		location.href = 'deliInsert.do?dno='+text+'&opno='+n+'&o_no='+${o[0].o_no};
-	}    
+	}
+	
+	function check_cancel(n){
+		location.href = 'shopOrderCancel.do?&op_no='+n+'&o_no='+${o[0].o_no};
+	}
 </script>
 
 </body>
