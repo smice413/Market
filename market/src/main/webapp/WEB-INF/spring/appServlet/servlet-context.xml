@@ -20,9 +20,9 @@
 	<beans:bean id="lc" class="market.controller.LoginCheck"/>
 	<interceptors>
 		<interceptor>
-			<mapping path="/loveInsert.do"/>
-			<mapping path="/restockInsert.do"/>
-			<mapping path="/followInsert.do"/>
+			<mapping path="loveInsert.do"/>
+			<mapping path="restockInsert.do"/>
+			<mapping path="followInsert.do"/>
 			<beans:ref bean="lc"/>
 		</interceptor>
 	</interceptors>

@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import market.model.ProductDTO;
 import market.model.QnaDTO;
+import market.model.ReplyBoard;
 import market.service.PagingPgm;
+import market.service.ProductService;
 import market.service.QnaService;
 
 @Controller
@@ -18,6 +21,9 @@ public class QnaController {
 	
 	@Autowired
 	private QnaService qs;
+	
+	@Autowired
+	private ProductService ps;
 	
 	@RequestMapping("qna/list.do")	// 전체 목록, 검색 목록
 	public String list(String pageNum, QnaDTO qna, Model model) {
@@ -90,27 +96,34 @@ public class QnaController {
 		
 		return "qna/qnaList";
 	}	
-	
 
-	@RequestMapping("qna/insertForm.do")	// 글작성 폼 (원문, 답변글)
-	public String insertForm(String p_no, String pageNum, Model model) {
+
+	@RequestMapping("qna/qnaMainList.do")	// 글작성 폼 (원문, 답변글)
+	public String insertForm(String p_no,  Model model) {
+
 
 		
-		model.addAttribute("pageNum", pageNum);
+		return "qna/qnaMainList";
+	}
+	@RequestMapping("qnaInsertForm.do")	// 글작성 폼 (원문, 답변글)
+	public String qnaInsertForm(int p_no, Model model) {
+
+		ProductDTO product = ps.select(p_no);
+		System.out.println("product:"+product);
+		model.addAttribute("product", product);
 		
-		return "qna/insertForm";
+		return "qna/qnaInsertForm";
 	}
 
-	@RequestMapping("qna/insert.do")	// 글 작성
-	public String insert(QnaDTO qna, Model model, HttpServletRequest request) {
+	@RequestMapping("qnaInsert.do")	// 글 작성
+	public String insert(QnaDTO qna, Model model) {
 
-			int result = qs.insert(qna);
+			qs.insert(qna);
 			
-			model.addAttribute("result", result);
-			
-		return "qna/insert";
+		return "redirect:list.do?p_no=" + qna.getP_no();
 	}
-	
+
+
 	@RequestMapping("qnaAnswerForm.do")	// 글작성 폼 (원문, 답변글)
 	public String answerForm(String re, String pageNum, Model model) {
 

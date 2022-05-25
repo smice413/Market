@@ -26,15 +26,10 @@
 			   	left join product P on P.p_no = Q.p_no
 			   	left join order_product OP on OP.op_no = Q.op_no
 	    <choose>
-	        <when test="search == 'p_no'">where Q.p_no=#{keyword}</when>
-	        <when test="search == 's_no'">where Q.s_no=#{keyword}</when>
-	        <when test="search == 'm_email'">where Q.m_email=#{keyword}</when>
+	        <when test="search == 'p_no'"> where Q.p_no=#{keyword} </when>
+	        <when test="search == 's_no'"> where Q.s_no=#{keyword} </when>
+	        <when test="search == 'm_email'"> where Q.m_email=#{keyword} </when>
 		</choose>
-<!--  		<where>
-			<if test="search == 'p_no'"> Q.p_no=#{keyword} </if>
- 			<if test="search == 's_no'"> Q.s_no=#{keyword} </if>
- 			<if test="search == 'm_email'"> Q.m_email=#{keyword} </if>
-		</where> 	 -->
 			 order by qna_ref desc, qna_writedate asc ) a)
 			where rn between #{startRow} and #{endRow}
 	</select>
@@ -42,25 +37,26 @@
 	
 	<select id="getTotal" parameterType="qna" resultType="int">
  		select count(*) from qna
-<!-- 		<where>
-			<if test="search == 'p_no'"> Q.p_no=#{keyword} </if>
- 			<if test="search == 's_no'"> Q.s_no=#{keyword} </if>
- 			<if test="search == 'm_email'"> Q.m_email=#{keyword} </if>
-		</where>  -->	
+ 	    <choose>
+	        <when test="search == 'p_no'"> where p_no=#{keyword} </when>
+	        <when test="search == 's_no'"> where s_no=#{keyword} </when>
+	        <when test="search == 'm_email'"> where m_email=#{keyword} </when>
+		</choose>
 	</select>
 	
 	<select id="select" parameterType="int" resultType="qna">
 <!-- 		select * from qna where qna_no=#{qna_no} -->
 	</select>
+
 	
 	<select id="getMaxNum" resultType="int">
 <!-- 		select nvl(max(qna_no),0) + 1 from qna
  -->	</select>
 	
 	<insert id="insert" parameterType="qna">
-<!-- 		insert into qna values (qna_board_seq.nextval,#{p_no},#{op_no},
-			#{m_email},#{qna_title},#{qna_question},#{qna_answer},#{qna_ref},
-			#{qna_secret},#{s_no},sysdate,'n') -->
+		insert into qna values (qna_board_seq.nextval,#{p_no},#{op_no},
+			#{m_email},#{qna_title},#{qna_question},#{qna_answer},qna_board_seq.nextval,
+			#{qna_secret},#{s_no},sysdate,'N')
 	</insert>
 	
 	<update id="update" parameterType="qna">
