@@ -19,8 +19,8 @@ public class ShopManageService {
 	private Order_productDAO opdao;
 
 	// 주문리스트 불러오기
-	public List<Order_manageDTO> olist() {
-		return otdao.olist();
+	public List<Order_manageDTO> olist(int s_no) {
+		return otdao.olist(s_no);
 	}
 	
 	// 주문상세리스트 불러오기
@@ -32,4 +32,10 @@ public class ShopManageService {
 	public List<Order_productDTO> oplist() {
 		return opdao.oplist();
 	}
+	
+	// 운송번호 입력
+	public int deliNoInsert(Order_manageDTO omdto) {
+		return otdao.deliNoInsert(omdto);
+	}
+	
 }

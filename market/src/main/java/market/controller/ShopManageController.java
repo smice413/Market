@@ -2,6 +2,9 @@ package market.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,17 +22,14 @@ public class ShopManageController {
 
 	// 판매자 주문 관리
 	@RequestMapping("order_tabList.do")
-	public String order_tabList(Model model) {
+	public String order_tabList(HttpSession session, HttpServletRequest request ,
+			Model model) {
 
-		/*
-		 * int s_no = 3; // 판매자 로그인 미구현으로 임시로 판매자 샵넘버 세션 공유 String s_email =
-		 * "minjun@gmail.com"; // 판매자 로그인 미구현으로 임시로 판매자 이메일 세션 공유
-		 * 
-		 * HttpSession session = request.getSession(); session.setAttribute("s_no",
-		 * s_no); session.setAttribute("s_email", s_email);
-		 */
-
-		List<Order_manageDTO> olist = sms.olist();
+		session = request.getSession();
+		
+		int s_no = (int)session.getAttribute("s_no");
+		
+		List<Order_manageDTO> olist = sms.olist(s_no);
 		model.addAttribute("olist", olist);
 		
 		return "shop/order_tabList";
@@ -54,6 +54,27 @@ public class ShopManageController {
 		model.addAttribute("oplist", oplist);
 		
 		return "shop/refundList";
+	}
+	
+	//운송장 입력버튼 눌렀을때
+	@RequestMapping("deliInsert.do")
+	public String delivery(Model model, String dno, String opno) {
+		
+		System.out.println("상품번호 : "+opno);
+		System.out.println("운송장번호 : "+dno);
+		
+		Order_manageDTO omdto= new Order_manageDTO();
+		
+		omdto.setOp_deli_no(dno);
+		omdto.setOp_status("7");
+		
+		//int result = sms.deliNoInsert(omdto);
+		int result=0;
+		if(result==1) {
+			System.out.println("운송장번호 입력성공!");
+		}
+		
+		return "";
 	}
 	
 

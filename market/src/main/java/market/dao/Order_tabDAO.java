@@ -18,12 +18,17 @@ public class Order_tabDAO {
 		return sst.selectOne("order_tabns.lastseq");
 	}
 	
-	public List<Order_manageDTO> olist() {
-		return sst.selectList("order_managens.list");
+	public List<Order_manageDTO> olist(int s_no) {
+		return sst.selectList("order_managens.list",s_no);
 	}
 	
 	public List<Order_manageDTO> odlist(int o_no) {
 		return sst.selectList("order_managens.odlist",o_no);
+	}
+	
+	// 운송번호 입력
+	public int deliNoInsert(Order_manageDTO omdto) {
+		return sst.insert("order_managens.dinsert",omdto);
 	}
 
 }

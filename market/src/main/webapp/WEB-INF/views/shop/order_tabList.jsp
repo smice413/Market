@@ -23,7 +23,7 @@
 			<td>받는사람</td>
 			<td>배송메시지</td>
 			<td>주문일자</td>
-			<td>기타</td>
+			<td></td>
 		</tr>
 		<c:forEach var="o" items="${olist}">
 			<tr>
@@ -37,9 +37,6 @@
 			</td>
 			<td>
 				<a href="shopOrderDetail.do?o_no=${o.o_no}"><input type=button value="주문처리"></a>
-				<input type=button value="주문일괄취소"
-				 onclick="if(confirm('취소하시겠습니까?'))location.href=
-				 'orderAllCancel.do?o_no=${o.o_no}'">
 			</td>
 			</tr>
 		</c:forEach>

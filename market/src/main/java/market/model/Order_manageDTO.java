@@ -22,6 +22,15 @@ public class Order_manageDTO {
 	private int op_qty;
 	private int p_sell_price;
 	private String op_status;
+	private String op_deli_no;
+
+	public String getOp_deli_no() {
+		return op_deli_no;
+	}
+
+	public void setOp_deli_no(String op_deli_no) {
+		this.op_deli_no = op_deli_no;
+	}
 
 	public String getOp_status() {
 		return op_status;
