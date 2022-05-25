@@ -6,6 +6,9 @@ import java.util.List;
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
 import market.model.OrderPageItemDTO;
+import market.model.Order_productDTO;
+import market.model.Order_tabDTO;
+import market.model.ProductDTO;
 import scala.PartialFunction.OrElse;
 
 public interface OrderDAO {
@@ -19,4 +22,12 @@ public interface OrderDAO {
 	int addressUpdate(DeliveryDTO delivery);
 	int deleteAddr(int d_no);
 	DeliveryDTO getDelivery(int d_no);
+	
+	//주문 처리
+	Order_productDTO getOrderInfo(int p_no);
+	int orderInsert(Order_tabDTO otd);
+	int orderProductInsert(Order_productDTO opd);
+	ProductDTO productInfo(int p_no);
+	int updateStock(ProductDTO product);
+	
 }

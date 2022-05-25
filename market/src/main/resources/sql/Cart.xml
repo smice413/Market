@@ -42,5 +42,10 @@
 		delete from cart where m_email=#{m_email}
 	</delete>
 	
+	<!-- 주문한 상품 삭제 -->
+	<delete id="deleteOrderCart">
+		delete from cart where m_email=#{m_email} and p_no=#{p_no}
+	</delete>
+	
 	
 </mapper>

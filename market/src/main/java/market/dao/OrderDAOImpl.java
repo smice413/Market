@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
 import market.model.OrderPageItemDTO;
+import market.model.Order_productDTO;
+import market.model.Order_tabDTO;
+import market.model.ProductDTO;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO{
@@ -67,5 +70,30 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public DeliveryDTO getDelivery(int d_no) {
 		return sst.selectOne("orderpagens.getDelivery", d_no);
+	}
+
+	@Override
+	public Order_productDTO getOrderInfo(int p_no) {
+		return sst.selectOne("orderpagens.getOrderInfo", p_no);
+	}
+
+	@Override
+	public ProductDTO productInfo(int p_no) {
+		return sst.selectOne("orderpagens.productInfo", p_no);
+	}
+
+	@Override
+	public int updateStock(ProductDTO product) {
+		return sst.update("orderpagens.updateStock", product);
+	}
+
+	@Override
+	public int orderInsert(Order_tabDTO otd) {
+		return sst.insert("orderpagens.orderInsert", otd);
+	}
+
+	@Override
+	public int orderProductInsert(Order_productDTO opd) {
+		return sst.insert("orderpagens.orderProductInsert", opd);
 	}
 }

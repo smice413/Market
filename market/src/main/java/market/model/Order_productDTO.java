@@ -34,6 +34,7 @@ public class Order_productDTO {
 	
 	// product
 	private String p_name;
+	private int p_sell_price;
 	
 	// product_img
 	private String p_img;
@@ -50,7 +51,6 @@ public class Order_productDTO {
 	// page
 	private int startRow;
 	private int endRow;
-	
 	
 	// getters and setters
 	public int getOp_no() {
@@ -210,6 +210,12 @@ public class Order_productDTO {
 	public void setP_name(String p_name) {
 		this.p_name = p_name;
 	}
+	public int getP_sell_price() {
+		return p_sell_price;
+	}
+	public void setP_sell_price(int p_sell_price) {
+		this.p_sell_price = p_sell_price;
+	}
 	public String getP_img() {
 		return p_img;
 	}
@@ -246,6 +252,7 @@ public class Order_productDTO {
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
 	}
+	
 	public int getStartRow() {
 		return startRow;
 	}
@@ -258,6 +265,16 @@ public class Order_productDTO {
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
 	}
+	@Override
+	public String toString() {
+		return "Order_productDTO [op_no=" + op_no + ", o_no=" + o_no + ", p_no=" + p_no + ", p_sell_price="+p_sell_price+", op_type=" + op_type
+				+ ", op_qty=" + op_qty + ", op_price=" + op_price + ", op_refund=" + op_refund + ", op_calc=" + op_calc
+				+ ", op_status=" + op_status + ", m_email=" + m_email + "]";
+	}
+	public void total() {
+		this.op_price = this.p_sell_price*this.op_qty;
+	}
+	
 	
 	
 }

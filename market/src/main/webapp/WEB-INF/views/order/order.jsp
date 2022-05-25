@@ -9,10 +9,45 @@
 <title>주문 페이지</title>
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 <link rel="stylesheet" href="${path}/css/swiper.css">
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+<style>
 
 
+.price_table label{
+ 	margin-top:15px;
+ 	margin-left:20px; 
+}
 
+.payment_table label{
+	margin-top:15px;
+ 	margin-left:20px; 
+}
+
+.finalTotalPrice_span,.totalPrice_span,.deliveryFee_span,.cpSalePrice_span{
+	font-size:18px;
+	font-weight:bolder;
+}
+.r{
+	text-align:right;
+}
+
+.final_tr{
+	border-top:1px solid;
+	border-top-color:#dddddd;
+}
+.total_info_price_div{
+	float:left;
+	margin-right:2px;
+	margin-bottom:150px;
+	width:29%
+}
+.payment_info_div{
+	float:right;
+	margin-bottom:150px;
+	width:69%;
+}
+
+</style>
 
 </head>
 <body>
@@ -60,10 +95,10 @@
 							<fmt:formatNumber value="${pi.total_price}" pattern="#,###,### 원" />
 						</div>
 					</td>
-					<td class="goods_table_price_td">
+					<td class="product_table_price_td">
 						<input type="hidden" class="p_sell_price_input" value="${pi.p_sell_price}">
 						<input type="hidden" class="cart_qty_input" value="${pi.cart_qty}">
-						<input type="hidden" class="total_price_input" value="${pi.total_price}">
+						<input type="hidden" name ="total_price" class="total_price_input" value="${pi.total_price}">
 						<input type="hidden" class="p_no_input" value="${pi.p_no}">
 					</td>
 				</tr>	
@@ -96,24 +131,21 @@
 			</tr>
 		</table>
 		
-	
-		
-<!-- 배송지 정보 -->
-		<table class="delivery_table" style="width:100%; margin-top:50px;">
-			<tr>
-				<td colspan="2"><h3 style="margin-left:20px;">배송 정보</h3></td>
-			</tr>
-		</table>
-		     <!-- 기본 배송지 -->
-				<div class="addressInfo_input_div addressInfo_input_div_1" style="display:block;">
- 				<table>
+		  <!-- 배송지 정보 -->
+			<div class="addressInfo_input_div">
+				<table class="delivery_table" style="margin-top:50px;">
 					<colgroup>
 						<col width="230px">
 						<col width="*">
-					</colgroup>
-					<tbody>
+					</colgroup>	
 						<tr>
-							<th><label style="margin-left:20px; margin-top:10px;" >구분</label></th>
+							<td  colspan="2">
+							<h3 style="margin-left:20px;">배송 정보</h3></td>
+						</tr>
+						<tbody>
+						<tr>
+							<th class="delivery_th">
+							<label style="margin-left:20px; margin-top:10px;" >구분</label></th>
 							<td>
 								<div style="display:flex;">
 									<input class="d_cate_input form-control" name="d_cate" value="${deliveryInfo.d_cate}" readonly>
@@ -158,11 +190,12 @@
 							</td>
 						</tr>
 				 		<tr>
-							<td><div class="form-group" style="margin-left:20px;margin-top:10px;">
+							<td><div class="d_msg_div form-group" style="margin-left:20px;margin-top:10px;">
 							   	<label>요청사항</label>
 							</td>
 							<td>
-								<input type="text" class="form-control" id="d_msg" placeholder="배송 관련 요청사항을 입력하세요."></div>
+								<input type="text" class="d_msg form-control" name="d_msg" id="d_msg" placeholder="배송 관련 요청사항을 입력하세요."></div>
+								<input class="d_no" type="hidden" name="d_no" value="${deliveryInfo.d_no}">
 							</td>
 						</tr>
 				 	</tbody>
@@ -186,34 +219,34 @@
 			</tr>
 		</table>
 		
-		<!-- 주문 종합 정보 -->
-	  <div class="total_info_div">
+	<!-- 주문 종합 정보 -->
 		<div class="total_info_price_div">
 		<table class="price_table" style="width:100%; margin-top:50px;">
 			<tr>
 				<td colspan="1"><h3 style="margin-left:20px;">결제 금액</h3></td>
 			</tr>
 			<tr style="border-top:3px solid;border-top-color:#dddddd;">
-				<td><label style="margin-left:20px;margin-top:20px;">주문 금액</label></td>
-	            <td><span class="totalPrice_span"></span></td>		
+				<td><label>주문 금액</label></td>
+	            <td class="r"><span class="totalPrice_span"></span></td>		
 			</tr>
 		    <tr>
-				<td><label style="margin-left:20px;">배송비</label></td>
-				<td><span class="delivery_price_span"></span></td>
+				<td><label>배송비</label></td>
+				<td class="r"><span class="deliveryFee_span"></span></td>
 		    </tr>
 		    <tr>
-				<td><label style="margin-left:20px;">쿠폰할인금액</label></td>
-				<td></td>
+				<td><label>쿠폰 할인 금액</label></td>
+				<td class="r"><span class="cpSalePrice_span"></span></td>
 		    </tr>
-		    <tr>
-				<td><label style="margin-left:20px;">최종결제금액</label></td>
-				<td><span class="finalTotalPrice_span"></span></td>
+		    <tr class="final_tr">
+				<td><label>최종 결제 금액</label></td>
+				<td class="r"><span class="finalTotalPrice_span"></span></td>
 		    </tr>
 		</table>
 		</div>
 	  </div>	
 		
-		<table class="payment_table" style="width:100%; margin-top:50px;">
+	<div class="payment_info_div">	
+	  <table class="payment_table" style="width:100%; margin-top:50px;">
 			<tr>
 				<td colspan="2"><h3 style="margin-left:20px;">결제 수단</h3></td>
 			</tr>
@@ -230,11 +263,10 @@
 				</td>
 		    </tr>
 		</table>
+	</div>	
 		
-		<div style="margin-top:50px; margin-bottom:100px;margin-top:50px;">
-			<button class="btn btn-success">결제하기</button>
-		</div>
-	</div>
+	<button class="order_btn btn btn-success">결제하기</button>
+	
 </div>
 
 
@@ -242,7 +274,15 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>	
 </footer>
 
+<form class="order_form" action="orderInsert.do" method="post">
+	<input name="d_no" type="hidden">
+</form>
+
+
 <script>
+	$(document).ready(function(){
+		total_sum()
+	});
 	
 	// 배송지 목록 팝업창
 	$(".deliveryList_btn").on("click",function(){
@@ -250,6 +290,69 @@
 		let popOption = "width = 650px, height=550px, top=300px, left=300px, scrollbars=yes";
 		
 		window.open(popUrl,"배송지 목록",popOption);
+	});
+	
+	// 최종 결제 금액	
+	function total_sum(){
+		let totalPrice = 0;
+        let deliveryFee = 0;
+        let cpSalePrice = 0;
+		let finalTotalPrice = 0;
+		
+		$(".product_table_price_td").each(function(index, element){
+			// 총 가격
+			totalPrice += parseInt($(element).find(".total_price_input").val());
+		});	
+		
+		// 배송비
+		if(totalPrice>=30000){
+			deliveryFee = 0;
+		}else if(totalPrice == 0){ 
+			deliveryFee = 0;
+		}else{	
+			deliveryFee = 3000;
+		}	
+		
+		finalTotalPrice = totalPrice + deliveryFee - cpSalePrice;
+	
+		$(".totalPrice_span").text(totalPrice.toLocaleString()+"원");
+		$(".deliveryFee_span").text(deliveryFee.toLocaleString()+"원");
+		$(".cpSalePrice_span").text(cpSalePrice.toLocaleString()+"원");
+		$(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString()+"원");
+		
+	}
+	
+	// 결제 버튼
+	$(".order_btn").on("click", function(){
+		
+		// 배송지 정보
+		$(".addressInfo_input_div").each(function(i, obj){
+			$("input[name=d_no]").val($(obj).find(".d_no").val());
+		});
+		
+		let form_contents = ''; 
+		
+		$(".product_table_price_td").each(function(index, element){
+			let p_no = $(element).find(".p_no_input").val();
+			let cart_qty = $(element).find(".cart_qty_input").val();
+			
+			let p_no_input = "<input name='orders[" + index + "].p_no' type='hidden' value='" + p_no + "'>";
+			form_contents += p_no_input;
+			
+			let cart_qty_input = "<input name='orders[" + index + "].cart_qty' type='hidden' value='" + cart_qty + "'>";
+			form_contents += cart_qty_input;
+		});	
+		
+		$("d_msg_div").each(function(index, element){
+			let d_msg = $("input[name=d_msg]").val();
+			
+			let d_msg_input = "<input name='orders[" + index + "].d_msg' type='hidden' value='" + d_msg + "'>";
+			form_contents += d_msg_input;
+		});
+		
+		$(".order_form").append(form_contents);	
+		
+		$(".order_form").submit();
 	});
 
 </script>

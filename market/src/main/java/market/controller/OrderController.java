@@ -25,6 +25,7 @@ import market.model.DeliveryDTO;
 import market.model.MemberDTO;
 import market.model.OrderPageDTO;
 import market.model.OrderPageItemDTO;
+import market.model.Order_tabDTO;
 import market.service.MemberServiceImpl;
 import market.service.OrdereService;
 
@@ -183,5 +184,18 @@ public class OrderController {
 		
 		return "order/deleteAddrResult.jsp";
 	}
-	
+
+	// 주문 등록
+	@RequestMapping("orderInsert.do")
+	public String orderInsert(Order_tabDTO ot, HttpSession session) throws Exception{
+		String m_email = (String)session.getAttribute("m_email");
+		System.out.println("m_email:"+m_email);
+
+		ot.setM_email(m_email);
+		System.out.println("ot:"+ot);
+		
+		os.order(ot);
+		
+		return "redirect:main.do";
+	}
 }

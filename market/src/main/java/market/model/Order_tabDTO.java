@@ -1,6 +1,7 @@
 package market.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order_tabDTO {
 
@@ -17,6 +18,12 @@ public class Order_tabDTO {
 	private Date o_date;
 	private Date o_confirm_date;
 	private Date o_cancel_date;
+	
+	// 주문 상품
+	private List<Order_productDTO> orders;
+	
+	// cart
+	private int cart_qty; 
 	
 	public int getO_no() {
 		return o_no;
@@ -95,5 +102,42 @@ public class Order_tabDTO {
 	}
 	public void setO_cancel_date(Date o_cancel_date) {
 		this.o_cancel_date = o_cancel_date;
+	}
+	
+	public List<Order_productDTO> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order_productDTO> orders) {
+		this.orders = orders;
+	}
+	public int getCart_qty() {
+		return cart_qty;
+	}
+	public void setCart_qty(int cart_qty) {
+		this.cart_qty = cart_qty;
+	}
+	public void getOrderPriceInfo() {
+		// 상품 주문 금액
+		for(Order_productDTO order : orders) {
+			o_total_price += order.getOp_price();
+		}
+		
+		// 배송비
+		if(o_total_price >= 30000) {
+			o_deli_price = 0;
+		}else {
+			o_deli_price = 3000;
+		}
+		
+		// 최종 비용
+		o_pay_price = o_total_price - o_sale_price + o_pay_price;
+	}
+	@Override
+	public String toString() {
+		return "Order_tabDTO [o_no=" + o_no + ", m_email=" + m_email + ", d_no=" + d_no + ", d_msg=" + d_msg
+				+ ", cp_no=" + cp_no + ", o_total_price=" + o_total_price + ", o_sale_price=" + o_sale_price
+				+ ", o_deli_price=" + o_deli_price + ", o_pay_price=" + o_pay_price + ", o_pay_type=" + o_pay_type
+				+ ", o_date=" + o_date + ", o_confirm_date=" + o_confirm_date + ", o_cancel_date=" + o_cancel_date
+				+ ", orders=" + orders + ", cart_qty=" + cart_qty +"]";
 	}
 }

@@ -14,4 +14,5 @@ public interface CartDAO {
 	void update(CartDTO cart);
 	void delete(int cart_no);
 	void allDelete(String m_email);
+	int deleteOrderCart(CartDTO cart);
 }
