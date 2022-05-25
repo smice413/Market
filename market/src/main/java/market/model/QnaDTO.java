@@ -13,7 +13,7 @@ public class QnaDTO {
 	private String qna_answer;
 	private int qna_ref;
 	private String qna_secret;
-	private int qna_readcount;
+	private int s_no;
 	private Date qna_writedate;
 	private String qna_delstatus;
 
@@ -30,14 +30,9 @@ public class QnaDTO {
 	
 	//상품이름 (product join)
 	private String p_name;
-
-	public String getP_name() {
-		return p_name;
-	}
-
-	public void setP_name(String p_name) {
-		this.p_name = p_name;
-	}
+	
+	//주문번호 (order_product join)
+	private String o_no;
 
 	public int getQna_no() {
 		return qna_no;
@@ -111,12 +106,12 @@ public class QnaDTO {
 		this.qna_secret = qna_secret;
 	}
 
-	public int getQna_readcount() {
-		return qna_readcount;
+	public int getS_no() {
+		return s_no;
 	}
 
-	public void setQna_readcount(int qna_readcount) {
-		this.qna_readcount = qna_readcount;
+	public void setS_no(int s_no) {
+		this.s_no = s_no;
 	}
 
 	public Date getQna_writedate() {
@@ -173,6 +168,22 @@ public class QnaDTO {
 
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
+	}
+
+	public String getP_name() {
+		return p_name;
+	}
+
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
+	}
+
+	public String getO_no() {
+		return o_no;
+	}
+
+	public void setO_no(String o_no) {
+		this.o_no = o_no;
 	}
 	
 	

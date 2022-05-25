@@ -11,7 +11,7 @@
 	.vf_header_menu { background-color: #fff; height:35px;  margin:0px;}
 	.vf_header_menu a: { text-decoration: none; color:#555; font-size:15px; }
 	.vf_header_menu a:hover {font-weight: bold;}
-	.vf_header_menu div { background-color: #fff; float: left; text-align: center; 
+	.vf_header_menu div { background-color: #fff; float: left; text-align: center;
 							margin: 0px; padding:5 0 0 0;}
 
 /* 검색용 (input 태그) */	
@@ -72,7 +72,7 @@
 		body{ margin: 0px; padding: 0px;}
 		
 	/* 헤더 (회사로고부분) */	
-		.vf_header_menu div { width :23%; }
+		.vf_header_menu div { width :15%; }
 		.vf_header_menu_search { display: none; }
 		
 	/* 네비게이션 (메뉴부분) */

@@ -54,8 +54,8 @@ public class QnaController {
 		return "qna/list";
 	}
 
-	@RequestMapping("shopQnaList.do")	// 전체 목록, 검색 목록
-	public String shopQnalist(String pageNum, QnaDTO qna, Model model) {
+	@RequestMapping("qnaList.do")	// 전체 목록, 검색 목록
+	public String qnaList(String pageNum, QnaDTO qna, Model model) {
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
@@ -71,6 +71,8 @@ public class QnaController {
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		System.out.println("startRow:"+startRow);
 		System.out.println("endRow:"+endRow);
+		System.out.println("search:"+ qna.getSearch());
+		System.out.println("keyword:"+ qna.getKeyword());
 		
 		qna.setStartRow(startRow);
 		qna.setEndRow(endRow);
@@ -86,54 +88,62 @@ public class QnaController {
 		model.addAttribute("search", qna.getSearch());
 		model.addAttribute("keyword", qna.getKeyword());
 		
-		return "qna/shopQnaList";
+		return "qna/qnaList";
 	}	
 	
 
 	@RequestMapping("qna/insertForm.do")	// 글작성 폼 (원문, 답변글)
-	public String insertForm(String re, String pageNum, Model model) {
+	public String insertForm(String p_no, String pageNum, Model model) {
 
+		
 		model.addAttribute("pageNum", pageNum);
 		
 		return "qna/insertForm";
 	}
 
-//	@RequestMapping("qna/insert.do")	// 글 작성
-//	public String insert(QnaDTO qna, Model model, HttpServletRequest request) {
-//
-//			int result = qs.insert(qna);
-//			
-//			model.addAttribute("result", result);
-//			
-//		return "qna/insert";
-//	}
-//
-//	@RequestMapping("qna/view.do")	// 상세 페이지
-//	public String view(int qna_no, String pageqna_no, Model model) {
-//		qs.readcountUpdate(qna_no);	// 조회수 증가
-//		QnaDTO qna = qs.select(qna_no);
-//		model.addAttribute("qna", qna);
-//		
-//		return "qna/view";
-//	}
-//
-//	@RequestMapping("qna/updateForm.do")	// 수정 폼
-//	public String updateForm(int qna_no, String pageNum, Model model) {
-//		QnaDTO qna = qs.select(qna_no);
-//		model.addAttribute("qna", qna);
-//		model.addAttribute("pageNum", pageNum);
-//		
-//		return "qna/updateForm";
-//	}
-//
-//	@RequestMapping("qna/update.do")	// 수정
-//	public String update(QnaDTO qna, String pageNum, Model model) {
-//		int result = qs.update(qna);
-//		model.addAttribute("result", result);
-//		model.addAttribute("pageNum", pageNum);
-//		
-//		return "qna/update";
-//	}
+	@RequestMapping("qna/insert.do")	// 글 작성
+	public String insert(QnaDTO qna, Model model, HttpServletRequest request) {
+
+			int result = qs.insert(qna);
+			
+			model.addAttribute("result", result);
+			
+		return "qna/insert";
+	}
+	
+	@RequestMapping("qnaAnswerForm.do")	// 글작성 폼 (원문, 답변글)
+	public String answerForm(String re, String pageNum, Model model) {
+
+		model.addAttribute("pageNum", pageNum);
+		
+		return "qna/qnaAnswerForm";
+	}
+	@RequestMapping("qna/view.do")	// 상세 페이지
+	public String view(int qna_no, String pageqna_no, Model model) {
+		qs.readcountUpdate(qna_no);	// 조회수 증가
+		QnaDTO qna = qs.select(qna_no);
+		model.addAttribute("qna", qna);
+		
+		return "qna/view";
+	}
+
+	@RequestMapping("qna/updateForm.do")	// 수정 폼
+	public String updateForm(int qna_no, String pageNum, Model model) {
+		QnaDTO qna = qs.select(qna_no);
+		model.addAttribute("qna", qna);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "qna/updateForm";
+	}
+
+	@RequestMapping("qna/update.do")	// 수정
+	public String update(QnaDTO qna, String pageNum, Model model) {
+		int result = qs.update(qna);
+		model.addAttribute("result", result);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "qna/update";
+	}
 //
 //	@RequestMapping("qna/deleteForm.do")
 //	public String deleteForm(int qna_no, String pageNum, Model model) {

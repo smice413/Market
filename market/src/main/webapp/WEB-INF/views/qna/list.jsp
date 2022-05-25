@@ -1,44 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('#qna_btn').click(function() {
-			$('#slist').load('${path}/qna/insertForm.do');
-		});
-	});
-	function up(id) {
-		var replytext = $('#tt_'+id).val();
-		var formData = "rno="+id+'&replytext='+replytext
-			+"&bno=${board.num}";
-		$.post('${path}/repUpdate.do',formData, function(data) {
-			$('#slist').html(data);
-		});
-	}
-	function lst() {
-		$('#slist').load('${path}/qna/insertForm.do');
-	}
-	function del(rno,bno) {
-		var formData="rno="+rno+"&bno="+bno;
-		$.post("${path}/repDelete.do",formData, function(data) {
-			$('#slist').html(data);
-		});
-	}
-</script>
+
 </head>
 <body>
 	<div class="container">
 		<table style="width:100%; margin:0px; padding:0px; font-size:13px;" align=left>
 			<tr>
 				<td><h4><b>PRODUCT Q&A</b></h4></td>
-				<td width=90px><input type='button' id="qna_btn"class='edit1 btn btn-outline-success' onclick='lst()' 
+				<td width=90px><input type="button" id="qna_btn" class="edit1 btn btn-outline-success" onclick="location.href='${path}/qna/insertForm.do'"
 							style="width:80px; height:30px; padding:2px; margin:7px;" value="상품문의"></td>
 			</tr>
 			<tr>
@@ -64,7 +42,7 @@
 					<tr style="padding:10px;">
 						<td id="td_${qna.qna_no}">
 							<a class="card-link" data-toggle="collapse" href="#detail_${qna.qna_no}">
-							${qna.qna_title}///${qna.qna_no}</td>
+							${qna.qna_no}/${qna.qna_title}</td>
 						<td width=65>${qna.m_name}</td>
 						<td width=110><fmt:formatDate value="${qna.qna_writedate }" pattern="yyyy-MM-dd"/></td>
 						<td width=95 id="btn_${qna.qna_no}">
@@ -98,3 +76,18 @@
 	
 </body>
 </html>
+<script type="text/javascript">
+ 	$(function() {
+ 				$('#qna_btn').click(function() {
+			$('#slist').load('${path}/qna/insertForm.do');
+		});
+
+				$(".edit1").click(function() {
+			$('#slist').load('${path}/qna/insertForm.do');
+		}); 
+
+	});
+	function question() {
+		$('#slist').load('${path}/qna/insertForm.do');
+	} 
+</script>

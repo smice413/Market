@@ -11,5 +11,5 @@
 		<div style="width: 14%;"><a href="myReviewList.do">내가 쓴 리뷰</a></div>
 		<div style="width: 14%;"><a href="loveList.do">관심상품목록</a></div>
 		<div style="width: 14%;"><a href="followList.do">팔로우상점목록</a></div>
-		<div style="width: 15%;"><a href="myQnaList.do">문의글목록</a></div>
+		<div style="width: 15%;"><a href="qnaList.do?search=m_email&keyword=ljpson@naver.com">문의글목록</a></div>
 	</div>

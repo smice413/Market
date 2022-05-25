@@ -15,38 +15,38 @@
 				Q.qna_answer as qna_answer,
 				Q.qna_ref as qna_ref,
 				Q.qna_secret as qna_secret,
-				Q.qna_readcount as qna_readcount,
+				Q.s_no as s_no,
 				Q.qna_writedate as qna_writedate,
 				Q.qna_delstatus as qna_delstatus,
 				M.m_name as m_name,
-				P.p_name as p_name
+				P.p_name as p_name,
+				OP.o_no as o_no
 			from qna Q 
 			   	left join member M on M.m_email = Q.m_email
 			   	left join product P on P.p_no = Q.p_no
-		<where>
-			<if test="keyword != null and search!='subcon'">
-				${search} like '%'||#{keyword}||'%'
-			</if>
-			<if test="keyword != null and search=='subcon'">
-				qna_question like '%'||#{keyword}||'%' or
-				qna_answer like '%'||#{keyword}||'%'
-			</if>
-		</where>			
+			   	left join order_product OP on OP.op_no = Q.op_no
+	    <choose>
+	        <when test="search == 'p_no'">where Q.p_no=#{keyword}</when>
+	        <when test="search == 's_no'">where Q.s_no=#{keyword}</when>
+	        <when test="search == 'm_email'">where Q.m_email=#{keyword}</when>
+		</choose>
+<!--  		<where>
+			<if test="search == 'p_no'"> Q.p_no=#{keyword} </if>
+ 			<if test="search == 's_no'"> Q.s_no=#{keyword} </if>
+ 			<if test="search == 'm_email'"> Q.m_email=#{keyword} </if>
+		</where> 	 -->
 			 order by qna_ref desc, qna_writedate asc ) a)
 			where rn between #{startRow} and #{endRow}
 	</select>
 	
+	
 	<select id="getTotal" parameterType="qna" resultType="int">
- 		select count(*) from qna 
-		<where>
-			<if test="keyword != null and search !='subcon'">
-				${search} like '%'||#{keyword}||'%'
-			</if>
-			<if test="keyword != null and search=='subcon'">
-				qna_question like '%'||#{keyword}||'%' or
-				qna_answer like '%'||#{keyword}||'%'
-			</if>
-		</where>
+ 		select count(*) from qna
+<!-- 		<where>
+			<if test="search == 'p_no'"> Q.p_no=#{keyword} </if>
+ 			<if test="search == 's_no'"> Q.s_no=#{keyword} </if>
+ 			<if test="search == 'm_email'"> Q.m_email=#{keyword} </if>
+		</where>  -->	
 	</select>
 	
 	<select id="select" parameterType="int" resultType="qna">
@@ -60,12 +60,8 @@
 	<insert id="insert" parameterType="qna">
 <!-- 		insert into qna values (qna_board_seq.nextval,#{p_no},#{op_no},
 			#{m_email},#{qna_title},#{qna_question},#{qna_answer},#{qna_ref},
-			#{qna_secret},#{qna_readcount},sysdate,'n') -->
+			#{qna_secret},#{s_no},sysdate,'n') -->
 	</insert>
-	
-	<update id="selectUpdate" parameterType="int">
-<!-- 		update qna set qna_readcount = qna_readcount+1 where qna_no=#{qna_no} -->
-	</update>
 	
 	<update id="update" parameterType="qna">
 <!-- 		update qna set qna_title=#{qna_title},qna_question=#{qna_question},

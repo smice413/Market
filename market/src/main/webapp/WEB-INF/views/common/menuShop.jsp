@@ -8,6 +8,5 @@
 		<div style="width: 14%"><a href="order_tabList.do">주문확인</a></div>
 		<div style="width: 14%"><a href="refundList.do">환불관리</a></div>
 		<div style="width: 14%"><a href="#">정산내역</a></div>
-		<div style="width: 15%"><a href="shopQnaList.do">문의글목록</a></div>
-
+		<div style="width: 15%"><a href="qnaList.do?search=Q.s_no&keyword=3">문의글목록</a></div>
 	</div>

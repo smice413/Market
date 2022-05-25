@@ -8,30 +8,7 @@
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('#qna_btn').click(function() {
-			$('#slist').load('${path}/qna/insertForm.do');
-		});
-	});
-	function up(id) {
-		var replytext = $('#tt_'+id).val();
-		var formData = "rno="+id+'&replytext='+replytext
-			+"&bno=${board.num}";
-		$.post('${path}/repUpdate.do',formData, function(data) {
-			$('#slist').html(data);
-		});
-	}
-	function lst() {
-		$('#slist').load('${path}/qna/insertForm.do');
-	}
-	function del(rno,bno) {
-		var formData="rno="+rno+"&bno="+bno;
-		$.post("${path}/repDelete.do",formData, function(data) {
-			$('#slist').html(data);
-		});
-	}
-</script>
+
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
@@ -40,7 +17,7 @@
 		<table style="width:100%; margin:0px; padding:0px; font-size:13px;" align=left>
 			<tr>
 				<td><h4><b>PRODUCT Q&A</b></h4></td>
-				<td width=90px><input type='button' id="qna_btn"class='edit1 btn btn-outline-success' onclick='lst()' 
+				<td width=90px><input type='button' id="qna_btn"class='edit1 btn btn-outline-success' onclick="location.href='${path}/qna/insertForm.do'"
 							style="width:80px; height:30px; padding:2px; margin:7px;" value="상품문의"></td>
 			</tr>
 			<tr>
@@ -76,7 +53,7 @@
 						<td width=110><fmt:formatDate value="${qna.qna_writedate }" pattern="yyyy-MM-dd"/></td>
 						<td width=95 id="btn_${qna.qna_no}">
 						<c:if test="${empty qna.qna_answer}">
-							<input type='button' id="qna_btn"class='edit1 btn btn-success' onclick='lst()' 
+							<input type='button' id="qna_btn"class='edit1 btn btn-success' onclick="location.href='${path}/qna/shopAnswerForm.do'" 
 							 value="답글달기"></c:if>
 							<c:if test="${not empty qna.qna_answer}"><b>답변완료</b></c:if></td>
 					</tr>
@@ -91,18 +68,17 @@
 						<td style="padding:12px;">
 							<c:if test="${qna.p_no != 0}"><font color=blue>${qna.p_name} 상품에 대한 문의글입니다.</font>
 								<a href="productView.do?p_no=${qna.p_no}">>>상품 보러가기</a></c:if>
-							<c:if test="${qna.op_no != 0}"><font color=red>주문번호 :${qna.op_no} 주문건에 대한 문의글입니다.</font></c:if></td>
+							<c:if test="${qna.op_no != 0}"><font color=red>주문번호 :${qna.op_no} 주문건에 대한 문의글입니다.</font>
+								<a href="orderDetail.do?op_no=${qna.op_no}&o_no=${qna.o_no}">>>주문상품 보러가기</a></c:if></td>
 					</tr>
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>Q</b></td>
-						<td style="padding:12px;">${qna.qna_question}<br>
-						${qna.qna_question}${qna.qna_question}${qna.qna_question}${qna.qna_question}<br>
-						${qna.qna_question}${qna.qna_question}${qna.qna_question}${qna.qna_question}<br></td>
+						<td style="padding:12px;">${qna.qna_question}</td>
 					</tr>
-				<c:if test="${empty qna.qna_answer }">
+				<c:if test="${not empty qna.qna_answer }">
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>A</b></td>
-						<td style="padding:12px;">${qna.qna_question}${qna.qna_question}${qna.qna_answer}</td>
+						<td style="padding:12px;">${qna.qna_answer}</td>
 					</tr>
 				</c:if>
 				</table>
@@ -114,3 +90,28 @@
 <%@ include file="../common/footer.jsp"%>
 </body>
 </html>
+<script type="text/javascript">
+/* 	$(function() {
+		$("#qna_btn").click(function() {
+			$("#slist").load("${path}/qna/insertForm.do");
+		});
+	});
+	function up(id) {
+		var replytext = $('#tt_'+id).val();
+		var formData = "rno="+id+'&replytext='+replytext
+			+"&bno=${board.num}";
+		$.post('${path}/repUpdate.do',formData, function(data) {
+			$('#slist').html(data);
+		});
+	} */
+	function question() {
+//		$('#slist').load('${path}/qna/insertForm.do');
+		;
+	}
+/* 	function del(rno,bno) {
+		var formData="rno="+rno+"&bno="+bno;
+		$.post("${path}/repDelete.do",formData, function(data) {
+			$('#slist').html(data);
+		});
+	} */
+</script>

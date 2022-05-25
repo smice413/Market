@@ -16,6 +16,31 @@
 	<resources mapping="/fonts/**" location="/fonts/" />
 	<resources mapping="/images/**" location="/images/" />
 	
+	<!-- Interceptor설정 -->	
+	<beans:bean id="lc" class="market.controller.LoginCheck"/>
+	<interceptors>
+		<interceptor>
+			<mapping path="/loveInsert.do"/>
+			<mapping path="/restockInsert.do"/>
+			<mapping path="/followInsert.do"/>
+			<beans:ref bean="lc"/>
+		</interceptor>
+	</interceptors>
+
+<!--     인터셉터 설정
+    <beans:bean id="sessionChk" class="com.project.withpet.controller.SessionCheckInter"/>
+    <interceptors>
+        <interceptor>
+            <mapping path="/myPage"/>
+            <mapping path="/infoUpdateForm"/>
+            <mapping path="/updateInfo"/>
+            <mapping path="/memberDeleteForm"/>
+            <mapping path="/deleteMember"/>
+            <mapping path="/businessList"/>
+            <beans:ref bean="sessionChk"/>
+        </interceptor>
+    </interceptors> -->
+
 	<!-- mutipart -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10000000"/>	

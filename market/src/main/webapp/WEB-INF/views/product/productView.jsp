@@ -16,9 +16,9 @@
 	$(function() {
 /* 		$('#reviewlist').load('${path}/myReviewList.do?p_no=1') */
 		$('#reviewlist').load('${path}/list.do');
-/* 		$('#slist').load('${path}/qna/list.do?num=${product.p_no}') */
+ 		$('#slist').load('${path}/qna/list.do?search=p_no&keyword=${product.p_no}') 
 /* 		$('#slist').load('${path}/qna/insertForm.do') */
-		$('#slist').load('${path}/qna/list.do');
+/*		$('#slist').load('${path}/qna/list.do');*/
 
 	});
 </script>

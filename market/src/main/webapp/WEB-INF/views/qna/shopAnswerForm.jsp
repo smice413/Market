@@ -1,9 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
 
-	<div class="container" align="center">
-		<h3 class="text-primary">상품 문의</h3>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuShop.jsp"%>
+	<div class="container">
+		<h3 class="text-primary">답글 쓰기</h3>
 		<div class="vf-wide700-card">
 		<form action="${path}/insert.do" method="post">
 			<input type="hidden" name="p_no" value="${p_no}"> 
@@ -30,3 +41,6 @@
 		</form>
 		</div>
 	</div>
+<%@ include file="../common/footer.jsp"%>
+</body>
+</html>
