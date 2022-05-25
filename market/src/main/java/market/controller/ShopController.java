@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -141,6 +142,8 @@ public class ShopController {
 		}else {	// 등록된 회원 일때
 		if(shop.getS_passwd().equals(s_passwd)) {
 			session.setAttribute("s_email", s_email);
+			int s_no = shop.getS_no();
+			session.setAttribute("s_no", s_no);
 			model.addAttribute("shop", shop);
 			
 			return "shop_page/shop_page";
@@ -269,6 +272,28 @@ public class ShopController {
 		    
 			return "shop/shop_info_editResult";
 		}
+		
+		// 비밀번호 변경 폼
+		@RequestMapping("shop_info_changepwform.do")
+		public String shop_info_changepw_form(HttpSession session, Model model)throws Exception {
+			String s_email = (String) session.getAttribute("s_email");
+			model.addAttribute("s_email", s_email);
+			return "shop/shop_info_changepw_form";
+		}
+		// 비밀번호 변경
+		@RequestMapping(value="shop_info_changepw.do", method= RequestMethod.POST)
+		public String shop_info_changepw(@RequestParam("s_passwd") String s_passwd,
+				@RequestParam("s_email") String s_email, ShopDTO shop, Model model)throws Exception {
+			shop.setS_email(s_email);
+			shop.setS_passwd(s_passwd);
+			int result = shopService.shop_info_changepw(shop);
+			model.addAttribute("result", result);
+			return "shop/emailCheckResult"; // 콜백
+		}
+		
+		
+		
+		
 		// 폐점 신청 폼
 	 @RequestMapping("shop_del_form.do")
 	 public String shop_del_form(HttpSession session, Model model) throws Exception{
@@ -439,7 +464,87 @@ public class ShopController {
 	 return "shop/shopList_checkResult";
 	 }
 	 
+	 // 비밀번호 찾기 폼
+	 @RequestMapping("shop_passwd_form.do")
+	 public String shop_passwd_form()throws Exception {
+		 return "shop/shop_passwd_form";
+	 }
 	 
+	 // 비밀번호 찾기
+	 @RequestMapping(value= "shop_passwd.do" , method= RequestMethod.POST)
+	 public String shop_passwd(@RequestParam("s_email") String s_email,
+			 				   @RequestParam("s_ceo") String s_ceo,
+			 				   @RequestParam("s_tel") String s_tel, Model model)throws Exception {
+		 
+		 ShopDTO shop = shopService.shop_passwd(s_email);
+		 
+		 int result = 0;
+		 if(shop == null) { //회원이 아닐 때
+			 result = 1;
+			 System.out.println(result);
+			 model.addAttribute("result", result);
+			 return "shop/shop_passwdResult";
+		 }else if(shop.getS_ceo().equals(s_ceo) && shop.getS_tel().equals(s_tel) && shop.getS_email().equals(s_email)) {//회원일 때  
+			 result = 2;
+			 System.out.println(result);
+			 String uupw = UUID.randomUUID().toString().replaceAll("-", ""); // -를 제거해 주었다.
+			        uupw = uupw.substring(0, 10); //uupw를 앞에서부터 10자리 잘라줌.
+				    System.out.println("uupw:" +uupw);
+			 shop.setS_email(s_email);
+			 shop.setS_ceo(s_ceo);
+			 shop.setS_tel(s_tel);
+			 shop.setS_passwd(uupw);
+			        shopService.shop_passwdUpdate(shop);
+			        
+			     // Mail Server 설정
+					String charSet = "utf-8";
+					String hostSMTP = "smtp.gmail.com";
+					String hostSMTPid = "gcmarket99@gmail.com";
+					String hostSMTPpwd = "rhkcoakzpt99"; 	//Email 비밀번호 입력해야함
+
+					// 보내는 사람 EMail, 제목, 내용
+					String fromEmail = "gcmarket99@gmail.com";
+					String fromName = "과채마켓관리자";
+					String subject = "판매자 임시비밀번호 발급";
+
+					// 받는 사람 E-Mail 주소
+					String mail = "sung-ho413@hanmail.net";
+
+					try {
+						HtmlEmail email = new HtmlEmail(); //HtmlEmail: Email 라이브러리 import
+						email.setDebug(true);
+						email.setCharset(charSet);
+						email.setSSL(true); //보안프로토콜로 true면 프로토콜 사용하겠다는 의미
+						email.setHostName(hostSMTP);
+						email.setSmtpPort(465); //네이버의 SMTOPORT번호를 알아야함
+
+						email.setAuthentication(hostSMTPid, hostSMTPpwd); //id와 비번이 일치해야 인증받아서 메일이 보내짐
+						email.setTLS(true);
+						email.addTo(mail, charSet); //addTo는 받는 사람으로 받는 사람 email를 설정해야함
+						email.setFrom(fromEmail, fromName, charSet); //setForm 보내는 사람 정보설정
+						email.setSubject(subject); // setSubject는 subject변수에 저장된 내용을 보내줌
+						email.setHtmlMsg("<p align = 'center'>과채마켓 관리자 입니다.</p>"
+								+ "<p align = 'center'>임시비밀번호를 발급해 드립니다. 비밀번호는 별도로 수정해주시기 바랍니다.</p><br>" 
+										 + "<div align='center'> 임시비밀번호: " + uupw + "</div>");
+						email.send(); //.send()를 쓰면 메일이 전송됨
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+			        model.addAttribute("result", result);
+			        
+			 return "shop/shop_passwdResult";
+		 }else {// 입력정보가 올바르지 않을 때
+			 System.out.println(result);
+			 model.addAttribute("result", result);
+			 return "shop/shop_passwdResult";
+		 }
+		 
+		 
+		 
+		 
+		 
+		// return "";
+	 }
 	 
 	 
 	 

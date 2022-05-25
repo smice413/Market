@@ -63,5 +63,18 @@ public class ShopServiceImpl {
 	public int shopList_del(String email)throws Exception{
 		return shopDAO.shopList_del(email);
 	}
+	//비밀번호 찾기
+	public ShopDTO shop_passwd(String s_email)throws Exception{
+		
+		return shopDAO.shop_passwd(s_email);
+	}
+	//임시비밀번호로 수정
+	public int shop_passwdUpdate(ShopDTO shop)throws Exception{
+		return shopDAO.shop_passwdUpdate(shop);
+	}
+	// 비밀번호 수정
+	public int shop_info_changepw(ShopDTO shop)throws Exception{
+		return shopDAO.shop_info_changepw(shop);
+	}
 	
 }
