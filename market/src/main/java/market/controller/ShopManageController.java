@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import market.model.Order_manageDTO;
 import market.model.Order_productDTO;
+import market.service.PagingPgm;
 import market.service.ShopManageService;
 
 @Controller
@@ -22,14 +23,39 @@ public class ShopManageController {
 
 	// 판매자 주문 리스트
 	@RequestMapping("order_tabList.do")
-	public String order_tabList(HttpSession session, HttpServletRequest request, Model model) {
-
+	public String order_tabList(HttpSession session, HttpServletRequest request,
+			Model model, String pageNum, Order_manageDTO order_manage) {
+		
 		session = request.getSession();
 
 		int s_no = (int) session.getAttribute("s_no");
+		
+		order_manage.setS_no(s_no);
+		
+		final int rowPerPage=5;
+		
+		if(pageNum == null || pageNum.equals("")) {
+			pageNum="1";
+		}
+		
+		int currentPage = Integer.parseInt(pageNum);
+		
+		int total = sms.getTotal(s_no);
+		
+		int startRow = (currentPage-1)*rowPerPage+1;
+		int endRow = startRow+rowPerPage-1;
+		
+		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
+		
+		order_manage.setStartRow(startRow);
+		order_manage.setEndRow(endRow);
+		
+		int no = total-startRow+1;
 
-		List<Order_manageDTO> olist = sms.olist(s_no);
+		List<Order_manageDTO> olist = sms.olist(order_manage);
 		model.addAttribute("olist", olist);
+		model.addAttribute("no", no);
+		model.addAttribute("pp", pp);
 
 		return "shop_page/order_tabList";
 	}

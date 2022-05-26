@@ -8,7 +8,7 @@
 	</resultMap> -->
 	<!-- <select id="list" parameterType="hashMap" resultMap="boardResult"> -->
 	
-	<select id="list" parameterType="int"  resultType="order_manage">
+	<!-- <select id="list" parameterType="int"  resultType="order_manage">
 	select
 	ot.o_no as o_no, 
 	ot.m_email as m_email,
@@ -27,6 +27,36 @@
 	left join DELIVERY d on ot.d_no = d.d_no
 	where s_no=#{s_no}
 	order by ot.o_no desc
+	</select> -->
+	
+	<select id="list" parameterType="order_manage" resultType="order_manage">
+	select * from (select a.*, rownum rn from (
+		select
+		ot.o_no as o_no, 
+		ot.m_email as m_email,
+		d.d_address as d_address,
+		d.d_detail_address as d_detail_address,
+		d.d_name as d_name,
+		ot.d_msg as d_msg,
+		ot.o_total_price as o_total_price,
+		ot.o_sale_price as o_sale_price,
+		ot.o_pay_price as o_pay_price,
+		ot.o_pay_type as o_pay_type,
+		ot.o_date as o_date,
+		ot.s_no as s_no
+	
+		from order_tab ot
+		left join DELIVERY d on ot.d_no = d.d_no
+		where s_no=#{s_no}
+		order by ot.o_no desc ) a )
+	
+		where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getTotal" parameterType="int"  resultType="int">
+		select count(*) from order_tab ot
+		left join DELIVERY d on ot.d_no = d.d_no
+		where s_no=#{s_no}
 	</select>
 	
 	<select id="odlist" parameterType="int" resultType="order_manage">

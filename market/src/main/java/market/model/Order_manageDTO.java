@@ -24,6 +24,26 @@ public class Order_manageDTO {
 	private String op_status;
 	private String op_deli_no;
 
+	// page
+	private int startRow;
+	private int endRow;
+
+	public int getStartRow() {
+		return startRow;
+	}
+
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+
+	public int getEndRow() {
+		return endRow;
+	}
+
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
+
 	public String getOp_deli_no() {
 		return op_deli_no;
 	}

@@ -15,9 +15,14 @@ public class ShopManageService {
 	@Autowired
 	private Order_tabDAO otdao;
 
+	//주문리스트 총갯수 구해오기
+	public int getTotal(int s_no) {
+		return otdao.getTotal(s_no);
+	}
+	
 	// 주문리스트 불러오기
-	public List<Order_manageDTO> olist(int s_no) {
-		return otdao.olist(s_no);
+	public List<Order_manageDTO> olist(Order_manageDTO order_manage) {
+		return otdao.olist(order_manage);
 	}
 
 	// 주문상세리스트 불러오기

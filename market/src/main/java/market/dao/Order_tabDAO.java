@@ -19,8 +19,14 @@ public class Order_tabDAO {
 		return sst.selectOne("order_tabns.lastseq");
 	}
 
-	public List<Order_manageDTO> olist(int s_no) {
-		return sst.selectList("order_managens.list", s_no);
+	// 주문리스트 총갯수 구해오기
+	public int getTotal(int s_no) {
+		return sst.selectOne("order_managens.getTotal",s_no);
+	}
+	
+	// 주문리스트 불러오기
+	public List<Order_manageDTO> olist(Order_manageDTO order_manage) {
+		return sst.selectList("order_managens.list", order_manage);
 	}
 
 	public List<Order_manageDTO> odlist(int o_no) {
@@ -31,10 +37,10 @@ public class Order_tabDAO {
 	public int deliNoInsert(Order_manageDTO omdto) {
 		return sst.update("order_managens.dinsert", omdto);
 	}
-	
+
 	// 배송완료처리
 	public int deliOk(int op_no) {
-		return sst.update("order_managens.deliOk",op_no);
+		return sst.update("order_managens.deliOk", op_no);
 	}
 
 	// 품절 취소 처리
