@@ -59,27 +59,32 @@
 	
 	<!-- 주문 상품 정보(주문 처리) -->
 	<select id="getOrderInfo" resultType="order_product">
-		select p_no, p_sell_price from product where p_no="#{p_no}"
+		select * from product where p_no=#{p_no}
 	</select>
 	
 	<!-- 주문 테이블 등록 -->
 	<insert id="orderInsert">
 		insert into order_tab
-		(o_no, m_email, d_no, d_msg, cp_no, o_total_price, o_sale_price, o_deli_price,
-		o_pay_price, o_pay_type)
+		(o_no, m_email, d_no, d_msg, o_total_price, o_sale_price, o_deli_price, s_no,
+		o_pay_price, o_pay_type, o_date)
 		values
-		(order_tab_seq.nextval,#{m_email},#{d_no},#{d_msg, jdbcType = VARCHAR},#{cp_no, jdbcType=INTEGER},#{o_total_price},
-		#{o_sale_price, jdbcType=INTEGER},#{o_deli_price},#{o_pay_price},#{o_pay_type})
+		(order_tab_seq.nextval,#{m_email},#{d_no},#{d_msg, jdbcType = VARCHAR},#{o_total_price},
+		#{o_sale_price, jdbcType=INTEGER},#{o_deli_price}, #{s_no},#{o_pay_price},#{o_pay_type}, sysdate)
 	</insert>
+	
+	<!-- 주문번호 조회 -->
+	<select id="getOrder" resultType="int">
+		select o_no from order_tab where m_email = #{m_email}
+	</select>
 	
 	<!-- 주문 상품 테이블 등록 -->
 	<insert id="orderProductInsert">
 		insert into order_product 
 		(op_no, o_no, p_no, op_qty, op_price, op_refund, op_calc, op_status, d_no,
-		s_no, m_email,)
+		s_no, m_email)
 		values
 		(order_product_seq.nextval,#{o_no},#{p_no},#{op_qty},#{op_price},#{op_refund},
-		#{op_status},#{d_no},#{s_no},#{m_email})
+		3,#{d_no},#{s_no},#{m_email})
 	</insert>
 
 	<!-- 상품 재고 조회 -->

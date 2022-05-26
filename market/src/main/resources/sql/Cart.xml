@@ -11,7 +11,7 @@
     
     <!-- 장바구니 상품 등록 -->
     <insert id="insert" parameterType="cart">
-    	insert into cart values (cart_seq.nextval,'${m_email}',${p_no},${cart_qty},sysdate)
+    	insert into cart values (cart_seq.nextval,'${m_email}',${p_no},${cart_qty},sysdate,${op_type})
     </insert>
 
 	<!-- 장바구니 상품들의 상점목록 -->

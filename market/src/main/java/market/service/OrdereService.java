@@ -1,12 +1,15 @@
 package market.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import market.model.CartDTO;
 import market.model.DeliveryDTO;
 import market.model.OrderPageItemDTO;
+import market.model.Order_productDTO;
 import market.model.Order_tabDTO;
+import market.model.ProductDTO;
 
 public interface OrdereService {
 	
@@ -24,5 +27,10 @@ public interface OrdereService {
 	
 	// 주문 처리
 	// 주문 
-	public void order(Order_tabDTO otd);
+	Order_productDTO getOrderInfo(int p_no);
+	int orderInsert(Order_tabDTO otd);
+	Order_productDTO getOrder(String m_email);
+	int orderProductInsert(Order_productDTO pd);
+	ProductDTO productInfo(int p_no);
+	int updateStock(ProductDTO product);
 }

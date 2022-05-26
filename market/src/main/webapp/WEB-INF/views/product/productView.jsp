@@ -173,8 +173,10 @@
 		$(".cart_btn").click(function(){
 			var p_no = ${product.p_no};
 			var cart_qty = $(".cart_qty").val();
+			var op_type = "1";
 			
-			$.post("cartInsert.do",{ p_no : p_no, cart_qty : cart_qty},function(result){
+			$.post("cartInsert.do",{ "p_no" : p_no, "cart_qty" : cart_qty, "op_type":op_type },
+				function(result){
 			       if(result.trim() == 'success'){
 			           var check = confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?");
 					   if(check) { 

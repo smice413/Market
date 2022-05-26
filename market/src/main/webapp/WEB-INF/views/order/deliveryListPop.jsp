@@ -38,8 +38,8 @@
 				<tbody>
 					<c:forEach var="dl" items="${deliveryList }">
 						<tr>
-							<td><label style="font-size: 18px;">${dl.d_cate}</label> <c:if
-									test="${dl.d_default == 'Y'}">
+							<td><label style="font-size: 18px;">${dl.d_cate}</label> 
+							<c:if test="${dl.d_default == 'Y'}">
 									<label style="color: #218838">[기본 배송지]</label>
 								</c:if> <br> ${dl.d_name}</td>
 							<td>${dl.d_post} <br> ${dl.d_address} <br>
@@ -48,10 +48,10 @@
 							<td>${dl.d_tel}</td>
 							<td>
 							<div style="display:flex;">
-								<input type="hidden" class="d_no" name="d_no" value="${dl.d_no}">${dl.d_no}
-								<button type="button" class="select_btn btn btn-success" onClick="select_check();" >선택</button>
-								<button type="button" class="update_btn btn btn-outline-success">수정</button>
-								<button type="button" class="delete_btn btn btn-outline-success" onClick="delete_check();">삭제</button>
+								<input type="hidden" class="d_no" name="d_no" value="${dl.d_no}">
+								<button type="button" class="select_btn btn btn-success" onClick="select_check(${dl.d_no});" >선택</button>
+								<button type="button" class="update_btn btn btn-outline-success" onClick="update_check(${dl.d_no});">수정</button>
+								<button type="button" class="delete_btn btn btn-outline-success" onClick="delete_check(${dl.d_no});">삭제</button>
 							</div>
 							</td>
 						</tr>
@@ -78,12 +78,11 @@
 
 	<script>
 		// 배송지 선택 버튼
- 		function select_check(){		
+ 		function select_check(n){	
+//			alert(n);
 			// 선택 버튼 클릭시 팝업창 닫기
-			var d_no = parseInt($(".d_no").val());
-
 			$.post("updateDefaultAddr.do", {
-				d_no : d_no
+				"d_no" : n
 			}, function() {
 				opener.document.location.reload();
 				self.close();
@@ -92,10 +91,9 @@
 		
 	    // 배송지 삭제 버튼
 		function delete_check(){
-			var d_no = parseInt($(".d_no").val());
-	
+//	    	alert(n);
 			$.post("deleteAddr.do", {
-					d_no : d_no
+					"d_no" : d_no
 			}, function(result) {
 				if(result==1){
 					location.reload();
@@ -103,10 +101,10 @@
 			}); //post() end
 		}
 		// 배송지 수정 버튼
-		$(".update_btn").on("click",function(){
-			var d_no = parseInt($(".d_no").val());
-			location.href="deliveryUpdateForm.do?d_no="+d_no;
-		});
+		function update_check(n){	
+//			alert(n);
+			location.href="deliveryUpdateForm.do?d_no="+n;
+		}
 	    
 		// 배송지 등록 버튼
 		$(".insert_btn").on("click",function(){

@@ -7,6 +7,7 @@ public class OrderPageItemDTO {
 	private int p_no;
 	private int cart_qty;
 	private String m_email;
+	private String op_type;
 	
 	// product
 	private String p_name;
@@ -56,6 +57,14 @@ public class OrderPageItemDTO {
 		this.m_email = m_email;
 	}
 	
+	public String getOp_type() {
+		return op_type;
+	}
+
+	public void setOp_type(String op_type) {
+		this.op_type = op_type;
+	}
+
 	public String getP_name() {
 		return p_name;
 	}
@@ -128,10 +137,12 @@ public class OrderPageItemDTO {
 	@Override
 	public String toString() {
 		return "OrderPageItemDTO [cart_no=" + cart_no + ", p_no=" + p_no + ", cart_qty=" + cart_qty + ", m_email="
-				+ m_email + ", p_name=" + p_name + ", p_sell_price=" + p_sell_price + ", p_group_price=" + p_group_price
-				+ ", p_follow_price=" + p_follow_price + ", s_no=" + s_no + ", s_name=" + s_name + ", p_img=" + p_img
-				+ ", total_price=" + total_price + "]";
+				+ m_email + ", op_type=" + op_type + ", p_name=" + p_name + ", p_sell_price=" + p_sell_price
+				+ ", p_group_price=" + p_group_price + ", p_follow_price=" + p_follow_price + ", s_no=" + s_no
+				+ ", s_name=" + s_name + ", p_img=" + p_img + ", total_price=" + total_price + "]";
 	}
+
+
 	
 	
 	

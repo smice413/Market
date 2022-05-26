@@ -1,5 +1,6 @@
 package market.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +27,8 @@ public interface OrderDAO {
 	//주문 처리
 	Order_productDTO getOrderInfo(int p_no);
 	int orderInsert(Order_tabDTO otd);
-	int orderProductInsert(Order_productDTO opd);
+	Order_productDTO getOrder(String m_email); 
+	int orderProductInsert(Order_productDTO product);
 	ProductDTO productInfo(int p_no);
 	int updateStock(ProductDTO product);
 	

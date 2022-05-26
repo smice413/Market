@@ -32,6 +32,9 @@ public class Order_productDTO {
 	private int o_pay_price;
 	private String o_pay_type;
 	
+	// cart
+	private int cart_qty;
+	
 	// product
 	private String p_name;
 	private int p_sell_price;
@@ -253,6 +256,12 @@ public class Order_productDTO {
 		this.s_name = s_name;
 	}
 	
+	public int getCart_qty() {
+		return cart_qty;
+	}
+	public void setCart_qty(int cart_qty) {
+		this.cart_qty = cart_qty;
+	}
 	public int getStartRow() {
 		return startRow;
 	}
@@ -265,15 +274,19 @@ public class Order_productDTO {
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
 	}
+
+	public void total() {
+		this.op_refund = this.op_price * this.op_qty;
+	}
 	@Override
 	public String toString() {
-		return "Order_productDTO [op_no=" + op_no + ", o_no=" + o_no + ", p_no=" + p_no + ", p_sell_price="+p_sell_price+", op_type=" + op_type
+		return "Order_productDTO [op_no=" + op_no + ", o_no=" + o_no + ", p_no=" + p_no + ", op_type=" + op_type
 				+ ", op_qty=" + op_qty + ", op_price=" + op_price + ", op_refund=" + op_refund + ", op_calc=" + op_calc
-				+ ", op_status=" + op_status + ", m_email=" + m_email + "]";
+				+ ", op_status=" + op_status + ", d_no=" + d_no + ", s_no=" + s_no + ", m_email=" + m_email
+				+ ", cart_qty=" + cart_qty + ", p_sell_price=" + p_sell_price + "]";
 	}
-	public void total() {
-		this.op_price = this.p_sell_price*this.op_qty;
-	}
+	
+	
 	
 	
 	

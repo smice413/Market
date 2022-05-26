@@ -9,7 +9,6 @@ public class Order_tabDTO {
 	private String m_email;
 	private int d_no;
 	private String d_msg;
-	private int cp_no;
 	private int o_total_price;
 	private int o_sale_price;
 	private int o_deli_price;
@@ -18,7 +17,15 @@ public class Order_tabDTO {
 	private Date o_date;
 	private Date o_confirm_date;
 	private Date o_cancel_date;
+	private int s_no;
 	
+	
+	public int getS_no() {
+		return s_no;
+	}
+	public void setS_no(int s_no) {
+		this.s_no = s_no;
+	}
 	// 주문 상품
 	private List<Order_productDTO> orders;
 	
@@ -49,12 +56,7 @@ public class Order_tabDTO {
 	public void setD_msg(String d_msg) {
 		this.d_msg = d_msg;
 	}
-	public int getCp_no() {
-		return cp_no;
-	}
-	public void setCp_no(int cp_no) {
-		this.cp_no = cp_no;
-	}
+
 	public int getO_total_price() {
 		return o_total_price;
 	}
@@ -130,14 +132,15 @@ public class Order_tabDTO {
 		}
 		
 		// 최종 비용
-		o_pay_price = o_total_price - o_sale_price + o_pay_price;
+		o_pay_price = o_total_price - o_sale_price + o_deli_price;
 	}
 	@Override
 	public String toString() {
 		return "Order_tabDTO [o_no=" + o_no + ", m_email=" + m_email + ", d_no=" + d_no + ", d_msg=" + d_msg
-				+ ", cp_no=" + cp_no + ", o_total_price=" + o_total_price + ", o_sale_price=" + o_sale_price
-				+ ", o_deli_price=" + o_deli_price + ", o_pay_price=" + o_pay_price + ", o_pay_type=" + o_pay_type
-				+ ", o_date=" + o_date + ", o_confirm_date=" + o_confirm_date + ", o_cancel_date=" + o_cancel_date
-				+ ", orders=" + orders + ", cart_qty=" + cart_qty +"]";
+				+ ", o_total_price=" + o_total_price + ", o_sale_price=" + o_sale_price + ", o_deli_price="
+				+ o_deli_price + ", o_pay_price=" + o_pay_price + ", o_pay_type=" + o_pay_type + ", o_date=" + o_date
+				+ ", o_confirm_date=" + o_confirm_date + ", o_cancel_date=" + o_cancel_date + ", s_no=" + s_no
+				+ ", orders=" + orders + "]";
 	}
+	
 }

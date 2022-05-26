@@ -120,7 +120,7 @@ table{
 				<tr>
 					<td colspan="2" align="center">
 					<div class="btn_div">
-						<button type="button" class="update_btn btn btn-success">수정 완료</button>
+						<button type="button" class="update_btn btn btn-success" onClick="update_check();">수정 완료</button>
 						<button class="return_btn btn btn-success"
 					            onClick="history.go(-1)">수정 취소</button>
 					</div>
@@ -133,9 +133,8 @@ table{
 
 <script>
 	// 배송지 수정
-	$(document).ready(function() {
 
-		$(".update_btn").click(function() {
+		function update_check(){
 			var d_no = $(".d_no").val();
 			var d_cate = $(".d_cate_input").val();
 			var d_name = $(".d_name_input").val();
@@ -145,22 +144,22 @@ table{
 			var d_detail_address = $(".d_detail_address_input").val();
 			
 			$.post("deliveryUpdate.do", {
-				d_no : d_no,
-				d_cate : d_cate,
-				d_name : d_name,
-				d_tel : d_tel,
-				d_post : d_post,
-				d_address : d_address,
-				d_detail_address : d_detail_address
+				"d_no" : d_no,
+				"d_cate" : d_cate,
+				"d_name" : d_name,
+				"d_tel" : d_tel,
+				"d_post" : d_post,
+				"d_address" : d_address,
+				"d_detail_address" : d_detail_address
 			}, function(result) {
 			 	if(result==1){
 					alert("배송지가 수정되었습니다.");
-					location.href="deliveryListPop.do?";
+					location.href="deliveryListPop.do";
+			 	}else{
+			 		alert("배송지 수정을 실패했습니다.");
 			 	}
 			}); //post() end
-		});
-
-	});
+	}
 	
 </script>
 	

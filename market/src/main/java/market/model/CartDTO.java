@@ -28,8 +28,12 @@ public class CartDTO {
 	// shop
 	private String s_name;
 	
-	//product_img
+	// product_img
 	private String p_img;
+	
+	// order_product
+	private String op_type;
+	
 	
 	// 새로 만든  파라미터
 	private int total_price;
@@ -165,6 +169,12 @@ public class CartDTO {
 	}
 	public void setP_img(String p_img) {
 		this.p_img = p_img;
+	}
+	public String getOp_type() {
+		return op_type;
+	}
+	public void setOp_type(String op_type) {
+		this.op_type = op_type;
 	}
 	
 }

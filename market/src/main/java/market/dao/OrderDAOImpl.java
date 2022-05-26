@@ -1,5 +1,6 @@
 package market.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -74,7 +75,13 @@ public class OrderDAOImpl implements OrderDAO{
 
 	@Override
 	public Order_productDTO getOrderInfo(int p_no) {
+		System.out.println("p_no:"+p_no);
 		return sst.selectOne("orderpagens.getOrderInfo", p_no);
+	}
+	
+	@Override
+	public Order_productDTO getOrder(String m_email) {
+		return sst.selectOne("orderpagens.getOrder", m_email);
 	}
 
 	@Override
@@ -88,12 +95,16 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public int orderInsert(Order_tabDTO otd) {
-		return sst.insert("orderpagens.orderInsert", otd);
+	public int orderInsert(Order_tabDTO product) {
+		return sst.insert("orderpagens.orderInsert", product);
 	}
 
 	@Override
 	public int orderProductInsert(Order_productDTO opd) {
 		return sst.insert("orderpagens.orderProductInsert", opd);
 	}
+
+
+
+
 }

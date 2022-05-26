@@ -54,6 +54,11 @@ public class CartServiceImpl implements CartService{
 		cd.allDelete(m_email);
 	}
 
+	@Override
+	public int deleteOrderCart(CartDTO cart) {
+		return cd.deleteOrderCart(cart);
+	}
+
 
 
 

@@ -23,9 +23,13 @@
  	margin-left:20px; 
 }
 
-.finalTotalPrice_span,.totalPrice_span,.deliveryFee_span,.cpSalePrice_span{
+.totalPrice_span,.deliveryFee_span,.cpSalePrice_span{
 	font-size:18px;
-	font-weight:bolder;
+}
+.finalTotalPrice_span{
+	font-size:18px;
+
+	color: red;
 }
 .r{
 	text-align:right;
@@ -39,12 +43,15 @@
 	float:left;
 	margin-right:2px;
 	margin-bottom:150px;
-	width:29%
+	width:39%
 }
 .payment_info_div{
 	float:right;
 	margin-bottom:150px;
-	width:69%;
+	width:59%;
+}
+.radio2{
+	margin-left:10px;
 }
 
 </style>
@@ -97,9 +104,11 @@
 					</td>
 					<td class="product_table_price_td">
 						<input type="hidden" class="p_sell_price_input" value="${pi.p_sell_price}">
-						<input type="hidden" class="cart_qty_input" value="${pi.cart_qty}">
 						<input type="hidden" name ="total_price" class="total_price_input" value="${pi.total_price}">
 						<input type="hidden" class="p_no_input" value="${pi.p_no}">
+						<input type="hidden" class="cart_qty_input" value="${pi.cart_qty}">
+						<input type="hidden" class="op_type_input" value="${pi.op_type}">
+						<input type="hidden" name="s_no" class="s_no_input" value="${pi.s_no}">
 					</td>
 				</tr>	
 				</c:forEach>
@@ -204,7 +213,7 @@
 				
 			
 		
-		<!-- 쿠폰 정보 -->
+<!-- 		쿠폰 정보 
 		<table class="coupon_table" style="width:100%; margin-top:50px;">
 			<tr>
 				<td colspan="2"><h3 style="margin-left:20px;">쿠폰</h3></td>
@@ -217,7 +226,7 @@
 					</select>
 				</td>
 			</tr>
-		</table>
+		</table> -->
 		
 	<!-- 주문 종합 정보 -->
 		<div class="total_info_price_div">
@@ -233,10 +242,10 @@
 				<td><label>배송비</label></td>
 				<td class="r"><span class="deliveryFee_span"></span></td>
 		    </tr>
-		    <tr>
+<!-- 		    <tr>
 				<td><label>쿠폰 할인 금액</label></td>
 				<td class="r"><span class="cpSalePrice_span"></span></td>
-		    </tr>
+		    </tr> -->
 		    <tr class="final_tr">
 				<td><label>최종 결제 금액</label></td>
 				<td class="r"><span class="finalTotalPrice_span"></span></td>
@@ -248,20 +257,17 @@
 	<div class="payment_info_div">	
 	  <table class="payment_table" style="width:100%; margin-top:50px;">
 			<tr>
-				<td colspan="2"><h3 style="margin-left:20px;">결제 수단</h3></td>
+				<td colspan="2" align="left"><h3 style="margin-left:20px;">결제 방법</h3></td>
 			</tr>
 			<tr style="border-top:3px solid;border-top-color:#dddddd;">
-				<td rowspan="2"><div style="margin-left:20px;margin-top:20px;">
-				  <label>결제수단 선택</label></div></td>
 				<td>
-					<div class="box">카카오페이</div>
+				    <label>결제방법 선택</label>
+				</td>
+				<td class="pay_info_td">
+					<input type="radio" name="pay_type" value="통합결제" checked class="radio1"><label>통합 결제</label>
+					<input type="radio" name="pay_type" value="무통장입금" class="radio2"><label>무통장 입금</label>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<div>신용카드</div>
-				</td>
-		    </tr>
 		</table>
 	</div>	
 		
@@ -276,6 +282,9 @@
 
 <form class="order_form" action="orderInsert.do" method="post">
 	<input name="d_no" type="hidden">
+	<input name="d_msg" type="hidden">
+	<input name="o_pay_type" type="hidden">
+	<input name="s_no" type="hidden">
 </form>
 
 
@@ -328,27 +337,37 @@
 		// 배송지 정보
 		$(".addressInfo_input_div").each(function(i, obj){
 			$("input[name=d_no]").val($(obj).find(".d_no").val());
+			$("input[name=d_msg]").val($(obj).find(".d_msg").val());
 		});
 		
+		$(".payment_info_div").each(function(index, element){
+			let pay_type = $(element).find("input[name=pay_type]:checked").val();
+			$("input[name=o_pay_type]").val(pay_type);
+		});
+		
+		$(".product_table_price_td").each(function(index, element){
+			let s_no =  $(element).find("input[name=s_no]").val();
+			$("input[name=s_no]").val(s_no);
+		});
+			
 		let form_contents = ''; 
 		
 		$(".product_table_price_td").each(function(index, element){
 			let p_no = $(element).find(".p_no_input").val();
 			let cart_qty = $(element).find(".cart_qty_input").val();
+			let op_type = $(element).find(".op_type_input").val();
 			
 			let p_no_input = "<input name='orders[" + index + "].p_no' type='hidden' value='" + p_no + "'>";
 			form_contents += p_no_input;
 			
 			let cart_qty_input = "<input name='orders[" + index + "].cart_qty' type='hidden' value='" + cart_qty + "'>";
 			form_contents += cart_qty_input;
+			
+			let op_type_input = "<input name='orders[" + index + "].op_type' type='hidden' value='" + op_type + "'>";
+			form_contents += op_type_input;
 		});	
 		
-		$("d_msg_div").each(function(index, element){
-			let d_msg = $("input[name=d_msg]").val();
-			
-			let d_msg_input = "<input name='orders[" + index + "].d_msg' type='hidden' value='" + d_msg + "'>";
-			form_contents += d_msg_input;
-		});
+		
 		
 		$(".order_form").append(form_contents);	
 		

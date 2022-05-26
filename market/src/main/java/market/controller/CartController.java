@@ -30,7 +30,7 @@ public class CartController {
 	
 	// 장바구니에 상품 등록
 	@RequestMapping("cartInsert.do")
-	public String cartInsert(CartDTO cart, HttpSession session, Model model) throws Exception {
+	public String cartInsert(CartDTO cart, String op_type, HttpSession session, Model model) throws Exception {
 		System.out.println("p_no:"+cart.getP_no());
 		System.out.println("cart_qty:"+cart.getCart_qty());
 		
@@ -65,10 +65,11 @@ public class CartController {
 	
 	// 장바구니 목록
 	@RequestMapping("cartList.do")
-	public String cartList(HttpSession session, Model model) throws Exception {
+	public String cartList(String op_type ,HttpSession session, Model model) throws Exception {
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
-
+		System.out.println("op_type:"+op_type);
+		
 		List<CartDTO> shopNo = cs.getShopNo(m_email);
 		System.out.println("shopNo:"+shopNo);
 		
@@ -77,6 +78,7 @@ public class CartController {
 		
 		model.addAttribute("shopNo", shopNo);
 		model.addAttribute("cartList", cartList);
+		model.addAttribute("op_type", op_type);
 			
 		return "cart/cartList";
 	}
