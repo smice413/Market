@@ -107,7 +107,7 @@ input[type="checkbox"]{
 						<th colspan="6">
 							<!-- 한번에 전체 상품을 체크하는 체크박스 -->
 							<input type="checkbox" name="checkbox" class="allCheck_input_${sn.s_no}" id="checkbox" 
-							      onclick="allCheck(${sn.s_no});" style="margin-right:5px;">
+							      onclick="allCheck(${sn.s_no});" checked style="margin-right:5px;">
 							<img src="${path}/images/shop.png" style="width:30px; height:30px; margin-bottom:7px;">
 							<label style="font-size:20px; margin-left:5px;">${sn.s_name}</label> 
 						</th> 
@@ -120,7 +120,7 @@ input[type="checkbox"]{
 							<td class="cart_info_td">
 							<c:if test="${cl.p_stock != 0}">
 								<!-- 개별 체크박스 -->
-								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="cart_no" 
+								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="cart_no" checked
 								       onclick="check(${sn.s_no});" value="${cl.cart_no}">
 								<input type="hidden" class="p_sell_price_input" name="p_sell_price" value="${cl.p_sell_price}">
 								<input type="hidden" class="cart_qty_input" name="cart_qty" value="${cl.cart_qty}">
@@ -131,7 +131,10 @@ input[type="checkbox"]{
 								<input type="hidden" class="p_stock_input" name="p_stock" value="${cl.p_stock}">
 							</c:if>
 							</td>
-							<td width=105px><img src="${path}/upload/product/${cl.p_img}" width=100px></td>
+							<td width=105px>
+								<a href="productView.do?p_no=${cl.p_no}">
+									<img src="${path}/upload/product/${cl.p_img}" width=100px></a>
+							</td>
 							<td align="left">
 							  <div style="margin-top:28px;">
 								${cl.p_name} 재고 : ${cl.p_stock }<br>
@@ -212,6 +215,10 @@ input[type="checkbox"]{
     </form>
 
 <script>
+
+	$(document).ready(function(){
+		itemSum(n);
+	});
 
 	// 쇼핑계속하기 버튼
 	$(".shoping_btn").on("click", function(){

@@ -109,6 +109,7 @@
 						<input type="hidden" class="cart_qty_input" value="${pi.cart_qty}">
 						<input type="hidden" class="op_type_input" value="${pi.op_type}">
 						<input type="hidden" name="s_no" class="s_no_input" value="${pi.s_no}">
+						<input type="hidden" name="s_name" class="s_name_input" value="${pi.s_name}">
 					</td>
 				</tr>	
 				</c:forEach>
@@ -264,7 +265,7 @@
 				    <label>결제방법 선택</label>
 				</td>
 				<td class="pay_info_td">
-					<input type="radio" name="pay_type" value="통합결제" checked class="radio1"><label>통합 결제</label>
+					<input type="radio" name="pay_type" value="카드/간편결제" checked class="radio1"><label>카드/간편결제</label>
 					<input type="radio" name="pay_type" value="무통장입금" class="radio2"><label>무통장 입금</label>
 				</td>
 			</tr>
@@ -331,20 +332,23 @@
 		
 	}
 	
+
 	// 결제 버튼
 	$(".order_btn").on("click", function(){
-		
-		// 배송지 정보
+
+    	// 배송지 정보
 		$(".addressInfo_input_div").each(function(i, obj){
 			$("input[name=d_no]").val($(obj).find(".d_no").val());
 			$("input[name=d_msg]").val($(obj).find(".d_msg").val());
 		});
 		
+    	// 결제 타입
 		$(".payment_info_div").each(function(index, element){
 			let pay_type = $(element).find("input[name=pay_type]:checked").val();
 			$("input[name=o_pay_type]").val(pay_type);
 		});
 		
+    	// 판매처
 		$(".product_table_price_td").each(function(index, element){
 			let s_no =  $(element).find("input[name=s_no]").val();
 			$("input[name=s_no]").val(s_no);
@@ -352,6 +356,7 @@
 			
 		let form_contents = ''; 
 		
+		// 상품넘버, 상품 수량, 상품타입
 		$(".product_table_price_td").each(function(index, element){
 			let p_no = $(element).find(".p_no_input").val();
 			let cart_qty = $(element).find(".cart_qty_input").val();
@@ -367,12 +372,11 @@
 			form_contents += op_type_input;
 		});	
 		
-		
-		
 		$(".order_form").append(form_contents);	
-		
 		$(".order_form").submit();
 	});
+	
+	
 
 </script>
 

@@ -16,20 +16,35 @@
  .update_btn,.delete_btn{
  	margin-left:2px;
  }
+ .insert_btn{
+ 	margin-top: 40px;
+ }
+ #truck{
+ 	width: 100px;
+ 	margin-left:288px;
+ 	margin-top: 150px;  
+ }
+ .page-header{
+	text-align:center;
+	
+ }
+ #d_cate_div{
+ 	margin-left: 30px; 
+ }
 </style>
 
 </head>
 
 <body>
-	<h3 class="page-header" style="text-align: center;">배송지 목록</h3>
 
 	<div class="container">
 		<!-- 저장된 주소지가 있는 경우 -->
 		<c:if test="${not empty deliveryList}">
 			<table class="table">
+				<h2 class="page-header">주소 목록</h2>
 				<thead>
 					<tr>
-						<th>배송지</th>
+						<th>구분</th>
 						<th>주소</th>
 						<th>연락처</th>
 						<th></th>
@@ -38,10 +53,13 @@
 				<tbody>
 					<c:forEach var="dl" items="${deliveryList }">
 						<tr>
-							<td><label style="font-size: 18px;">${dl.d_cate}</label> 
+							<td>
+							<div id="d_cate_div">
+							<label style="font-size: 18px;">${dl.d_cate}</label> 
 							<c:if test="${dl.d_default == 'Y'}">
 									<label style="color: #218838">[기본 배송지]</label>
 								</c:if> <br> ${dl.d_name}</td>
+							</div>	
 							<td>${dl.d_post} <br> ${dl.d_address} <br>
 								${dl.d_detail_address}
 							</td>
@@ -61,20 +79,16 @@
 		</c:if>
 		<c:if test="${empty deliveryList}">
 			<div class="table_empty">
-				<label style="font-size: 22px; margin-top: 50px; margin-left: 32%">등록된
-					주소지가 없습니다 :)</label>
+				<img src="${path}/images/delivery-truck.png" id="truck"> <br>
+				<label style="font-size: 22px; margin-top: 2px; margin-left: 32%">등록된
+					주소지가 없습니다.</label>
 			</div>
 		</c:if>
 	</div>
 	
 	<div>
-		<button type="button" class="insert_btn btn btn-success">배송지 등록</button>
+		<button type="button" class="insert_btn btn btn-success">새로운 주소 등록하기</button>
 	</div>
-	
-	<!-- 삭제 form -->
-    <form action="deleteAddr.do" method="post" class="delete_form">
- 		<input type="hidden" name="d_no" class="delete_d_no">
-    </form>
 
 	<script>
 		// 배송지 선택 버튼
@@ -90,11 +104,11 @@
 		}
 		
 	    // 배송지 삭제 버튼
-		function delete_check(){
-//	    	alert(n);
-			$.post("deleteAddr.do", {
-					"d_no" : d_no
+		function delete_check(n){
+			$.post("deliveryDelete.do", {
+					"d_no" : n
 			}, function(result) {
+				alert(result);
 				if(result==1){
 					location.reload();
 				}

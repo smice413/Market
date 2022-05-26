@@ -1,5 +1,6 @@
 package market.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.util.ArrayList;
@@ -173,7 +174,7 @@ public class OrderController {
 	}
 	
 	// 배송지 삭제
-	@RequestMapping("deleteAddr.do")
+	@RequestMapping("deliveryDelete.do")
 	public String deleteAddr( int d_no, Model model) throws Exception{
 		System.out.println("d_no:"+d_no);
 		
@@ -182,12 +183,12 @@ public class OrderController {
 		
 		model.addAttribute("result", result);
 		
-		return "order/deliveryDeleteResult.jsp";
+		return "order/deliveryDeleteResult";
 	}
 
 	// 주문 등록
 	@RequestMapping("orderInsert.do")
-	public String orderInsert(Order_tabDTO otd, HttpSession session) throws Exception{
+	public String orderInsert(Order_tabDTO otd, HttpSession session, Model model) throws Exception{
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
 
@@ -272,8 +273,22 @@ public class OrderController {
 			int result = cs.deleteOrderCart(cart);
 			System.out.println("장바구니 제거"+result);
 		}
+		
+		// 결제정보
+		MemberDTO memberList = ms.select(m_email);
+		DeliveryDTO deliveryInfo = os.getDeliveryInfo(m_email);
+		Order_tabDTO orderNo = os.getOrderNo(otd);
+		
+		model.addAttribute("ml", memberList);
+		model.addAttribute("di", deliveryInfo);
+		model.addAttribute("otd", otd);
+		model.addAttribute("opd", otd.getOrders());
+		model.addAttribute("orderNo", orderNo);
 
-	 return "redirect:main.do";
+		return "order/iamportPayment";
 	}
+	
+
+	
 
 }
