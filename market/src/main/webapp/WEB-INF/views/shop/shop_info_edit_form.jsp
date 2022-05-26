@@ -65,15 +65,15 @@ function openDaumPostcode() {
 <body>
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuShop.jsp"%>
-<div class="container">
+<div class="container" align="center">
+			<h3 class="text-primary">정보 수정</h3>
 		<form id="shop_info_edit" name="shop_info_edit" method="post"
 			action="shop_info_edit.do" enctype="multipart/form-data"
 			onSubmit="return edit()">
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" name="s_seckey" value="1111">
 			<input type="hidden" id="s_passwd" value="${shop.s_passwd}">
-			<br><br><br><br>
-			<center><h1>정보 수정</h1></center>
+			
 			<table class="table">
 				<tr>
 					<th>email</th>
@@ -147,7 +147,7 @@ function openDaumPostcode() {
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" align="center">
+					<td colspan="3" align="center">
 					<input type="submit" id="submit" class="btn btn-success" value="수정"></td>
 				</tr>
 				<!-- <input type="button" id="changepw" value="비밀번호 변경" onClick="changepw1()">
@@ -156,5 +156,6 @@ function openDaumPostcode() {
 
 		</form>
 	</div>
+<%@ include file="../common/footer.jsp"%>	
 </body>
 </html>

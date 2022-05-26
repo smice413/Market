@@ -26,11 +26,11 @@ function del_check(){
 <body>
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuShop.jsp"%>
-<div class="container">
+<div class="container" align="center">
 		<form id="shop_del" name="shop_del" method="post" action="shop_del.do" onSubmit="return del_check()">
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" value="${shop.s_seckey}">
-			<center><h1>폐점 신청</h1></center>
+			<h3 class="text-primary">폐점 신청</h3>
 			<table class="table">
 				<tr>
 					<th>email</th>
@@ -58,5 +58,6 @@ function del_check(){
 
 		</form>
 	</div>
+<%@ include file="../common/footer.jsp"%>	
 </body>
 </html>

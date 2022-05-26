@@ -13,12 +13,12 @@
 	location.href="<%=request.getContextPath()%>/shop_login_form.do";
 	</script>
 	</c:if>
-	<c:if test="${sessionScope.s_email != null}">
+	
+	<c:if test="${sessionScope.s_email != null && sessionScope.s_status == '2' }">
 	<script>
 	location.href="<%=request.getContextPath()%>/shop_info.do";
+	console.log();
 	</script>
-	
 	</c:if>
-	
 </body>
 </html>

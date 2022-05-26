@@ -11,7 +11,7 @@
 	</insert>
 	<!-- 판매자 정보구하기 s_email= #{s_email} and s_status='2' 로 수정해야함 -->
 	<select id="shop_select" parameterType="String" resultType="shop">
-		select * from shop where s_email= #{s_email}
+		select * from shop where s_email= #{s_email} and s_status='2'
 	</select>
 	<!-- 판매자 정보 수정 -->
 	<update id="shop_update" parameterType="shop">

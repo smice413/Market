@@ -144,8 +144,10 @@ public class ShopController {
 			session.setAttribute("s_email", s_email);
 			int s_no = shop.getS_no();
 			session.setAttribute("s_no", s_no);
+			String s_status =shop.getS_status();
+			session.setAttribute("s_status", s_status);
+			System.out.println("s_status:"+s_status);
 			model.addAttribute("shop", shop);
-			
 			return "shop_page/shop_page";
 			
 		}else { // 비번이 다를 때

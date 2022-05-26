@@ -15,8 +15,8 @@
 		<form id="shop_info" name="shop_info" enctype="multipart/form-data" >
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" value="${shop.s_seckey}">
-			<br><br><br><br>
-			<center><h1>상점 정보</h1></center>
+			
+			<h3 class="text-primary">상점 정보</h3>
 			
 			<table class="table">
 				<tr>
@@ -101,5 +101,6 @@
 
 		</form>
 	</div>
+<%@ include file="../common/footer.jsp"%>	
 </body>
 </html>

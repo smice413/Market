@@ -90,6 +90,19 @@ function shopList_del(){
 }
 
 </script>
+<style>
+ #shopList th{
+ 	position: sticky;
+ 	top:0px;
+ 	background-color: #5cb85c; 
+ }
+ #shopListdel th{
+ 	position: sticky;
+ 	top:0px;
+ 	background-color: #5cb85c; 
+ }
+</style>
+
 <!-- <script>
 	$(document).ready(function(){
 	
@@ -97,6 +110,7 @@ function shopList_del(){
 	});
 
 </script> -->
+
 
 
 </head>
@@ -108,7 +122,8 @@ function shopList_del(){
 <center><h1>입점승인</h1></center>
 
 <div style="overflow-y:scroll; height:150px;">
-<table border="1" align="center">
+<table id="shopList" border="1" align="center">
+	
 		<tr>
 			<th>선택</th>
 			<th>email</th>
@@ -125,6 +140,7 @@ function shopList_del(){
 			<th>가입일</th>
 			<th>상태</th>
 		</tr>
+		
 	<c:forEach var="shop" items="${shoplist}">
 		<c:if test="${shop.s_status=='1'}">
 		<tr>
@@ -177,7 +193,7 @@ function shopList_del(){
 <!-- <div id="shopListDel"></div> -->
 <center><h1>강제폐점</h1></center>
 <div class="shopList_exit" style="overflow-y:scroll; height:150px;">
-<table border="1" align="center">
+<table id="shopListdel" border="1" align="center">
 		<tr>
 			<th>선택</th>
 			<th>email</th>

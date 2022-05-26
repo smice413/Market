@@ -26,9 +26,8 @@
 				</c:if>--%>
 				
 					<a href="${path }/memberList.do">관리자페이지</a> | 
-					<a href="order_tabList.do">SHOP매니저</a> |
+					<a href="${path }/shop_login_form.do">SHOP매니저</a> |
 					<a href="${path }/shop_join_form.do">입점신청</a> |
-					<a href="${path }/shop_login_form.do">판매자로그인테스트</a>
 <%-- 					 | <a href="${path }/list.do">샘플게시판</a>  --%>
 					<!--  SHOP매니저 | 입점신청 | 회원가입 | 로그인 | 마이페이지| 장바구니 | 로그아웃 | 관리자페이지  | 이벤트/공지 | 고객센터 -->
 			</td>

@@ -71,13 +71,13 @@ $( document ).ready(function() {
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-	<div class="container">
+	<div class="container" align="center">
+			<h3 class="text-primary">입점 신청</h3>
 		<form id="shop_join" name="shop_join" method="post"
 			action="shop_join.do" enctype="multipart/form-data"
 			onSubmit="return Check()">
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" name="s_seckey" value="1111">
-			<center><h1>입점 신청</h1></center>
 			<table class="table">
 				<tr>
 					<th>email</th>
@@ -159,5 +159,6 @@ $( document ).ready(function() {
 
 		</form>
 	</div>
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>
