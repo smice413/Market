@@ -30,7 +30,7 @@
 	        <when test="search == 's_no'"> where Q.s_no=#{keyword} </when>
 	        <when test="search == 'm_email'"> where Q.m_email=#{keyword} </when>
 		</choose>
-			 order by qna_ref desc, qna_writedate asc ) a)
+			 order by qna_ref asc, qna_writedate asc ) a)
 			where rn between #{startRow} and #{endRow}
 	</select>
 	
@@ -45,7 +45,7 @@
 	</select>
 	
 	<select id="select" parameterType="int" resultType="qna">
-<!-- 		select * from qna where qna_no=#{qna_no} -->
+ 		select * from qna where qna_no=#{qna_no}
 	</select>
 
 	
@@ -54,11 +54,15 @@
  -->	</select>
 	
 	<insert id="insert" parameterType="qna">
-		insert into qna values (qna_board_seq.nextval,#{p_no},#{op_no},
-			#{m_email},#{qna_title},#{qna_question},#{qna_answer},qna_board_seq.nextval,
+		insert into qna values (qna_seq.nextval,#{p_no},#{op_no},
+			#{m_email},#{qna_title},#{qna_question},#{qna_answer},qna_seq.nextval,
 			#{qna_secret},#{s_no},sysdate,'N')
 	</insert>
 	
+	<update id="answer" parameterType="int">
+ 		update qna set qna_answer=#{qna_answer} where qna_no=#{qna_no}
+	</update>
+		
 	<update id="update" parameterType="qna">
 <!-- 		update qna set qna_title=#{qna_title},qna_question=#{qna_question},
 			qna_answer=#{qna_answer},qna_secret=#{qna_secret} 

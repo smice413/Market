@@ -51,9 +51,9 @@
 
 /*3. 기타 폭이 다른 div를  container안에 넣고 싶을 경우 : 아래 3가지 폭을 card를 이용한다		*/
 	.vf-card  {	padding: 10px;	margin-top: 0px; }
-	.vf-wide700-card { width:700px; }
-	.vf-wide500-card { width:500px; }
-	.vf-wide300-card { width: 300px; }
+	.vf-wide700-card { width: 70%; }
+	.vf-wide500-card { width: 50%; }
+	.vf-wide300-card { width: 30%; }
 
 /* 풋터 (하단설명부분) */
 	.vf-footer  {padding: 10px;	text-align: center;	background: white;	margin-top: 20px; }
@@ -72,7 +72,7 @@
 		body{ margin: 0px; padding: 0px;}
 		
 	/* 헤더 (회사로고부분) */	
-		.vf_header_menu div { width :15%; }
+		.vf_header_menu div { width :20%; }
 		.vf_header_menu_search { display: none; }
 		
 	/* 네비게이션 (메뉴부분) */
@@ -86,6 +86,8 @@
 		.vf-less-wide-screen{ display: flex; }
 		.vf-left{width: 100%;  padding: 10 0 0 0; }
 		.vf-right {width: 100%;  padding: 0px;}
+		.vf-wide700-card { width:100%; }
+		.vf-wide500-card { width:100%; }	
 	}
     @media (min-width : 661px) and (max-width : 767px) {
 		.vf_header_menu div {width: 14%;}
@@ -93,16 +95,35 @@
 		.vf-menu9, .vf-menu8{ display: none; }
 		.vf-left{width: 63%; }
 		.vf-right {width: 37%;}
+		.vf-wide700-card { width: 100%; }
+		.vf-wide500-card { width: 90%; }
+		.vf-wide300-card { width: 70%; }
+    }
+    @media (min-width : 661px) and (max-width : 767px) {
+		.vf_header_menu div {width: 14%;}
+		.vf_sub_menu div { width: 90px; padding: 0px; }
+		.vf-menu9, .vf-menu8{ display: none; }
+		.vf-left{width: 63%; }
+		.vf-right {width: 37%;}
+		.vf-wide700-card { width: 100%; }
+		.vf-wide500-card { width: 80%; }
+		.vf-wide300-card { width: 60%; }
     }
     @media (min-width : 768px) and (max-width : 1024px) {
       	.vf_header_menu div {width: 16%}
 		.vf-menu9{ display: none; }
 		.vf-left{width: 54%; }
 		.vf-right {width: 46%;}
+		.vf-wide700-card { width: 90%; }
+		.vf-wide500-card { width: 70%; }
+		.vf-wide300-card { width: 50%; }
     }
     @media (min-width : 1025px){
       	.vf_header_menu div {width: 18%}
       	.vf-left{width: 42%; }
 		.vf-right {width: 58%;}
+		.vf-wide700-card { width: 80%; }
+		.vf-wide500-card { width: 60%; }
+		.vf-wide300-card { width: 40%; }
     }
 </script>

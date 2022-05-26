@@ -30,6 +30,10 @@ public class QnaDAOImpl implements QnaDAO {
 		return sst.insert("qnans.insert", qna);
 	}
 
+	public int answer(QnaDTO qna) {
+		return sst.update("qnans.answer", qna);
+	}
+	
 	public void readcountUpdate(int qna_no) {
 		sst.update("qnans.readcountUpdate", qna_no);
 	}
@@ -45,5 +49,6 @@ public class QnaDAOImpl implements QnaDAO {
 	public int delete(int qna_no) {
 		return sst.update("qnans.delete", qna_no);
 	}
+
 
 }

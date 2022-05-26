@@ -106,7 +106,7 @@ input[type="checkbox"]{
 					<tr>
 						<th colspan="6">
 							<!-- 한번에 전체 상품을 체크하는 체크박스 -->
-							<input type="checkbox" class="allCheck_input_${sn.s_no}" id=checkbox 
+							<input type="checkbox" name="checkbox" class="allCheck_input_${sn.s_no}" id="checkbox" 
 							      onclick="allCheck(${sn.s_no});" style="margin-right:5px;">
 							<img src="${path}/images/shop.png" style="width:30px; height:30px; margin-bottom:7px;">
 							<label style="font-size:20px; margin-left:5px;">${sn.s_name}</label> 
@@ -282,8 +282,6 @@ input[type="checkbox"]{
 		let deliveryFee = 0;
 		let finalPrice = 0;
 			
-		
-		
 		 $(".cart_info_td").each(function(index, element){
 			if($(element).find(".chkbox_input_"+n).is(":checked")===true){
 				// 총 결제 예상 금액
@@ -306,31 +304,38 @@ input[type="checkbox"]{
 			
 	// 주문 페이지 이동
  	function order_btn(n){
-		
+		var cnt = $("input[name=checkbox]:checkbox:checked").length;
+		console.log(cnt);
 		let form_contents = '';
 		let orderNumber = 0;
 		
-		$(".cart_info_td").each(function(index, element){
+		if(cnt<1){
+			alert("주문하실 상품을 선택해주세요.");
+		}else{
+			$(".cart_info_td").each(function(index, element){
+				
+				if($(element).find(".chkbox_input_"+n).is(":checked") === true){
+					let p_no = $(element).find(".p_no_input").val();
+					let cart_qty = $(element).find(".cart_qty_input").val();
+					let op_type = $(element).find(".op_type_input").val();
+					
+					let p_no_input = "<input name='orders[" + orderNumber + "].p_no' type='hidden' value='" + p_no + "'>";
+					form_contents += p_no_input;
+					
+					let cart_qty_input = "<input name='orders[" + orderNumber + "].cart_qty' type='hidden' value='" + cart_qty + "'>";
+					form_contents += cart_qty_input;
+					
+					let op_type_input = "<input name='orders[" + orderNumber + "].op_type' type='hidden' value='" + op_type + "'>";
+					form_contents += op_type_input;
+					
+					orderNumber += 1;
+				}
+				
+			});
 			
-			if($(element).find(".chkbox_input_"+n).is(":checked") === true){
-				let p_no = $(element).find(".p_no_input").val();
-				let cart_qty = $(element).find(".cart_qty_input").val();
-				let op_type = $(element).find(".op_type_input").val();
-				
-				let p_no_input = "<input name='orders[" + orderNumber + "].p_no' type='hidden' value='" + p_no + "'>";
-				form_contents += cart_no_input;
-				
-				let cart_qty_input = "<input name='orders[" + orderNumber + "].cart_qty' type='hidden' value='" + cart_qty + "'>";
-				form_contents += cart_qty_input;
-				
-				let op_type_input = "<input name='orders[" + orderNumber + "].op_type' type='hidden' value='" + op_type + "'>";
-				form_contents += op_type_input;
-				
-				orderNumber += 1;
-			}
-		});
-		$(".order_form").html(form_contents);
-		$(".order_form").submit(); 
+			$(".order_form").html(form_contents);
+			$(".order_form").submit(); 
+		}
 	}	
 		
 	

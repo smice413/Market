@@ -1,9 +1,10 @@
 select * from product where p_status=1 order by p_no desc;
-select * from qna;
+select * from qna where op_no is null;
 select * from order_product order by p_no
 select * from member;
 select * from shop;
-update qna set s_no=5 where qna_no=25
+update qna set p_no=18 where p_no is null;
+delete from qna
 select * from qna Q left join member M on M.m_email = Q.m_email order by qna_ref desc, qna_writedate asc
 
 select * from (select a.*,rowNum rn from (
@@ -27,7 +28,7 @@ select * from (select a.*,rowNum rn from (
 			   	left join member M on M.m_email = Q.m_email
 			   	left join product P on P.p_no = Q.p_no
 			   	left join order_product OP on OP.op_no = Q.op_no
-		where Q.p_no =55
+
 	order by qna_ref desc, qna_writedate asc ) a)
 
 insert into qna values (qna_board_seq.nextval,13,null,

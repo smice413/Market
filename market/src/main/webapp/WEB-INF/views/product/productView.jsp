@@ -1,24 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
-
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>상품 상세페이지</title>
-<!-- <style>
-.follow a {height:30;}
-.follow a:hover {height:40;}
-</style> -->
 <script type="text/javascript">
-
 	$(function() {
 /* 		$('#reviewlist').load('${path}/myReviewList.do?p_no=1') */
 		$('#reviewlist').load('${path}/list.do');
  		$('#slist').load('${path}/qna/list.do?search=p_no&keyword=${product.p_no}') 
-/* 		$('#slist').load('${path}/qna/insertForm.do') */
-/*		$('#slist').load('${path}/qna/list.do');*/
 
 	});
 </script>
@@ -189,7 +183,7 @@
 			var cart_qty = $(".cart_qty").val();
 			var op_type = "1";
 			
-			$.post("order.do",{ "p_no" : p_no, "cart_qty" : cart_qty, "op_type":op_type },
+			$.post("cartInsert.do",{ "p_no" : p_no, "cart_qty" : cart_qty, "op_type":op_type },
 				function(result){
 			       if(result.trim() == 'success'){
 			           var check = confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?");

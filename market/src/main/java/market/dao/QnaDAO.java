@@ -13,12 +13,14 @@ public interface QnaDAO {
 	int getMaxNum();
 	
 	int insert(QnaDTO qna);
-
-	void readcountUpdate(int num);
 	
-	QnaDTO select(int num);
+	int answer(QnaDTO qna);
+
+	void readcountUpdate(int qna_no);
+	
+	QnaDTO select(int qna_no);
 
 	int update(QnaDTO qna);
 
-	int delete(int num);
+	int delete(int qna_no);
 }

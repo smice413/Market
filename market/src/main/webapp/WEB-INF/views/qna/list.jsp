@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
-<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
-
 
 <!DOCTYPE html>
 <html>
@@ -16,9 +13,11 @@
 		<table style="width:100%; margin:0px; padding:0px; font-size:13px;" align=left>
 			<tr>
 				<td><h4><b>PRODUCT Q&A</b></h4></td>
-				<td width=90px><input type="button" id="qna_btn" class="edit1 btn btn-outline-success"
+				<td width=90px>
+				<c:if test="${not empty sessionScope.m_email}" >
+				<input type="button" id="qna_btn" class="edit1 btn btn-outline-success"
 <%-- 				 onclick="location.href='${path}/qna/insertForm.do'" --%>
-							style="width:80px; height:30px; padding:2px; margin:7px;" value="상품문의"></td>
+							style="width:80px; height:30px; padding:2px; margin:7px;" value="상품문의"></c:if></td>
 			</tr>
 			<tr>
 				<td colspan=2>
@@ -51,12 +50,12 @@
 						<tr style="padding:10px;">
 							<td id="td_${qna.qna_no}">
 								<a class="card-link" data-toggle="collapse" href="#detail_${qna.qna_no}">
-								${qna.qna_no}/${qna.qna_title}</td>
+								${qna.qna_title}</td>
 							<td width=65>${qna.m_name}</td>
 							<td width=110><fmt:formatDate value="${qna.qna_writedate }" pattern="yyyy-MM-dd"/></td>
 							<td width=95 id="btn_${qna.qna_no}">
-							<c:if test="${empty qna.qna_answer}"><font color=gray>답변대기중</font></c:if>
-								<c:if test="${not empty qna.qna_answer}"><b>답변완료</b></c:if></td>
+								<c:if test="${qna.qna_answer == '답변대기'}">답변대기</c:if>
+								<c:if test="${qna.qna_answer != '답변대기'}"><b>답변완료</b></c:if></td>
 						</tr>
 					</table>
 			    		</div>
@@ -66,16 +65,12 @@
 			       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f3f3f3">
 						<tr>
 							<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>Q</b></td>
-							<td style="font-size:14px; padding:12px;">${qna.qna_question}<br>
-							${qna.qna_question}${qna.qna_question}${qna.qna_question}${qna.qna_question}<br>
-							${qna.qna_question}${qna.qna_question}${qna.qna_question}${qna.qna_question}<br></td>
+							<td style="padding:10 10 0 10;"><pre>${qna.qna_question}</pre></td>
 						</tr>
-					<c:if test="${empty qna.qna_answer }">
 						<tr>
 							<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>A</b></td>
-							<td style="font-size:14px; padding:12px;">${qna.qna_question}${qna.qna_question}${qna.qna_answer}</td>
+							<td style="padding:0 10 0 10;"><pre>${qna.qna_answer}</pre></td>
 						</tr>
-					</c:if>
 					</table>
 			       </div>
 			   	</div>
@@ -84,7 +79,8 @@
 		
 		</div>
 	</div>
-	
+
+</div>
 </body>
 </html>
 <script type="text/javascript">
@@ -94,7 +90,7 @@
 		}); */
 
 		$(".edit1").click(function() {
-			$('#slist').load('${path}/qnaInsertForm.do');
+			$('#slist').load('${path}/qnaInsertForm.do?p_no=${keyword}');
 		}); 
 
 	});

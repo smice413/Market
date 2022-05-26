@@ -30,6 +30,10 @@ public class QnaServiceImpl implements QnaService {
 		return qd.insert(qna);
 	}
 
+	public int answer(QnaDTO qna) {
+		return qd.answer(qna);
+	}
+	
 	public void readcountUpdate(int qna_no) {
 		qd.readcountUpdate(qna_no);
 	}

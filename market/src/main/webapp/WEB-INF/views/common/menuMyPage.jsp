@@ -12,5 +12,5 @@
 		<div style="width: 13%;"><a href="restockList.do">재입고신청목록</a></div>
 		<div style="width: 13%;"><a href="loveList.do">관심상품목록</a></div>
 		<div style="width: 13%;"><a href="followList.do">팔로우상점목록</a></div>
-		<div style="width: 12%;"><a href="qnaList.do?search=m_email&keyword=${sessionScope.m_email }">문의글목록</a></div>
+		<div style="width: 12%;"><a href="qnaList.do?search=m_email&keyword=${sessionScope.m_email }&pagecase=my">문의글목록</a></div>
 	</div>
