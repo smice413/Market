@@ -15,7 +15,7 @@
     </insert>
 
 	<select id="getTotal" parameterType="restock" resultType="int">
-		select count(*) from restock
+		select count(*) from restock where m_email='${m_email}'
 	</select>
 
 	<!-- 재입고신청 상품들의 상점목록 -->
