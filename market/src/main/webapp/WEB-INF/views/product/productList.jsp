@@ -192,26 +192,26 @@ $(function() {
 		<ul class="pagination">
 			<c:if test="${not empty keyword}">
 				<c:if test="${pp.startPage > pp.pagePerBlk }">
-					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">이전</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}&status=${status}">이전</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
 					<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
-						href="${path }/productList.do?pageNum=${i}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">${i}</a></li>
+						href="${path }/productList.do?pageNum=${i}&search=${search}&keyword=${keyword}&orderCond=${orderCond}&status=${status}">${i}</a></li>
 				</c:forEach>
 				<c:if test="${pp.endPage < pp.totalPage}">
-					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">다음</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}&status=${status}">다음</a></li>
 				</c:if>
 			</c:if>
 			<c:if test="${empty keyword}">
 				<c:if test="${pp.startPage > pp.pagePerBlk }">
-					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}&orderCond=${orderCond}">이전</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.startPage - 1}&orderCond=${orderCond}&status=${status}">이전</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
 					<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
-						href="${path }/productList.do?pageNum=${i}&orderCond=${orderCond}">${i}</a></li>
+						href="${path }/productList.do?pageNum=${i}&orderCond=${orderCond}&status=${status}">${i}</a></li>
 				</c:forEach>
 				<c:if test="${pp.endPage < pp.totalPage}">
-					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}&orderCond=${orderCond}">다음</a></li>
+					<li><a href="${path }/productList.do?pageNum=${pp.endPage + 1}&orderCond=${orderCond}&status=${status}">다음</a></li>
 				</c:if>
 		  </c:if>
 		</ul>

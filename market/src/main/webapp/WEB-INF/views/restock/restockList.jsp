@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관심상품</title>
+<title>재입고신청</title>
 <%-- <link rel="stylesheet" href="${path}/css/reset.css"> --%>
 	<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 	<link rel="stylesheet" href="${path}/css/swiper.css">
@@ -30,27 +30,27 @@ input[type="checkbox"]{
    <div class="container">
 		<div class="row qnas" style="text-align: center;">
 			<h2 class="page-header">
-				<img src="${path}/images/heart-fill.svg" style="width:30px; height:30px; margin-bottom:5px;">
-				<label>관심상품</label>
+				<img src="${path}/images/bell-fill.svg" style="width:30px; height:30px; margin-bottom:5px;">
+				<label>재입고신청</label>
 				<label style="font-size:13px; margin-bottom:5px; margin-left:5px;">총 ${total}개</label>
 			</h2>
 			
-			<!-- 관심상품에 등록된 상품이 없는 경우  -->
-			<c:if test="${empty loveList}">
+			<!-- 재입고신청 상품에 등록된 상품이 없는 경우  -->
+			<c:if test="${empty restockList}">
 				<div style="margin-top: 50px; margin-bottom:50px; ">
-                     <img src="${path}/images/heart-fill.svg" style="width:60px; height:60px; margin-bottom:20px;"> <br> 
+                     <img src="${path}/images/bell-fill.svg" style="width:60px; height:60px; margin-bottom:20px;"> <br> 
 					 <label style="font-size:20px;" > 
-					 	관심상품이 없습니다.</label><br>
+					 	재입고신청 상품이 없습니다.</label><br>
 				                 상품정보 페이지에서 추가해 보세요.<br>
 				     	<a href="main.do" class="goShoping_btn btn btn-success" style="margin-top:20px;margin-bottom: 50px;">쇼핑하러 가기</a>  					
 				</div>         
 			    
  			</c:if>
  				
- 			<!-- 관심상품에 등록된 상품이 있는 경우 -->
-			<c:if test="${not empty loveList}">
+ 			<!-- 재입고신청 상품에 등록된 상품이 있는 경우 -->
+			<c:if test="${not empty restockList}">
 			
-			<!-- 관심상품 리스트 -->
+			<!-- 재입고신청 상품 리스트 -->
 	        <c:forEach var="sn" items="${shopNo}">
 			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5;">
 				<thead>	
@@ -64,44 +64,44 @@ input[type="checkbox"]{
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="ll" items="${loveList}" >
-						<c:if test="${sn.s_no eq ll.s_no}">
+					<c:forEach var="rl" items="${restockList}" >
+						<c:if test="${sn.s_no eq rl.s_no}">
 						<tr>
-							<td class="love_info_td">
-							<%-- <c:if test="${ll.p_stock != 0}"> --%>
+							<td class="restock_info_td">
+							<%-- <c:if test="${rl.p_stock != 0}"> --%>
 								<!-- 개별 체크박스 -->
-								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="love_no" checked="checked" value="${ll.love_no}">
-								<input type="hidden" class="p_sell_price_input" name="p_sell_price" value="${ll.p_sell_price}">
-								<input type="hidden" class="p_no_input" name="p_no" value="${ll.p_no}">
-								<input type="hidden" class="love_no_input" name="love_no" value="${ll.love_no}">
-								<input type="hidden" class="p_stock_input" name="p_stock" value="${ll.p_stock}">
+								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="re_no" checked="checked" value="${rl.re_no}">
+								<input type="hidden" class="p_sell_price_input" name="p_sell_price" value="${rl.p_sell_price}">
+								<input type="hidden" class="p_no_input" name="p_no" value="${rl.p_no}">
+								<input type="hidden" class="re_no_input" name="re_no" value="${rl.re_no}">
+								<input type="hidden" class="p_stock_input" name="p_stock" value="${rl.p_stock}">
 							<%-- </c:if> --%>
 							</td>
 							<td width=105px>
-								<a href="productView.do?p_no=${ll.p_no}">
-								<img src="${path}/upload/product/${ll.p_img}" width=100px></a></td>
+								<a href="productView.do?p_no=${rl.p_no}">
+								<img src="${path}/upload/product/${rl.p_img}" width=100px></a></td>
 							<td align="left">
 							  <div style="margin-top:28px;">
-							  	<a href="productView.do?p_no=${ll.p_no}" style="text-decoration:none; color:black;">${ll.p_name}</a><br>
+							  	<a href="productView.do?p_no=${rl.p_no}" style="text-decoration:none; color:black;">${rl.p_name}</a><br>
 								<div style="font-size:13px;">
-									<label style="color:red"><fmt:formatNumber pattern="#,###,###" value="${ll.p_sell_price}"/>&nbsp;원</label>
-								    | ${ll.s_name} 
+									<label style="color:red"><fmt:formatNumber pattern="#,###,###" value="${rl.p_sell_price}"/>&nbsp;원</label>
+								    | ${rl.s_name} 
 							    </div>
 							  </div>  
 							</td>
 							<td>
-								<c:if test="${ll.p_stock == 0 }">
+								<c:if test="${rl.p_stock == 0 }">
 									<label style="margin-top:35px;margin-left:40px; color:red;">품절</label>
 								</c:if>
 							</td >
 							<td class="table_text_align_center">
 							  <div style="margin-top:37px;">	
-								<fmt:formatNumber value="${ll.p_sell_price}" pattern="#,###,### 원" />
+								<fmt:formatNumber value="${rl.p_sell_price}" pattern="#,###,### 원" />
 							  </div>
 							</td>
 							<td class="table_text_align_center">
-								<input type="hidden" name="love_no" value="${ll.love_no}">
-								<button class="delete_btn btn btn-default" data-love_no="${ll.love_no}"
+								<input type="hidden" name="re_no" value="${rl.re_no}">
+								<button class="delete_btn btn btn-default" data-re_no="${rl.re_no}"
 								         style="margin-top:35px; margin-right:35px; float:right;">삭제</button>
 							</td>
 						</tr>
@@ -121,8 +121,8 @@ input[type="checkbox"]{
     </div>
 
 	<!-- 삭제 form -->
-    <form action="loveDelete.do" method="post" class="delete_form">
- 		<input type="hidden" name="love_no" class="delete_love_no">
+    <form action="restockDelete.do" method="post" class="delete_form">
+ 		<input type="hidden" name="re_no" class="delete_re_no">
     </form>
 
 <script>
@@ -132,19 +132,19 @@ input[type="checkbox"]{
 		location.href="main.do"
 	});
 	
-	// 관심상품 개별 삭제 버튼
+	// 재입고신청 상품 개별 삭제 버튼
 	$(".delete_btn").on("click",function(e){
 		e.preventDefault();
-		const love_no = $(this).data("love_no");
-		$(".delete_love_no").val(love_no);
+		const re_no = $(this).data("re_no");
+		$(".delete_re_no").val(re_no);
 		$(".delete_form").submit();
 	});
 	
-	// 관심상품 전체삭제 버튼
+	// 재입고신청 상품 전체삭제 버튼
 	$(".allDelete_btn").on("click",function(){
-		var check = confirm("관심상품을 전부 삭제하시겠습니까?");
+		var check = confirm("재입고신청 상품을 전부 삭제하시겠습니까?");
 		if(check){
-			location.href="allLoveDelete.do";
+			location.href="allRestockDelete.do";
 		}
 	})
 </script>	

@@ -95,7 +95,7 @@
 			<tr>
 				<td colspan=2 align=center>
 				<c:if test="${product.p_stock < 1}">
-					<a href="#" class="btn btn-success">재입고 신청하기</a>
+					<a href="${path}/restockInsert.do?p_no=${product.p_no}" class="btn btn-success">재입고 신청하기</a>
 				</c:if>
 				<c:if test="${product.p_stock > 0}">
 					<a href="${path}/qna/insertForm.do" class="btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
