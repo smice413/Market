@@ -22,8 +22,8 @@ public class LoveDAOImpl implements LoveDAO {
 		sst.insert("lovens.insert", love);
 	}
 	
-	public int getTotal(LoveDTO love) {
-		return sst.selectOne("lovens.getTotal", love);
+	public int getTotal(String m_email) {
+		return sst.selectOne("lovens.getTotal", m_email);
 	}
 	
 	public List<LoveDTO> getShopNo(String m_email) {

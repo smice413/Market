@@ -24,6 +24,7 @@ input[type="checkbox"]{
 
 <header>
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
+	<%@ include file="../common/menuMyPage.jsp"%>
 </header>
 
 

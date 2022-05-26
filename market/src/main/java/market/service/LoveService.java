@@ -10,7 +10,7 @@ public interface LoveService {
 	
 	void insert (LoveDTO love);
 	
-	int getTotal(LoveDTO love);
+	int getTotal(String m_email);
 	
 	List<LoveDTO> getShopNo(String m_email);
 	

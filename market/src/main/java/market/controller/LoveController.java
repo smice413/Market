@@ -57,7 +57,7 @@ public class LoveController {
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
 		
-		int total = ls.getTotal(love); // 검색 (데이터 갯수)
+		int total = ls.getTotal(m_email); // 검색 (데이터 갯수)
 		System.out.println("total:"+total);
 
 		List<LoveDTO> shopNo = ls.getShopNo(m_email);

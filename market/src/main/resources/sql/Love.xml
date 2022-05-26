@@ -14,8 +14,8 @@
     	insert into love values (love_seq.nextval,'${m_email}',${p_no})
     </insert>
 
-	<select id="getTotal" parameterType="love" resultType="int">
-		select count(*) from love where m_email='${m_email}'
+	<select id="getTotal" parameterType="String" resultType="int">
+		select count(*) from love where m_email=#{m_email}
 	</select>
 
 	<!-- 관심상품들의 상점목록 -->

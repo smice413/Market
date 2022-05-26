@@ -57,7 +57,7 @@ public class RestockController {
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
 		
-		int total = rs.getTotal(restock); // 검색 (데이터 갯수)
+		int total = rs.getTotal(m_email); // 검색 (데이터 갯수)
 		System.out.println("total:"+total);
 	
 		List<RestockDTO> shopNo = rs.getShopNo(m_email);

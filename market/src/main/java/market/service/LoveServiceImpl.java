@@ -22,8 +22,8 @@ public class LoveServiceImpl implements LoveService{
 		ld.insert(love);
 	}
 	
-	public int getTotal(LoveDTO love) {
-		return ld.getTotal(love);
+	public int getTotal(String m_email) {
+		return ld.getTotal(m_email);
 	}
 	
 	public List<LoveDTO> getShopNo(String m_email) {

@@ -22,8 +22,8 @@ public class RestockDAOImpl implements RestockDAO{
 		sst.insert("restockns.insert", restock);
 	}
 	
-	public int getTotal(RestockDTO restock) {
-		return sst.selectOne("restockns.getTotal", restock);
+	public int getTotal(String m_email) {
+		return sst.selectOne("restockns.getTotal", m_email);
 	}
 	
 	public List<RestockDTO> getShopNo(String m_email) {

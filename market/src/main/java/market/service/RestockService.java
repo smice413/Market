@@ -10,7 +10,7 @@ public interface RestockService {
 	
 	void insert (RestockDTO restock);
 	
-	int getTotal(RestockDTO restock);
+	int getTotal(String m_email);
 	
 	List<RestockDTO> getShopNo(String m_email);
 	

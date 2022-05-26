@@ -21,8 +21,8 @@ public class RestockServiceImpl implements RestockService {
 		rd.insert(restock);
 	}
 	
-	public int getTotal(RestockDTO restock) {
-		return rd.getTotal(restock);
+	public int getTotal(String m_email) {
+		return rd.getTotal(m_email);
 	}
 	
 	public List<RestockDTO> getShopNo(String m_email) {
