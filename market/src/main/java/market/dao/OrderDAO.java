@@ -27,8 +27,8 @@ public interface OrderDAO {
 	//주문 처리
 	Order_productDTO getOrderInfo(int p_no);
 	int orderInsert(Order_tabDTO otd);
-	Order_productDTO getOrder(String m_email); 
-	int orderProductInsert(Order_productDTO product);
+	Order_tabDTO getOrderNo(Order_tabDTO otd); 
+	int orderProductInsert(Order_productDTO opd);
 	ProductDTO productInfo(int p_no);
 	int updateStock(ProductDTO product);
 	

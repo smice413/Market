@@ -73,18 +73,19 @@
 	</insert>
 	
 	<!-- 주문번호 조회 -->
-	<select id="getOrder" resultType="int">
-		select o_no from order_tab where m_email = #{m_email}
-	</select>
+ 	<select id="getOrderNo" resultType="order_tab">
+		select o_no from order_tab where m_email = #{m_email} 
+		and to_char(o_date,'YYYY/MM/DD')=to_char(sysdate,'YYYY/MM/DD') and s_no=#{s_no}
+	</select> 
 	
 	<!-- 주문 상품 테이블 등록 -->
 	<insert id="orderProductInsert">
 		insert into order_product 
-		(op_no, o_no, p_no, op_qty, op_price, op_refund, op_calc, op_status, d_no,
+		(op_no, o_no, p_no, op_type, op_qty, op_price, op_refund, op_calc, op_status, d_no,
 		s_no, m_email)
 		values
-		(order_product_seq.nextval,#{o_no},#{p_no},#{op_qty},#{op_price},#{op_refund},
-		3,#{d_no},#{s_no},#{m_email})
+ 		(order_product_seq.nextval,#{o_no},#{p_no},#{op_type}, #{op_qty},#{op_price},#{op_refund},
+		#{op_calc},3,#{d_no},#{s_no},#{m_email}) 
 	</insert>
 
 	<!-- 상품 재고 조회 -->

@@ -29,8 +29,8 @@ public interface OrdereService {
 	// 주문 
 	Order_productDTO getOrderInfo(int p_no);
 	int orderInsert(Order_tabDTO otd);
-	Order_productDTO getOrder(String m_email);
-	int orderProductInsert(Order_productDTO pd);
+	Order_tabDTO getOrderNo(Order_tabDTO otd);
+	int orderProductInsert(Order_productDTO opd);
 	ProductDTO productInfo(int p_no);
 	int updateStock(ProductDTO product);
 }

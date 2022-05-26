@@ -210,6 +210,7 @@ public class OrderController {
 			orderProduct.setOp_type(opd.getOp_type());
 			opds.add(orderProduct);
 			
+			System.out.println("p_no:"+orderProduct.getP_no());
 			System.out.println("op_price:"+orderProduct.getOp_price());
 			System.out.println("Op_qty:"+opd.getCart_qty());
 			System.out.println("op_refund:"+orderProduct.getOp_refund());
@@ -218,54 +219,42 @@ public class OrderController {
 			System.out.println("M_email:"+orderProduct.getM_email());
 			System.out.println("op_refund:"+orderProduct.getOp_refund());
 			System.out.println("Op_type:"+orderProduct.getOp_type());
-		}
+		
+		
+		}		
 		
 		otd.setOrders(opds);
 		otd.getOrderPriceInfo();
+		
 		System.out.println("d_msg:"+otd.getD_msg());
 		System.out.println("o_pay_price:"+otd.getO_pay_price());
 		System.out.println("o_pay_type:"+otd.getO_pay_type());
 		System.out.println("orders:"+otd.getOrders());
-				
+		
+		
 		// 주문,주문상품 테이블에 저장
 		int result1 = os.orderInsert(otd);  // order_tab 등록
 		System.out.println("order_tab입력 :"+result1);
 		
-	//	List<Integer> orderList = os.getOrder(m_email);
-		
-//		if(result1 == 1) {
-//			
-//			List<Order_productDTO> pd = new ArrayList<>();
-//			 for( Order_productDTO opd : otd.getOrders()) {
-//				
-//				 Order_productDTO product = new Order_productDTO();
-//				 for(int i=0; i<orderList.size(); i++) {
-//					product.setO_no(orderList.get(i));
-//				 }
-//				 product.setP_no(opd.getP_no());
-//				 product.setOp_type(opd.getOp_type());
-//				 product.setOp_qty(opd.getOp_qty());
-//				 product.setOp_price(opd.getOp_price());
-//				 product.setOp_refund(opd.getOp_refund());
-//				 product.setOp_calc(opd.getOp_calc());
-//				 product.setD_no(opd.getD_no());
-//				 product.setS_no(opd.getS_no());
-//				 product.setM_email(opd.getM_email());
-//				 
-//				 System.out.println("o_no:"+opd.getO_no());
-//				 System.out.println("product:"+product);
-//				 
-//				 int result2 = os.orderProductInsert(product); //order_product 등록
-//				 System.out.println("order_product입력"+result2); 
-//			 }
-//		 }	 
-		
+		if(result1 == 1) {
+			for(Order_productDTO opd : otd.getOrders()) {
+				
+				Order_tabDTO orderNo = os.getOrderNo(otd);
+				System.out.println("orderNo:"+orderNo);
+				
+				opd.setO_no(orderNo.getO_no());			
+				System.out.println("opd:"+opd);
+				
+				int result2 = os.orderProductInsert(opd); //order_product 등록
+				System.out.println("order_product입력"+result2); 
+			}
+		} 
 				
 		// 재고 변동 적용
 		for(Order_productDTO opd : otd.getOrders()) {
 			// 변동 재고 값 구하기
 			ProductDTO product = os.productInfo(opd.getP_no());
-			System.out.println("변경 전 재고:"+product);
+			System.out.println("변경 전 재고:"+product.getP_stock());
 			
 			product.setP_stock(product.getP_stock()-opd.getOp_qty());
 			System.out.println("변경 후 재고:"+product.getP_stock());

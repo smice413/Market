@@ -91,9 +91,9 @@ public class OrderServiceImpl implements OrdereService{
 	}
 	
 	@Override
-	public Order_productDTO getOrder(String m_email) {
+	public Order_tabDTO getOrderNo(Order_tabDTO otd) {
 		// TODO Auto-generated method stub
-		return od.getOrder(m_email);
+		return od.getOrderNo(otd);
 	}
 
 	@Override
@@ -103,9 +103,9 @@ public class OrderServiceImpl implements OrdereService{
 	}
 
 	@Override
-	public int orderProductInsert(Order_productDTO product) {
+	public int orderProductInsert(Order_productDTO opd) {
 		// TODO Auto-generated method stub
-		return od.orderProductInsert(product);
+		return od.orderProductInsert(opd);
 	}
 
 	@Override

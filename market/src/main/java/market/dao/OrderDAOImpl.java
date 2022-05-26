@@ -80,10 +80,20 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 	
 	@Override
-	public Order_productDTO getOrder(String m_email) {
-		return sst.selectOne("orderpagens.getOrder", m_email);
+	public int orderInsert(Order_tabDTO product) {
+		return sst.insert("orderpagens.orderInsert", product);
 	}
-
+	
+	@Override
+	public Order_tabDTO getOrderNo(Order_tabDTO otd) {
+		return sst.selectOne("orderpagens.getOrderNo", otd);
+	}
+	
+	@Override
+	public int orderProductInsert(Order_productDTO opd) {
+		return sst.insert("orderpagens.orderProductInsert", opd);
+	}
+	
 	@Override
 	public ProductDTO productInfo(int p_no) {
 		return sst.selectOne("orderpagens.productInfo", p_no);
@@ -94,15 +104,6 @@ public class OrderDAOImpl implements OrderDAO{
 		return sst.update("orderpagens.updateStock", product);
 	}
 
-	@Override
-	public int orderInsert(Order_tabDTO product) {
-		return sst.insert("orderpagens.orderInsert", product);
-	}
-
-	@Override
-	public int orderProductInsert(Order_productDTO opd) {
-		return sst.insert("orderpagens.orderProductInsert", opd);
-	}
 
 
 
