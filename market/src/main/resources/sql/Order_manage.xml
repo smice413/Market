@@ -74,9 +74,28 @@
 		op_no = #{op_no}
 	</update>
 	
-	<select id="refundList" resultType="order_product">
+	<select id="refundList" parameterType="int"   resultType="order_product">
+		select a.* from (
 		select * from order_product
-		where op_status=8
+		where op_status=10 or op_status=9 or op_status=8) a
+		where s_no=#{s_no}
 	</select>
+	
+	<update id="refundOk" parameterType="int">
+		update order_product
+		set
+		op_status = 10,
+		op_refund_date = sysdate
+		where
+		op_no = #{op_no}
+	</update>
+	
+	<update id="refundNo" parameterType="int">
+		update order_product
+		set
+		op_status = 9
+		where
+		op_no = #{op_no}
+	</update>
 	
 </mapper>

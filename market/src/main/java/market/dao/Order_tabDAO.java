@@ -11,35 +11,45 @@ import market.model.Order_productDTO;
 
 @Repository
 public class Order_tabDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate sst;
-	
+
 	public int lastseq() {
 		return sst.selectOne("order_tabns.lastseq");
 	}
-	
+
 	public List<Order_manageDTO> olist(int s_no) {
-		return sst.selectList("order_managens.list",s_no);
+		return sst.selectList("order_managens.list", s_no);
 	}
-	
+
 	public List<Order_manageDTO> odlist(int o_no) {
-		return sst.selectList("order_managens.odlist",o_no);
+		return sst.selectList("order_managens.odlist", o_no);
 	}
-	
+
 	// 운송번호 입력
 	public int deliNoInsert(Order_manageDTO omdto) {
-		return sst.insert("order_managens.dinsert",omdto);
+		return sst.insert("order_managens.dinsert", omdto);
 	}
-	
+
 	// 품절 취소 처리
 	public int cancel(Order_manageDTO omdto) {
-		return sst.insert("order_managens.cancel",omdto);
+		return sst.insert("order_managens.cancel", omdto);
 	}
-	
-	// 환불 승인 처리
-	public List<Order_productDTO> oplist() {
-		return sst.selectList("order_managens.refundList");
+
+	// 환불리스트 불러오기
+	public List<Order_productDTO> oplist(int s_no) {
+		return sst.selectList("order_managens.refundList", s_no);
+	}
+
+	// 환불승인
+	public int refundOk(int op_no) {
+		return sst.update("order_managens.refundOk", op_no);
+	}
+
+	// 환불거부
+	public int refundNo(int op_no) {
+		return sst.update("order_managens.refundNo", op_no);
 	}
 
 }

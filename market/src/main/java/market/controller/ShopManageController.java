@@ -47,12 +47,39 @@ public class ShopManageController {
 
 	// 환불관리
 	@RequestMapping("refundList.do")
-	public String refundList(Model model) {
+	public String refundList(HttpSession session, HttpServletRequest request, Model model) {
 
-		List<Order_productDTO> oplist = sms.oplist();
+		session = request.getSession();
+
+		int s_no = (int) session.getAttribute("s_no");
+
+		List<Order_productDTO> oplist = sms.oplist(s_no);
 		model.addAttribute("oplist", oplist);
 
 		return "shop_page/refundList";
+	}
+
+	// 환불승인
+	@RequestMapping("refundOk")
+	public String refundOk(Model model, int op_no, int o_no) {
+		
+		
+		int result = sms.refundOk(op_no);
+
+		model.addAttribute("result",result);
+		
+		return "shop_page/refundOkResult";
+	}
+
+	// 환불거부
+	@RequestMapping("refundNo")
+	public String refundNo(Model model, int op_no, int o_no) {
+		
+		int result = sms.refundNo(op_no);
+		
+		model.addAttribute("result",result);
+
+		return "shop_page/refundNoResult";
 	}
 
 	// 운송장 입력버튼 눌렀을때
@@ -80,27 +107,26 @@ public class ShopManageController {
 
 		return "shop_page/deliResult";
 	}
-	
-	//품절취소
+
+	// 품절취소
 	@RequestMapping("shopOrderCancel.do")
 	public String shopOrderCancel(int o_no, int op_no, Model model) {
-		
+
 		Order_manageDTO omdto = new Order_manageDTO();
-		
+
 		omdto.setOp_status("5");
 		omdto.setOp_no(op_no);
 
 		int result = sms.cancel(omdto);
-		
+
 		if (result == 1) {
 			System.out.println("품절취소 상태변경 성공!");
 		}
 
 		model.addAttribute("o_no", o_no);
 		model.addAttribute("result", result);
-		
+
 		return "shop_page/shopCancelResult";
 	}
-	
 
 }
