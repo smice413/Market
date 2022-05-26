@@ -22,8 +22,8 @@ public class OrderDAOImpl implements OrderDAO{
 	private SqlSessionTemplate sst;
 
 	@Override
-	public OrderPageItemDTO getProductInfo(int cart_no) {
-		return sst.selectOne("orderpagens.getProductInfo", cart_no);
+	public OrderPageItemDTO getProductInfo(int p_no) {
+		return sst.selectOne("orderpagens.getProductInfo", p_no);
 	}
 
 	@Override

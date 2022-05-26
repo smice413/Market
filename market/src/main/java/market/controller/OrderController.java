@@ -54,18 +54,18 @@ public class OrderController {
 		
 		// 주문 상품 정보
 		List<OrderPageItemDTO> orders = opd.getOrders();
-		List<OrderPageItemDTO> result = new ArrayList<OrderPageItemDTO>();
+		List<OrderPageItemDTO> productInfo = new ArrayList<OrderPageItemDTO>();
 		
 		for(OrderPageItemDTO ord : orders) {
 			
-			OrderPageItemDTO productInfo = os.getProductInfo(ord.getCart_no());			
+			OrderPageItemDTO product = os.getProductInfo(ord.getP_no());			
 
-			productInfo.setCart_qty(ord.getCart_qty());
+			product.setCart_qty(ord.getCart_qty());
+			product.setOp_type(ord.getOp_type());
+			product.totalPrice();
+			System.out.println("product:"+product);
 			
-			productInfo.totalPrice();
-			System.out.println("productInfo:"+productInfo);
-			
-		    result.add(productInfo);			
+			productInfo.add(product);			
 		}	
 		
 		// 주문자 정보 조회
@@ -76,7 +76,7 @@ public class OrderController {
 		DeliveryDTO deliveryInfo = os.getDeliveryInfo(m_email);
 		System.out.println("deliveryInfo:"+deliveryInfo);
 		
-		model.addAttribute("productInfo",result);
+		model.addAttribute("productInfo",productInfo);
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("deliveryInfo", deliveryInfo);
 		

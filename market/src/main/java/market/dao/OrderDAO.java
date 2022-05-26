@@ -13,7 +13,7 @@ import market.model.ProductDTO;
 import scala.PartialFunction.OrElse;
 
 public interface OrderDAO {
-	public OrderPageItemDTO getProductInfo(int cart_no);
+	public OrderPageItemDTO getProductInfo(int p_no);
 	DeliveryDTO getDeliveryInfo(String m_email);
 	int getAddressCount(String m_email);
 	int deliveryInsert(DeliveryDTO delivery);

@@ -32,8 +32,8 @@ public class OrderServiceImpl implements OrdereService{
 	private ProductDAO pd;
 
 	@Override
-	public OrderPageItemDTO getProductInfo(int cart_no){	
-		return od.getProductInfo(cart_no);
+	public OrderPageItemDTO getProductInfo(int p_no){	
+		return od.getProductInfo(p_no);
 	}
 
 	@Override

@@ -125,8 +125,8 @@ input[type="checkbox"]{
 								<input type="hidden" class="p_sell_price_input" name="p_sell_price" value="${cl.p_sell_price}">
 								<input type="hidden" class="cart_qty_input" name="cart_qty" value="${cl.cart_qty}">
 								<input type="hidden" class="total_price_input" name="total_price" value="${cl.p_sell_price * cl.cart_qty}">
-								<input type="hidden" class="p_no_input" name="p_no" value="${cl.p_no}">
 								<input type="hidden" class="cart_no_input" name="cart_no" value="${cl.cart_no}">
+								<input type="hidden" class="p_no_input" name="p_no" value="${cl.p_no}">
 								<input type="hidden" class="op_type_input" name="op_type" value="${cl.op_type}">
 								<input type="hidden" class="p_stock_input" name="p_stock" value="${cl.p_stock}">
 							</c:if>
@@ -313,11 +313,11 @@ input[type="checkbox"]{
 		$(".cart_info_td").each(function(index, element){
 			
 			if($(element).find(".chkbox_input_"+n).is(":checked") === true){
-				let cart_no = $(element).find(".cart_no_input").val();
+				let p_no = $(element).find(".p_no_input").val();
 				let cart_qty = $(element).find(".cart_qty_input").val();
 				let op_type = $(element).find(".op_type_input").val();
 				
-				let cart_no_input = "<input name='orders[" + orderNumber + "].cart_no' type='hidden' value='" + cart_no + "'>";
+				let p_no_input = "<input name='orders[" + orderNumber + "].p_no' type='hidden' value='" + p_no + "'>";
 				form_contents += cart_no_input;
 				
 				let cart_qty_input = "<input name='orders[" + orderNumber + "].cart_qty' type='hidden' value='" + cart_qty + "'>";
