@@ -7,6 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>주문 상세</title>
+
+<style>
+
+.delivery_info{
+	float:left;
+	width:40%
+}
+
+.payment_info{
+	float:right;
+	width:50%;
+}
+
+</style>
+
 </head>
 <body>
 
@@ -54,18 +69,17 @@
 		</td>		
 	</tr>
 </c:forEach>
-
 </table>
 </div>
 </div>
 
-<div class="container" align="center" >
+<div class="container" style="width: 850px; margin-top: 30px;">
 <!-- 배송 정보 -->
-<div class="vf-left" align="center">
+<div class="delivery_info" align="center">
 
-<h3 style="font-weight: bold; text-align: left; margin-bottom: 20px;">배송 정보</h3>
-<table align="center" class="table">
-	<tr>
+<h3 style="font-weight: bold; text-align: left; margin-bottom: 15px;">배송 정보</h3>
+<table class="table" style="width:100%;">
+	<tr style="border-top:3px solid;border-top-color:#dddddd;">
 		<td width=100px>수령인</td>
 		<td>${detail.d_name }</td>
 	</tr>
@@ -87,11 +101,11 @@
 </div>
 
 <!-- 결제 정보 -->
-<div class="vf-right" align="center">
+<div class="payment_info" align="center">
 
-<h3 style="font-weight: bold; text-align: left; margin-bottom: 20px;">결제 정보</h3>
-<table table align="center" class="table">
-	<tr>
+<h3 style="font-weight: bold; text-align: left; margin-bottom: 15px;">결제 정보</h3>
+<table class="table" style="width:100%;">
+	<tr style="border-top:3px solid;border-top-color:#dddddd;">
 		<td>상품 가격</td>
 		<td style="text-align: right"><fmt:formatNumber value="${detail.o_total_price }" pattern="#,###"/> 원</td>
 	</tr>
@@ -114,6 +128,7 @@
 </table>
 </div>
 </div>
+
 
 </body>
 </html>

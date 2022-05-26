@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 작성 페이지</title>
-<!-- <script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script> -->
-<link rel="stylesheet" href="${path}/ckeditor/contents.css">
-<script type="text/javascript" src="${path}/ckeditor/ckeditor.js" ></script>
+<script src="https://cdn.ckeditor.com/4.18.0/standard/ckeditor.js"></script>
+<%-- <link rel="stylesheet" href="${path}/ckeditor/contents.css">
+<script type="text/javascript" src="${path}/ckeditor/ckeditor.js" ></script> --%>
 
 </head>
 <body>

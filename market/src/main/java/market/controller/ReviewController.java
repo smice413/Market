@@ -205,6 +205,8 @@ public class ReviewController {
 			
 			List<ReviewDTO> list = rs.reviewList(p_no);
 			
+			System.out.println("상품 리뷰 목록:" + list);
+			
 			model.addAttribute("list", list);
 			model.addAttribute("no", no);
 			model.addAttribute("pp", pp);

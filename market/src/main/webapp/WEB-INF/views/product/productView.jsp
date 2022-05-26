@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	$(function() {
 /* 		$('#reviewlist').load('${path}/myReviewList.do?p_no=1') */
-		$('#reviewlist').load('${path}/list.do');
+		$('#reviewlist').load('${path}/productReviewList.do?p_no=${product.p_no}');
  		$('#slist').load('${path}/qna/list.do?search=p_no&keyword=${product.p_no}') 
 
 	});

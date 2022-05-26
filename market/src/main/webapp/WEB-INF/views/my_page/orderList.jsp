@@ -97,7 +97,7 @@ function review_click(a,b){
 			<c:if test="${list.op_status == '6' }">
 				${list.op_deli_no }
 				<input type="button" class="btn btn-success" value="배송추적" 
-				onClick="location.href='https://www.cjlogistics.com//ko/tool/parcel/tracking'">
+				onClick="window.open('https://www.cjlogistics.com//ko/tool/parcel/tracking', '배송추적', 'width=1000, height=750, scrollbar=yes');">
 			</c:if>
 			
 			<c:if test="${list.op_status == '7' }">
@@ -105,6 +105,10 @@ function review_click(a,b){
 				onClick="location='confirm.do?op_no=${list.op_no}&s_no=${list.s_no }'">
 				<input type="button" class="btn btn-outline-success" value="환불 요청" 
 				onClick="location='refund.do?op_no=${list.op_no}'">
+			</c:if>
+			
+			<c:if test="${list.op_status == '9' }">
+				<div style="font-size: 10pt;">판매자에게 1:1 문의하기</div>
 			</c:if>
 			
 			<c:if test="${list.op_status == '11' }">

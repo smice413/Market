@@ -70,7 +70,7 @@ select count(*) from review where p_no = #{p_no}
 
 <!-- 상품별 리뷰 목록 -->
 <select id="list" parameterType="int" resultType="review">
-select * from review where p_no = #{p_no}
+select * from review where p_no = #{p_no} and r_delstatus = 'N'
 </select>
 
 </mapper>
