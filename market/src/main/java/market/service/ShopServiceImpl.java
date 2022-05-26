@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import market.dao.ShopDAO;
 import market.dao.ShopDAOImpl;
 import market.model.ShopDTO;
 
@@ -75,6 +76,10 @@ public class ShopServiceImpl {
 	// 비밀번호 수정
 	public int shop_info_changepw(ShopDTO shop)throws Exception{
 		return shopDAO.shop_info_changepw(shop);
+	}
+	//email 찾기
+	public ShopDTO shop_emailsearch(ShopDTO shop)throws Exception{
+		return shopDAO.shop_emailsearch(shop);
 	}
 	
 }

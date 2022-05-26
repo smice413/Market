@@ -106,6 +106,7 @@ function shopList_del(){
 <!-- <form method="post" onSubmit="return shopList_del()"> -->
 
 <center><h1>입점승인</h1></center>
+
 <div style="overflow-y:scroll; height:150px;">
 <table border="1" align="center">
 		<tr>
@@ -150,6 +151,7 @@ function shopList_del(){
 	</c:forEach>
 </table>
 </div>
+
 
 
 <div class="shopList_ck" align="center" style="display:flex; align-items:center;">

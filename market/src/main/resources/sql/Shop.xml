@@ -7,7 +7,7 @@
 	<insert id="shop_insert" parameterType="shop">
 		insert into shop values (shop_seq.nextval,#{s_email},#{s_passwd},#{s_seckey},
 		#{s_name},#{s_ceo},#{s_bizno},#{s_tongsin},#{s_file,jdbcType=VARCHAR},
-		#{s_address},#{s_tel},#{s_bank},#{s_account},sysdate,'',#{s_reason,jdbcType=VARCHAR},'1',#{s_post})
+		#{s_address},#{s_tel},#{s_bank},#{s_account},sysdate,'',#{s_reason,jdbcType=VARCHAR},'1',#{s_post}, #{s_profile,jdbcType=VARCHAR}, #{s_myself,jdbcType=VARCHAR})
 	</insert>
 	<!-- 판매자 정보구하기 s_email= #{s_email} and s_status='2' 로 수정해야함 -->
 	<select id="shop_select" parameterType="String" resultType="shop">
@@ -17,7 +17,7 @@
 	<update id="shop_update" parameterType="shop">
 		update shop set s_name=#{s_name}, s_ceo=#{s_ceo}, 
 		s_bizno=#{s_bizno}, s_tongsin=#{s_tongsin}, s_file=#{s_file,jdbcType=VARCHAR},
-		s_address=#{s_address}, s_tel=#{s_tel}, s_bank=#{s_bank}, s_account=#{s_account}, s_post=#{s_post}
+		s_address=#{s_address}, s_tel=#{s_tel}, s_bank=#{s_bank}, s_account=#{s_account}, s_post=#{s_post}, s_profile=#{s_profile, jdbcType=VARCHAR}, s_myself=#{s_myself,jdbcType=VARCHAR}
 		where s_email=#{s_email}
 	</update>
 	<!-- 폐점 -->
@@ -61,4 +61,10 @@
 	<update id="shop_passwdedit" parameterType="shop">
 		update shop set s_passwd=#{s_passwd} where s_email=#{s_email}
 	</update>
+	<!-- email 찾기 -->
+	<select id="shop_emailsearch" parameterType="shop" resultType="shop">
+		select * from shop where s_ceo=#{s_ceo} and s_tel=#{s_tel}
+	
+	</select>
+	
 </mapper>

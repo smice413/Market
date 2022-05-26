@@ -60,7 +60,7 @@ function shopList_del(){
 </head>
 <body>
 <!-- <div id="shopList"></div> -->
-<div class="shopList_exit" style="overflow-y:scroll">
+<div class="shopList_exit vf-wide700-card" style="width: 1200px; overflow-y:scroll;">
 <center><h1>강제폐점</h1></center>
 <table border="1" align="center">
 		<tr>

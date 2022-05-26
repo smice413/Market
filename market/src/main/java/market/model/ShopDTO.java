@@ -21,6 +21,8 @@ public class ShopDTO {
 	private String s_reason; /* 폐점사유 */
 	private String s_status; /* 상태 */
 	private String s_post; /*우편번호*/
+	private String s_profile;
+	private String s_myself;
 	
 	// page
 	private int startRow;
@@ -160,6 +162,18 @@ public class ShopDTO {
 	}
 	public void setS_post(String s_post) {
 		this.s_post = s_post;
+	}
+	public String getS_profile() {
+		return s_profile;
+	}
+	public void setS_profile(String s_profile) {
+		this.s_profile = s_profile;
+	}
+	public String getS_myself() {
+		return s_myself;
+	}
+	public void setS_myself(String s_myself) {
+		this.s_myself = s_myself;
 	}
 	
 	

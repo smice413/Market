@@ -166,7 +166,10 @@ public class ShopController {
 			
 			ShopDTO shop= shopService.userCheck(s_email);
 			model.addAttribute("shop", shop);
-			
+			if(shop.getS_myself() != null) {
+			String myself=shop.getS_myself().replaceAll("\n", "<br>");
+			model.addAttribute("myself", myself);
+			}
 			return "shop/shop_info_form";
 		}
 	//상점 정보 수정 폼
@@ -182,7 +185,9 @@ public class ShopController {
 	
 	//상점 정보 수정
 		@RequestMapping(value ="shop_info_edit.do", method = RequestMethod.POST)
-		public String shop_info_edit(@RequestParam("s_file1") MultipartFile mf, 
+		public String shop_info_edit(@RequestParam("s_file1") MultipartFile mf,
+									 @RequestParam("s_profile1") MultipartFile mp,
+									 @RequestParam("s_myself") String s_myself,
 									 ShopDTO shop,
 									 HttpSession session,
 									 HttpServletRequest request,
@@ -191,20 +196,26 @@ public class ShopController {
 		
 			System.out.println("ShopDTO:"+ shop);
 			System.out.println("mf:"+ mf);
+			System.out.println("mp:"+ mp);
 			
 			
 			String filename = mf.getOriginalFilename();
+			String filename1 = mp.getOriginalFilename();
 			int size = (int) mf.getSize();// 첨부파일 크기
+			int size1 = (int) mp.getSize();// 첨부파일 크기
 			
 			String path = request.getRealPath("upload/shop");
 			System.out.println("mf=" + mf);
 			System.out.println("filename=" + filename); // filename="Koala.jpg"
+			System.out.println("filename1=" + filename1); // filename="Koala.jpg"
 			System.out.println("size=" + size);
+			System.out.println("size1=" + size1);
 			System.out.println("Path=" + path);
 			int result=0;
 			
 			String file[] = new String[2];
 			String newfilename="";
+			String newfilename1="";
 			
 			if(filename != "") { //첨부파일이 전송된 경우
 				
@@ -236,9 +247,44 @@ public class ShopController {
 					return "shop/uploadResult";
 				}
 			}
+			if(filename1 != "") { //첨부파일이 전송된 경우
+				
+				// 파일 중복문제 해결
+				String extension1 = filename1.substring(filename1.lastIndexOf("."), filename1.length());
+				System.out.println("extension1:"+ extension1);
+				
+				UUID uuid = UUID.randomUUID();
+				
+				newfilename1 = uuid.toString()+extension1;
+				System.out.println("newfilename1:"+ newfilename1);
+				
+				StringTokenizer st = new StringTokenizer(filename1, ".");
+				file[0] = st.nextToken(); //파일명
+				file[1] = st.nextToken(); //확장자 jpg
+				
+				if(size > 10000000) { //10MB
+					result=1;
+					model.addAttribute("result", result);
+					
+					return "shop/uploadResult";
+				}else if(!file[1].equals("jpg") &&
+						!file[1].equals("gif") &&
+						!file[1].equals("png") ){
+					
+					result=2;
+					model.addAttribute("result", result);
+					
+					return "shop/uploadResult";
+				}
+			}
 				
 				if(size > 0) { //첨부파일이 전송된 경우
 					mf.transferTo(new File(path + "/" + newfilename));
+					System.out.println("file 전송");
+				}	
+				if(size1 > 0) { //첨부파일이 전송된 경우
+					mp.transferTo(new File(path + "/" + newfilename1));
+					System.out.println("profile 전송");
 				}	
 			
 		    String s_email = (String) session.getAttribute("s_email");	
@@ -247,14 +293,24 @@ public class ShopController {
 			
 		    if(size>0) {	//첨부 파일이 수정됨
 		    	shop.setS_file(newfilename);
+		    	System.out.println("file 첨부파일이 수정됨");
 		    }else {			//첨부 파일이 수정되지 않으면 다시 넣어줌
 		    	shop.setS_file(no_editfile.getS_file());
+		    	System.out.println("file 첨부파일이 수정안됨");
 		    }
-		    
+		    if(size1>0) {	//첨부 파일이 수정됨
+		    	shop.setS_profile(newfilename1);
+		    	System.out.println("profile 첨부파일이 수정됨");
+		    }else {			//첨부 파일이 수정되지 않으면 다시 넣어줌
+		    	shop.setS_profile(no_editfile.getS_profile());
+		    	System.out.println("profile 첨부파일이 수정안됨");
+		    }
+		    //String myself= s_myself.replace("\n","<br>");
 		    shop.setS_email(s_email);
-		    
-		    int result1 = 0;
-		    result1 =shopService.shop_info_edit(shop);
+		    shop.setS_myself(s_myself);
+		    int result4 = 0;
+		    result4 =shopService.shop_info_edit(shop);
+		    System.out.println("result1:"+result4);
 		    
 //		    PrintWriter out = response.getWriter();
 //		    if(result1 == 1) {
@@ -269,7 +325,7 @@ public class ShopController {
 //		    	out.close();
 //		    	return null;
 //		    }
-		    
+		    model.addAttribute("result4", result4);
 			return "shop/shop_info_editResult";
 		}
 		
@@ -282,10 +338,12 @@ public class ShopController {
 		}
 		// 비밀번호 변경
 		@RequestMapping(value="shop_info_changepw.do", method= RequestMethod.POST)
-		public String shop_info_changepw(@RequestParam("s_passwd") String s_passwd,
-				@RequestParam("s_email") String s_email, ShopDTO shop, Model model)throws Exception {
+		public String shop_info_changepw(@RequestParam("s_passwded") String s_passwded,
+				HttpSession session, ShopDTO shop, Model model)throws Exception {
+			System.out.println(s_passwded);
+			String s_email = (String) session.getAttribute("s_email");
 			shop.setS_email(s_email);
-			shop.setS_passwd(s_passwd);
+			shop.setS_passwd(s_passwded);
 			int result = shopService.shop_info_changepw(shop);
 			model.addAttribute("result", result);
 			return "shop/emailCheckResult"; // 콜백
@@ -538,14 +596,28 @@ public class ShopController {
 			 model.addAttribute("result", result);
 			 return "shop/shop_passwdResult";
 		 }
-		 
-		 
-		 
-		 
-		 
-		// return "";
+	 }
+	 // email 찾기 폼
+	 @RequestMapping("shop_emailsearch_form.do")
+	 public String shop_emailsearch_form()throws Exception{
+		 return "shop/shop_emailsearch";
 	 }
 	 
+	 // email 찾기
+	 @RequestMapping("shop_emailsearch.do")
+	 public String shop_emailsearch(@RequestParam("s_ceo") String s_ceo,
+			 						@RequestParam("s_tel") String s_tel, ShopDTO shop, Model model)throws Exception{
+		 System.out.println(s_ceo);
+		 System.out.println(s_tel);
+		 shop.setS_ceo(s_ceo);
+		 shop.setS_tel(s_tel);
+		 
+		 shop = shopService.shop_emailsearch(shop);
+		 
+		 model.addAttribute("shop", shop);
+		 
+		 return "shop/shop_emailsearch";
+	 }
 	 
 	 
 	 

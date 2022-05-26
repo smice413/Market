@@ -84,11 +84,17 @@ public class ShopDAOImpl {
 
 	// 임시비밀번호로 수정
 	public int shop_passwdUpdate(ShopDTO shop) throws Exception {
-		return sqlsession.update("shopns.shop_passwdUp",shop);
+		return sqlsession.update("shopns.shop_passwdUp", shop);
 	}
+
 	// 비밀번호 수정
-		public int shop_info_changepw(ShopDTO shop)throws Exception{
-			return sqlsession.update("shopns.shop_passwdedit",shop);
-		}
+	public int shop_info_changepw(ShopDTO shop) throws Exception {
+		return sqlsession.update("shopns.shop_passwdedit", shop);
+	}
+
+	// email 찾기
+	public ShopDTO shop_emailsearch(ShopDTO shop) throws Exception {
+		return sqlsession.selectOne("shopns.shop_emailsearch",shop);
+	}
 
 }

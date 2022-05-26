@@ -11,56 +11,76 @@
 <body>
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuShop.jsp"%>
-<div class="shopcontainer">
+<div class="container"  align="center">
 		<form id="shop_info" name="shop_info" enctype="multipart/form-data" >
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" value="${shop.s_seckey}">
-			<table border="1">
+			<br><br><br><br>
+			<center><h1>상점 정보</h1></center>
+			
+			<table class="table">
 				<tr>
-					<td>email</td>
+					<th>email</th>
 					<td>
 					${shop.s_email}
+					</td>
+					<td rowspan="6" align="center" style="width: 416px;">
+						<center><b>프로필</b></b></center>
+						<img src="${path}/upload/shop/${shop.s_profile}" height="300" width="300" style="margin-bottom: 8px;" />
+						<input type="button" id="button" value="상점정보수정" class="btn btn-success" onClick="location.href='${path}/shop_info_edit_form.do?s_no=${shop.s_no}'">
+						<input type="button" id="button" value="페점신청" class="btn btn-danger" onClick="location.href='${path}/shop_del_form.do?s_no=${shop.s_no}'">
 					</td>
 				</tr>
 				
 				<tr>
-					<td>상호명</td>
+					<th>상호명</th>
 					<td>${shop.s_name}</td>
 				</tr>
 				<tr>
-					<td>대표자명</td>
+					<th>대표자명</th>
 					<td>${shop.s_ceo}</td>
 				</tr>
 				<tr>
-					<td>사업자번호</td>
+					<th>사업자번호</th>
 					<td>${shop.s_bizno}</td>
 				</tr>
 				<tr>
-					<td>통신판매업번호</td>
+					<th>통신판매업번호</th>
 					<td>${shop.s_tongsin}</td>
 				</tr>
 				<tr>
-					<td>우편번호</td>
+					<th>우편번호</th>
 					<td>${shop.s_post}</td>
 				</tr>
 				<tr>
-					<td>주소</td>
+					<th>주소</th>
 					<td>${shop.s_address}</td>
+					<td rowspan="5" align="center">
+					<%-- <input type="button" id="button" value="상점정보수정" class="btn btn-success" onClick="location.href='${path}/shop_info_edit_form.do?s_no=${shop.s_no}'">
+					<input type="button" id="button" value="페점신청" class="btn btn-danger" onClick="location.href='${path}/shop_del_form.do?s_no=${shop.s_no}'"> --%>
+				 	<center><b>상점소개</b></center><br>
+					${myself}
+					</td> 
+				 	</td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
+					<th>전화번호</th>
 					<td>${shop.s_tel}</td>
+					<%-- <td rowspan="4" align="center" style="width:400px;">
+					<center>상점소개</center>
+					${myself}
+					</td> --%>
 				</tr>
 				<tr>
-					<td>은행명</td>
+					<th>은행명</th>
 					<td>${shop.s_bank}</td>
 				</tr>
 				<tr>
-					<td>정산계좌</td>
+					<th>정산계좌</th>
 					<td>${shop.s_account}</td>
 				</tr>
 				<tr>
-					<td>서류첨부</td>
+					<th>서류첨부</th>
 					<td>
 						<c:if test="${empty shop.s_file}">
        					&nbsp;
@@ -70,12 +90,12 @@
 						</c:if> 
 					</td>
 				</tr>
-				<tr>
+				<%-- <tr>
 					<td colspan="2" align="center">
-					<input type="button" id="button" value="상점정보수정" onClick="location.href='${path}/shop_info_edit_form.do?s_no=${shop.s_no}'">
-					<input type="button" id="button" value="페점신청" onClick="location.href='${path}/shop_del_form.do?s_no=${shop.s_no}'">
+					<input type="button" id="button" value="상점정보수정" class="btn btn-success" onClick="location.href='${path}/shop_info_edit_form.do?s_no=${shop.s_no}'">
+					<input type="button" id="button" value="페점신청" class="btn btn-danger" onClick="location.href='${path}/shop_del_form.do?s_no=${shop.s_no}'">
 				 	</td>
-				</tr>
+				</tr> --%>
 
 			</table>
 

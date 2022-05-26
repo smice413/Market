@@ -39,68 +39,105 @@ function openDaumPostcode() {
 
 
 </script>
+<script>
+ // 단일 파일 업로드
+ function readImage1(input) {
+    if (input.files && input.files[0]) {
+      //  const reader = new FileReader();
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+           $('#previewImage1').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+} 
 
+
+</script>
+<script>
+ function changepw1(){
+	 $("#changepwform").load("shop_info_changepwform.do");
+ }
+
+</script>
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuShop.jsp"%>
-<div class="shopcontainer">
+<div class="container">
 		<form id="shop_info_edit" name="shop_info_edit" method="post"
 			action="shop_info_edit.do" enctype="multipart/form-data"
 			onSubmit="return edit()">
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
 			<input type="hidden" id="s_seckey" name="s_seckey" value="1111">
 			<input type="hidden" id="s_passwd" value="${shop.s_passwd}">
-			<table border="1">
+			<br><br><br><br>
+			<center><h1>정보 수정</h1></center>
+			<table class="table">
 				<tr>
-					<td>email</td>
+					<th>email</th>
 					<td>
 					${shop.s_email}
 					</td>
+					<td rowspan="6" align="center" style="width: 416px;"><center><b>프로필 수정</b></center>
+						<!-- <input type="file" id="s_file" name="s_file1" > -->
+						<!-- <input  type="file" id="s_file" name="s_file1" class="form-control" onChange="readImage(this)" multiple="multiple"/> -->
+					    <input type="file" id="s_profile" name="s_profile1" value="${shop.s_profile}" class="form-control" onChange="readImage1(this)"/>
+			            <img style="width: 200px;" id="previewImage1" src="#">
+					</td>
+				</tr>
+				
+				<tr>
+					<th>비밀번호확인</th>
+					<td><input type="password" id="s_passwd1" name="s_passwd1">
+					<input type="button" id="changepw" value="비밀번호 변경" onClick="changepw1()"><font color="red">*비밀번호 변경시 클릭!</font>
+					<div id="changepwform"></div>
+					</td>
 				</tr>
 				<tr>
-					<td>비밀번호확인</td>
-					<td><input type="password" id="s_passwd1" name="s_passwd1"></td>
-				</tr>
-				<tr>
-					<td>상호명</td>
+					<th>상호명</th>
 					<td><input type="text" id="s_name" name="s_name" value="${shop.s_name}"></td>
 				</tr>
 				<tr>
-					<td>대표자명</td>
+					<th>대표자명</th>
 					<td><input type="text" id="s_ceo" name="s_ceo" value="${shop.s_ceo}"></td>
 				</tr>
 				<tr>
-					<td>사업자번호</td>
+					<th>사업자번호</th>
 					<td><input type="text" id="s_bizno" name="s_bizno" value="${shop.s_bizno}"></td>
 				</tr>
 				<tr>
-					<td>통신판매업번호</td>
+					<th>통신판매업번호</th>
 					<td><input type="text" id="s_tongsin" name="s_tongsin" value="${shop.s_tongsin}"></td>
 				</tr>
 				<tr>
-					<td>우편번호</td>
+					<th>우편번호</th>
 					<td><input type="text" id="s_post" name="s_post" value="${shop.s_post}"> <input
 						type="button" value="우편번호검색" onclick="openDaumPostcode()" /></td>
 				</tr>
 				<tr>
-					<td>주소</td>
+					<th>주소</th>
 					<td><input type="text" id="s_address" name="s_address" value="${shop.s_address}"></td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
+					<th>전화번호</th>
 					<td><input type="text" id="s_tel" name="s_tel" value="${shop.s_tel}"></td>
+					<td rowspan="4" align="center" style="width:400px;">
+					<center><b>상점소개</b></center>
+					<textarea id="s_myself" name="s_myself" style="width:300px; height:200px;">${shop.s_myself}</textarea>
+					</td>
 				</tr>
 				<tr>
-					<td>은행명</td>
+					<th>은행명</th>
 					<td><input type="text" id="s_bank" name="s_bank" value="${shop.s_bank}"></td>
 				</tr>
 				<tr>
-					<td>정산계좌</td>
+					<th>정산계좌</th>
 					<td><input type="text" id="s_account" name="s_account" value="${shop.s_account}"></td>
 				</tr>
 				<tr>
-					<td>서류첨부</td>
+					<th>서류첨부</th>
 					<td>
 						<!-- <input type="file" id="s_file" name="s_file1" > -->
 						<!-- <input  type="file" id="s_file" name="s_file1" class="form-control" onChange="readImage(this)" multiple="multiple"/> -->
@@ -111,9 +148,10 @@ function openDaumPostcode() {
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" id="submit" value="수정"></td>
+					<input type="submit" id="submit" class="btn btn-success" value="수정"></td>
 				</tr>
-
+				<!-- <input type="button" id="changepw" value="비밀번호 변경" onClick="changepw1()">
+					<div id="changepwform"></div> -->
 			</table>
 
 		</form>
