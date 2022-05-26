@@ -8,7 +8,7 @@ public interface LoveService {
 
 	boolean findLoveProduct(LoveDTO love);
 	
-	void insert (LoveDTO love);
+	void insert(LoveDTO love);
 	
 	int getTotal(String m_email);
 	

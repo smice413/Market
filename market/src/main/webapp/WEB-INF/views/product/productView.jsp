@@ -58,7 +58,7 @@
 					<c:if test="${product.p_follow_sale == 'Y'}">
 						<b>팔로워 할인가 : <font style="font-size:20px;"> ${product.p_follow_price}원</font> </b><br>
 						<font color=blue size=2>팔로잉하고 팔로워 할인가로 구매하세요 
-						<a href="">>>팔로잉하기</a></font><br>
+						<a href="${path}/followInsert.do?s_no=${product.s_no}">>>팔로잉하기</a></font><br>
 					</c:if>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
 						<b>공동구매가 : <font style="font-size:20px;">${product.p_group_price}원</font></b><br>

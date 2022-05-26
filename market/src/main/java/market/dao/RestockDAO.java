@@ -8,7 +8,7 @@ public interface RestockDAO {
 	
 	boolean findRestockProduct(RestockDTO restock);
 	
-	void insert (RestockDTO restock);
+	void insert(RestockDTO restock);
 	
 	int getTotal(String m_email);
 	
