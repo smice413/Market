@@ -29,12 +29,17 @@ public class Order_tabDAO {
 
 	// 운송번호 입력
 	public int deliNoInsert(Order_manageDTO omdto) {
-		return sst.insert("order_managens.dinsert", omdto);
+		return sst.update("order_managens.dinsert", omdto);
+	}
+	
+	// 배송완료처리
+	public int deliOk(int op_no) {
+		return sst.update("order_managens.deliOk",op_no);
 	}
 
 	// 품절 취소 처리
 	public int cancel(Order_manageDTO omdto) {
-		return sst.insert("order_managens.cancel", omdto);
+		return sst.update("order_managens.cancel", omdto);
 	}
 
 	// 환불리스트 불러오기

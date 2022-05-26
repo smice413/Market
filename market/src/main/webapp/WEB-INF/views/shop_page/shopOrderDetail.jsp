@@ -15,7 +15,8 @@
 <%@ include file="../common/menuShop.jsp" %>
 <div class="container" align="center">
 <c:set var="o" value="${odlist}"></c:set>
-	<h2 class="text-primary">주문번호 : ${o[0].o_no}</h2>
+	<h3 class="text-primary">주문번호 : <fmt:formatDate value="${o[0].o_date }" pattern="yyMMdd"/> - <fmt:formatNumber value="${o[0].o_no }" pattern="#####" minIntegerDigits="5"/>
+	</h3>
 	<table class="table table-hover">
 		<tr>
 			<td>총주문액</td>
@@ -67,8 +68,12 @@
 			<td>
 			<c:if test="${od.op_status == '3'}">
 				운송장번호 :&nbsp;<input type=text id="op_deli_no" name="op${od.op_no}" size="8">
-				<input type="button" value="배송" onclick="check_ok(${od.op_no})">
-				<input type="button" value="품절취소" onclick="check_cancel(${od.op_no})">
+				<input type="button" class="btn btn-success" value="배송" onclick="check_ok(${od.op_no})">
+				<input type="button" class="btn btn-danger" value="품절취소" onclick="check_cancel(${od.op_no})">
+			</c:if>
+			<c:if test="${od.op_status == '6'}">
+				송장번호 : ${od.op_deli_no} &nbsp; <button type="button" class="btn btn-success"
+				onclick="location.href='deliOk.do?op_no='+${od.op_no}+'&o_no='+${o[0].o_no};">배송완료</button>
 			</c:if>
 			</td>
 		</tr>

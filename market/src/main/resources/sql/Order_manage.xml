@@ -48,7 +48,8 @@
 	p.p_name as p_name,
 	op.op_qty as op_qty,
 	p.p_sell_price as p_sell_price,
-	op.op_status as op_status
+	op.op_status as op_status,
+	op.op_deli_no as op_deli_no
 	
 	from order_tab ot
 	left join ORDER_PRODUCT op on ot.o_no = op.o_no
@@ -61,7 +62,8 @@
 		update order_product
 		set
 		op_deli_no = #{op_deli_no},
-		op_status = #{op_status}
+		op_status = #{op_status},
+		op_deli_date = sysdate
 		where
 		op_no = #{op_no}
 	</update>
@@ -69,7 +71,8 @@
 	<update id="cancel" parameterType="order_manage">
 		update order_product
 		set
-		op_status = #{op_status}
+		op_status = #{op_status},
+		op_cancel_date = sysdate
 		where
 		op_no = #{op_no}
 	</update>
@@ -94,6 +97,14 @@
 		update order_product
 		set
 		op_status = 9
+		where
+		op_no = #{op_no}
+	</update>
+	
+	<update id="deliOk" parameterType="int">
+		update order_product
+		set
+		op_status = 7
 		where
 		op_no = #{op_no}
 	</update>

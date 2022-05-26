@@ -20,7 +20,7 @@ public class ShopManageController {
 	@Autowired
 	private ShopManageService sms;
 
-	// 판매자 주문 관리
+	// 판매자 주문 리스트
 	@RequestMapping("order_tabList.do")
 	public String order_tabList(HttpSession session, HttpServletRequest request, Model model) {
 
@@ -33,7 +33,8 @@ public class ShopManageController {
 
 		return "shop_page/order_tabList";
 	}
-
+	
+	// 주문처리상세
 	@RequestMapping("shopOrderDetail.do")
 	public String orderDetail(int o_no, Model model) {
 
@@ -96,16 +97,29 @@ public class ShopManageController {
 		omdto.setOp_status("6");
 		omdto.setOp_no(opno);
 
+		
 		int result = sms.deliNoInsert(omdto);
 
-		if (result == 1) {
+		if (result == 1)
 			System.out.println("운송장번호 입력성공!");
-		}
-
+		
 		model.addAttribute("o_no", o_no);
 		model.addAttribute("result", result);
 
-		return "shop_page/deliResult";
+
+		return "shop_page/deliInsertResult";
+	}
+	
+	// 배송완료처리
+	@RequestMapping("deliOk.do")
+	public String deliOk(Model model, int op_no, int o_no) {
+		
+		int result = sms.deliOk(op_no);
+		
+		model.addAttribute("result", result);
+		model.addAttribute("o_no", o_no);
+		
+		return "shop_page/deliOkResult";
 	}
 
 	// 품절취소

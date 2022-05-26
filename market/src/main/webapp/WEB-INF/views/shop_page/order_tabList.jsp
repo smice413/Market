@@ -14,7 +14,19 @@
 <%@ include file="../common/header.jsp" %>
 <%@ include file="../common/menuShop.jsp" %>
 <div class="container" align="center">
-	<h2 class="text-primary">주문확인</h2>
+	<h3 class="text-primary">주문확인</h3>
+	<table width=100%>
+		<tr>
+			<td align=left>
+				<button class="btn btn-primary">전체배송관리</button>
+			</td>
+			<td align=right>
+				<button class="btn btn-info">아직미정</button>
+			</td>
+		</tr>
+	
+	</table>
+	<br>
 	<table class="table table-hover">
 		<tr>
 			<td>주문번호</td>
@@ -27,7 +39,10 @@
 		</tr>
 		<c:forEach var="o" items="${olist}">
 			<tr>
-			<td>${o.o_no}</td>
+			<td>
+				<fmt:formatDate value="${o.o_date }" pattern="yyMMdd"/> - 
+				<fmt:formatNumber value="${o.o_no }" pattern="#####" minIntegerDigits="5"/>
+			</td>
 			<td>${o.m_email}</td>
 			<td>${o.d_address}</td>
 			<td>${o.d_name}</td>
@@ -36,7 +51,7 @@
 				<fmt:formatDate value="${o.o_date}" pattern="yyyy-MM-dd HH:mm"/>
 			</td>
 			<td>
-				<a href="shopOrderDetail.do?o_no=${o.o_no}"><input type=button value="주문처리"></a>
+				<a href="shopOrderDetail.do?o_no=${o.o_no}"><input type=button class="btn btn-success"value="주문처리"></a>
 			</td>
 			</tr>
 		</c:forEach>

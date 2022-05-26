@@ -15,7 +15,7 @@
 <%@ include file="../common/header.jsp" %>
 <%@ include file="../common/menuShop.jsp" %>
 <div class="container" align="center">
-	<h2 class="text-primary">환불관리</h2>
+	<h3 class="text-primary">환불관리</h3>
 	<table class="table table-hover">
 		<tr>
 			<td>주문상품번호</td>
@@ -38,14 +38,14 @@
 				<fmt:formatDate value="${op.op_refund_date}" pattern="yyyy-MM-dd HH:mm"/>
 			</td>
 			<td style="text-align: left;">
-			<c:if test="${op.op_status == '8' }">환불요청중</c:if>
+			<c:if test="${op.op_status == '8' }">환불요청</c:if>
 			<c:if test="${op.op_status == '9' }">환불거부</c:if>
 			<c:if test="${op.op_status == '10' }">환불완료</c:if>
 			</td>
 			<td>
 			<c:if test="${op.op_status == '8' }">
-				<button type="button" onclick="location.href='refundOk.do?op_no='+${op.op_no}+'&o_no='+${op.o_no};"> 승인 </button>
-				<button type="button" onclick="location.href='refundNo.do?op_no='+${op.op_no}+'&o_no='+${op.o_no};"> 거절 </button>
+				<button type="button" class="btn btn-success" onclick="location.href='refundOk.do?op_no='+${op.op_no}+'&o_no='+${op.o_no};"> 승인 </button>
+				<button type="button" class="btn btn-danger" onclick="location.href='refundNo.do?op_no='+${op.op_no}+'&o_no='+${op.o_no};"> 거절 </button>
 			</c:if>
 			</td>
 			</tr>

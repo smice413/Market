@@ -44,6 +44,11 @@ public class ShopManageService {
 	public int deliNoInsert(Order_manageDTO omdto) {
 		return otdao.deliNoInsert(omdto);
 	}
+	
+	//배송완료처리
+	public int deliOk(int op_no) {
+		return otdao.deliOk(op_no);
+	}
 
 	// 품절취소처리
 	public int cancel(Order_manageDTO omdto) {
