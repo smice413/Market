@@ -95,7 +95,7 @@
 					<a class="order_btn btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
                   		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
 					<c:if test="${product.p_follow_sale == 'Y'}">
-					<a href="#home" class="follow_btn btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+					<a  class="follow_btn btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
 						<b>${product.p_follow_price}원<b><br>팔로워구매하기</a>
 					</c:if>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
@@ -183,6 +183,29 @@
 			var cart_qty = $(".cart_qty").val();
 			var op_type = "1";
 			
+ 			$.post("cartInsert.do",
+				{ "p_no" : p_no, 
+				  "cart_qty" : cart_qty, 
+				  "op_type": op_type      },
+				function(result){
+			       if(result.trim() == 'success'){
+			           var check = confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?");
+					   if(check) { 
+						  location.assign("cartList.do");
+						}else{
+						  return false;
+						}
+			        }else if(result.trim() == 'existed'){
+			            alert("이미 장바구니에 등록된 상품입니다.");
+			        }
+			}); // post() end */
+		});	
+		
+		// 팔로우 구매 버튼
+		$(".follow_btn").click(function(){
+			var p_no = ${product.p_no};
+			var cart_qty = $(".cart_qty").val();
+			var op_type = "2";
 			
  			$.post("cartInsert.do",
 				{ "p_no" : p_no, 
@@ -200,7 +223,7 @@
 			            alert("이미 장바구니에 등록된 상품입니다.");
 			        }
 			}); // post() end */
-		});			
+		});
 	});
 
 </script>
