@@ -14,8 +14,10 @@
 	 $("#emailsearchResult").html("<p>당신의 email은"+"<h4>"+email+"</h4>"+"입니다</p>");
 	 return emailResult(); */
 	 var email= "${shop.s_email}";
-	 var text ="당신의 email은 " +email+ " 입니다";
-	 alert(text);
+	 alert(email);
+	 alert("당신의 email은  "+email+"  입니다.");
+	 //var text ="당신의 email은 " +email+ " 입니다";
+	 //alert(text);
  }
  function emailsc(){
 	 $("form").submit();
@@ -38,7 +40,7 @@
 			<label>전화번호</label><div><input type="text" id="s_tel" name="s_tel"></div>
 		</div>
 		<div>
-			<input type="button" id="button" value="email찾기" onClick="emailsc()">
+			<input type="button" id="button" value="email찾기" class="btn btn-default" onClick="emailsc()">
 			<!-- <input type="submit" id="submit" name="submit" value="email찾기"> -->
 		</div>
 	</form>

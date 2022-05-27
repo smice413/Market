@@ -25,7 +25,7 @@
 			<label>전화번호</label><div><input type="text" id="s_tel" name="s_tel"></div>
 		</div>
 		<div>
-			<input type="submit" id="submit" name="submit" value="비번찾기">
+			<input type="submit" id="submit" name="submit" class="btn btn-default" value="비번찾기">
 		</div>
 	</form>	
 	</div>

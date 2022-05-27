@@ -568,7 +568,8 @@ public class ShopController {
 					String subject = "판매자 임시비밀번호 발급";
 
 					// 받는 사람 E-Mail 주소
-					String mail = "sung-ho413@hanmail.net";
+					String mail = shop.getS_email();
+					//String mail = "sung-ho413@hanmail.net";
 
 					try {
 						HtmlEmail email = new HtmlEmail(); //HtmlEmail: Email 라이브러리 import

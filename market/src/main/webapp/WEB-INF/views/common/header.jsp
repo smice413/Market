@@ -16,20 +16,33 @@
 				</c:if>
 
 	<!-- 세션이 있는 경우 --> 
-				<c:if test="${!empty sessionScope.m_email }">
-				   	<img src="${path}/images/person-hearts.svg" width=15px> ${sessionScope.m_email }님 환영합니다 &nbsp;|
-					<a href="${path }/logout.do"><img src="${path}/images/power.svg"></a> |
+				<c:if test="${!empty sessionScope.m_email}">
+					<img src="${path}/images/person-hearts.svg" width=15px>  ${sessionScope.m_email }님 환영합니다 &nbsp; |
 					<a href="${path }/orderList.do">마이페이지</a> |
+				</c:if>
+				<c:if test="${!empty sessionScope.m_email || !empty sessionScope.s_email && sessionScope.s_status=='2'}">
+					<a href="${path }/logout.do"><img src="${path}/images/power.svg"></a> |
+
+					<a href="${path }/shop_info.do">SHOP매니저</a> |
 				</c:if>		
 				<%-- <c:if test="${sessionScope.id == 'admin'}">
 					<a href="${path }/view.do?num=1&pageNum=1">관리자페이지</a> | 
 				</c:if>--%>
 				
-					<a href="${path }/memberList.do">관리자페이지</a> | 
-					<a href="${path }/shop_login_form.do">SHOP매니저</a> |
-					<a href="${path }/shop_join_form.do">입점신청</a> |
+
+					
 <%-- 					 | <a href="${path }/list.do">샘플게시판</a>  --%>
 					<!--  SHOP매니저 | 입점신청 | 회원가입 | 로그인 | 마이페이지| 장바구니 | 로그아웃 | 관리자페이지  | 이벤트/공지 | 고객센터 -->
+				<c:if test="${empty sessionScope.s_email }">
+					<a href="${path }/shop_login_form.do">SHOP로그인</a> |
+					<a href="${path }/shop_join_form.do">입점신청</a> |
+				</c:if>	
+				<%-- <c:if test="${!empty sessionScope.s_email && sessionScope.s_status=='2'}">
+					<a href="${path }/logout.do"><img src="${path}/images/power.svg"></a>
+					<a href="${path }/shop_info.do">SHOP매니저</a> |
+				</c:if>	 --%>
+				
+				<a href="${path }/memberList.do">관리자페이지</a>
 			</td>
 		</tr>
 		<tr>
