@@ -11,7 +11,7 @@
 
 <c:if test="${result == 1}">
 	<script>
-		alert("품절 취소 처리되었습니다.");
+		alert("품절 취소후 회원에게 안내 이메일을 발송했습니다.");
 		location.href="shopOrderDetail.do?o_no="+${o_no};
 	</script>
 </c:if>

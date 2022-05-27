@@ -68,11 +68,11 @@
 			<td>
 			<c:if test="${od.op_status == '3'}">
 				운송장번호 :&nbsp;<input type=text id="op_deli_no" name="op${od.op_no}" size="8">
-				<input type="button" class="btn btn-success" value="배송" onclick="check_ok(${od.op_no})">
-				<input type="button" class="btn btn-danger" value="품절취소" onclick="check_cancel(${od.op_no})">
+				<input type="button" class="btn btn-success btn-xs" value="배송" onclick="check_ok(${od.op_no})">
+				<input type="button" class="btn btn-danger btn-xs" value="품절취소" onclick="check_cancel(${od.op_no},'${od.p_name}','${od.m_email}')">
 			</c:if>
 			<c:if test="${od.op_status == '6'}">
-				송장번호 : ${od.op_deli_no} &nbsp; <button type="button" class="btn btn-success"
+				송장번호 : ${od.op_deli_no} &nbsp; <button type="button" class="btn btn-success btn-xs"
 				onclick="location.href='deliOk.do?op_no='+${od.op_no}+'&o_no='+${o[0].o_no};">배송완료</button>
 			</c:if>
 			</td>
@@ -87,8 +87,8 @@
    		location.href = 'deliInsert.do?dno='+text+'&opno='+n+'&o_no='+${o[0].o_no};
 	}
 	
-	function check_cancel(n){
-		location.href = 'shopOrderCancel.do?&op_no='+n+'&o_no='+${o[0].o_no};
+	function check_cancel(n, pn, email){
+		location.href = 'shopOrderCancel.do?&op_no='+n+'&o_no='+${o[0].o_no}+'&p_name='+pn+'&m_email='+email;
 	}
 </script>
 

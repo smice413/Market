@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -150,8 +151,7 @@ public class ShopManageController {
 
 	// 품절취소
 	@RequestMapping("shopOrderCancel.do")
-	public String shopOrderCancel(int o_no, int op_no, Model model) {
-
+	public String shopOrderCancel(int o_no, int op_no, String p_name, String m_email, Model model) {
 		Order_manageDTO omdto = new Order_manageDTO();
 
 		omdto.setOp_status("5");
@@ -165,7 +165,41 @@ public class ShopManageController {
 
 		model.addAttribute("o_no", o_no);
 		model.addAttribute("result", result);
-
+		
+		// Mail Server 설정
+		String charSet = "utf-8";
+		String hostSMTP = "smtp.gmail.com";
+		String hostSMTPid = "gcmarket99@gmail.com";
+		String hostSMTPpwd = "rhkcoakzpt99";
+		
+		// 보내는 사람 Email, 제목, 내용
+		String fromEmail = "gcmarket99@gmail.com";
+		String fromName = "마켓관리자";
+		String subject = "품절로 인한 주문취소가 발생되어 안내드립니다.";
+		
+		//메일 송신
+		String mail = m_email; // 수신받을 회원 이메일주소
+		try {
+			HtmlEmail email = new HtmlEmail();
+			email.setDebug(true);
+			email.setCharset(charSet);
+			email.setSSL(true);
+			email.setHostName(hostSMTP);
+			email.setSmtpPort(465);
+			
+			email.setAuthentication(hostSMTPid, hostSMTPpwd);
+			email.setTLS(true);
+			email.addTo(mail,charSet);
+			email.setFrom(fromEmail, fromName, charSet);
+			email.setSubject(subject);
+			
+			email.setHtmlMsg("<p align='center'>주문하신 "+p_name+" 상품이 품절되어 취소안내 메일보내드립니다.</p>");
+			email.send();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "shop_page/shopCancelResult";
 	}
 
