@@ -22,6 +22,7 @@ public class Order_productDTO {
 	private String m_email;
 	private Date op_confirm_date;
 	private Date op_refund_date;
+	private Date op_Date;
 	
 	// order_tab
 	private Date o_date;
@@ -133,6 +134,12 @@ public class Order_productDTO {
 	}
 	public void setOp_cancel_date(Date op_cancel_date) {
 		this.op_cancel_date = op_cancel_date;
+	}
+	public Date getOp_Date() {
+		return op_Date;
+	}
+	public void setOp_Date(Date op_Date) {
+		this.op_Date = op_Date;
 	}
 	public int getD_no() {
 		return d_no;

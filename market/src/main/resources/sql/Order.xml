@@ -82,10 +82,10 @@
 	<insert id="orderProductInsert">
 		insert into order_product 
 		(op_no, o_no, p_no, op_type, op_qty, op_price, op_refund, op_calc, op_status, d_no,
-		s_no, m_email)
+		s_no, m_email,op_date)
 		values
  		(order_product_seq.nextval,#{o_no},#{p_no},#{op_type}, #{op_qty},#{op_price},#{op_refund},
-		#{op_calc},3,#{d_no},#{s_no},#{m_email}) 
+		#{op_calc},3,#{d_no},#{s_no},#{m_email},sysdate) 
 	</insert>
 
 	<!-- 상품 재고 조회 -->

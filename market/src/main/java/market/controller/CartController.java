@@ -22,17 +22,12 @@ public class CartController {
 	@Autowired
 	private CartService cs;
 	
-	@RequestMapping("productViewTest.do")
-	public String productDetail(HttpSession session) {
-		
-		return "cart/productViewTest";
-	}
-	
 	// 장바구니에 상품 등록
 	@RequestMapping("cartInsert.do")
-	public String cartInsert(CartDTO cart, String op_type, HttpSession session, Model model) throws Exception {
+	public String cartInsert(CartDTO cart, HttpSession session, Model model) throws Exception {
 		System.out.println("p_no:"+cart.getP_no());
 		System.out.println("cart_qty:"+cart.getCart_qty());
+		System.out.println("op_type:"+cart.getOp_type());
 		
         String m_email = (String)session.getAttribute("m_email");
         System.out.println("m_email:"+m_email);

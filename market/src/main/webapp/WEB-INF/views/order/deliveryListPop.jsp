@@ -108,7 +108,7 @@
 			$.post("deliveryDelete.do", {
 					"d_no" : n
 			}, function(result) {
-				alert(result);
+//				alert(result);
 				if(result==1){
 					location.reload();
 				}

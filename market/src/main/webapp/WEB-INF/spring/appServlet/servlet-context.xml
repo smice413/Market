@@ -25,6 +25,11 @@
 			<mapping path="/followInsert.do"/>
 			<beans:ref bean="lc"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/cartList.do"/>
+			<mapping path="/cartInsert.do"/>
+			<beans:bean id="CartInterceptor" class="market.interceptor.CartInterceptor"></beans:bean>
+		</interceptor>
 	</interceptors>
 
 <!--     인터셉터 설정
