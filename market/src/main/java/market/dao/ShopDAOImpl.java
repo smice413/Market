@@ -94,7 +94,12 @@ public class ShopDAOImpl {
 
 	// email 찾기
 	public ShopDTO shop_emailsearch(ShopDTO shop) throws Exception {
-		return sqlsession.selectOne("shopns.shop_emailsearch",shop);
+		return sqlsession.selectOne("shopns.shop_emailsearch", shop);
+	}
+
+	// 관리자 list view구해오기
+	public ShopDTO shopListView(String s_email) throws Exception {
+		return sqlsession.selectOne("shopns.shop_select1",s_email);
 	}
 
 }

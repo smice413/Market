@@ -490,11 +490,18 @@ public class ShopController {
 				model.addAttribute("pp1", pp1);
 				model.addAttribute("shoplist1", shoplist1);
 			 
-			// return "admin_page/shopList_del";
-			 return "redirect:shopList.do";
+			return "admin_page/shopList_del";
+			// return "redirect:shopList.do";
 		 }
 	 
-	 
+	 // 관리자 shoplist에서 email클릭시 view페이지 보여주기
+	 @RequestMapping("shopListView.do")
+	 public String shopListView(@RequestParam("s_email") String s_email, Model model)throws Exception {
+		 System.out.println(s_email);
+		 ShopDTO shop = shopService.shopListView(s_email);
+		 model.addAttribute("shop", shop);
+		 return "admin_page/shopListView";
+	 }
 	 
 	 // 체크박스로 강제폐점
 	 @RequestMapping(value="shopList_del.do" , method=RequestMethod.POST)
@@ -616,10 +623,10 @@ public class ShopController {
 		 shop.setS_tel(s_tel);
 		 
 		 shop = shopService.shop_emailsearch(shop);
+		 String s_email =shop.getS_email();
+		 model.addAttribute("s_email", s_email);
 		 
-		 model.addAttribute("shop", shop);
-		 
-		 return "shop/shop_emailsearch";
+		 return "shop/shop_emailsearchResult";
 	 }
 	 
 	 

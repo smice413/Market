@@ -81,5 +81,8 @@ public class ShopServiceImpl {
 	public ShopDTO shop_emailsearch(ShopDTO shop)throws Exception{
 		return shopDAO.shop_emailsearch(shop);
 	}
-	
+	// 관리자 list view구해오기
+	public ShopDTO shopListView(String s_email)throws Exception{
+		return shopDAO.shopListView(s_email);
+	}
 }

@@ -7,21 +7,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
- function emailResult(){
+ //function emailResult(){
 	 /* $("#emailsearchResult").hide();
 	 var email = "${shop.s_email}";
 	 $("#emailsearchResult").show();
 	 $("#emailsearchResult").html("<p>당신의 email은"+"<h4>"+email+"</h4>"+"입니다</p>");
 	 return emailResult(); */
-	 var email= "${shop.s_email}";
-	 alert(email);
-	 alert("당신의 email은  "+email+"  입니다.");
+//	 var email= "${shop.s_email}";
+//	 alert(email);
+//	 alert("당신의 email은  "+email+"  입니다.");
 	 //var text ="당신의 email은 " +email+ " 입니다";
 	 //alert(text);
- }
+// } 
  function emailsc(){
 	 $("form").submit();
-	 emailResult();
+	 //emailResult();
  }
 </script>
 </head>

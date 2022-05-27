@@ -59,23 +59,26 @@ function shopList_del(){
 
 </head>
 <body>
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuAdmin.jsp"%>
 <!-- <div id="shopList"></div> -->
-<div class="shopList_exit vf-wide700-card" style="width: 1200px; overflow-y:scroll;">
-<center><h1>강제폐점</h1></center>
-<table border="1" align="center">
+<!-- <div class="shopList_exit vf-wide700-card" style="width: 1200px; overflow-y:scroll;"> -->
+<div class="container" align="center">
+<center><h2>강제폐점</h2></center>
+<table class="table">
 		<tr>
 			<th>선택</th>
 			<th>email</th>
 			<th>상호명</th>
 			<th>대표자명</th>
-			<th>사업자번호</th>
+			<!-- <th>사업자번호</th>
 			<th>통신판매업번호</th>
 			<th>서류첨부</th>
 			<th>우편번호</th>
 			<th>주소</th>
 			<th>전화번호</th>
 			<th>은행명</th>
-			<th>정산계좌</th>
+			<th>정산계좌</th> -->
 			<th>가입일</th>
 			<th>상태</th>
 		</tr>
@@ -86,17 +89,17 @@ function shopList_del(){
 			<td>
 		    <input type="checkbox" id="checkbox" name="s_email" value="${shopdel.s_email}">
 		    </td>
-		 	<td>${shopdel.s_email}</td>
+		 	<td><a href="shopListView.do?s_email=${shopdel.s_email}" style="text-decoration:none;">${shopdel.s_email}</a></td>
 		 	<td>${shopdel.s_name}</td>
 		 	<td>${shopdel.s_ceo}</td>
+		 	<%-- <td>${shopdel.s_bizno}</td>
 		 	<td>${shopdel.s_tongsin}</td>
-		 	<td>${shopdel.s_bizno}</td>
 		 	<td>${shopdel.s_file}</td>
 		 	<td>${shopdel.s_post}</td>
 		 	<td>${shopdel.s_address}</td>
 		 	<td>${shopdel.s_tel}</td>
 		 	<td>${shopdel.s_bank}</td>
-		 	<td>${shopdel.s_account}</td>
+		 	<td>${shopdel.s_account}</td> --%>
 		 	<td>
 		 	<fmt:formatDate value="${shopdel.s_regdate}" pattern="yy-MM-dd"/>
 		 	</td>
@@ -109,9 +112,9 @@ function shopList_del(){
 
 <div class="shopList_ck" align="center" style="display:flex; align-items:center;">
 <div class="check" style="margin-left:20px;">
-<input type="button" id="button" value="강제폐점" onclick="shopList_del()">
+<input type="button" id="button" value="강제폐점" class="btn btn-danger" onclick="shopList_del()">
 </div>
-<%-- <ul class="pagination" style="margin-left:43%;">
+<ul class="pagination" style="margin-left:43%;">
 			
 		<c:if test="${pp1.startPage > pp1.pagePerBlk }">
 			<li><a href="${path}/shopListdel.do?pageNum=${pp1.startPage - 1}">이전</a></li>
@@ -124,7 +127,7 @@ function shopList_del(){
 			<li><a href="${path}/shopListdel.do?pageNum=${pp1.endPage + 1}">다음</a></li>
 		</c:if>
 		 
-</ul> --%>
+</ul>
 </div>	
 
 

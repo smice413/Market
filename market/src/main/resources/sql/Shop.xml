@@ -13,6 +13,10 @@
 	<select id="shop_select" parameterType="String" resultType="shop">
 		select * from shop where s_email= #{s_email} and s_status='2'
 	</select>
+	<!-- 관리자 list view값 구하기 -->
+	<select id="shop_select1" parameterType="String" resultType="shop">
+		select * from shop where s_email= #{s_email}
+	</select>
 	<!-- 판매자 정보 수정 -->
 	<update id="shop_update" parameterType="shop">
 		update shop set s_name=#{s_name}, s_ceo=#{s_ceo}, 

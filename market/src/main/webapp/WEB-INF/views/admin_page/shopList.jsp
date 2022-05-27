@@ -50,7 +50,7 @@ function shopList_check(){
 }
 
 </script>
-<script>
+<!-- <script>
 function shopList_del(){
 	
 	var arrdel = new Array();
@@ -101,7 +101,7 @@ function shopList_del(){
  	top:0px;
  	background-color: #5cb85c; 
  }
-</style>
+</style> -->
 
 <!-- <script>
 	$(document).ready(function(){
@@ -119,24 +119,25 @@ function shopList_del(){
 <%@ include file="../common/menuAdmin.jsp"%>
 <!-- <form method="post" onSubmit="return shopList_del()"> -->
 
-<center><h1>입점승인</h1></center>
+<center><h2>입점승인</h2></center>
 
-<div style="overflow-y:scroll; height:150px;">
-<table id="shopList" border="1" align="center">
+<!-- <div style="overflow-y:scroll; height:150px;"> -->
+<div class="container" align="center">
+<table id="shopList" class="table">
 	
 		<tr>
 			<th>선택</th>
 			<th>email</th>
 			<th>상호명</th>
 			<th>대표자명</th>
-			<th>사업자번호</th>
+			<!-- <th>사업자번호</th>
 			<th>통신판매업번호</th>
 			<th>서류첨부</th>
 			<th>우편번호</th>
 			<th>주소</th>
 			<th>전화번호</th>
 			<th>은행명</th>
-			<th>정산계좌</th>
+			<th>정산계좌</th> -->
 			<th>가입일</th>
 			<th>상태</th>
 		</tr>
@@ -147,17 +148,17 @@ function shopList_del(){
 			<td>
 		    <input type="checkbox" id="checkbox" name="s_email" value="${shop.s_email}">
 		    </td>
-		 	<td>${shop.s_email}</td>
+		 	<td><a href="shopListView.do?s_email=${shop.s_email}" style="text-decoration:none;">${shop.s_email}</a></td>
 		 	<td>${shop.s_name}</td>
 		 	<td>${shop.s_ceo}</td>
+		 	<%-- <td>${shop.s_bizno}</td>
 		 	<td>${shop.s_tongsin}</td>
-		 	<td>${shop.s_bizno}</td>
 		 	<td>${shop.s_file}</td>
 		 	<td>${shop.s_post}</td>
 		 	<td>${shop.s_address}</td>
 		 	<td>${shop.s_tel}</td>
 		 	<td>${shop.s_bank}</td>
-		 	<td>${shop.s_account}</td>
+		 	<td>${shop.s_account}</td> --%>
 		 	<td>
 		 	<fmt:formatDate value="${shop.s_regdate}" pattern="yy-MM-dd"/>
 		 	</td>
@@ -166,15 +167,11 @@ function shopList_del(){
 		</c:if>
 	</c:forEach>
 </table>
-</div>
-
-
-
 <div class="shopList_ck" align="center" style="display:flex; align-items:center;">
 <div class="check" style="margin-left:20px;">
-<input type="button" id="button" value="입점승인" onclick="shopList_check()">
+<input type="button" id="button" value="입점승인" class="btn btn-success" onclick="shopList_check()">
 </div>
-<%-- <ul class="pagination" style="margin-left:43%;">
+<ul class="pagination" style="margin-left:43%;">
 			
 		<c:if test="${pp.startPage > pp.pagePerBlk }">
 			<li><a href="${path}/shopList.do?pageNum=${pp.startPage - 1}">이전</a></li>
@@ -187,11 +184,15 @@ function shopList_del(){
 			<li><a href="${path}/shopList.do?pageNum=${pp.endPage + 1}">다음</a></li>
 		</c:if>
 		 
-</ul> --%>
+</ul>
+</div>
 </div>
 
+
+
+
 <!-- <div id="shopListDel"></div> -->
-<center><h1>강제폐점</h1></center>
+<%-- <center><h1>강제폐점</h1></center>
 <div class="shopList_exit" style="overflow-y:scroll; height:150px;">
 <table id="shopListdel" border="1" align="center">
 		<tr>
@@ -242,7 +243,7 @@ function shopList_del(){
 <div class="shopList_ck" align="center" style="display:flex; align-items:center;">
 <div class="check" style="margin-left:20px;">
 <input type="button" id="button" value="강제폐점" onclick="shopList_del()">
-</div>
+</div> --%>
 <%-- <ul class="pagination" style="margin-left:43%;">
 			
 		<c:if test="${pp1.startPage > pp1.pagePerBlk }">
