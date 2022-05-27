@@ -192,7 +192,12 @@ function validate_userid(email){
  /* 회원정보 수정 경고창 */
 function edit(){
 	
-	 if($.trim($("#s_passwd1").val())==""){
+	if($.trim($("#s_passwd").val())==""){
+		alert("비밀번호를 입력하세요!");
+		$("#s_passwd").val("").focus();
+		return false;
+	}
+	/* if($.trim($("#s_passwd1").val())==""){
 		 alert("비밀번호를 입력하세요!");
 		 $("#s_passwd1").val("").focus();
 		 return false;
@@ -204,7 +209,7 @@ function edit(){
 		
 		 $("#s_passwd1").focus();
 		 return false;
-	 }
+	 }*/
 	 if($.trim($("#s_name").val())==""){
 		 alert("상호명을 입력하세요!");
 		 $("#s_name").val("").focus();

@@ -71,8 +71,7 @@ function openDaumPostcode() {
 			action="shop_info_edit.do" enctype="multipart/form-data"
 			onSubmit="return edit()">
 			<!--  <input type="hidden" id="s_status" name="s_status" value="1"> -->
-			<input type="hidden" id="s_seckey" name="s_seckey" value="1111">
-			<input type="hidden" id="s_passwd" value="${shop.s_passwd}">
+			<%-- <input type="hidden" id="s_passwd" value="${shop.s_passwd}"> --%>
 			
 			<table class="table">
 				<tr>
@@ -90,7 +89,7 @@ function openDaumPostcode() {
 				
 				<tr>
 					<th>비밀번호확인</th>
-					<td><input type="password" id="s_passwd1" name="s_passwd1">
+					<td><input type="password" id="s_passwd" name="s_passwd">
 					<input type="button" id="changepw" value="비밀번호 변경" onClick="changepw1()"><font color="red">*비밀번호 변경시 클릭!</font>
 					<div id="changepwform"></div>
 					</td>
