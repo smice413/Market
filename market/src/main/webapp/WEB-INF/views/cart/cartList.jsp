@@ -66,6 +66,9 @@ input[type="checkbox"]{
 	margin-top:100px;
 	margin-bottom: 100px;
 }
+#line{
+	text-decoration:line-through;
+}
 
 
 </style>	
@@ -139,7 +142,13 @@ input[type="checkbox"]{
 							  <div style="margin-top:28px;">
 								${cl.p_name} 재고 : ${cl.p_stock }<br>
 								<div style="font-size:13px;">
-									<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_sell_price}"/>&nbsp;원</label>
+									<c:if test="${cl.op_type == 1}">									
+										<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_sell_price}"/>&nbsp;원</label>
+								    </c:if>
+								    <c:if test="${cl.op_type == 2}">
+								    	<label id="line"><fmt:formatNumber pattern="#,###,###" value="${cl.p_sell_price}"/>&nbsp;원</label>
+								    	<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_follow_price}"/>&nbsp;원</label>
+								    </c:if>	
 								    | ${cl.s_name} 
 							    </div>
 							  </div>  

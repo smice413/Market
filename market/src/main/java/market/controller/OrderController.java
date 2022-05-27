@@ -101,8 +101,20 @@ public class OrderController {
 		
 		delivery.setM_email(m_email);
 		
-		int result = os.deliveryInsert(delivery);
-		System.out.println("result:"+result);
+		// 배송지 등록이 처음인지 여부 확인
+		int addressCount = os.getAddressCount(m_email);
+		System.out.println("addressCount:"+addressCount);
+				
+		int result = 0;
+				
+		// 첫 등록하는 주소를 기본 배송지로 설정
+		if(addressCount == 0) {
+			result = os.deliveryInsertY(delivery);
+			System.out.println("result:"+result);
+		}else if(addressCount>=1) {
+			result = os.deliveryInsertN(delivery);
+			System.out.println("result:"+result);
+		}
 		
 		model.addAttribute("result", result);
 		

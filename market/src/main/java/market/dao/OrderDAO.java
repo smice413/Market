@@ -16,7 +16,8 @@ public interface OrderDAO {
 	public OrderPageItemDTO getProductInfo(int p_no);
 	DeliveryDTO getDeliveryInfo(String m_email);
 	int getAddressCount(String m_email);
-	int deliveryInsert(DeliveryDTO delivery);
+	int deliveryInsertY(DeliveryDTO delivery);
+	int deliveryInsertN(DeliveryDTO delivery);
 	List<DeliveryDTO> getDeliveryList(String m_email);
 	int UpdateDefaultN(String m_email);
 	int UpdateDefaultY(int d_no);

@@ -20,8 +20,14 @@
 		select count(*) from delivery where m_email=#{m_email} and d_delstatus='N' 
 	</select>
 	
+	<!-- 배송지 첫 등록 -->
+	<insert id="deliveryInsertY" parameterType="delivery">
+		insert into delivery values(delivery_seq.nextval,#{m_email},#{d_name},#{d_tel},
+		#{d_cate},#{d_post},#{d_address},'Y',#{d_detail_address},'N')
+	</insert>
+	
 	<!-- 배송지 등록 -->
-	<insert id="deliveryInsert" parameterType="delivery">
+	<insert id="deliveryInsertN" parameterType="delivery">
 		insert into delivery values(delivery_seq.nextval,#{m_email},#{d_name},#{d_tel},
 		#{d_cate},#{d_post},#{d_address},'N',#{d_detail_address},'N')
 	</insert>

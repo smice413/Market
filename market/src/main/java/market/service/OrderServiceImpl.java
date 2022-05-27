@@ -49,8 +49,13 @@ public class OrderServiceImpl implements OrdereService{
 	
 	
 	@Override
-	public int deliveryInsert(DeliveryDTO delivery) {
-		return od.deliveryInsert(delivery);
+	public int deliveryInsertY(DeliveryDTO delivery) {
+		return od.deliveryInsertY(delivery);
+	}
+	
+	@Override
+	public int deliveryInsertN(DeliveryDTO delivery) {
+		return od.deliveryInsertN(delivery);
 	}
 
 	@Override

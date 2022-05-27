@@ -37,10 +37,14 @@ public class OrderDAOImpl implements OrderDAO{
 		return sst.selectOne("orderpagens.getAddressCount", m_email);
 	}
 	
+	@Override
+	public int deliveryInsertY(DeliveryDTO delivery) {
+		return sst.insert("orderpagens.deliveryInsertY", delivery);
+	}
 	
 	@Override
-	public int deliveryInsert(DeliveryDTO delivery) {
-		return sst.insert("orderpagens.deliveryInsert", delivery);
+	public int deliveryInsertN(DeliveryDTO delivery) {
+		return sst.insert("orderpagens.deliveryInsertN", delivery);
 	}
 
 	@Override
