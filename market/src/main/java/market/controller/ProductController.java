@@ -200,6 +200,10 @@ public class ProductController {
 		
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
+		String status = product.getStatus();
+		if (status == null || status.equals("")) {
+			status = "1";
+		}
 		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
@@ -215,7 +219,7 @@ public class ProductController {
 		model.addAttribute("search", product.getSearch());
 		model.addAttribute("keyword", product.getKeyword());
 		model.addAttribute("orderCond", product.getOrderCond());
-		model.addAttribute("status", product.getStatus());
+		model.addAttribute("status", status);
 		
 		return "product/productList";
 	}
