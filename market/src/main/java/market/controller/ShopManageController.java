@@ -24,34 +24,34 @@ public class ShopManageController {
 
 	// 판매자 주문 리스트
 	@RequestMapping("order_tabList.do")
-	public String order_tabList(HttpSession session, HttpServletRequest request,
-			Model model, String pageNum, Order_manageDTO order_manage) {
-		
+	public String order_tabList(HttpSession session, HttpServletRequest request, Model model, String pageNum,
+			Order_manageDTO order_manage) {
+
 		session = request.getSession();
 
 		int s_no = (int) session.getAttribute("s_no");
-		
+
 		order_manage.setS_no(s_no);
-		
-		final int rowPerPage=5;
-		
-		if(pageNum == null || pageNum.equals("")) {
-			pageNum="1";
+
+		final int rowPerPage = 5;
+
+		if (pageNum == null || pageNum.equals("")) {
+			pageNum = "1";
 		}
-		
+
 		int currentPage = Integer.parseInt(pageNum);
-		
+
 		int total = sms.getTotal(s_no);
-		
-		int startRow = (currentPage-1)*rowPerPage+1;
-		int endRow = startRow+rowPerPage-1;
-		
+
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
-		
+
 		order_manage.setStartRow(startRow);
 		order_manage.setEndRow(endRow);
-		
-		int no = total-startRow+1;
+
+		int no = total - startRow + 1;
 
 		List<Order_manageDTO> olist = sms.olist(order_manage);
 		model.addAttribute("olist", olist);
@@ -60,7 +60,7 @@ public class ShopManageController {
 
 		return "shop_page/order_tabList";
 	}
-	
+
 	// 주문처리상세
 	@RequestMapping("shopOrderDetail.do")
 	public String orderDetail(int o_no, Model model) {
@@ -89,23 +89,55 @@ public class ShopManageController {
 
 	// 환불승인
 	@RequestMapping("refundOk")
-	public String refundOk(Model model, int op_no, int o_no) {
-		
+	public String refundOk(Model model, int op_no, int o_no, String m_email) {
 		
 		int result = sms.refundOk(op_no);
+		model.addAttribute("result", result);
 
-		model.addAttribute("result",result);
-		
+		// Mail Server 설정
+		String charSet = "utf-8";
+		String hostSMTP = "smtp.gmail.com";
+		String hostSMTPid = "gcmarket99@gmail.com";
+		String hostSMTPpwd = "rhkcoakzpt99";
+
+		// 보내는 사람 Email, 제목, 내용
+		String fromEmail = "gcmarket99@gmail.com";
+		String fromName = "마켓관리자";
+		String subject = "[과채마켓] 요청하신 환불 신청건이 처리되어 안내드립니다.";
+
+		// 메일 송신
+		String mail = m_email; // 수신받을 회원 이메일주소
+		try {
+			HtmlEmail email = new HtmlEmail();
+			email.setDebug(true);
+			email.setCharset(charSet);
+			email.setSSL(true);
+			email.setHostName(hostSMTP);
+			email.setSmtpPort(465);
+
+			email.setAuthentication(hostSMTPid, hostSMTPpwd);
+			email.setTLS(true);
+			email.addTo(mail, charSet);
+			email.setFrom(fromEmail, fromName, charSet);
+			email.setSubject(subject);
+
+			email.setHtmlMsg("<p align=center>요청하신 환불 신청건이 처리되었습니다.</p><br><p align=center>환불 금액이 다시 입금되기까지는 결제한</p><br><p align=center>수단에 따라 영업일 기준 최대 10일이</p><br><p align=center>걸릴수 있으니 이점 참고하시기 바랍니다.</p><br>");
+			email.send();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return "shop_page/refundOkResult";
 	}
 
 	// 환불거부
 	@RequestMapping("refundNo")
 	public String refundNo(Model model, int op_no, int o_no) {
-		
+
 		int result = sms.refundNo(op_no);
-		
-		model.addAttribute("result",result);
+
+		model.addAttribute("result", result);
 
 		return "shop_page/refundNoResult";
 	}
@@ -124,28 +156,26 @@ public class ShopManageController {
 		omdto.setOp_status("6");
 		omdto.setOp_no(opno);
 
-		
 		int result = sms.deliNoInsert(omdto);
 
 		if (result == 1)
 			System.out.println("운송장번호 입력성공!");
-		
+
 		model.addAttribute("o_no", o_no);
 		model.addAttribute("result", result);
-
 
 		return "shop_page/deliInsertResult";
 	}
-	
+
 	// 배송완료처리
 	@RequestMapping("deliOk.do")
 	public String deliOk(Model model, int op_no, int o_no) {
-		
+
 		int result = sms.deliOk(op_no);
-		
+
 		model.addAttribute("result", result);
 		model.addAttribute("o_no", o_no);
-		
+
 		return "shop_page/deliOkResult";
 	}
 
@@ -165,19 +195,19 @@ public class ShopManageController {
 
 		model.addAttribute("o_no", o_no);
 		model.addAttribute("result", result);
-		
+
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.gmail.com";
 		String hostSMTPid = "gcmarket99@gmail.com";
 		String hostSMTPpwd = "rhkcoakzpt99";
-		
+
 		// 보내는 사람 Email, 제목, 내용
 		String fromEmail = "gcmarket99@gmail.com";
 		String fromName = "마켓관리자";
-		String subject = "품절로 인한 주문취소가 발생되어 안내드립니다.";
-		
-		//메일 송신
+		String subject = "[과채마켓] 품절로 인한 주문취소가 발생되어 안내드립니다.";
+
+		// 메일 송신
 		String mail = m_email; // 수신받을 회원 이메일주소
 		try {
 			HtmlEmail email = new HtmlEmail();
@@ -186,20 +216,20 @@ public class ShopManageController {
 			email.setSSL(true);
 			email.setHostName(hostSMTP);
 			email.setSmtpPort(465);
-			
+
 			email.setAuthentication(hostSMTPid, hostSMTPpwd);
 			email.setTLS(true);
-			email.addTo(mail,charSet);
+			email.addTo(mail, charSet);
 			email.setFrom(fromEmail, fromName, charSet);
 			email.setSubject(subject);
-			
-			email.setHtmlMsg("<p align='center'>주문하신 "+p_name+" 상품이 품절되어 취소안내 메일보내드립니다.</p>");
+
+			email.setHtmlMsg("<p align='center'>주문하신 " + p_name + " 상품이 품절되어 취소안내 메일보내드립니다.</p>");
 			email.send();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return "shop_page/shopCancelResult";
 	}
 

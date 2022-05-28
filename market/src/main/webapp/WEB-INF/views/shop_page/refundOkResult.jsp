@@ -11,7 +11,7 @@
 
 <c:if test="${result == 1}">
 	<script>
-		alert("환불신청건이 승인되었습니다.");
+		alert("환불 승인 안내 이메일을 발송했습니다.");
 		location.href="refundList.do";
 	</script>
 </c:if>

@@ -15,17 +15,6 @@
 <%@ include file="../common/menuShop.jsp" %>
 <div class="container" align="center">
 	<h3 class="text-primary">주문확인</h3>
-	<table width=100%>
-		<tr>
-			<td align=left>
-				<button class="btn btn-primary">전체배송관리</button>
-			</td>
-			<td align=right>
-				<button class="btn btn-info">아직미정</button>
-			</td>
-		</tr>
-	
-	</table>
 	<br>
 	<table class="table table-hover">
 		<tr>

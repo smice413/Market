@@ -44,7 +44,7 @@
 			</td>
 			<td>
 			<c:if test="${op.op_status == '8' }">
-				<button type="button" class="btn btn-success btn-xs" onclick="location.href='refundOk.do?op_no='+${op.op_no}+'&o_no='+${op.o_no};"> 승인 </button>
+				<button type="button" class="btn btn-success btn-xs" onclick="location.href='refundOk.do?op_no='+${op.op_no}+'&o_no='+${op.o_no}+'&m_email='+'${op.m_email}';"> 승인 </button>
 				<button type="button" class="btn btn-danger btn-xs" onclick="location.href='refundNo.do?op_no='+${op.op_no}+'&o_no='+${op.o_no};"> 거절 </button>
 			</c:if>
 			</td>
