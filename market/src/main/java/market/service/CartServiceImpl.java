@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import market.dao.CartDAO;
 import market.model.CartDTO;
+import market.model.FollowDTO;
 import market.model.ProductDTO;
 
 @Service
@@ -40,6 +41,11 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
+	public List<FollowDTO> getFollowList(String m_email) {
+		return cd.getFollowList(m_email);
+	}
+	
+	@Override
 	public void update(CartDTO cart) {
 		cd.update(cart);
 	}
@@ -58,6 +64,7 @@ public class CartServiceImpl implements CartService{
 	public int deleteOrderCart(CartDTO cart) {
 		return cd.deleteOrderCart(cart);
 	}
+
 
 
 

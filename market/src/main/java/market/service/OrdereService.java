@@ -14,7 +14,7 @@ import market.model.ProductDTO;
 public interface OrdereService {
 	
 	// 주문페이지
-	public OrderPageItemDTO getProductInfo(int p_no);
+	OrderPageItemDTO getProductInfo(int p_no);
 	DeliveryDTO getDeliveryInfo(String m_email);
 	int getAddressCount(String m_email);
 	int deliveryInsertY(DeliveryDTO delivery);

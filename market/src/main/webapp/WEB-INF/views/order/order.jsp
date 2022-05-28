@@ -53,6 +53,15 @@
 .radio2{
 	margin-left:10px;
 }
+#follow_sale{
+	color:red; 
+	font-size:13px;
+	margin-bottom:1px;
+}
+#line{
+	text-decoration:line-through;
+	color:#bcbcbc;
+}
 
 </style>
 
@@ -73,7 +82,6 @@
 				<tr>
 					<th colspan="1"></th>
 					<th>상품정보</th> 
-					<th>판매자</th> 
 					<th>수량</th> 
 					<th>합계</th>
 				</tr>
@@ -83,18 +91,29 @@
 				<tr>
 					<td align="center"><img src="${path}/upload/product/${pi.p_img}" width=100px></td>
 					<td align="left">
-						<div style="margin-top:30px;">
+						<!-- 일반 판매 상품 -->
+						<c:if test="${pi.op_type == 1}">
+						<div style="margin-top:25px;">
 						   <b>${pi.p_name}</b> <br>
-						<div style="font-size:13px;margin-top:2px;">
-						<fmt:formatNumber pattern="#,###,###" value="${pi.p_sell_price}"/>&nbsp;원
-						   | ${pi.s_name} 
-					    </div>
+							<div style="font-size:13px;margin-top:2px;">
+								<fmt:formatNumber pattern="#,###,###" value="${pi.p_sell_price}"/>&nbsp;원
+						  		 | ${pi.s_name} 
+					    	</div>
 						</div>
-					</td>
-					<td>
-						<div style="margin-top:35px;">
-							${pi.s_name}
+						</c:if>
+						<!-- 팔로우 특가 상품 -->
+						<c:if test="${pi.op_type == 2}">
+						<div style="margin-top:15px;">
+							<label id="follow_sale">※팔로우 특가※</label> <br>
+						   <b>${pi.p_name}</b> <br>
+							<div style="font-size:13px;margin-top:2px;">
+								<fmt:formatNumber pattern="#,###,###" value="${pi.p_sell_price}"/>&nbsp;원
+								<label id="line"><fmt:formatNumber pattern="#,###,###" value="${originPrice}"/>&nbsp;원</label>
+						  		 | ${pi.s_name} 
+					    	</div>
 						</div>
+						</c:if>
+						
 					</td>
 					<td><div style="margin-top:35px;">${pi.cart_qty} 개 </div></td>
 					<td>
@@ -212,23 +231,6 @@
 				 </table>		
 				</div>
 				
-			
-		
-<!-- 		쿠폰 정보 
-		<table class="coupon_table" style="width:100%; margin-top:50px;">
-			<tr>
-				<td colspan="2"><h3 style="margin-left:20px;">쿠폰</h3></td>
-			</tr>
-			<tr style="border-top:3px solid;border-top-color:#dddddd;">
-				<td><div style="margin-left:20px;margin-top:20px;"><label>쿠폰 적용</label></div></td>
-				<td>
-					<select style="margin-top:20px;">
-						<option value="">쿠폰선택</option>
-					</select>
-				</td>
-			</tr>
-		</table> -->
-		
 	<!-- 주문 종합 정보 -->
 		<div class="total_info_price_div">
 		<table class="price_table" style="width:100%; margin-top:50px;">
@@ -243,10 +245,6 @@
 				<td><label>배송비</label></td>
 				<td class="r"><span class="deliveryFee_span"></span></td>
 		    </tr>
-<!-- 		    <tr>
-				<td><label>쿠폰 할인 금액</label></td>
-				<td class="r"><span class="cpSalePrice_span"></span></td>
-		    </tr> -->
 		    <tr class="final_tr">
 				<td><label>최종 결제 금액</label></td>
 				<td class="r"><span class="finalTotalPrice_span"></span></td>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import market.model.CartDTO;
+import market.model.FollowDTO;
 import market.model.ProductDTO;
 
 @Repository
@@ -35,6 +36,11 @@ public class CartDAOImpl implements CartDAO{
 		return sst.selectList("cartns.list", m_email);
 	}
 
+	@Override
+	public List<FollowDTO> getFollowList(String m_email) {
+		return sst.selectList("cartns.getFollowList", m_email);
+	}
+	
 	@Override
 	public void update(CartDTO cart) {
 		sst.update("cartns.update", cart);

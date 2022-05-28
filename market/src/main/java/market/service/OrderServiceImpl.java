@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrdereService{
 	public OrderPageItemDTO getProductInfo(int p_no){	
 		return od.getProductInfo(p_no);
 	}
-
+	
 	@Override
 	public DeliveryDTO getDeliveryInfo(String m_email) {
 		System.out.println("OrderServiceImpl");
@@ -124,6 +124,8 @@ public class OrderServiceImpl implements OrdereService{
 		// TODO Auto-generated method stub
 		return od.updateStock(product);
 	}
+
+
 
 
 

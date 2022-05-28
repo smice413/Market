@@ -68,6 +68,19 @@ input[type="checkbox"]{
 }
 #line{
 	text-decoration:line-through;
+	color:#bcbcbc;
+}
+#following{
+	float:right;
+	margin-top:40px;
+}
+#follow_sale{
+	color:red; 
+	font-size:13px;
+	margin-bottom:1px;
+}
+#p_info_div{
+	margin-top:28px;
 }
 
 
@@ -81,6 +94,8 @@ input[type="checkbox"]{
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 </header>
 
+팔로우 목록 : ${followList[0].s_no}
+팔로우 목록 : <c:forEach var="fl" items="${followList}">${fl.s_no},</c:forEach>
 
 
    <div class="container">
@@ -112,7 +127,14 @@ input[type="checkbox"]{
 							<input type="checkbox" name="checkbox" class="allCheck_input_${sn.s_no}" id="checkbox" 
 							      onclick="allCheck(${sn.s_no});" checked style="margin-right:5px;">
 							<img src="${path}/images/shop.png" style="width:30px; height:30px; margin-bottom:7px;">
-							<label style="font-size:20px; margin-left:5px;">${sn.s_name}</label> 
+							<label style="font-size:20px; margin-left:5px;">${sn.s_name}</label>
+	       					<c:forEach var="fl" items="${followList}">
+							<c:if test="${sn.s_no eq fl.s_no}">
+								<div id="following">
+									<img src="${path}/images/house-heart.svg"> market
+								</div>
+							</c:if>
+							</c:forEach> 
 						</th> 
 					</tr>
 				</thead>
@@ -127,34 +149,48 @@ input[type="checkbox"]{
 								       onclick="check(${sn.s_no});" value="${cl.cart_no}">
 								<input type="hidden" class="p_sell_price_input" name="p_sell_price" value="${cl.p_sell_price}">
 								<input type="hidden" class="cart_qty_input" name="cart_qty" value="${cl.cart_qty}">
-								<input type="hidden" class="total_price_input" name="total_price" value="${cl.p_sell_price * cl.cart_qty}">
 								<input type="hidden" class="cart_no_input" name="cart_no" value="${cl.cart_no}">
 								<input type="hidden" class="p_no_input" name="p_no" value="${cl.p_no}">
 								<input type="hidden" class="op_type_input" name="op_type" value="${cl.op_type}">
 								<input type="hidden" class="p_stock_input" name="p_stock" value="${cl.p_stock}">
+								<input type="hidden" class="p_follow_price_input" name="p_follow_price" value="${cl.p_follow_price}">
+								<!-- 일반 판매 상품 -->
+								<c:if test="${cl.op_type == 1}">
+									<input type="hidden" class="total_price_input" name="total_price" value="${cl.p_sell_price * cl.cart_qty}">
+								</c:if>
+								<!-- 팔로우 특가 상품 -->
+								<c:if test="${cl.op_type == 2}">
+									<input type="hidden" class="total_price_input" name="total_price" value="${cl.p_follow_price * cl.cart_qty}">
+								</c:if>
 							</c:if>
 							</td>
 							<td width=105px>
 								<a href="productView.do?p_no=${cl.p_no}">
-									<img src="${path}/upload/product/${cl.p_img}" width=100px></a>
+								<img src="${path}/upload/product/${cl.p_img}" width=100px></a>
 							</td>
 							<td align="left">
-							  <div style="margin-top:28px;">
+							  <div id="p_info_div">
+							  <c:if test="${cl.op_type == 2}">
+							  	<label id="follow_sale">※팔로우 특가※</label> <br>
+							  </c:if>
 								${cl.p_name} 재고 : ${cl.p_stock }<br>
 								<div style="font-size:13px;">
+									<!-- 일반 판매 상품 -->
 									<c:if test="${cl.op_type == 1}">									
-										<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_sell_price}"/>&nbsp;원</label>
+								    	<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_sell_price}"/>&nbsp;원</label>
 								    </c:if>
-								    <c:if test="${cl.op_type == 2}">
+									<!-- 팔로우 특가 상품 -->
+									<c:if test="${cl.op_type == 2}">									
+										<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_follow_price}"/>&nbsp;원 </label>
 								    	<label id="line"><fmt:formatNumber pattern="#,###,###" value="${cl.p_sell_price}"/>&nbsp;원</label>
-								    	<label><fmt:formatNumber pattern="#,###,###" value="${cl.p_follow_price}"/>&nbsp;원</label>
-								    </c:if>	
+								    </c:if>
 								    | ${cl.s_name} 
 							    </div>
 							  </div>  
 							</td>
 							<td>
-								<c:if test="${cl.p_stock != 0}">
+								<!--상품 재고가 있는 경우 -->
+								<c:if test="${cl.p_stock != 0}"> 
 								<div class="table_text_align_center cart_qty_div" style="display:flex;">
 									<button class="cart_qty_btn minus_btn btn btn-default">-</button>
 									<input type="text" name="cart_qty" value="${cl.cart_qty}" class="cart_qty_input form-control">
@@ -162,13 +198,21 @@ input[type="checkbox"]{
 								</div>
 									<a class="qty_modify_btn btn btn-default" data-cart_no="${cl.cart_no}">변경</a>
 								</c:if>
-								<c:if test="${cl.p_stock == 0 }">
+								<!-- 품절된 상품 -->
+								<c:if test="${cl.p_stock == 0 }"> 
 									<label style="margin-top:35px;margin-left:40px; color:red;">품절</label>
 								</c:if>
 							</td >
 							<td class="table_text_align_center">
-							  <div style="margin-top:37px;">	
-								<fmt:formatNumber value="${cl.p_sell_price * cl.cart_qty}" pattern="#,###,### 원" />
+							  <div style="margin-top:37px;">
+							  <!-- 일반 상품 -->
+							  <c:if test="${cl.op_type == 1}">	
+							 	 <fmt:formatNumber value="${cl.p_sell_price * cl.cart_qty}" pattern="#,###,### 원" />
+							  </c:if>
+							  <!-- 팔로우 상품 -->
+							  <c:if test="${cl.op_type == 2}">
+							  		<fmt:formatNumber value="${cl.p_follow_price * cl.cart_qty}" pattern="#,###,### 원" />
+							  </c:if>
 							  </div>
 							</td>
 							<td class="table_text_align_center">
@@ -178,7 +222,6 @@ input[type="checkbox"]{
 							</td>
 						</tr>
 						</c:if>
-
 					</c:forEach>
 				</tbody>
 			</table>
@@ -334,7 +377,8 @@ input[type="checkbox"]{
 					let p_no = $(element).find(".p_no_input").val();
 					let cart_qty = $(element).find(".cart_qty_input").val();
 					let op_type = $(element).find(".op_type_input").val();
-					
+					//let p_sell_price = $(element).find(".op_type_input").val();
+
 					let p_no_input = "<input name='orders[" + orderNumber + "].p_no' type='hidden' value='" + p_no + "'>";
 					form_contents += p_no_input;
 					
@@ -343,6 +387,9 @@ input[type="checkbox"]{
 					
 					let op_type_input = "<input name='orders[" + orderNumber + "].op_type' type='hidden' value='" + op_type + "'>";
 					form_contents += op_type_input;
+					
+					//let op_type_input = "<input name='orders[" + orderNumber + "].op_type' type='hidden' value='" + op_type + "'>";
+					//form_contents += op_type_input;
 					
 					orderNumber += 1;
 				}

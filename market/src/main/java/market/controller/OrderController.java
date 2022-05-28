@@ -61,12 +61,32 @@ public class OrderController {
 			
 			OrderPageItemDTO product = os.getProductInfo(ord.getP_no());			
 
-			product.setCart_qty(ord.getCart_qty());
-			product.setOp_type(ord.getOp_type());
-			product.totalPrice();
+			product.setCart_qty(ord.getCart_qty());    // 주문 수량
+			product.setOp_type(ord.getOp_type());      // 상품 타입(일반/팔로워/공동구매)
+			
+			if(product.getOp_type().equals("1")) {           // 일반 판매 상품
+				product.setP_sell_price(product.getP_sell_price());
+				System.out.println("일반:"+product.getP_sell_price());
+				
+			}else if(product.getOp_type().equals("2")) {     // 팔로우 특가 상품
+				int originPrice = product.getP_sell_price();
+				product.setP_sell_price(product.getP_follow_price());
+				System.out.println("특가:"+product.getP_sell_price());
+				
+				model.addAttribute("originPrice", originPrice);
+				
+			}else if(product.getOp_type().equals("3")) {     // 공동구매 상품
+				int originPrice = product.getP_sell_price();
+				product.setP_sell_price(product.getP_group_price());
+				System.out.println("공동:"+product.getP_sell_price());
+				
+				model.addAttribute("originPrice", originPrice);
+			}	
+			
+			product.totalPrice();    // p_sell_price * cart_qty
 			System.out.println("product:"+product);
 			
-			productInfo.add(product);			
+			productInfo.add(product);
 		}	
 		
 		// 주문자 정보 조회

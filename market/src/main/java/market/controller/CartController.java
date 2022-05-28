@@ -38,14 +38,14 @@ public class CartController {
 		boolean isAlreadyExisted = cs.findCartProduct(cart);
 		System.out.println("isAlreadyExisted:"+isAlreadyExisted);
 		
-		if(isAlreadyExisted) {
+		if(isAlreadyExisted) {   // 동일한 상품이 이미 있는 경우
 			System.out.println("existed");
 			
 			String result = "existed";
 			model.addAttribute("result", result);
 			
 			return "cart/cartInsertResult";
-		}else {
+		}else {                  // 동일한 상품이 없는 경우
 			cs.insert(cart);
 			System.out.println("success");
 			
@@ -65,15 +65,22 @@ public class CartController {
 		System.out.println("m_email:"+m_email);
 		System.out.println("op_type:"+op_type);
 		
+		// 장바구니에 있는 상품들의 상점번호 조회
 		List<CartDTO> shopNo = cs.getShopNo(m_email);
 		System.out.println("shopNo:"+shopNo);
 		
+		// 장바구니 상품 목록
 		List cartList = cs.list(m_email);
 		System.out.println("cartList:"+cartList);
+		
+		// 팔로우한 상점 목록
+		List followList = cs.getFollowList(m_email);
+		System.out.println("followList:"+followList);
 		
 		model.addAttribute("shopNo", shopNo);
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("op_type", op_type);
+		model.addAttribute("followList", followList);
 			
 		return "cart/cartList";
 	}
