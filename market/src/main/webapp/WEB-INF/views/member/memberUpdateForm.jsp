@@ -72,7 +72,27 @@
 						<input type="submit" value="정보수정" class="btn btn-success"/> 
 						<input type="reset" value="수정취소" class="btn btn-outline-success"
 							onclick="history.go(-1)" />
-					</div>
+					   </div>
+					   
+	<br><br><br><br> <br><br>		     <br><br><br><br><br><br><br><br><br><br>
+				  <br>		   <br>   <br>      <br>   
+				<br>			  <br>	          <br> 
+				<br>                              <br>
+				  <br>							<br>
+				   <br>                        <br>
+				     <br>				   	 <br>
+				    	<br>			   <br>
+				          <br>           <br>
+				            <br>       <br>
+							 <br>    <br>
+							     <br>
+					<div id= "deleteForm"> 
+				<div>
+
+ 				<a href="memberDeleteForm.do"><small>회원탈퇴</small></a> 
+						 </div>
+ 					</div>
+					
 				</form>
 			</div>
 		</div>

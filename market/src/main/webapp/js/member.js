@@ -73,14 +73,14 @@ function emailsearch() {
 		$("#emailcheck").hide();
 		var email=$("#m_email").val();
 		console.log(email);
-//		$("#submit").attr("disabled", true);
+		$("#submit").attr("disabled", true);
 //		alert("email중복검사를 해주세요");
 
 		if($.trim($("#m_email").val())==""){
 			 alert("이메일을 입력하세요.");
 			 $("#m_email").val("").focus();
 			 return false;
-		 }	
+		 };	
 		
 		
 //입력한 이메일 유효성 검사 	
@@ -92,7 +92,7 @@ function emailsearch() {
 		$("#emailcheck").append(newtext);
 		$("#m_email").val("").focus();
 		return false;
-	}
+	};
 	
 //이메일 중복확인 
 	 $.ajax({
@@ -100,8 +100,8 @@ function emailsearch() {
 	        url:"memberEmailCheck.do",
 	        data: {"email":email},        
 	        success: function (data) { 
-	        	//alert("return success="+data);
-	      	  if(data==1){	//중복 ID
+//	        	alert("return success="+data);
+	      	  if(data== 1){	//중복 ID
 	      		var newtext='<font color="red">중복 email입니다.</font>';
 	      			$("#emailcheck").text('');
 	        		$("#emailcheck").show();
@@ -125,7 +125,7 @@ function emailsearch() {
 	    	  }
 	      });
 	 
-	}	// emailcheck1() end
+	};	// emailcheck1() end
 	//------이메일 중복검사 end--------
 	 
 	 

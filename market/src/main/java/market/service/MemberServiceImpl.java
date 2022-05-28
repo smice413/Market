@@ -21,6 +21,7 @@ public class MemberServiceImpl {
 		System.out.println("insert 서비스까지왔구나");
 		return md.memberInsert(member);
 	}
+	//회원가입 중 이메일중복검사
 	public int memberEmailCheck(String m_email)throws Exception{
 		return md.memberEmailCheck(m_email);
 	}

@@ -32,7 +32,7 @@ public class MemberDAOImpl {
 		int result = -1;  //사용가능아이디 
 		
 		MemberDTO member = sqlSession.selectOne("memberns.memberEmailCheck", m_email);
-				if(m_email != null)
+				if(member != null)
 					result = 1; 	//중복아이디
 				
 				return result; 

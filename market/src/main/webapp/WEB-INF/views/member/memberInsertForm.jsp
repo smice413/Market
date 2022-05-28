@@ -27,7 +27,8 @@
 							
 							<input type="button" id="emailcheckb" value="이메일 중복체크" class="input_button" 
 							onclick="emailcheck1()" />
-								<div id="emailcheck"></div></td>
+								<div id="emailcheck"></div>
+								</td>
 						</tr>
 						<tr>
 							<th>회원 비밀번호</th>
@@ -47,8 +48,8 @@
 						</tr>
 					</table>
 
-					<div id="join_menu">
-						<input type="submit" value="회원가입" class="btn btn-success" /> 
+					<div id="join_menu" >
+						<input type="submit" id="submit" value="회원가입" class="btn btn-success" disabled="disabled"/> 
 							<input type="reset" value="가입취소" class="btn btn-outline-success"
 							onclick="$('#m_email').focus();" />
 					</div>

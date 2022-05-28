@@ -11,12 +11,6 @@
 <%@ include file="../common/header.jsp"%>
 <%@ include file="../common/menuMyPage.jsp"%>
 
-<div id= "deleteForm"> 
-<div>
-<footer></footer>
- <a href="memberDeleteForm.do"><small>회원탈퇴</small></a> 
-	 </div>
- </div>
 
 </body>
 </html>
