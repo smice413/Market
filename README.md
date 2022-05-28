@@ -3,7 +3,10 @@
 프로젝트 협업에 github 사용(sourcetree활용)  
 
 *merge권한 부여하기
-  * 
+ * settings에 collaborators에서 merge 권한을 부여할 협업자들에게 이메일로 권한 승인 초대를 보낸다. 협업자들은 이메일을 각자 확인하여 초대에 응하는 버튼을 클릭한다.
+ * merge권한 부여 작업이 끝나면 별도의 github에서의 repositories의 복제가 발생하지는 않는다. 같은 repositories계정에서 작업하는 것이다.  
+  따라서 merge를 하는 과정에서의 주의 필요하다. 이는 merge를 각자 할 수 있기 때문에 충돌이 발생할 경우를 대비해 반드시 순서를 중요시해야한다.  
+  또한 pull-commit-push의 과정을 반복해야한다.
 
 *작업전에 해야할 일
 1. 원본 pull을 로컬 main브랜치에 받는다.
