@@ -1,9 +1,13 @@
 select * from product where p_status=1 order by p_no desc;
+select * from shop where s_no in (select distinct s_no from product)
 select * from qna where op_no is null;
-select * from order_product order by p_no
+select * from order_product where m_email='hamtori@gmail.com'
+select * from order_tab where s_no is null
 select * from member;
+select * from review
 select * from shop;
-update qna set p_no=18 where p_no is null;
+delete from order_tab where s_no is null;
+update order_tab set s_no=3 where s_no is null;
 delete from qna
 select * from qna Q left join member M on M.m_email = Q.m_email order by qna_ref desc, qna_writedate asc
 
@@ -31,9 +35,9 @@ select * from (select a.*,rowNum rn from (
 
 	order by qna_ref desc, qna_writedate asc ) a)
 
-insert into qna values (qna_board_seq.nextval,13,null,
-			'ohyeah@gmail.com','문의게시판 테스트입니다2 문의게시판 테스트입니다2','문의게시판 테스트입니다2 문의게시판 테스트입니다2<br>문의게시판 테스트입니다2',null,qna_board_seq.nextval,
-			'N',0,sysdate,'N')
+insert into qna values (qna_seq.nextval,18,null,
+			'ljpson@naver.com','문의게시판 테스트입니다2 ','문의게시판 테스트입니다2 문의게시판 테스트입니다2<br>문의게시판 테스트입니다2','답변대기',qna_seq.nextval,
+			'N',3,sysdate,'N')
 			
 update qna set qna_question='문의게시판 테스트입니다3' where qna_no=7
 update qna set p_no=null where qna_no=5

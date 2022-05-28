@@ -1,6 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<%@ include file="../common/header.jsp"%>
+<%@ include file="../common/menuShop.jsp"%>
 
 	<div class="container" align="center">
 		<h3 class="text-primary">답변하기</h3>
@@ -18,7 +30,7 @@
 				</tr>
 				<tr>
 					<td>문의내용</td>
-					<td>${qna.qna_question}</td>
+					<td>${qna_question}</td>
 				</tr>
 				<tr>
 					<td>내용</td>
@@ -31,3 +43,9 @@
 		</form>
 		</div>
 	</div>
+	
+<br><br><br><br><br><br>
+<%@ include file="../common/footer.jsp"%>
+</body>
+</html>
+	

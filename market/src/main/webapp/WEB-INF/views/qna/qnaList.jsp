@@ -12,25 +12,28 @@
 </head>
 <body>
 <%@ include file="../common/header.jsp"%>
-<c:if test="${pagecase == 'shop'}">
+<c:if test="${search == 's_no'}">
 	<%@ include file="../common/menuShop.jsp"%>
 </c:if>
-<c:if test="${pagecase != 'shop'}">
+<c:if test="${search != 's_no'}">
 	<%@ include file="../common/menuMyPage.jsp"%>
 </c:if>
 <div class="container">
-	<table style="width:100%; margin:0px; padding:0px; font-size:13px;" align=left>
+	<table style="width:100%; margin:0px; padding:0px; font-size:13px;">
 		<tr>
-			<td><h4><b>PRODUCT Q&A</b></h4></td>
-			<td width=90px><input type='button' id="qna_btn"class='edit1 btn btn-outline-success' onclick="location.href='${path}/qnaInsertForm.do?p_no=3'"
-						style="width:80px; height:30px; padding:2px; margin:7px;" value="상품문의"></td>
+			<td colspan=2 align=center><h3 style="font-weight: bold; margin: 30px 0px 30px 0px;">Q/A</h3></td>
 		</tr>
+		<c:if test="${search != 's_no'}">
 		<tr>
-			<td colspan=2>
-				* 상품에 대한 문의를 남기는 공간입니다.<br>
-				* 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이페이지 내 <a href="myPage.do">1:1문의</a>에 남겨주세요
+			<td>
+				* 상품에 대한 문의는 확인만 가능하며, 추가문의는 해당 상품의 상세 페이지를 이용해주세요.<br>
+				* 배송관련,주문(취소/교환/환불)관련 문의 및 요청사항은 오른쪽 버튼을 눌러서 문의하실 수 있습니다.
 			</td>
+			<td width=90px><input type='button' id="qna_btn"class='edit1 btn btn-outline-success'
+				 onclick="location.href='${path}/qnaQuestionForm.do?m_email=${sessionScope.m_email }'"
+						style="width:80px; height:30px; padding:2px; margin:7px;" value="문의하기"></td>
 		</tr>
+		</c:if>
 	</table>
 	<c:if test="${empty list}">
 		<table width=100% height=100px class="table">
@@ -57,8 +60,8 @@
 					<tr>
 						<td width=100><fmt:formatDate value="${qna.qna_writedate }" pattern="yyyy-MM-dd"/></td>
 						<td width=75>
-							<c:if test="${qna.p_no != 18}"><font color=blue>상품문의</font></c:if>
-							<c:if test="${qna.op_no != 72}"><font color=red>주문문의</font></c:if></td>
+							<c:if test="${qna.p_no != 18}">${qna.op_no != 213}<font color=blue>상품문의</font></c:if>
+							<c:if test="${qna.op_no != 213}">${qna.op_no != 213}<font color=red>주문문의</font></c:if></td>
 						<td id="td_${qna.qna_no}">
 							<a class="card-link" data-toggle="collapse" href="#detail_${qna.qna_no}">${qna.qna_title}</a></td>
 						<td width=60>${qna.m_name}</td>
@@ -66,11 +69,11 @@
 						
 							<c:if test="${qna.qna_answer == '답변대기'}">
 							
-								<c:if test="${pagecase == 'shop'}">
+								<c:if test="${search == 's_no'}">
 									<input type="button" id="qna_btn"class="edit1 btn btn-success" value="답변하기" style="width:70px; padding:3px;"
 									onclick="location.href='${path}/qnaAnswerForm.do?qna_no=${qna.qna_no}'">
 								</c:if>
-								<c:if test="${pagecase != 'shop'}">답변대기중</c:if>
+								<c:if test="${search != 's_no'}">답변대기중</c:if>
 								
 							</c:if>
 							<c:if test="${qna.qna_answer != '답변대기'}"><b>답변완료</b></c:if></td>
@@ -80,24 +83,24 @@
 		<!--  문의글 상세내용    -->
 			<div id="detail_${qna.qna_no}" class="collapse hide" data-parent="#accordion">
 		       <div class="card-body" style="margin:0px; padding:0px;">
-		       	<table style="width: 100%; font-size:14px; margin:0px; background-color: #f3f3f3">
+		       	<table style="width: 100%; font-size:14px; margin:0px; background-color: #f8f8f8">
 		       		<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b></b></td>
 						<td style="padding:12px;">
 							<c:if test="${qna.p_no != 18}">
-								<font color=blue>[${qna.p_name}] 상품에 대한 문의글입니다.</font>
+								<b>[${qna.p_name}]</b> <font color=blue>상품에 대한 문의글입니다.</font>
 								<a href="productView.do?p_no=${qna.p_no}">>>상품 보러가기</a></c:if>
-							<c:if test="${qna.op_no != 72}">
-								<font color=red>[${qna.op_no}]번  주문상품에 대한 문의글입니다.</font>
+							<c:if test="${qna.op_no != 213}">
+								<b>[${qna.op_no}]번</b>  <font color=red>주문상품에 대한 문의글입니다.</font>
 								<a href="orderDetail.do?op_no=${qna.op_no}&o_no=${qna.o_no}">>>주문상품 확인하러 가기</a></c:if></td>
 					</tr>
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>Q</b></td>
-						<td style="padding:10 10 0 10;"><pre>${qna.qna_question}</pre></td>
+						<td style="padding:10 10 0 10;"><pre style="font-size: 15px; font-family: 'Nanum Gothic', sans-serif;">${qna.qna_question}</pre></td>
 					</tr>
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>A</b></td>
-						<td style="padding:0 10 0 10;"><pre>${qna.qna_answer}</pre></td>
+						<td style="padding:0 10 0 10;"><pre style="font-size: 15px; font-family: 'Nanum Gothic', sans-serif;">${qna.qna_answer}</pre></td>
 					</tr>
 				</table>
 		       </div>
@@ -111,28 +114,3 @@
 <%@ include file="../common/footer.jsp"%>
 </body>
 </html>
-<script type="text/javascript">
-/* 	$(function() {
-		$("#qna_btn").click(function() {
-			$("#slist").load("${path}/qna/insertForm.do");
-		});
-	});
-	function up(id) {
-		var replytext = $('#tt_'+id).val();
-		var formData = "rno="+id+'&replytext='+replytext
-			+"&bno=${board.num}";
-		$.post('${path}/repUpdate.do',formData, function(data) {
-			$('#slist').html(data);
-		});
-	} */
-	function question() {
-//		$('#slist').load('${path}/qna/insertForm.do');
-		;
-	}
-/* 	function del(rno,bno) {
-		var formData="rno="+rno+"&bno="+bno;
-		$.post("${path}/repDelete.do",formData, function(data) {
-			$('#slist').html(data);
-		});
-	} */
-</script>

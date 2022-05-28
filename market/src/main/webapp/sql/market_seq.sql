@@ -1,8 +1,5 @@
 select * from tab;
 select * from seq;
-
-update product set p_group_buying='N',p_follow_sale='N' where p_no=4;
-
 select * from member;
 select * from product;
 select * from cart;
@@ -13,10 +10,10 @@ select * from event;
 select * from follow;
 select * from love;
 select * from mycoupon;
-select * from order_product;
+select * from order_product where op_status=4;
 select * from order_tab;
 select * from product_img;
-select * from qna_board;
+select * from qna;
 select * from restock;
 select * from review;
 select * from shop;
@@ -91,7 +88,7 @@ create sequence coupon_seq
  increment by 1
  nocache;
  
- create sequence qna_board_seq
+ create sequence qna_seq
  start with 1
  increment by 1
  nocache;

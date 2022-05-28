@@ -5,9 +5,9 @@
 	<div class="container" align="center">
 		<h3 class="text-primary">상품 문의</h3>
 		<div class="vf-wide700-card">
-		<form action="${path}/qnaInsert.do" method="post">
+		<form id="insert_form" method="post">
 			<input type="hidden" name="p_no" value="${product.p_no}">
-			<input type="hidden" name="op_no" value="72">
+			<input type="hidden" name="op_no" value="213">
 			<input type="hidden" name="m_email" value="${sessionScope.m_email }">
 			<input type="hidden" name="qna_answer" value="답변대기">		
 			<input type="hidden" name="s_no" value="${product.s_no}">
@@ -30,37 +30,57 @@
 				</tr>
 
 				<tr>
-					<td colspan="2" align="center"><input type="submit" value="확인" class="btn btn-success"></td>
+					<td colspan="2" align="center">
+					<input type="submit" value="확인" class="insert_btn btn btn-success"></td>
 				</tr>
 			</table>
 		</form>
 		</div>
 	</div>
-<!-- <script type="text/javascript">
-$(function() {
+<script type="text/javascript">
+/*  function qnaInsert(){
+	 alert($('#insert_form').serialize());
+	console.log("test");
+  	var formData = new FormData($("form")[0]);
+ 	
+	formData.append("p_no", insert_form.p_no.value);
+	formData.append("op_no", insert_form.op_no.value);
+	formData.append("m_email", insert_form.m_email.value);
+	formData.set("qna_title", insert_form.qna_title.value);
+	formData.set("qna_question", insert_form.qna_question.value);
+	formData.set("qna_answer", insert_form.qna_answer.value);
+	formData.set("qna_secret", insert_form.qna_secret.value);
+	formData.append("s_no", insert_form.s_no.value);
 
-	$('#repInsert').click(function() {
-
-//		var frmData = $('form').serialize();
-		console.log(frmData);
-		var frmData = 'p_no='+frm.p_no.value
-					+'&op_no='+frm.op_no.value
-					+'&m_email='+frm.m_email.value			  
-					+'&qna_answer='+frm.qna_answer.value			  
-					+'&s_no='+frm.s_no.value			  
-					+'&qna_title='+frm.qna_title.value			  
-					+'&qna_question='+frm.qna_question.value			  
-					+'&qna_secret='+frm.qna_secret.value;	  
-		$.post('${path}/qnaInsert.do', frmData, function(data) {
-			$('#slist').html(data);
-		});
+ var formData = $('#insert_form').serialize();
+	alert(formData.get("p_no") +":"+ insert_form.p_no.value);
+	alert(formData.get("op_no") +":"+ insert_form.op_no.value);
+	alert(formData.get("m_email") +":"+ insert_form.m_email.value);
+	alert(formData.get("qna_title") +":"+ insert_form.qna_title.value);
+	alert(formData.get("qna_question") +":"+ insert_form.qna_question.value);
+	alert(formData.get("qna_answer") +":"+ insert_form.qna_answer.value);
+	alert(formData.get("qna_secret") +":"+ insert_form.qna_secret.value);
+	alert(formData.get("s_no") +":"+ insert_form.s_no.value);
+	
+	
+ 	$.post('${path}/qnaInsert.do',formData, function(data) {
+		$('#slist').html(data); 
 		
 	});
-});
-function del(rno,bno) {
-	var formData="rno="+rno+"&bno="+bno;
-	$.post("${path}/repDelete.do",formData, function(data) {
-		$('#slist').html(data);
-	});
-}
-</script> -->
+ 	return false;
+};	 */	
+
+ $(function() {
+
+	$(".insert_btn").click(function() {
+		
+		alert($('#insert_form').serialize());
+		var formData = $('#insert_form').serialize();
+	 	$.post('${path}/qnaInsert.do', formData, function(data) {
+			$('#slist').html(data); 
+		});		
+	 	
+	}); 
+
+}); 
+</script>

@@ -16,7 +16,7 @@
 				<td width=90px>
 				<c:if test="${not empty sessionScope.m_email}" >
 				<input type="button" id="qna_btn" class="edit1 btn btn-outline-success"
-<%-- 				 onclick="location.href='${path}/qna/insertForm.do'" --%>
+<%-- 				 onclick="location.href='${path}/qnaInsertForm.do'" --%>
 							style="width:80px; height:30px; padding:2px; margin:7px;" value="상품문의"></c:if></td>
 			</tr>
 			<tr>
@@ -62,7 +62,7 @@
 			<!--  문의글 상세내용    -->
 				<div id="detail_${qna.qna_no}" class="collapse hide" data-parent="#accordion">
 			       <div class="card-body" style="margin:0px; padding:0px;">
-			       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f3f3f3">
+			       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f8f8f8">
 						<tr>
 							<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>Q</b></td>
 							<td style="padding:10 10 0 10;"><pre>${qna.qna_question}</pre></td>

@@ -2,16 +2,18 @@ package market.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import market.model.Order_productDTO;
 import market.model.ProductDTO;
 import market.model.QnaDTO;
-import market.model.ReplyBoard;
+import market.service.Order_productServiceImpl;
 import market.service.PagingPgm;
 import market.service.ProductService;
 import market.service.QnaService;
@@ -25,7 +27,10 @@ public class QnaController {
 	@Autowired
 	private ProductService ps;
 	
-	@RequestMapping("qna/list.do")	// 전체 목록, 검색 목록
+	@Autowired
+	private Order_productServiceImpl ops;
+	
+	@RequestMapping("qnaMainList.do")	// 전체 목록, 검색 목록
 	public String list(String pageNum, QnaDTO qna, Model model) {
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
@@ -42,6 +47,8 @@ public class QnaController {
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		System.out.println("startRow:"+startRow);
 		System.out.println("endRow:"+endRow);
+		System.out.println("search:"+ qna.getSearch());
+		System.out.println("keyword:"+ qna.getKeyword());
 		
 		qna.setStartRow(startRow);
 		qna.setEndRow(endRow);
@@ -57,8 +64,9 @@ public class QnaController {
 		model.addAttribute("search", qna.getSearch());
 		model.addAttribute("keyword", qna.getKeyword());
 		
-		return "qna/list";
+		return "qna/qnaMainList";
 	}
+	
 
 	@RequestMapping("qnaList.do")	// 전체 목록, 검색 목록
 	
@@ -80,7 +88,6 @@ public class QnaController {
 		System.out.println("endRow:"+endRow);
 		System.out.println("search:"+ qna.getSearch());
 		System.out.println("keyword:"+ qna.getKeyword());
-		System.out.println("pagecase:"+ pagecase);
 		
 		qna.setStartRow(startRow);
 		qna.setEndRow(endRow);
@@ -95,33 +102,25 @@ public class QnaController {
 		// 검색
 		model.addAttribute("search", qna.getSearch());
 		model.addAttribute("keyword", qna.getKeyword());
-		model.addAttribute("pagecase", pagecase);
 		
 		return "qna/qnaList";
 	}	
 
-
-	@RequestMapping("qnaMainList.do")	// 글작성 폼 (원문, 답변글)
-	public String insertForm(String p_no,  Model model) {
-
-
-		
-		return "qna/qnaMainList";
-	}
-	
 	@RequestMapping("qnaInsertForm.do")	// 글작성 폼 (원문, 답변글)
 	public String qnaInsertForm(int p_no, Model model) {
 
 		ProductDTO product = ps.select(p_no);
 		System.out.println("product:"+product);
+		
 		model.addAttribute("product", product);
 		
 		return "qna/qnaInsertForm";
 	}
 
 	@RequestMapping("qnaInsert.do")	// 글 작성
-	public String insert(QnaDTO qna, Model model) {
+	public String qnaInsert(QnaDTO qna, Model model) {
 
+		System.out.println("qnaInsert");
 		System.out.println("p_no:"+qna.getP_no());
 		System.out.println("op_no:"+qna.getOp_no());
 		System.out.println("m_email:"+qna.getM_email());
@@ -133,30 +132,44 @@ public class QnaController {
 		if (qna.getQna_secret() == null) {
 			qna.setQna_secret("N");
 		}
-		
 		int p_no = qna.getP_no();
 		System.out.println("qna_secret:"+qna.getQna_secret());		
-		qs.insert(qna);
 		
-			
-		return "redirect:qna/list.do?p_no=" + p_no+"#menu2";
+		qs.insert(qna);	
+
+		return "redirect:qnaMainList.do?search=p_no&keyword=" + p_no;
 	}
+	
 
+	@RequestMapping("qnaQuestionForm.do")	// 글작성 폼 (원문, 답변글)
+	public String qnaQuestionForm(Order_productDTO opdto, HttpSession session, Model model)  {
 
+		// 세션 값 가져오기
+		String m_email = (String)session.getAttribute("m_email");
+		opdto.setM_email(m_email);
+		
+
+		opdto.setStartRow(1);
+		opdto.setEndRow(100);
+
+		/*
+		 * List<Order_productDTO> oplist = ops.orderList(opdto);
+		 * 
+		 * model.addAttribute("orderList", oplist); System.out.println("orderList:"+
+		 * oplist);
+		 */
+		return "qna/qnaQuestionForm";
+	}	
+	
 	@RequestMapping("qnaAnswerForm.do")	// 글작성 폼 (원문, 답변글)
 	public String answerForm(int qna_no, Model model) {
 
 		QnaDTO qna = qs.select(qna_no);
-		System.out.println("p_no:"+qna.getP_no());
-		System.out.println("op_no:"+qna.getOp_no());
-		System.out.println("m_email:"+qna.getM_email());
-		System.out.println("qna_title:"+qna.getQna_title());
-		System.out.println("qna_question:"+qna.getQna_question());
-		System.out.println("qna_answer:"+qna.getQna_answer());
-		System.out.println("qna_secret:"+qna.getQna_secret());
-		System.out.println("s_no:"+qna.getS_no());
-		
+
+		String qna_question = qna.getQna_question().replace("\n","<br>");
+
 		model.addAttribute("qna", qna);
+		model.addAttribute("qna_question", qna_question);
 		
 		return "qna/qnaAnswerForm";
 	}
