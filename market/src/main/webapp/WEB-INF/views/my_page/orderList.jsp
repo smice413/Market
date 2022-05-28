@@ -94,10 +94,14 @@ function review_click(a,b){
 				<input type="button" class="btn btn-success" value="주문 취소" onClick="location='cancel.do?op_no=${list.op_no}'">
 			</c:if>
 			
+			<c:if test="${list.op_status == '5' }">
+				<input type="button" class="btn btn-outline-success" value="재입고 신청" onclick="location='restockInsert.do?p_no=${list.p_no}'">
+			</c:if>
+			
 			<c:if test="${list.op_status == '6' }">
-				${list.op_deli_no }
-				<input type="button" class="btn btn-success" value="배송추적" 
-				onClick="window.open('https://www.cjlogistics.com//ko/tool/parcel/tracking', '배송추적', 'width=1000, height=750, scrollbar=yes');">
+				<!-- <input type="button" class="btn btn-success" value="배송추적" 
+				onClick="window.open('https://www.cjlogistics.com//ko/tool/parcel/tracking', '배송추적', 'width=1000, height=750, scrollbar=yes');"> -->
+				운송장 번호: <a href= "https://www.cjlogistics.com//ko/tool/parcel/tracking"><b>${list.op_deli_no }</b></a>
 			</c:if>
 			
 			<c:if test="${list.op_status == '7' }">
