@@ -15,14 +15,16 @@
 <%@ include file="header.jsp"%>
 
 <div class="container" align="center">
-	<div  style="width:100%; height:200px; overflow: hidden;">
+	<div class="slide" style="width:100%; height:220px; overflow: hidden;">
 		<div class="swiper-container gallery-top">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event2.PNG" width=100%></div></div>
-				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event1.PNG" width=100%></div></div>
-				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event3.PNG" width=100%></div></div>
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event7.PNG" width=100%></div></div>
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event6.PNG" width=100%></div></div>
+				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event5.PNG" width=100%></div></div>
 				<div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event4.PNG" width=100%></div></div>
-		        <div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event5.PNG" width=100%></div></div>
+		        <div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event3.PNG" width=100%></div></div>
+		        <div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event2.PNG" width=100%></div></div>
+		        <div class="swiper-slide"><div class="swiper-slide-container"><img src="${path}/images/event1.PNG" width=100%></div></div>
 		    </div>
 		    <div class="swiper-pagination pagination_bullet"></div>
 		    <div class="swiper-pagination pagination_progress"></div>

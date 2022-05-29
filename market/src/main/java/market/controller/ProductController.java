@@ -20,8 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
+import market.model.ShopDTO;
 import market.service.PagingPgm;
 import market.service.ProductService;
+import market.service.ShopServiceImpl;
 
 @Controller
 public class ProductController {
@@ -225,7 +227,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productSearchList.do")	// 전체 목록, 검색 목록
-	public String productSearchList(String pageNum, ProductDTO product, Model model) {
+	public String productSearchList(String pageNum, ShopDTO shop, ProductDTO product, Model model) {
 		
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
@@ -242,8 +244,12 @@ public class ProductController {
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);
 		
+		ShopDTO s = ps.getShopInfo(product);
+		System.out.println("shop_info:"+s);
 		List<ProductDTO> list = ps.list(product);
 		
+		//팔로잉을 위한 상점번호
+		model.addAttribute("s", s);
 		//상품목록
 		model.addAttribute("list", list);
 		//페이징

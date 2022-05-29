@@ -34,18 +34,28 @@
 			<table width=100%>
 				<tr>
 					<td>
-			<div class="vf-left" style="text-align: right">
-			<table align=center>
-					<tr>
-						<td><img src="${path}/images/shop.png" style="width:30px; height:30px; margin:2px;"></td>
-						<td><b><font style="font-size:20px;">&nbsp;${keyword}</font></b></td>
-						<td><font style="font-size:15px;" class="text-primary"><b>&nbsp;의  모든 상품이 검색되었습니다</b></font></td>
-					</tr>
-				</table>
-			</div>
-			<div class="vf-right" style="text-align: center">
-				<a class="btn btn-success" href="${path}/followInsert.do?s_no=${product.s_no}">>> 팔로잉하기</a>
-			</div>
+						<div class="vf-right" style="text-align: center; padding:5px">
+							<table align=center width=100%>
+								<tr>
+									<td><img src="${path}/upload/shop/${s.s_profile}" height=100px></td>
+									<td style="padding:5px; vertical-align: top" >${s.s_myself}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="vf-left" style="text-align: center">
+							<table align=center>
+								<tr>
+									<td><img src="${path}/images/shop.png" style="width:30px; height:30px; margin:2px;"></td>
+									<td><b><font style="font-size:20px;">&nbsp;${keyword}</font></b></td>
+									<td><font style="font-size:15px;" class="text-primary"><b>&nbsp;의  모든 상품이 검색되었습니다</b></font></td>
+								</tr>
+								<tr>
+									<td align=center colspan=3><a class="btn btn-success" style="width:120px; height:28px; padding:3px; margin:7px;" 
+							href="${path}/followInsert.do?s_no=${s.s_no}">>> 팔로잉하기</a></td>
+								</tr>
+							</table>
+							
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -65,7 +75,7 @@
 		<!-- 상품개수와 공동구매특가,팔로우특가,각종 정렬부분 -->
 		<table style="font-size:13px; width:100%">
 			<tr>
-				<td width=132px style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}개</td>
+				<td width=140px style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}개</td>
 				<td style="padding:5 10 0 0;" align=right>
 				<c:if test="${(search eq 'p_name') or (search eq 's_name') }">
 					<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC" style="color:red">

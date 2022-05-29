@@ -7,54 +7,73 @@
 <div class="container">
 	<table width=100%>
 		<tr>
-			<td colspan=3 valign="middle" align="right"
+			<td valign="middle" align="right"
 				style="font-size: 12px; text-decoration: none;">
-	<!-- 메인 메뉴 (윗부분) --> 
+	<!-- m_email세션이 없는 경우 --> 
 				<c:if test="${empty sessionScope.m_email }">
 					<a href="${path }/memberInsertForm.do">회원가입</a> |
 					<a href="${path }/loginForm.do">로그인</a> |
 				</c:if>
 
-	<!-- 세션이 있는 경우 --> 
+	<!-- m_email세션이 있는 경우 --> 
 				<c:if test="${!empty sessionScope.m_email}">
 					<img src="${path}/images/person-hearts.svg" width=15px>  ${sessionScope.m_email }님 환영합니다 &nbsp; |
 					<a href="${path }/orderList.do">마이페이지</a> |
 				</c:if>
-				<c:if test="${!empty sessionScope.m_email || !empty sessionScope.s_email && sessionScope.s_status=='2'}">
+
+				<c:if test="${!empty sessionScope.m_email || !empty sessionScope.s_email}">
 					<a href="${path }/logout.do"><img src="${path}/images/power.svg"></a> |
-
-					<a href="${path }/shop_info.do">SHOP매니저</a> |
-				</c:if>		
-				<%-- <c:if test="${sessionScope.id == 'admin'}">
-					<a href="${path }/view.do?num=1&pageNum=1">관리자페이지</a> | 
-				</c:if>--%>
+				</c:if>
 				
-
-					
-<%-- 					 | <a href="${path }/list.do">샘플게시판</a>  --%>
-					<!--  SHOP매니저 | 입점신청 | 회원가입 | 로그인 | 마이페이지| 장바구니 | 로그아웃 | 관리자페이지  | 이벤트/공지 | 고객센터 -->
+	<!-- s_email세션이 있는 경우 --> 
+				<c:if test="${!empty sessionScope.s_email}">
+					<a href="${path }/shop_info.do">SHOP매니저</a> |
+				</c:if>
+	<!-- s_email세션이 없는 경우 --> 
 				<c:if test="${empty sessionScope.s_email }">
 					<a href="${path }/shop_login_form.do">SHOP로그인</a> |
 					<a href="${path }/shop_join_form.do">입점신청</a> |
 				</c:if>	
-				<%-- <c:if test="${!empty sessionScope.s_email && sessionScope.s_status=='2'}">
-					<a href="${path }/logout.do"><img src="${path}/images/power.svg"></a>
-					<a href="${path }/shop_info.do">SHOP매니저</a> |
-				</c:if>	 --%>
-				
+	<!-- 관리자 세션이 있는 경우 --> 
+				<%-- <c:if test="${sessionScope.id == 'admin'}">
+					<a href="${path }/view.do?num=1&pageNum=1">관리자페이지</a> | 
+				</c:if>--%>				
 				<a href="${path }/memberList.do">관리자페이지</a>
 			</td>
 		</tr>
+	<!-- 로고 (이미지) --> 
 		<tr>
-			<td></td>
-			<td  align="center" height=70px>
-				<!-- 로고 (이미지) --> 
-				<a href="${path }/main.do"><img src="${path}/images/logo7.PNG" width=150px></a>
+			<td align="center">
+				<div class="vf-wide-screen">
+				<table width=100% >
+					<tr>
+						<td align=center><a href="${path }/main.do"><img src="${path}/images/logo7.PNG" width=150px></a></td>
+					</tr>
+				</table>
+				</div>
+				<div class="vf-less-wide-screen">
+				<table width=100% >
+					<tr>
+						<td align=center>
+							<form action="${path}/productSearchList.do?pageNum=1" style="padding: 0px; margin:0px;">
+								<input type=hidden name="search" value="p_name">
+								<table width=100%>
+									<tr>
+										<td width=130px><a href="${path }/main.do"><img src="${path}/images/logo7.PNG" width=120px></a></td>
+										<td><input type=text name="keyword" class="vf_search form-control" autocomplete="on"></td>
+										<td width=50px align=center><input type = "image" src = "${path }/images/search.svg" width=22px alt = "검색버튼" ></td>
+									</tr>
+								</table>
+							</form>
+						</td>
+					</tr>
+				</table>
+
+				</div>
 			</td>
-			<td></td>
 		</tr>
 		<tr>
-			<td colspan=3>
+			<td>
 				<!-- 메인 메뉴 (아래부분) -->
 				<div class="vf_header_menu">
 					<div>
@@ -95,10 +114,8 @@
 							<input type=hidden name="search" value="p_name">
 							<table>
 								<tr>
-									<td><input type=text name="keyword" class="vf_search" autocomplete="on"></td>
-									<td>
-		<!-- 							<input type="submit" id="search" value="검색" style="width: 40px; font-size: 13px;"> -->
-										<input type = "image" src = "${path }/images/search.svg" width=22px alt = "검색버튼" ></td>
+									<td><input type=text name="keyword" class="vf_search form-control" autocomplete="on"></td>
+									<td width=25px align=right><input type = "image" src = "${path }/images/search.svg" width=22px alt = "검색버튼" ></td>
 								</tr>
 							</table>
 						</form>

@@ -36,10 +36,24 @@ public class ProductDTO {
 	//상품이미지
 	private String p_img;
 	
-	//상점명
+	//상점정보
 	private String s_name;
+	private String s_profile;
+	private String s_myself;
 
 	
+	public String getS_profile() {
+		return s_profile;
+	}
+	public void setS_profile(String s_profile) {
+		this.s_profile = s_profile;
+	}
+	public String getS_myself() {
+		return s_myself;
+	}
+	public void setS_myself(String s_myself) {
+		this.s_myself = s_myself;
+	}
 	public String getOrderCond() {
 		return orderCond;
 	}

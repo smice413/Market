@@ -9,6 +9,7 @@ import market.dao.ProductDAO;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
+import market.model.ShopDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -46,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
 	public int getMaxNum() {
 		return pd.getMaxNum();
 	}
-	
+
 	public List<CategoryDTO> listCategory(ProductDTO product) {
 		return pd.listCategory(product);
 	}
@@ -62,4 +63,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product_imgDTO> listImg(int p_no) {
 		return pd.listImg(p_no);
 	}
+
+	public ShopDTO getShopInfo(ProductDTO product) {
+		return pd.getShopInfo(product);
+	}
+
 }

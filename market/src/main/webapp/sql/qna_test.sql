@@ -5,9 +5,9 @@ select * from order_product where m_email='hamtori@gmail.com'
 select * from order_tab where s_no is null
 select * from member;
 select * from review
-select * from shop;
+select s_profile,s_myself from shop;
 
-update order_tab set s_no=3 where s_no is null;
+update shop set s_profile='shop3.PNG' where s_no =3;
 update product set p_name='qna게시판용 테스트 데이터입니다. 삭제하지 말아주세요' where p_no = 18;
 
 delete from order_tab where s_no is null;
@@ -17,6 +17,8 @@ select * from qna Q left join member M on M.m_email = Q.m_email order by qna_ref
 select *
 from order_product 
 where m_email='hamtori@gmail.com'
+
+select s_no from Shop where s_name like '%민주니가게%'
 
 select 
 	OP.op_no as op_no,

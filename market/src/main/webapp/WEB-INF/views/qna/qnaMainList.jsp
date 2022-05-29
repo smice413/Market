@@ -33,7 +33,7 @@
 </head>
 <body>
 <div class="container">
-	<table style="width:100%; margin:0px; padding:0px; font-size:13px;" align=left>
+	<table style="width:100%; margin:0px; font-size:13px;" align=left>
 		<tr>
 			<td><h4><b>PRODUCT Q&A</b></h4></td>
 			<td width=90px>
@@ -44,7 +44,12 @@
 		<tr>
 			<td colspan=2>
 				* 상품에 대한 문의를 남기는 공간입니다.<br>
-				* 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이페이지 내 <a href="myPage.do">1:1문의</a>에 남겨주세요
+			<c:if test="${empty sessionScope.m_email}" >
+				* 상품 문의는 로그인 이후에 이용해 주세요!
+			</c:if>
+			<c:if test="${not empty sessionScope.m_email}" >
+				* 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이페이지 내 <a href="qnaList.do?search=m_email&keyword=${sessionScope.m_email }">1:1문의</a>에 남겨주세요
+			</c:if>
 			</td>
 		</tr>
 	</table>
