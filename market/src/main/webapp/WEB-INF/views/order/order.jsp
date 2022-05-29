@@ -276,8 +276,8 @@
 				    <label>결제방법 선택</label>
 				</td>
 				<td class="pay_info_td">
-					<input type="radio" name="pay_type" value="카드/간편결제" checked class="radio1"><label>카드/간편결제</label>
-					<input type="radio" name="pay_type" value="무통장입금" class="radio2"><label>무통장 입금</label>
+					<input type="radio" name="pay_type" value="kakaopay.TC0ONETIME" checked class="radio1"><label>카카오페이</label> <br>
+					<input type="radio" name="pay_type" value="danal_tpay" class="radio2"><label>카드결제</label>
 				</td>
 			</tr>
 		</table>

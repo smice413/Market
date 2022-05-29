@@ -8,11 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -221,6 +223,8 @@ public class OrderController {
 	// 주문 등록
 	@RequestMapping("orderInsert.do")
 	public String orderInsert(Order_tabDTO otd, HttpSession session, Model model) throws Exception{
+		System.out.println("orderRequest");
+		
 		String m_email = (String)session.getAttribute("m_email");
 		System.out.println("m_email:"+m_email);
 
@@ -235,7 +239,15 @@ public class OrderController {
 			Order_productDTO orderProduct = os.getOrderInfo(opd.getP_no());
 
 			orderProduct.setOp_qty(opd.getCart_qty());
-			orderProduct.setOp_price(orderProduct.getP_sell_price());
+			
+			if(opd.getOp_type().equals("1")) {          // 일반 판매 상품
+				orderProduct.setOp_price(orderProduct.getP_sell_price());
+			}else if(opd.getOp_type().equals("2")) {    // 팔로우 특가 상품
+				orderProduct.setOp_price(orderProduct.getP_follow_price());
+			}else if(opd.getOp_type().equals("3")) {    // 공동구매 상품
+				orderProduct.setOp_price(orderProduct.getP_group_price());
+			}
+			
 			orderProduct.setOp_refund(orderProduct.getOp_price()*orderProduct.getOp_qty());
 			orderProduct.setOp_calc(orderProduct.getOp_refund());
 			orderProduct.setD_no(otd.getD_no());
@@ -253,7 +265,6 @@ public class OrderController {
 			System.out.println("op_refund:"+orderProduct.getOp_refund());
 			System.out.println("Op_type:"+orderProduct.getOp_type());
 		
-		
 		}		
 		
 		otd.setOrders(opds);
@@ -264,63 +275,63 @@ public class OrderController {
 		System.out.println("o_pay_type:"+otd.getO_pay_type());
 		System.out.println("orders:"+otd.getOrders());
 		
-		
 		// 주문,주문상품 테이블에 저장
 		int result1 = os.orderInsert(otd);  // order_tab 등록
 		System.out.println("order_tab입력 :"+result1);
-		
+
 		if(result1 == 1) {
 			for(Order_productDTO opd : otd.getOrders()) {
-				
+							
 				Order_tabDTO orderNo = os.getOrderNo(otd);
 				System.out.println("orderNo:"+orderNo);
-				
+							
 				opd.setO_no(orderNo.getO_no());			
 				System.out.println("opd:"+opd);
 				
+				opd.setM_email(m_email);
+							
 				int result2 = os.orderProductInsert(opd); //order_product 등록
 				System.out.println("order_product입력"+result2); 
+				
+				model.addAttribute("orderNo", orderNo);
 			}
 		} 
-				
+		
 		// 재고 변동 적용
 		for(Order_productDTO opd : otd.getOrders()) {
 			// 변동 재고 값 구하기
 			ProductDTO product = os.productInfo(opd.getP_no());
 			System.out.println("변경 전 재고:"+product.getP_stock());
-			
+					
 			product.setP_stock(product.getP_stock()-opd.getOp_qty());
 			System.out.println("변경 후 재고:"+product.getP_stock());
-			
-			int result = os.updateStock(product);
-			System.out.println("재고 변동 :"+result);
+					
+			int result3 = os.updateStock(product);
+			System.out.println("재고 변동 :"+result3);
 		}
-				
+						
 		// 장바구니 제거
 		for(Order_productDTO opd : otd.getOrders()) {
 			CartDTO cart = new CartDTO();
 			cart.setM_email(otd.getM_email());
 			cart.setP_no(opd.getP_no());
-					
-			int result = cs.deleteOrderCart(cart);
-			System.out.println("장바구니 제거"+result);
-		}
+							
+			int result4 = cs.deleteOrderCart(cart);
+			System.out.println("장바구니 제거"+result4);
+		}			
+		
 		
 		// 결제정보
 		MemberDTO memberList = ms.select(m_email);
 		DeliveryDTO deliveryInfo = os.getDeliveryInfo(m_email);
-		Order_tabDTO orderNo = os.getOrderNo(otd);
 		
 		model.addAttribute("ml", memberList);
 		model.addAttribute("di", deliveryInfo);
 		model.addAttribute("otd", otd);
 		model.addAttribute("opd", otd.getOrders());
-		model.addAttribute("orderNo", orderNo);
+
 
 		return "order/iamportPayment";
 	}
-	
-
-	
 
 }

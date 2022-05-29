@@ -23,49 +23,54 @@
 
 <script>
 
- 	$(document).ready(function(){
-		payment();
-	}); 
-	
+ $(document).ready(function(){
+	 payment();
+ });
+ 
 	// iamport API
 	function payment(data) {
-		
-	    IMP.init('imp45689700');               //아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+
+		IMP.init('imp45689700');               //아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
 	    IMP.request_pay({                      // param
-	        pg: "kakaopay.TC0ONETIME",                //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
+	        pg: "${otd.o_pay_type}",                //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
 	        pay_method: "${otd.o_pay_type}",     //지불 방법
-	        merchant_uid: "${orderNo.o_no}",     //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
+	        merchant_uid: "${orderNo}",     //가맹점 주문번호 (아임포트를 사용하는 가맹점에서 중복되지 않은 임의의 문자열을 입력)
 	        name: "과채마켓", 
 	        seller: "${otd.s_no}", 
 	        amount: "${otd.o_pay_price}", //금액
 	        buyer_email : "${sessionScope.m_email}", 
 	        buyer_name : "${ml.m_name}",
 	        buyer_tel : "${ml.m_tel}",
-	        buyer_post : "${di.d_post}",
-	        buyer_addr1 : "${di.d_address}",
-	        buyer_addr2 : "${di.d_detail_address}"
+	        buyer_postcode : "${di.d_post}",
+	        buyer_addr : "${di.d_address} ${di.d_detail_address}"
 	        
 	    }, function (rsp) {         // callback
 	        if (rsp.success) {     // 결제 성공 시 
-	        	var msg = "결제가 완료되었습니다.";
-	            alert(msg);	
-	            location.href="main.do";
-	        } else {
-	        	// 결제 실패 시
+/* 	        	var otd = ${otd}
+	        	$.post("orderInsert.do", {otd : otd}, function(result) {
+		        	if(result==4){ */
+						var msg = "결제가 완료되었습니다.";
+			            alert(msg);	
+			            location.href="orderList.do";
+/* 		        	}
+				}); */ //post() end
+	        } else {               // 결제 실패 시
 	        	var msg = "결제에 실패하였습니다.";
 	        	msg += '에러내용 : '+rsp.error_msg;
-	            alert(msg);
-	            history.go(-1);
+				alert(msg);
+		        history.go(-1);	        	
 	        }
-	 });
-	
-  }
+	   });
+    }
+
 	
 	
 </script>	
 
 
-
+<c:forEach begin="1" end="30">
+	<br>
+</c:forEach>
 
 <footer>
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>	

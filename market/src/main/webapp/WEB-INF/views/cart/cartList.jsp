@@ -94,9 +94,6 @@ input[type="checkbox"]{
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 </header>
 
-팔로우 목록 : ${followList[0].s_no}
-팔로우 목록 : <c:forEach var="fl" items="${followList}">${fl.s_no},</c:forEach>
-
 
    <div class="container">
 		<div class="row qnas" style="text-align: center;">
@@ -192,9 +189,9 @@ input[type="checkbox"]{
 								<!--상품 재고가 있는 경우 -->
 								<c:if test="${cl.p_stock != 0}"> 
 								<div class="table_text_align_center cart_qty_div" style="display:flex;">
-									<button class="cart_qty_btn minus_btn btn btn-default">-</button>
+									<button class="cart_qty_btn minus_btn btn btn-default" >-</button>
 									<input type="text" name="cart_qty" value="${cl.cart_qty}" class="cart_qty_input form-control">
-									<button class="cart_qty_btn plus_btn btn btn-default">+</button>
+									<button class="cart_qty_btn plus_btn btn btn-default" >+</button>
 								</div>
 									<a class="qty_modify_btn btn btn-default" data-cart_no="${cl.cart_no}">변경</a>
 								</c:if>
@@ -269,7 +266,7 @@ input[type="checkbox"]{
 <script>
 
 	$(document).ready(function(){
-		itemSum(n);
+		itemSum();
 	});
 
 	// 쇼핑계속하기 버튼
@@ -278,16 +275,17 @@ input[type="checkbox"]{
 	});
 
 	// 상품 수량 버튼
-	function plus_btn(){
+	$(".plus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
 		$(this).parent("div").find("input").val(++qty);
-	}
-	function minus_btn(){
+	});
+	
+	$(".minus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
 		if(qty > 1){
 		$(this).parent("div").find("input").val(--qty);
 		}	
-	}
+	});
 	
 	// 상품 수량 수정 버튼
  	$(".qty_modify_btn").on("click", function(){

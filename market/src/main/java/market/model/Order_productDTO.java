@@ -39,6 +39,8 @@ public class Order_productDTO {
 	// product
 	private String p_name;
 	private int p_sell_price;
+	private int p_follow_price;
+	private int p_group_price;
 	
 	// product_img
 	private String p_img;
@@ -226,6 +228,19 @@ public class Order_productDTO {
 	public void setP_sell_price(int p_sell_price) {
 		this.p_sell_price = p_sell_price;
 	}
+	
+	public int getP_follow_price() {
+		return p_follow_price;
+	}
+	public void setP_follow_price(int p_follow_price) {
+		this.p_follow_price = p_follow_price;
+	}
+	public int getP_group_price() {
+		return p_group_price;
+	}
+	public void setP_group_price(int p_group_price) {
+		this.p_group_price = p_group_price;
+	}
 	public String getP_img() {
 		return p_img;
 	}
@@ -290,7 +305,8 @@ public class Order_productDTO {
 		return "Order_productDTO [op_no=" + op_no + ", o_no=" + o_no + ", p_no=" + p_no + ", op_type=" + op_type
 				+ ", op_qty=" + op_qty + ", op_price=" + op_price + ", op_refund=" + op_refund + ", op_calc=" + op_calc
 				+ ", op_status=" + op_status + ", d_no=" + d_no + ", s_no=" + s_no + ", m_email=" + m_email
-				+ ", cart_qty=" + cart_qty + ", p_sell_price=" + p_sell_price + "]";
+				+ ", cart_qty=" + cart_qty + ", p_sell_price=" + p_sell_price + ", p_follow_price=" + p_follow_price 
+				+ ", p_group_price=" + p_group_price + "]";
 	}
 	
 	
