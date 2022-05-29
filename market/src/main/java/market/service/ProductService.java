@@ -5,14 +5,19 @@ import java.util.List;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
-import market.model.ShopDTO;
 
 
 public interface ProductService {
 
+	List<ProductDTO> getShopNo();
+	
 	List<ProductDTO> list(ProductDTO product);
 	
+	List<ProductDTO> mlist(ProductDTO product);
+	
 	int getTotal(ProductDTO product);
+	
+	int mgetTotal(ProductDTO product);
 	
 	int insert(ProductDTO product);
 	
@@ -24,6 +29,8 @@ public interface ProductService {
 	
 	int delete(int p_no);
 	
+	int stop(int p_no);
+	
 	int getMaxNum();
 
 	List<CategoryDTO> listCategory(ProductDTO product);
@@ -33,6 +40,4 @@ public interface ProductService {
 	int insertImg(Product_imgDTO product_img);
 	
 	List<Product_imgDTO> listImg(int p_no);
-	
-	ShopDTO getShopInfo(ProductDTO product);
 }

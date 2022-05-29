@@ -9,19 +9,30 @@ import market.dao.ProductDAO;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
-import market.model.ShopDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductDAO pd;
 
+	public List<ProductDTO> getShopNo(){
+		return pd.getShopNo();
+	}
+	
 	public List<ProductDTO> list(ProductDTO product){
 		return pd.list(product);
 	}
 	
+	public List<ProductDTO> mlist(ProductDTO product){
+		return pd.mlist(product);
+	}
+	
 	public int getTotal(ProductDTO product) {
 		return pd.getTotal(product);
+	}
+	
+	public int mgetTotal(ProductDTO product) {
+		return pd.mgetTotal(product);
 	}
 	
 	public int insert(ProductDTO product) {
@@ -43,11 +54,15 @@ public class ProductServiceImpl implements ProductService {
 	public int delete(int p_no) {
 		return pd.delete(p_no);
 	}
+	
+	public int stop(int p_no) {
+		return pd.stop(p_no);
+	}
 
 	public int getMaxNum() {
 		return pd.getMaxNum();
 	}
-
+	
 	public List<CategoryDTO> listCategory(ProductDTO product) {
 		return pd.listCategory(product);
 	}
@@ -63,9 +78,4 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product_imgDTO> listImg(int p_no) {
 		return pd.listImg(p_no);
 	}
-
-	public ShopDTO getShopInfo(ProductDTO product) {
-		return pd.getShopInfo(product);
-	}
-
 }

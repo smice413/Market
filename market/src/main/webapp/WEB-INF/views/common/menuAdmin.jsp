@@ -5,5 +5,5 @@
 		<div style="width: 25%"><a href="${path}/memberList.do">회원관리</a></div>
 		<div style="width: 25%"><a href="${path}/shopList.do">입점신청내역</a></div>
 		<div style="width: 25%"><a href="${path}/shopListdel.do">상점관리</a></div>
-		<div style="width: 25%"><a href="adminProductList.do">상품관리</a></div>
+		<div style="width: 25%"><a href="${path}/productManagerList.do">상품관리</a></div>
 	</div>

@@ -9,19 +9,30 @@ import org.springframework.stereotype.Repository;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
-import market.model.ShopDTO;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 	@Autowired
 	private SqlSessionTemplate sst;
 	
+	public List<ProductDTO> getShopNo(){
+		return sst.selectList("productns.getShopNo");
+	}
+	
 	public List<ProductDTO> list(ProductDTO product){
 		return sst.selectList("productns.list", product);
 	}
 	
+	public List<ProductDTO> mlist(ProductDTO product){
+		return sst.selectList("productns.mlist", product);
+	}
+	
 	public int getTotal(ProductDTO product) {
 		return sst.selectOne("productns.getTotal", product);
+	}
+	
+	public int mgetTotal(ProductDTO product) {
+		return sst.selectOne("productns.mgetTotal", product);
 	}
 	
 	public int insert(ProductDTO product) {
@@ -43,11 +54,15 @@ public class ProductDAOImpl implements ProductDAO {
 	public int delete(int p_no) {
 		return sst.update("productns.delete", p_no);
 	}
+	
+	public int stop(int p_no) {
+		return sst.update("productns.stop", p_no);
+	}
 
 	public int getMaxNum() {
 		return sst.selectOne("productns.getMaxNum");
 	}
-
+	
 	public List<CategoryDTO> listCategory(ProductDTO product) {
 		return sst.selectList("productns.listCategory", product);
 	}
@@ -62,11 +77,5 @@ public class ProductDAOImpl implements ProductDAO {
 
 	public List<Product_imgDTO> listImg(int p_no) {
 		return sst.selectList("productns.listImg", p_no);
-	}
-
-	public ShopDTO getShopInfo(ProductDTO product) {
-		return sst.selectOne("productns.getShopInfo", product);
-	}
-
-
+	}	
 }

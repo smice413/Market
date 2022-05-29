@@ -168,10 +168,10 @@ $(function() {
 							<c:if test="${p.p_status =='5'}">상품삭제</c:if>
 						</td>
 						<td>
-							<input type="button" value="상품수정" class="btn btn-success" onclick="location.href='productUpdateForm.do?p_no=${p.p_no}&pageNum=1'">
+							<input type="button" value="상품수정" class="btn btn-success" onclick="location.href='${path}/productUpdateForm.do?p_no=${p.p_no}&pageNum=1'">
 						</td>
 						<td>
-							<input type="button" value="상품삭제" class="btn btn-outline-success">
+							<input type="button" value="상품삭제" class="btn btn-outline-success" onclick="location.href='${path}/productDelete.do?p_no=${p.p_no}&pageNum=1'">
 						</td>
 						<td>${p.p_hit}</td>
 					</tr>

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
-import market.model.ShopDTO;
 import market.service.PagingPgm;
 import market.service.ProductService;
-import market.service.ShopServiceImpl;
 
 @Controller
 public class ProductController {
@@ -191,7 +190,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productList.do")	// 전체 목록, 검색 목록
-	public String producList(String pageNum, ProductDTO product, Model model) {
+	public String producList(HttpSession session, HttpServletRequest request,String pageNum, ProductDTO product, Model model) {
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
@@ -206,6 +205,13 @@ public class ProductController {
 		if (status == null || status.equals("")) {
 			status = "1";
 		}
+		
+		session = request.getSession();
+
+		int s_no = (int) session.getAttribute("s_no");
+		System.out.println("s_no:"+s_no);
+		
+		product.setS_no(s_no);
 		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
@@ -227,7 +233,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productSearchList.do")	// 전체 목록, 검색 목록
-	public String productSearchList(String pageNum, ShopDTO shop, ProductDTO product, Model model) {
+	public String productSearchList(HttpSession session, HttpServletRequest request,String pageNum, ProductDTO product, Model model) {
 		
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
@@ -240,16 +246,18 @@ public class ProductController {
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
 		
+		session = request.getSession();
+
+		int s_no = (int) session.getAttribute("s_no");
+		
+		product.setS_no(s_no);
+		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);
 		
-		ShopDTO s = ps.getShopInfo(product);
-		System.out.println("shop_info:"+s);
 		List<ProductDTO> list = ps.list(product);
 		
-		//팔로잉을 위한 상점번호
-		model.addAttribute("s", s);
 		//상품목록
 		model.addAttribute("list", list);
 		//페이징
@@ -264,7 +272,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productCategoryList.do")	// 전체 목록, 검색 목록
-	public String producCategoryList(String pageNum, ProductDTO product, Model model) {
+	public String producCategoryList(HttpSession session, HttpServletRequest request,String pageNum, ProductDTO product, Model model) {
 		
 		/*
 		 * 익스플로어에서 카테고리 적용안되는 건 아래방식으로 해결 가능하긴 한데...
@@ -280,6 +288,12 @@ public class ProductController {
 		
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
+		
+		session = request.getSession();
+
+		int s_no = (int) session.getAttribute("s_no");
+		
+		product.setS_no(s_no);
 		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
@@ -312,5 +326,57 @@ public class ProductController {
 		model.addAttribute("pageNum", pageNum);
 		
 		return "product/productDelete";
+	}
+	
+	@RequestMapping("productStop.do")
+	public String productStop(int p_no, String pageNum, Model model) {
+		
+		int result = ps.stop(p_no);
+		model.addAttribute("result", result);
+		model.addAttribute("pageNum", pageNum);
+		
+		return "product/productStop";
+	}
+	
+	@RequestMapping("productManagerList.do")	// 전체 목록, 검색 목록
+	public String productManagerList(String pageNum, ProductDTO product, Model model) {
+		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
+		if (pageNum == null || pageNum.equals("")) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum); // 현재 페이지 번호
+		
+		int total = ps.mgetTotal(product); // 검색 (데이터 갯수)
+		
+		int startRow = (currentPage - 1) * rowPerPage + 1;
+		int endRow = startRow + rowPerPage - 1;
+		String status = product.getStatus();
+		if (status == null || status.equals("")) {
+			status = "1";
+		}
+		
+		int s_no = product.getS_no();
+		
+		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
+		product.setStartRow(startRow);
+		product.setEndRow(endRow);
+		int no = total - startRow + 1;		// 화면 출력 번호
+		
+		List<ProductDTO> getShopNo = ps.getShopNo();
+		model.addAttribute("getShopNo", getShopNo);
+		List<ProductDTO> mlist = ps.mlist(product);
+		
+		model.addAttribute("mlist", mlist);
+		model.addAttribute("no", no);
+		model.addAttribute("pp", pp);
+		
+		// 검색
+		model.addAttribute("search", product.getSearch());
+		model.addAttribute("keyword", product.getKeyword());
+		model.addAttribute("orderCond", product.getOrderCond());
+		model.addAttribute("status", status);
+		model.addAttribute("s_no", s_no);
+		
+		return "product/productManagerList";
 	}
 }
