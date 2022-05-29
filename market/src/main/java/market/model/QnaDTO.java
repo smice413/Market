@@ -25,14 +25,66 @@ public class QnaDTO {
 	private String search;
 	private String keyword;
 	
-	//회원이름(member join)
+	//member join
 	private String m_name;
 	
-	//상품이름 (product join)
+	//product join
 	private String p_name;
+	private int p_sell_price;
 	
-	//주문번호 (order_product join)
-	private String o_no;
+	//order_product join
+	private int o_no;
+	private Date op_date; 
+	
+	//shop join
+	private String s_name;
+	
+	//product_img join
+	private String p_img;	
+
+	
+	
+
+	public String getS_name() {
+		return s_name;
+	}
+
+	public void setS_name(String s_name) {
+		this.s_name = s_name;
+	}
+
+	public String getP_img() {
+		return p_img;
+	}
+
+	public void setP_img(String p_img) {
+		this.p_img = p_img;
+	}
+
+	public int getP_sell_price() {
+		return p_sell_price;
+	}
+
+	public void setP_sell_price(int p_sell_price) {
+		this.p_sell_price = p_sell_price;
+	}
+
+	public int getO_no() {
+		return o_no;
+	}
+
+	public void setO_no(int o_no) {
+		this.o_no = o_no;
+	}
+
+	public Date getOp_date() {
+		return op_date;
+	}
+
+	public void setOp_date(Date op_date) {
+		this.op_date = op_date;
+	}
+
 
 	public int getQna_no() {
 		return qna_no;
@@ -178,13 +230,5 @@ public class QnaDTO {
 		this.p_name = p_name;
 	}
 
-	public String getO_no() {
-		return o_no;
-	}
-
-	public void setO_no(String o_no) {
-		this.o_no = o_no;
-	}
-	
 	
 }

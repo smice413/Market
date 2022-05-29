@@ -25,7 +25,7 @@
 					<td>상품</td>
 					<td><c:if test="${qna.p_no != 18}"><font color=blue>[${qna.p_no}] 상품에 대한 문의내용입니다.</font>
 								<a href="productView.do?p_no=${qna.p_no}">>>상품 보러가기</a></c:if>
-							<c:if test="${qna.op_no != 72}"><font color=red>주문번호 :${qna.op_no} 주문 건에 대한 문의내용입니다.</font>
+							<c:if test="${qna.op_no != 213}"><font color=red>주문번호 :${qna.op_no} 주문 건에 대한 문의내용입니다.</font>
 								<a href="orderDetail.do?op_no=${qna.op_no}&o_no=${qna.o_no}">>>주문상품 보러가기</a></c:if></td>
 				</tr>
 				<tr>

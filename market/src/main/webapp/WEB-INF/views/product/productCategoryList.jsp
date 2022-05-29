@@ -18,7 +18,7 @@
 		
 		<div  class="container" style="width:100%;  padding:0 0 3 0; border-radius: 10px; border-style: dotted; border-width: 2px;">
 			<c:forEach var="c" items="${listCategory }">
-				<div style="width: 115px; height:32px; float: left; text-align: center; padding:7 0 7 0; ">
+				<div class="sub_cate" style="width: 125px; height:32px; float: left; text-align: center; padding:7 0 7 0; ">
 				<c:if test="${search=='cate_large'}">
 					<font style="font-size: 15px; font-weight: bold;">
 						<a href="${path}/productCategoryList.do?search=cate_small&keyword=${c.cate_small }">${c.cate_small }</a>
@@ -54,7 +54,7 @@
 		<!-- 상품개수와 공동구매특가,팔로우특가,각종 정렬부분 -->
 		<table style="font-size:13px; width:100%">
 			<tr>
-				<td style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}</td>
+				<td width=132px style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}</td>
 				<td  style="padding:5 10 0 0;" align=right>
 					<a href="${path }/productCategoryList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC" style="color:red">
 						<c:if test="${orderCond == 'p_group_price_ASC'}"><b>공동구매특가</b></c:if>
@@ -82,7 +82,7 @@
 		</table>
 		<!-- 상품 리스트 -->
 		<c:forEach var="p" items="${list }">
-			<div class="${p.p_no}" style="float: left;">
+			<div class="vf_product" style="float: left;">
 				<table style="font-size:14px;">
 					<tr>
 						<td style="padding:9px">

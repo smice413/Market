@@ -31,11 +31,22 @@
 		</c:if>
 		<!-- 상점 검색 -->
 		<c:if test="${search eq 's_name'}">
-			<table>
+			<table width=100%>
 				<tr>
-					<td><img src="${path}/images/shop.png" style="width:30px; height:30px; margin:2px;"></td>
-					<td><b><font style="font-size:20px;">&nbsp;${keyword}</font></b></td>
-					<td><font style="font-size:15px;" class="text-primary"><b>&nbsp;의  모든 상품이 검색되었습니다.</b></font></td>
+					<td>
+			<div class="vf-left" style="text-align: right">
+			<table align=center>
+					<tr>
+						<td><img src="${path}/images/shop.png" style="width:30px; height:30px; margin:2px;"></td>
+						<td><b><font style="font-size:20px;">&nbsp;${keyword}</font></b></td>
+						<td><font style="font-size:15px;" class="text-primary"><b>&nbsp;의  모든 상품이 검색되었습니다</b></font></td>
+					</tr>
+				</table>
+			</div>
+			<div class="vf-right" style="text-align: center">
+				<a class="btn btn-success" href="${path}/followInsert.do?s_no=${product.s_no}">>> 팔로잉하기</a>
+			</div>
+					</td>
 				</tr>
 			</table>
 		</c:if>	
@@ -54,8 +65,8 @@
 		<!-- 상품개수와 공동구매특가,팔로우특가,각종 정렬부분 -->
 		<table style="font-size:13px; width:100%">
 			<tr>
-				<td style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}</td>
-				<td  style="padding:5 10 0 0;" align=right>
+				<td width=132px style="padding:5 0 0 10;">검색된 상품개수 : ${pp.total}개</td>
+				<td style="padding:5 10 0 0;" align=right>
 				<c:if test="${(search eq 'p_name') or (search eq 's_name') }">
 					<a href="${path }/productSearchList.do?pageNum=1&search=${search}&keyword=${keyword}&orderCond=p_group_price_ASC" style="color:red">
 						<c:if test="${orderCond == 'p_group_price_ASC'}"><b>공동구매특가</b></c:if>
@@ -84,7 +95,7 @@
 		</table>
 		<!-- 상품 리스트 -->
 		<c:forEach var="p" items="${list }">
-			<div class="${p.p_no}" style="float: left;">
+			<div class="vf_product" style="float: left;">
 				<table style="font-size:14px">
 					<tr>
 						<td style="padding:8px">

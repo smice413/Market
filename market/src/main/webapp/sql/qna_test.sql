@@ -6,10 +6,51 @@ select * from order_tab where s_no is null
 select * from member;
 select * from review
 select * from shop;
-delete from order_tab where s_no is null;
+
 update order_tab set s_no=3 where s_no is null;
+update product set p_name='qna게시판용 테스트 데이터입니다. 삭제하지 말아주세요' where p_no = 18;
+
+delete from order_tab where s_no is null;
 delete from qna
 select * from qna Q left join member M on M.m_email = Q.m_email order by qna_ref desc, qna_writedate asc
+
+select *
+from order_product 
+where m_email='hamtori@gmail.com'
+
+select 
+	OP.op_no as op_no,
+	OP.op_date as op_date,
+	P.p_name as p_name,
+	P.s_no as s_no,
+	P.p_sell_price as p_sell_price,
+	S.s_name as s_name
+from order_product OP
+   	left join product P on OP.p_no = P.p_no
+   	left join shop S on S.s_no = P.s_no
+where m_email='hamtori@gmail.com'
+
+select * from PRODUCT_IMG
+
+		select 
+			OP.op_no as op_no,
+			OP.p_no as p_no,
+			OP.op_date as op_date,
+			P.p_name as p_name,
+			P.s_no as s_no,
+			P.p_sell_price as p_sell_price,
+ 			PI.p_img as p_img,
+ 			S.s_name as s_name
+		from order_product OP
+		   	left outer join product P on OP.p_no = P.p_no
+		   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
+		   	left outer join shop S on P.s_no = S.s_no
+		where m_email='hamtori@gmail.com' and p_no=16
+
+select * from qna
+
+
+
 
 select * from (select a.*,rowNum rn from (
 			select 
@@ -28,11 +69,11 @@ select * from (select a.*,rowNum rn from (
 				M.m_name as m_name,
 				P.p_name as p_name,
 				OP.o_no as o_no
-			from qna Q 
+			from qna Q
 			   	left join member M on M.m_email = Q.m_email
 			   	left join product P on P.p_no = Q.p_no
 			   	left join order_product OP on OP.op_no = Q.op_no
-
+			 where qna_delstatus='N' and m_email like '%ham%'
 	order by qna_ref desc, qna_writedate asc ) a)
 
 insert into qna values (qna_seq.nextval,18,null,

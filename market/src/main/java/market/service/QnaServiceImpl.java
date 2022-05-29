@@ -22,8 +22,12 @@ public class QnaServiceImpl implements QnaService {
 		return qd.list(qna);
 	}
 
-	public int getMaxNum() {
-		return qd.getMaxNum();
+	public List<QnaDTO> selectOrderList(QnaDTO qna) {
+		return qd.selectOrderList(qna);
+	}
+
+	public QnaDTO selectOrderOne(QnaDTO qna) {
+		return qd.selectOrderOne(qna);
 	}
 
 	public int insert(QnaDTO qna) {
@@ -34,10 +38,6 @@ public class QnaServiceImpl implements QnaService {
 		return qd.answer(qna);
 	}
 	
-	public void readcountUpdate(int qna_no) {
-		qd.readcountUpdate(qna_no);
-	}
-
 	public QnaDTO select(int qna_no) {
 		return qd.select(qna_no);
 	}

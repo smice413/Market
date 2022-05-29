@@ -9,18 +9,20 @@ public interface QnaDAO {
 	int getTotal(QnaDTO qna);
 
 	List<QnaDTO> list(QnaDTO qna);
-
-	int getMaxNum();
 	
+	List<QnaDTO> selectOrderList(QnaDTO qna);
+	
+	QnaDTO selectOrderOne(QnaDTO qna);
+
 	int insert(QnaDTO qna);
 	
 	int answer(QnaDTO qna);
-
-	void readcountUpdate(int qna_no);
 	
 	QnaDTO select(int qna_no);
 
 	int update(QnaDTO qna);
 
 	int delete(int qna_no);
+	
+
 }

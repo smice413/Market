@@ -21,9 +21,13 @@ public class QnaDAOImpl implements QnaDAO {
 	public List<QnaDTO> list(QnaDTO qna) {
 		return sst.selectList("qnans.list", qna);
 	}
+	
+	public List<QnaDTO> selectOrderList(QnaDTO qna) {
+		return sst.selectList("qnans.selectOrderList", qna);
+	}
 
-	public int getMaxNum() {
-		return sst.selectOne("qnans.getMaxNum");
+	public QnaDTO selectOrderOne(QnaDTO qna) {
+		return sst.selectOne("qnans.selectOrderOne", qna);
 	}
 
 	public int insert(QnaDTO qna) {
@@ -32,10 +36,6 @@ public class QnaDAOImpl implements QnaDAO {
 
 	public int answer(QnaDTO qna) {
 		return sst.update("qnans.answer", qna);
-	}
-	
-	public void readcountUpdate(int qna_no) {
-		sst.update("qnans.readcountUpdate", qna_no);
 	}
 
 	public QnaDTO select(int qna_no) {
@@ -49,6 +49,5 @@ public class QnaDAOImpl implements QnaDAO {
 	public int delete(int qna_no) {
 		return sst.update("qnans.delete", qna_no);
 	}
-
 
 }
