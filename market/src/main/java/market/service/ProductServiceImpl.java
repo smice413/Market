@@ -9,6 +9,7 @@ import market.dao.ProductDAO;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
+import market.model.ShopDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -18,6 +19,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> getShopNo(){
 		return pd.getShopNo();
 	}
+
+	public List<ProductDTO> listMain(ProductDTO product){
+		return pd.listMain(product);
+	}
 	
 	public List<ProductDTO> list(ProductDTO product){
 		return pd.list(product);
@@ -25,6 +30,10 @@ public class ProductServiceImpl implements ProductService {
 	
 	public List<ProductDTO> mlist(ProductDTO product){
 		return pd.mlist(product);
+	}
+
+	public int getTotalMain(ProductDTO product) {
+		return pd.getTotal(product);
 	}
 	
 	public int getTotal(ProductDTO product) {
@@ -77,5 +86,9 @@ public class ProductServiceImpl implements ProductService {
 
 	public List<Product_imgDTO> listImg(int p_no) {
 		return pd.listImg(p_no);
+	}
+	
+	public ShopDTO getShopInfo(ProductDTO product) {
+		return pd.getShopInfo(product);
 	}
 }

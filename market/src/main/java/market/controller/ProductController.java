@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
+import market.model.ShopDTO;
 import market.service.PagingPgm;
 import market.service.ProductService;
 
@@ -42,7 +43,7 @@ public class ProductController {
 		product.setStartRow(1);
 		product.setEndRow(5);
 		
-		List<ProductDTO> glist = ps.list(product);
+		List<ProductDTO> glist = ps.listMain(product);
 		System.out.println("glist:"+glist);
 
 		//follow특가
@@ -53,7 +54,7 @@ public class ProductController {
 		product.setKeyword(keyword);
 		product.setOrderCond(orderCond);
 
-		List<ProductDTO> flist = ps.list(product);		
+		List<ProductDTO> flist = ps.listMain(product);		
 		System.out.println("flist:"+flist);
 		
 		//공유
@@ -241,23 +242,29 @@ public class ProductController {
 		}
 		int currentPage = Integer.parseInt(pageNum); // 현재 페이지 번호
 		
-		int total = ps.getTotal(product); // 검색 (데이터 갯수)
+		int total = ps.getTotalMain(product); // 검색 (데이터 갯수)
 		
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
 		
-		session = request.getSession();
-
-		int s_no = (int) session.getAttribute("s_no");
-		
-		product.setS_no(s_no);
+		/*
+		 * session = request.getSession();
+		 * 
+		 * int s_no = (int) session.getAttribute("s_no");
+		 * 
+		 * product.setS_no(s_no);
+		 */
 		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);
 		
-		List<ProductDTO> list = ps.list(product);
+		ShopDTO s = ps.getShopInfo(product);
+		System.out.println("shop_info:"+s);
+		List<ProductDTO> list = ps.listMain(product);
 		
+		//팔로잉을 위한 상점번호
+		model.addAttribute("s", s);
 		//상품목록
 		model.addAttribute("list", list);
 		//페이징
@@ -284,22 +291,24 @@ public class ProductController {
 		}
 		int currentPage = Integer.parseInt(pageNum); // 현재 페이지 번호
 		
-		int total = ps.getTotal(product); // 검색 (데이터 갯수)
+		int total = ps.getTotalMain(product); // 검색 (데이터 갯수)
 		
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
 		
-		session = request.getSession();
-
-		int s_no = (int) session.getAttribute("s_no");
-		
-		product.setS_no(s_no);
+		/*
+		 * session = request.getSession();
+		 * 
+		 * int s_no = (int) session.getAttribute("s_no");
+		 * 
+		 * product.setS_no(s_no);
+		 */
 		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);
 
-		List<ProductDTO> list = ps.list(product);
+		List<ProductDTO> list = ps.listMain(product);
 		List<CategoryDTO> listCategory = ps.listCategory(product);
 		
 		//카테고리목록

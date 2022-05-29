@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
+import market.model.ShopDTO;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -18,6 +19,10 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductDTO> getShopNo(){
 		return sst.selectList("productns.getShopNo");
 	}
+
+	public List<ProductDTO> listMain(ProductDTO product){
+		return sst.selectList("productns.listMain", product);
+	}
 	
 	public List<ProductDTO> list(ProductDTO product){
 		return sst.selectList("productns.list", product);
@@ -25,6 +30,10 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	public List<ProductDTO> mlist(ProductDTO product){
 		return sst.selectList("productns.mlist", product);
+	}
+
+	public int getTotalMain(ProductDTO product) {
+		return sst.selectOne("productns.getTotalMain", product);
 	}
 	
 	public int getTotal(ProductDTO product) {
@@ -78,4 +87,8 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product_imgDTO> listImg(int p_no) {
 		return sst.selectList("productns.listImg", p_no);
 	}	
+	
+	public ShopDTO getShopInfo(ProductDTO product) {
+		return sst.selectOne("productns.getShopInfo", product);
+	}
 }

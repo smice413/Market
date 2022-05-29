@@ -5,15 +5,20 @@ import java.util.List;
 import market.model.CategoryDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
+import market.model.ShopDTO;
 
 
 public interface ProductService {
 
 	List<ProductDTO> getShopNo();
 	
+	List<ProductDTO> listMain(ProductDTO product);
+	
 	List<ProductDTO> list(ProductDTO product);
 	
 	List<ProductDTO> mlist(ProductDTO product);
+	
+	int getTotalMain(ProductDTO product);
 	
 	int getTotal(ProductDTO product);
 	
@@ -40,4 +45,6 @@ public interface ProductService {
 	int insertImg(Product_imgDTO product_img);
 	
 	List<Product_imgDTO> listImg(int p_no);
+	
+	ShopDTO getShopInfo(ProductDTO product);
 }

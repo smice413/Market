@@ -3,6 +3,85 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="productns">
 
+<!--  MAIN구매자 전용	 -->
+	<select id="listMain" parameterType="product" resultType="product">
+			select * from (select a.*,rowNum rn from (
+				select 
+					P.p_no as p_no,
+					P.cate_no as cate_no,
+					P.s_no as s_no,
+					P.p_group_buying as p_group_buying,
+					P.p_follow_sale as p_follow_sale,
+					P.p_name as p_name,
+					P.p_detail as p_detail,
+					P.p_group_price as p_group_price,
+					P.p_sell_price as p_sell_price,
+					P.p_follow_price as p_follow_price,
+					P.p_stock as p_stock,
+					P.p_regdate as p_regdate,
+					P.p_status as p_status,
+					P.p_hit as p_hit,
+					C.cate_large as cate_large,
+					C.cate_small as cate_small,
+					PI.p_img as p_img,
+					S.s_name as s_name
+				from product P
+				   	left outer join category C on P.cate_no = C.cate_no
+				   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
+				   	left outer join shop S on P.s_no = S.s_no
+		<where>
+			<if test="status != null">
+				p_status=#{status} 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%' </if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
+			<if test="status == null">
+				p_status='1' 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%'</if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
+		</where>			
+			 order by 
+	    <choose>
+	        <when test="orderCond == 'p_group_price_shop_ASC'">p_group_price asc</when>
+	        <when test="orderCond == 'p_group_price_ASC'">p_group_price asc</when>
+	        <when test="orderCond == 'p_follow_price_shop_ASC'">p_follow_price asc</when>
+	        <when test="orderCond == 'p_follow_price_ASC'">p_follow_price asc</when>
+	        <when test="orderCond == 'p_regdate_DESC'">p_regdate desc</when>
+	        <when test="orderCond == 'p_hit_DESC'">p_hit desc</when>
+	        <when test="orderCond == 'p_sell_ASC'">p_sell_price asc</when>
+	        <when test="orderCond == 'p_sell_DESC'">p_sell_price desc</when>
+	        <when test="orderCond == 'p_name_ASC'">p_name asc</when>
+	        <when test="orderCond == 'p_stock_ASC'">p_stock asc</when>
+	        <otherwise> p_no desc </otherwise>
+	    </choose>
+			 ) a )
+			where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="getTotalMain" parameterType="product" resultType="int">
+		select count(*) from product P
+					left outer join category C on P.cate_no = C.cate_no
+ 		       		left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
+ 		       		left outer join shop S on P.s_no = S.s_no
+		<where>
+			<if test="status != null">
+				p_status=#{status} 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%' </if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
+			<if test="status == null">
+				p_status='1' 
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%'</if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
+		</where>	
+	</select>
+	
+<!--  SHOP매니저 전용	 -->
 	<select id="list" parameterType="product" resultType="product">
 			select * from (select a.*,rowNum rn from (
 				select 
@@ -60,6 +139,28 @@
 			 ) a )
 			where rn between #{startRow} and #{endRow}
 	</select>
+	<select id="getTotal" parameterType="product" resultType="int">
+		select count(*) from product P
+					left outer join category C on P.cate_no = C.cate_no
+ 		       		left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
+ 		       		left outer join shop S on P.s_no = S.s_no
+		<where>
+			P.s_no=#{s_no}
+			<if test="status != null">
+				and p_status=#{status}
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%' </if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
+			<if test="status == null">
+				and p_status='1'
+				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%'</if>
+				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
+				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
+			</if>
+		</where>	
+	</select>
+<!--  플랫폼 관리자 전용	 -->
 	<select id="mlist" parameterType="product" resultType="product">
 			select * from (select a.*,rowNum rn from (
 				select 
@@ -119,27 +220,6 @@
 			 ) a )
 			where rn between #{startRow} and #{endRow}
 	</select>
-	<select id="getTotal" parameterType="product" resultType="int">
-		select count(*) from product P
-					left outer join category C on P.cate_no = C.cate_no
- 		       		left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
- 		       		left outer join shop S on P.s_no = S.s_no
-		<where>
-			P.s_no=#{s_no}
-			<if test="status != null">
-				and p_status=#{status}
-				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%' </if>
-				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
-				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
-			</if>
-			<if test="status == null">
-				and p_status='1'
-				<if test="keyword != null"> and ${search} like '%'||#{keyword}||'%'</if>
-				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
-				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
-			</if>
-		</where>	
-	</select>
 	<select id="mgetTotal" parameterType="product" resultType="int">
 		select count(*) from product P
 					left outer join category C on P.cate_no = C.cate_no
@@ -160,6 +240,7 @@
 			</if>
 		</where>	
 	</select>
+
 	<select id="select" parameterType="int" resultType="product">
 		select 
 			P.p_no as p_no,
@@ -246,4 +327,7 @@
 		update product set p_status='4' where p_no=#{p_no}
 	</update>
 	
+	<select id="getShopInfo" parameterType="product" resultType="shop">
+		select * from shop where s_name like '%'||#{keyword}||'%'
+	</select>
 </mapper>
