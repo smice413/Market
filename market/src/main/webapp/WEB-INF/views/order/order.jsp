@@ -114,6 +114,19 @@
 						</div>
 						</c:if>
 						
+						<!-- 공동구매 상품 -->
+						<c:if test="${pi.op_type == 3 }">
+							<div style="margin-top:15px;">
+							   <b>${pi.p_name}</b> <br>
+								<div style="font-size:13px;margin-top:2px;">
+									<fmt:formatNumber pattern="#,###,###" value="${pi.p_sell_price}"/>&nbsp;원
+									<label id="line"><fmt:formatNumber pattern="#,###,###" value="${originPrice}"/>&nbsp;원</label>
+							  		 | ${pi.s_name} 
+						    	</div>
+								<label id="group_sale" style="color: red; font-size: 13px;">※공동구매 특가※</label>
+							</div>
+						</c:if>
+						
 					</td>
 					<td><div style="margin-top:35px;">${pi.cart_qty} 개 </div></td>
 					<td>

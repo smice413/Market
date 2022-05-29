@@ -112,7 +112,7 @@ function review_click(a,b){
 			</c:if>
 			
 			<c:if test="${list.op_status == '9' }">
-				<div style="font-size: 10pt;">판매자에게 1:1 문의하기</div>
+				<div style="font-size: 10pt;"><a href="qnaQuestionForm.do?m_email=${sessionScope.m_email }">판매자에게 1:1 문의하기</a></div>
 			</c:if>
 			
 			<c:if test="${list.op_status == '11' }">

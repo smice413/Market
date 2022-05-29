@@ -98,7 +98,7 @@
 						<b>${product.p_follow_price}원<b><br>팔로워구매하기</a>
 					</c:if>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
-					<a href="#menu1" class="btn btn-danger" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
+					<a class="group_btn btn btn-danger" class="btn btn-danger" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
 						<b>${product.p_group_price}원<b><br>공동구매하기</a>
 					</c:if>
 					<a class="cart_btn btn btn-outline-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
@@ -173,6 +173,15 @@
 		$(".order_form").find("input[name='orders[0].op_type']").val(op_type);
 		$(".order_form").submit();
 	});	
+	
+	// 공동 구매 버튼 클릭 시
+	$(".group_btn").on("click", function(){
+		var cart_qty = $(".cart_qty").val();
+		var op_type = "3"; 
+		$(".order_form").find("input[name='orders[0].cart_qty']").val(cart_qty);
+		$(".order_form").find("input[name='orders[0].op_type']").val(op_type);
+		$(".order_form").submit();
+	});
 		
 	$(document).ready(function(){
 
