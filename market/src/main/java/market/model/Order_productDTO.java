@@ -44,6 +44,7 @@ public class Order_productDTO {
 	
 	// product_img
 	private String p_img;
+	private int p_img_order;
 	
 	// delivery
 	private String d_name;
@@ -246,6 +247,12 @@ public class Order_productDTO {
 	}
 	public void setP_img(String p_img) {
 		this.p_img = p_img;
+	}
+	public int getP_img_order() {
+		return p_img_order;
+	}
+	public void setP_img_order(int p_img_order) {
+		this.p_img_order = p_img_order;
 	}
 	public String getD_name() {
 		return d_name;

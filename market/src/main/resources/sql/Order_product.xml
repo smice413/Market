@@ -24,7 +24,7 @@ select * from (select a.*, rowNum rn from(
 	from order_product OP
 	    left join product P on OP.p_no = P.p_no
 	    left join order_tab OT on OP.o_no = OT.o_no
-	    left join product_img PI on OP.p_no = PI.p_no
+	    left join product_img PI on OP.p_no = PI.p_no and PI.p_img_order=1
 	    left join shop S on OP.s_no = S.s_no
 	
 	where OP.m_email = #{m_email}  
@@ -57,7 +57,9 @@ select
     OT.o_sale_price as o_sale_price,
     OT.o_pay_price as o_pay_price,
     OT.o_pay_type as o_pay_type,
+    OT.o_deli_price as o_deli_price,
     PI.p_img as p_img,
+    PI.p_img_order as p_img_order,
     P.p_name as p_name,
     D.d_name as d_name,
     D.d_tel as d_tel,
@@ -67,10 +69,10 @@ select
 from order_product OP
     left join product P on OP.p_no = P.p_no
     left join order_tab OT on OP.o_no = OT.o_no
-    left join product_img PI on OP.p_no = PI.p_no
+    left join product_img PI on OP.p_no = PI.p_no and PI.p_img_order=1
     left join delivery D on OP.d_no = D.d_no
 
-where OP.op_no = #{op_no}
+where OP.op_no = #{op_no} 
 </select>
 
 <!-- 주문 상세 페이지 내부 주문 목록 -->
@@ -93,7 +95,7 @@ select
 from order_product OP
     left join product P on OP.p_no = P.p_no
     left join order_tab OT on OP.o_no = OT.o_no
-    left join product_img PI on OP.p_no = PI.p_no
+    left join product_img PI on OP.p_no = PI.p_no and PI.p_img_order=1
     left join shop S on OP.s_no = S.s_no
 
 where OP.o_no = #{o_no}
