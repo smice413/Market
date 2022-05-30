@@ -40,8 +40,8 @@
 		container안에 아래 div삽입 : 
 						왼쪽 <div class="left">
 						오른쪽 <div class="right">*/		
-	.vf-left { float: left; width: 350px; background-color: #fff; padding: 10 0 0 0; }
-	.vf-right { float: left; width: 850px; background-color: #fff; padding: 10 0 0 0; }
+	.vf-left { float: left; width: 40%; background-color: #fff; padding: 10 0 0 0; }
+	.vf-right { float: left; width: 60%; background-color: #fff; padding: 10 0 0 0; }
 
 /*3. 한 화면에 좌우로 4가지 내용을 담을 경우(화면이 좁아지면 오른쪽 내용이 아래로 내려옴)
 		container안에 아래 div삽입 : 
@@ -66,6 +66,7 @@
 /******************** 반응형 웹에 필요한 내용 ********************/
 /* 화면이 좁아지면 아래 내용이 자동 적용되고 넗어지면 자동 해제된다*/
 
+
 	@media (max-width : 500px) {
 	/* 본문전체 적용 */	
 		body{ margin: 0px; padding: 0px;}
@@ -85,10 +86,10 @@
 		.vf-left{width: 100%;  padding: 10 0 0 0; }
 		.vf-right {width: 100%;  padding: 0px;}
 		.vf-wide700-card { width:100%; }
-		.vf-wide500-card { width:10%; }	
+		.vf-wide500-card { width:100%; }	
 		.vf-wide300-card { width:90%; }	
-		.vf_product {width:50%; height:300px;}
-		.vf_product img {width:100%; height:100%; border-radius: 5px;}
+		.vf_product {width:50%; height:310px;}
+		.vf_product img {width:100%; border-radius: 5px;}
     }
 
 

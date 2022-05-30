@@ -18,7 +18,7 @@
 		
 		<div  class="container" style="width:100%;  padding:0 0 3 0; border-radius: 10px; border-style: dotted; border-width: 2px;">
 			<c:forEach var="c" items="${listCategory }">
-				<div class="sub_cate" style="width: 125px; height:32px; float: left; text-align: center; padding:7 0 7 0; ">
+				<div class="sub_cate" style="width: 120px; height:32px; float: left; text-align: center; padding:7 0 7 0; ">
 				<c:if test="${search=='cate_large'}">
 					<font style="font-size: 15px; font-weight: bold;">
 						<a href="${path}/productCategoryList.do?search=cate_small&keyword=${c.cate_small }">${c.cate_small }</a>
@@ -108,7 +108,7 @@
 	</c:if>
 </div>
 <!-- 페이징 -->
-<c:if test="${pp.endPage > 1}">	
+<%-- <c:if test="${pp.endPage > 1}">	 --%>
 	<div class="container" align="center">
 		<ul class="pagination">
 			<c:if test="${not empty keyword}">
@@ -137,7 +137,7 @@
 		  	</c:if>
 		</ul>
 	</div>
-</c:if>
+<%-- </c:if> --%>
 
 <br><br><br><br>
 <%@ include file="../common/footer.jsp"%>

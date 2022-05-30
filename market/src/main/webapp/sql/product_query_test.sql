@@ -11,7 +11,13 @@ select * from product p inner join category c on p.cate_no = c.cate_no where c.c
 select count(*) from product P
 			left outer join category C on P.cate_no = C.cate_no
        		left outer join product_img PI on P.p_no = PI.p_no
-		       		
+       		
+		select count(*) from product P
+					left outer join category C on P.cate_no = C.cate_no
+ 		       		left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
+ 		       		left outer join shop S on P.s_no = S.s_no 		
+			where	p_status='1' and cate_large like '%과일%'
+       		
 select 
 	P.p_no as p_no,
 	P.cate_no as cate_no,

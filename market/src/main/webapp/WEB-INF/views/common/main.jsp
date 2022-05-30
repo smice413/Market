@@ -37,14 +37,14 @@
 	<a href="${path}/productSearchList.do?search=p_follow_sale&keyword=Y" style="text-decoration: none"><h3><b>follow 특가 ></b></h3></a>
 	<c:forEach var="p" items="${flist }">
 			<div class="vf_product" style="float: left;">
-				<table style="font-size:14px">
+				<table style="font-size:14px;" height=230px>
 					<tr>
 						<td style="padding:9px">
 							<a href="${path }/productView.do?p_no=${p.p_no}">
 							<img src="${path}/upload/product/${p.p_img}" width=210px height=210px></a></td>
 					</tr>
 					<tr>
-						<td style="padding:0 9 9 9">
+						<td style="padding:0 9 9 9; height:80px;">
 						<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${p.s_name}">[${p.s_name}]</a><br>
 						<b>${p.p_name}</b><br>
 						일반구매가 : ${p.p_sell_price}원<br>
@@ -59,14 +59,14 @@
 	<a href="${path}/productSearchList.do?search=p_group_buying&keyword=Y" style="text-decoration: none"><h3><b>공동구매 특가 ></b></h3></a>
 	<c:forEach var="p" items="${glist }">
 			<div class="vf_product" style="float: left;">
-				<table style="font-size:14px">
+				<table style="font-size:14px;">
 					<tr>
 						<td style="padding:9px">
 							<a href="${path }/productView.do?p_no=${p.p_no}">
 							<img src="${path}/upload/product/${p.p_img}" width=210px height=210px></a></td>
 					</tr>
 					<tr>
-						<td style="padding:0 9 9 9">
+						<td style="padding:0 9 9 9; height:80px;">
 						<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${p.s_name}">[${p.s_name}]</a><br>
 						<b>${p.p_name}</b><br>
 						일반구매가 : ${p.p_sell_price}원<br>

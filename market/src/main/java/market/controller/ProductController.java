@@ -253,24 +253,23 @@ public class ProductController {
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
 		
-		/*
-		 * session = request.getSession();
-		 * 
-		 * int s_no = (int) session.getAttribute("s_no");
-		 * 
-		 * product.setS_no(s_no);
-		 */
-		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);
-		
-		ShopDTO s = ps.getShopInfo(product);
-		System.out.println("shop_info:"+s);
+
 		List<ProductDTO> list = ps.listMain(product);
+
+		System.out.println(product.getSearch());
+		System.out.println(product.getKeyword());
 		
-		//팔로잉을 위한 상점번호
-		model.addAttribute("s", s);
+		if (product.getSearch().equals("s_name")) {
+			
+			ShopDTO s = ps.getShopInfo(product);
+			System.out.println("shop_info:"+s);
+			
+			//팔로잉을 위한 상점번호
+			model.addAttribute("s", s);
+		}
 		//상품목록
 		model.addAttribute("list", list);
 		//페이징
@@ -301,14 +300,6 @@ public class ProductController {
 		
 		int startRow = (currentPage - 1) * rowPerPage + 1;
 		int endRow = startRow + rowPerPage - 1;
-		
-		/*
-		 * session = request.getSession();
-		 * 
-		 * int s_no = (int) session.getAttribute("s_no");
-		 * 
-		 * product.setS_no(s_no);
-		 */
 		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);

@@ -19,6 +19,7 @@
 	 	var result = confirm("정말로 삭제하시겠습니까?");
 	 	if (result == true) {
 			var formData="qna_no="+qna_no+"&pageNum="+currentPage+"&search="+search+"&keyword="+keyword;
+
 			$.post("${path}/qnaDelete.do",formData, function(data) {
 				$('#slist').html(data);
 			});
@@ -98,12 +99,13 @@
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>A</b></td>
 						<td style="padding:0 10 0 10;"><pre>${qna.qna_answer}</pre></td>
 					</tr>
+					<c:if test="${qna.m_email eq sessionScope.m_email}">
 					<tr>
-					<td></td>
-					<td style="padding:0 10 10 10;" align=right>
-					<a href="javascript:qnaDelete(${qna.qna_no},${pp.currentPage},'${search}',${keyword})"> x 삭제</a></td>
-				</tr>
-					
+						<td></td>
+						<td style="padding:0 10 10 10;" align=right>
+						<a href="javascript:qnaDelete(${qna.qna_no},${pp.currentPage},'${search}',${keyword})"> x 삭제</a></td>
+					</tr>
+					</c:if>
 				</table>
 		       </div>
 		   	</div>

@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public int getTotalMain(ProductDTO product) {
-		return pd.getTotal(product);
+		return pd.getTotalMain(product);
 	}
 	
 	public int getTotal(ProductDTO product) {

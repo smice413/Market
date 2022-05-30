@@ -5,7 +5,7 @@
 	<div class="container" align="center">
 		<h3 class="text-primary">상품 문의</h3>
 		<div class="vf-wide700-card">
-		<form id="insert_form" method="post">
+		<form id="insert_form" method="post" onsubmit="javascript:qnaInsert()">
 			<input type="hidden" name="p_no" value="${product.p_no}">
 			<input type="hidden" name="op_no" value="213">
 			<input type="hidden" name="m_email" value="${sessionScope.m_email }">
@@ -38,18 +38,28 @@
 		</div>
 	</div>
 <script type="text/javascript">
+//삭제 버튼
+/* function qnaInsert(){
 
- $(function() {
+ 		var formData = $('#insert_form').serialize();
+		$.post("${path}/qnaInsert.do",formData, function(data) {
+			$('#slist').html(data);
+		});
+
+} */
+  $(function() {
 
 	$(".insert_btn").click(function() {
 		
-		alert($('#insert_form').serialize());
 		var formData = $('#insert_form').serialize();
 	 	$.post('${path}/qnaInsert.do', formData, function(data) {
 			$('#slist').html(data); 
+			
+			$("#home").attr('class', 'container tab-pane fade'); 
+			$("#menu2").attr('class', 'container tab-pane active');
 		});		
 	 	
 	}); 
 
-}); 
+});
 </script>

@@ -41,8 +41,6 @@ public class QnaController {
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		System.out.println("startRow:" + startRow);
 		System.out.println("endRow:" + endRow);
-		System.out.println("search:" + qna.getSearch());
-		System.out.println("keyword:" + qna.getKeyword());
 
 		qna.setStartRow(startRow);
 		qna.setEndRow(endRow);
@@ -50,10 +48,13 @@ public class QnaController {
 		int no = total - startRow + 1; // 화면 출력 번호
 		List<QnaDTO> list = qs.list(qna);
 		System.out.println("list:" + list);
+		System.out.println("search:" + qna.getSearch());
+		System.out.println("keyword:" + qna.getKeyword());
 
 		model.addAttribute("list", list);
 		model.addAttribute("no", no);
 		model.addAttribute("pp", pp);
+
 		// 검색
 		model.addAttribute("search", qna.getSearch());
 		model.addAttribute("keyword", qna.getKeyword());
@@ -130,8 +131,16 @@ public class QnaController {
 		System.out.println("qna_secret:" + qna.getQna_secret());
 
 		qs.insert(qna);
-		if (p_no !=18) {
-			return "redirect:qnaMainList.do?search=p_no&keyword=" + p_no;
+		
+		if (p_no !=18) {	
+			// 상품이름 공유
+			model.addAttribute("search", "p_no");
+			model.addAttribute("keyword", p_no);
+			
+			System.out.println("search:" + "p_no");
+			System.out.println("keyword:" + p_no);
+			
+			return "redirect:qnaMainList.do";
 		} else 
 			return "redirect:qnaList.do?search=m_email&keyword=" + m_email;
 	}
@@ -245,7 +254,7 @@ public class QnaController {
 		model.addAttribute("keyword", keyword);
 
 		if (search.equals("p_no") ) {
-			return "redirect:qnaMainList.do?search=p_no&keyword=" + keyword +"&pageNum=" + pageNum;
+			return "redirect:qnaMainList.do";
 		} else 
 			return "qna/qnaDelete";
 	}
