@@ -94,6 +94,12 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 	
 	@Override
+	public int orderGroupProductInsert(Order_productDTO opd) {
+		// TODO Auto-generated method stub
+		return sst.insert("orderpagens.orderGroupProductInsert", opd);
+	}
+	
+	@Override
 	public int orderProductInsert(Order_productDTO opd) {
 		return sst.insert("orderpagens.orderProductInsert", opd);
 	}
@@ -107,6 +113,8 @@ public class OrderDAOImpl implements OrderDAO{
 	public int updateStock(ProductDTO product) {
 		return sst.update("orderpagens.updateStock", product);
 	}
+
+
 
 
 

@@ -290,8 +290,14 @@ public class OrderController {
 				System.out.println("opd:"+opd);
 				
 				opd.setM_email(m_email);
-							
-				int result2 = os.orderProductInsert(opd); //order_product 등록
+				int result2 = 0;	
+				
+				if(opd.getOp_type().equals("3")) {
+					result2 = os.orderGroupProductInsert(opd); // 공동구매 상품 order_product 등록
+				}else {
+					result2 = os.orderProductInsert(opd); // 일반 상품 / 팔로우 특가 상품 order_product 등록
+				}
+				
 				System.out.println("order_product입력"+result2); 
 				
 				model.addAttribute("orderNo", orderNo);

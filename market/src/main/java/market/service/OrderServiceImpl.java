@@ -108,6 +108,12 @@ public class OrderServiceImpl implements OrdereService{
 	}
 
 	@Override
+	public int orderGroupProductInsert(Order_productDTO opd) {
+		// TODO Auto-generated method stub
+		return od.orderGroupProductInsert(opd);
+	}
+
+	@Override
 	public int orderProductInsert(Order_productDTO opd) {
 		// TODO Auto-generated method stub
 		return od.orderProductInsert(opd);
@@ -124,6 +130,7 @@ public class OrderServiceImpl implements OrdereService{
 		// TODO Auto-generated method stub
 		return od.updateStock(product);
 	}
+
 
 
 

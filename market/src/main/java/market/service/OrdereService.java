@@ -31,6 +31,7 @@ public interface OrdereService {
 	Order_productDTO getOrderInfo(int p_no);
 	int orderInsert(Order_tabDTO otd);
 	Order_tabDTO getOrderNo(Order_tabDTO otd);
+	int orderGroupProductInsert(Order_productDTO opd);
 	int orderProductInsert(Order_productDTO opd);
 	ProductDTO productInfo(int p_no);
 	int updateStock(ProductDTO product);

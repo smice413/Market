@@ -189,9 +189,9 @@ input[type="checkbox"]{
 								<!--상품 재고가 있는 경우 -->
 								<c:if test="${cl.p_stock != 0}"> 
 								<div class="table_text_align_center cart_qty_div" style="display:flex;">
-									<button class="cart_qty_btn minus_btn btn btn-default" >-</button>
+									<button class="cart_qty_btn minus_btn btn btn-default" onClick="">-</button>
 									<input type="text" name="cart_qty" value="${cl.cart_qty}" class="cart_qty_input form-control">
-									<button class="cart_qty_btn plus_btn btn btn-default" >+</button>
+									<button class="cart_qty_btn plus_btn btn btn-default" onClick="">+</button>
 								</div>
 									<a class="qty_modify_btn btn btn-default" data-cart_no="${cl.cart_no}">변경</a>
 								</c:if>
