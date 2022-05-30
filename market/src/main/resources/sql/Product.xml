@@ -332,6 +332,6 @@
 	</select>
 	
 	<select id="getFollowShopNo" resultType="follow">
-		select f.s_no from follow f, product p where f.s_no=p.s_no and p.p_no=#{p_no} and f.m_email=#{m_email}
+		select distinct f.* from follow f, product p where f.s_no=p.s_no and f.s_no=#{s_no}
 	</select>
 </mapper>

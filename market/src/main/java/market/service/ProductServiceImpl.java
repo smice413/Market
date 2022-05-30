@@ -94,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public FollowDTO getFollowShopNo(FollowDTO follow) {
-		return pd.getFollowShopNo(follow);
+	public List<FollowDTO> getFollowShopNo(int s_no) {
+		return pd.getFollowShopNo(s_no);
 	}
 }

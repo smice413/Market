@@ -157,13 +157,8 @@ public class ProductController {
 		ProductDTO product = ps.select(p_no);
 		List<Product_imgDTO> listImg = ps.listImg(p_no);
 		
-		String m_email = (String)session.getAttribute("m_email");
-		
-		FollowDTO follow = new FollowDTO();
-		follow.setM_email(m_email);
-		follow.setP_no(p_no);
-		
-		FollowDTO followShopNo = ps.getFollowShopNo(follow);
+		List<FollowDTO> followShop = ps.getFollowShopNo(product.getS_no());
+		System.out.println("followShop:"+followShop);
 		
 		System.out.println("product:"+product);
 		System.out.println("product_img:"+product);
@@ -171,7 +166,7 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("listImg", listImg);
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("followShopNo", followShopNo);
+		model.addAttribute("followShop", followShop);
 		
 		return "product/productView";
 	}

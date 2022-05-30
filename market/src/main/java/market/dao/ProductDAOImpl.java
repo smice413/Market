@@ -94,7 +94,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public FollowDTO getFollowShopNo(FollowDTO follow) {
-		return sst.selectOne("productns.getFollowShopNo", follow);
+	public List<FollowDTO> getFollowShopNo(int s_no) {
+		return sst.selectList("productns.getFollowShopNo", s_no);
 	}
 }

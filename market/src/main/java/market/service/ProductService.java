@@ -49,5 +49,5 @@ public interface ProductService {
 	
 	ShopDTO getShopInfo(ProductDTO product);
 	
-	FollowDTO getFollowShopNo(FollowDTO follow);
+	List<FollowDTO> getFollowShopNo(int s_no);
 }
