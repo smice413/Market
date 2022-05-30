@@ -266,6 +266,7 @@ public class OrderController {
 			System.out.println("Op_type:"+orderProduct.getOp_type());
 		
 		}		
+		System.out.println("opds:"+opds);
 		
 		otd.setOrders(opds);
 		otd.getOrderPriceInfo();

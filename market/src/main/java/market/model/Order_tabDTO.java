@@ -121,7 +121,7 @@ public class Order_tabDTO {
 	public void getOrderPriceInfo() {
 		// 상품 주문 금액
 		for(Order_productDTO order : orders) {
-			o_total_price += order.getOp_price();
+			o_total_price += order.getOp_refund();
 		}
 		
 		// 배송비
