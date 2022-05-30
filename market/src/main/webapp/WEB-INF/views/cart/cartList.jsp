@@ -13,9 +13,10 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	
 <style>
-.cart_qty_btn{
+.minus_btn,.plus_btn{
 	margin-top:35px;
 	outline:none;
+	height:33px;
 }
 .cart_qty_input{
 	width:50px;
@@ -23,8 +24,9 @@
 	margin-right:0;	
 }
 .qty_modify_btn{
-	margin-top:0px;
-	height:35px;
+	margin-top:35px;
+	margin-left:2px;
+	height:33px;
 }
 input[type="checkbox"]{
 	margin-top:28px;
@@ -82,6 +84,7 @@ input[type="checkbox"]{
 #p_info_div{
 	margin-top:28px;
 }
+
 
 
 </style>	
@@ -189,11 +192,11 @@ input[type="checkbox"]{
 								<!--상품 재고가 있는 경우 -->
 								<c:if test="${cl.p_stock != 0}"> 
 								<div class="table_text_align_center cart_qty_div" style="display:flex;">
-									<button class="cart_qty_btn minus_btn btn btn-default" onClick="">-</button>
+									<button class="minus_btn btn btn-default">-</button>
 									<input type="text" name="cart_qty" value="${cl.cart_qty}" class="cart_qty_input form-control">
-									<button class="cart_qty_btn plus_btn btn btn-default" onClick="">+</button>
-								</div>
+									<button class="plus_btn btn btn-default" >+</button>
 									<a class="qty_modify_btn btn btn-default" data-cart_no="${cl.cart_no}">변경</a>
+								</div>
 								</c:if>
 								<!-- 품절된 상품 -->
 								<c:if test="${cl.p_stock == 0 }"> 
@@ -275,26 +278,34 @@ input[type="checkbox"]{
 	});
 
 	// 상품 수량 버튼
-	$(".plus_btn").on("click", function(){
+ 	$(".plus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
+		
 		$(this).parent("div").find("input").val(++qty);
+		
 	});
-	
 	$(".minus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
 		if(qty > 1){
 		$(this).parent("div").find("input").val(--qty);
 		}	
-	});
+	}); 
 	
 	// 상품 수량 수정 버튼
  	$(".qty_modify_btn").on("click", function(){
 		let cart_no = $(this).data("cart_no");
 		let cart_qty = $(this).parent("td").find("input").val();
-		$(".update_cart_no").val(cart_no);
-		$(".update_cart_qty").val(cart_qty);
-		$(".qty_update_form").submit();
+		let p_stock = $("input[name=p_stock]").val();
 		
+		// 상품 재고 유효성 검사
+		if(cart_qty >= p_stock) {  
+		    alert("재고가 없습니다. 선택할 수 있는 최대 상품 수량은 "+p_stock+"개 입니다.");
+		    $(".cart_qty_input").val(1);
+		}else{
+			$(".update_cart_no").val(cart_no);
+			$(".update_cart_qty").val(cart_qty);
+			$(".qty_update_form").submit();
+		}
 	}); 
 	
 	// 장바구니 개별 상품 삭제 버튼
@@ -375,7 +386,6 @@ input[type="checkbox"]{
 					let p_no = $(element).find(".p_no_input").val();
 					let cart_qty = $(element).find(".cart_qty_input").val();
 					let op_type = $(element).find(".op_type_input").val();
-					//let p_sell_price = $(element).find(".op_type_input").val();
 
 					let p_no_input = "<input name='orders[" + orderNumber + "].p_no' type='hidden' value='" + p_no + "'>";
 					form_contents += p_no_input;
@@ -385,9 +395,6 @@ input[type="checkbox"]{
 					
 					let op_type_input = "<input name='orders[" + orderNumber + "].op_type' type='hidden' value='" + op_type + "'>";
 					form_contents += op_type_input;
-					
-					//let op_type_input = "<input name='orders[" + orderNumber + "].op_type' type='hidden' value='" + op_type + "'>";
-					//form_contents += op_type_input;
 					
 					orderNumber += 1;
 				}

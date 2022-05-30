@@ -12,6 +12,7 @@ import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ import market.model.ProductDTO;
 import market.service.CartService;
 import market.service.MemberServiceImpl;
 import market.service.OrdereService;
+import scala.PartialFunction.OrElse;
 
 @Controller
 public class OrderController {
@@ -221,8 +223,8 @@ public class OrderController {
 	}
 
 	// 주문 등록
-	@RequestMapping("orderInsert.do")
-	public String orderInsert(Order_tabDTO otd, HttpSession session, Model model) throws Exception{
+	@RequestMapping("orderRequest.do")
+	public String orderRequest(Order_tabDTO otd, HttpSession session, Model model) throws Exception{
 		System.out.println("orderRequest");
 		
 		String m_email = (String)session.getAttribute("m_email");
@@ -276,58 +278,6 @@ public class OrderController {
 		System.out.println("o_pay_type:"+otd.getO_pay_type());
 		System.out.println("orders:"+otd.getOrders());
 		
-		// 주문,주문상품 테이블에 저장
-		int result1 = os.orderInsert(otd);  // order_tab 등록
-		System.out.println("order_tab입력 :"+result1);
-
-		if(result1 == 1) {
-			for(Order_productDTO opd : otd.getOrders()) {
-							
-				Order_tabDTO orderNo = os.getOrderNo(otd);
-				System.out.println("orderNo:"+orderNo);
-							
-				opd.setO_no(orderNo.getO_no());			
-				System.out.println("opd:"+opd);
-				
-				opd.setM_email(m_email);
-				int result2 = 0;	
-				
-				if(opd.getOp_type().equals("3")) {
-					result2 = os.orderGroupProductInsert(opd); // 공동구매 상품 order_product 등록
-				}else {
-					result2 = os.orderProductInsert(opd); // 일반 상품 / 팔로우 특가 상품 order_product 등록
-				}
-				
-				System.out.println("order_product입력"+result2); 
-				
-				model.addAttribute("orderNo", orderNo);
-			}
-		} 
-		
-		// 재고 변동 적용
-		for(Order_productDTO opd : otd.getOrders()) {
-			// 변동 재고 값 구하기
-			ProductDTO product = os.productInfo(opd.getP_no());
-			System.out.println("변경 전 재고:"+product.getP_stock());
-					
-			product.setP_stock(product.getP_stock()-opd.getOp_qty());
-			System.out.println("변경 후 재고:"+product.getP_stock());
-					
-			int result3 = os.updateStock(product);
-			System.out.println("재고 변동 :"+result3);
-		}
-						
-		// 장바구니 제거
-		for(Order_productDTO opd : otd.getOrders()) {
-			CartDTO cart = new CartDTO();
-			cart.setM_email(otd.getM_email());
-			cart.setP_no(opd.getP_no());
-							
-			int result4 = cs.deleteOrderCart(cart);
-			System.out.println("장바구니 제거"+result4);
-		}			
-		
-		
 		// 결제정보
 		MemberDTO memberList = ms.select(m_email);
 		DeliveryDTO deliveryInfo = os.getDeliveryInfo(m_email);
@@ -339,6 +289,57 @@ public class OrderController {
 
 
 		return "order/iamportPayment";
+	}
+	
+	@RequestMapping("orderInsert.do")
+	public String orderInsert(Order_tabDTO otd) {
+		System.out.println("insert otd:"+otd);
+		
+		
+		return "order/orderInsertResult";
+	}
+	
+	@RequestMapping("orderMail.do")
+	public String orderMail(HttpSession session) throws Exception {
+		String m_email = (String)session.getAttribute("m_email");
+		
+		MemberDTO member = ms.select(m_email);
+		
+		// Mail Server 설정
+		String charSet = "utf-8";
+		String hostSMTP = "smtp.gmail.com";
+		String hostSMTPid = "gcmarket99@gmail.com";
+		String hostSMTPpwd = "rhkcoakzpt99"; // 비밀번호 입력해야함
+
+		// 보내는 사람 EMail, 제목, 내용
+		String fromEmail = "gcmarket99@gmail.com";
+		String fromName = "마켓관리자";
+		String subject = member.getM_name()+"님 주문 내역을 알려드립니다.";
+
+		// 받는 사람 E-Mail 주소
+		String mail = m_email;
+		System.out.println("m_email"+mail);
+		try {
+				HtmlEmail email = new HtmlEmail();
+				email.setDebug(true);
+				email.setCharset(charSet);
+				email.setSSL(true);
+				email.setHostName(hostSMTP);
+				email.setSmtpPort(465);
+
+				email.setAuthentication(hostSMTPid, hostSMTPpwd);
+				email.setTLS(true);
+				email.addTo(mail, charSet);
+				email.setFrom(fromEmail, fromName, charSet);
+				email.setSubject(subject);
+				email.setHtmlMsg("<p align = 'center'>안녕하세요. 신선한 농산물을 직거래하는 과채마켓입니다.</p><br>" + 
+				"<div align='center'>저희 과채마켓을 이용해주셔서 진심으로 감사드립니다.</div>");
+				email.send();
+		} catch (Exception e) {
+			System.out.println(e);
+		}		
+		
+		return "redirect:orderList.do";
 	}
 
 }

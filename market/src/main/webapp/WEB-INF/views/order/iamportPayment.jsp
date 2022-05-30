@@ -46,14 +46,31 @@
 	        
 	    }, function (rsp) {         // callback
 	        if (rsp.success) {     // 결제 성공 시 
-/* 	        	var otd = ${otd}
-	        	$.post("orderInsert.do", {otd : otd}, function(result) {
-		        	if(result==4){ */
+	        	var otd = "${otd}";
+	    		var senddata = {"otd":otd};
+	        	$.ajax({
+	        		url : 'orderInsert.do',
+	        		type : 'post',
+	        		dataType : 'json',
+	        		data : senddata,
+	        		success : function(result){
+	        			if(result == 1){
+	        				var msg = "결제가 완료되었습니다.";
+	        			    alert(msg);
+	        			    location.href="orderMail.do";
+	        			}
+	        		}
+	        	}); // ajax() end
+	        
+	        
+	        
+/* 	        	$.post("orderInsert.do", {"otd" : otd}, function(result) {
+		        	if(result==4){ 
 						var msg = "결제가 완료되었습니다.";
 			            alert(msg);	
-			            location.href="orderList.do";
-/* 		        	}
-				}); */ //post() end
+			            location.href="orderMail.do";
+ 		        	}
+				});  //post() end */
 	        } else {               // 결제 실패 시
 	        	var msg = "결제에 실패하였습니다.";
 	        	msg += '에러내용 : '+rsp.error_msg;

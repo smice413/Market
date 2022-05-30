@@ -58,7 +58,7 @@
 						<b>팔로워 할인가 : <font style="font-size:20px;"> ${product.p_follow_price}원</font> </b><br>
 						<font color=blue size=2>팔로잉하고 팔로워 할인가로 구매하세요 
 						<a href="${path}/followInsert.do?s_no=${product.s_no}">>>팔로잉하기</a></font><br>
-						※ 팔로워 할인을 받으려면 "팔로워상품담기"버튼을 클릭하셔야 합니다. <br>
+						<font size=2>※ 팔로워 할인을 받으려면 "팔로워상품담기"버튼을 클릭하셔야 합니다.</font> <br>
 					</c:if>
 					</c:forEach>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
@@ -67,8 +67,7 @@
 					</c:if>
 			</tr>
 			<tr>
-				<td>배송비</td>
-				<td align=left>3000원 (3만원 이상 무료배송)</td>
+				<td align=left>배송비 : 3000원 (3만원 이상 무료배송)</td>
 			</tr>
 			<tr>
 				<td class="cart_qty_td" colspan=2 align="left">
@@ -151,6 +150,7 @@
 </form>
 	
 </div>
+
 <br><br><br>
 <%@ include file="../common/footer.jsp"%>
 </body>
@@ -160,7 +160,13 @@
 	// 구매 수량 버튼 
 	$(".plus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
+		let p_stock = ${product.p_stock}
 		$(this).parent("div").find("input").val(++qty);
+		// 상품 재고 유효성 검사
+		if(qty > p_stock){
+			alert("재고가 없습니다. 선택할 수 있는 최대 상품 수량은 "+p_stock+"개 입니다.");
+			$(".cart_qty").val(1);
+		}
 	});
 	$(".minus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();

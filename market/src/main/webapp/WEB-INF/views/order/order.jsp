@@ -292,7 +292,7 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>	
 </footer>
 
-<form class="order_form" action="orderInsert.do" method="post">
+<form class="order_form" action="orderRequest.do" method="post">
 	<input name="d_no" type="hidden">
 	<input name="d_msg" type="hidden">
 	<input name="o_pay_type" type="hidden">
