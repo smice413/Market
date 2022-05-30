@@ -197,6 +197,14 @@ public class ProductController {
 	
 	@RequestMapping("productList.do")	// 전체 목록, 검색 목록
 	public String producList(HttpSession session, HttpServletRequest request,String pageNum, ProductDTO product, Model model) {
+
+		session = request.getSession();
+
+		int s_no = (int) session.getAttribute("s_no");
+		System.out.println("s_no:"+s_no);
+		
+		product.setS_no(s_no);
+		
 		final int rowPerPage = 10;	// 화면에 출력할 데이터 갯수
 		if (pageNum == null || pageNum.equals("")) {
 			pageNum = "1";
@@ -211,14 +219,7 @@ public class ProductController {
 		if (status == null || status.equals("")) {
 			status = "1";
 		}
-		
-		session = request.getSession();
 
-		int s_no = (int) session.getAttribute("s_no");
-		System.out.println("s_no:"+s_no);
-		
-		product.setS_no(s_no);
-		
 		PagingPgm pp = new PagingPgm(total, rowPerPage, currentPage);
 		product.setStartRow(startRow);
 		product.setEndRow(endRow);

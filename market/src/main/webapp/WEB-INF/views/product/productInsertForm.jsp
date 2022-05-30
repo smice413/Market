@@ -177,8 +177,7 @@ function registerAction(){
 		<h3 class="text-primary">상품 등록</h3>
 		<div class="vf-card">
 		<form name="dataForm" id="dataForm" onsubmit="return registerAction()">
-			<input type="hidden" name="s_no" value="3"> 
-<!--  		<input type="hidden" name="s_no" value="${s_no}"> -->
+        <input type="hidden" name="s_no" value="${sessionScope.s_no}">
 
 			<table class="table">
 				<tr>
@@ -256,7 +255,7 @@ function registerAction(){
 				</tr>
 				<tr>
 					<td>상세설명</td>
-					<td><textarea rows="5" cols="30" name="p_detail" required="required"></textarea>
+					<td><textarea rows="5" cols="30" name="p_detail" required="required">상품설명을 예쁘게 편집해서 입력하세요</textarea>
 						<script>	// 글쓰기 editor 및 사진 업로드 기능
 							CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
 						</script>
