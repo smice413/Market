@@ -238,6 +238,9 @@
 				<if test="orderCond == 'p_group_price_ASC'"> and p_group_buying = 'Y' </if>
 				<if test="orderCond == 'p_follow_price_ASC'"> and p_follow_sale = 'Y' </if>
 			</if>
+			<if test="s_no != null and s_no != 0">
+				and P.s_no=#{s_no}
+			</if>
 		</where>	
 	</select>
 
