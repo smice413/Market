@@ -330,4 +330,8 @@
 	<select id="getShopInfo" parameterType="product" resultType="shop">
 		select * from shop where s_name like '%'||#{keyword}||'%'
 	</select>
+	
+	<select id="getFollowShopNo" resultType="follow">
+		select f.s_no from follow f, product p where f.s_no=p.s_no and p.p_no=#{p_no} and f.m_email=#{m_email}
+	</select>
 </mapper>

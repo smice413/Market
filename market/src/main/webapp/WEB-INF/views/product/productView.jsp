@@ -58,6 +58,7 @@
 						<b>팔로워 할인가 : <font style="font-size:20px;"> ${product.p_follow_price}원</font> </b><br>
 						<font color=blue size=2>팔로잉하고 팔로워 할인가로 구매하세요 
 						<a href="${path}/followInsert.do?s_no=${product.s_no}">>>팔로잉하기</a></font><br>
+						※ 팔로워 할인을 받으려면 "팔로워상품담기"버튼을 클릭하셔야 합니다. <br>
 					</c:if>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
 						<b>공동구매가 : <font style="font-size:20px;">${product.p_group_price}원</font></b><br>
@@ -93,9 +94,9 @@
 				<c:if test="${product.p_stock > 0}">
 					<a class="order_btn btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
                   		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
-					<c:if test="${product.p_follow_sale == 'Y'}">
+					<c:if test="${product.s_no == followShopNo.s_no}">
 					<a  class="follow_btn btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
-						<b>${product.p_follow_price}원<b><br>팔로워구매하기</a>
+						<b>${product.p_follow_price}원<b><br>팔로워상품담기</a>
 					</c:if>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
 					<a class="group_btn btn btn-danger" class="btn btn-danger" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">

@@ -9,6 +9,9 @@ public class FollowDTO {
 	// shop
 	private String s_name;
 	
+	//product
+	private int p_no;
+	
 	private int total;
 
 	public int getF_no() {
@@ -41,6 +44,14 @@ public class FollowDTO {
 
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
+	}
+
+	public int getP_no() {
+		return p_no;
+	}
+
+	public void setP_no(int p_no) {
+		this.p_no = p_no;
 	}
 
 	public int getTotal() {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import market.model.CategoryDTO;
+import market.model.FollowDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
 import market.model.ShopDTO;
@@ -90,5 +91,10 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	public ShopDTO getShopInfo(ProductDTO product) {
 		return sst.selectOne("productns.getShopInfo", product);
+	}
+
+	@Override
+	public FollowDTO getFollowShopNo(FollowDTO follow) {
+		return sst.selectOne("productns.getFollowShopNo", follow);
 	}
 }

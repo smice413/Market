@@ -3,6 +3,7 @@ package market.service;
 import java.util.List;
 
 import market.model.CategoryDTO;
+import market.model.FollowDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
 import market.model.ShopDTO;
@@ -47,4 +48,6 @@ public interface ProductService {
 	List<Product_imgDTO> listImg(int p_no);
 	
 	ShopDTO getShopInfo(ProductDTO product);
+	
+	FollowDTO getFollowShopNo(FollowDTO follow);
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import market.model.CategoryDTO;
+import market.model.FollowDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
 import market.model.ShopDTO;
@@ -150,11 +151,19 @@ public class ProductController {
 	}
 	
 	@RequestMapping("productView.do")	// 상세 페이지
-	public String productView(int p_no, Product_imgDTO product_img, String pageNum, Model model) {
+	public String productView(int p_no, Product_imgDTO product_img, String pageNum, Model model, HttpSession session) {
 		
 		ps.selectUpdate(p_no);	// 조회수 증가
 		ProductDTO product = ps.select(p_no);
 		List<Product_imgDTO> listImg = ps.listImg(p_no);
+		
+		String m_email = (String)session.getAttribute("m_email");
+		
+		FollowDTO follow = new FollowDTO();
+		follow.setM_email(m_email);
+		follow.setP_no(p_no);
+		
+		FollowDTO followShopNo = ps.getFollowShopNo(follow);
 		
 		System.out.println("product:"+product);
 		System.out.println("product_img:"+product);
@@ -162,6 +171,7 @@ public class ProductController {
 		model.addAttribute("product", product);
 		model.addAttribute("listImg", listImg);
 		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("followShopNo", followShopNo);
 		
 		return "product/productView";
 	}
