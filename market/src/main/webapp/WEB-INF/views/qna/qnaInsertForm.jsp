@@ -1,11 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+//문의하기 버튼
+	$(".insert_btn").click(function() {
+		
+		var formData = $('#insert_form').serialize();
+	 	$.post('${path}/qnaInsert.do', formData, function(data) {
+			$('#slist').html(data); 
+		});		
+	 	
+	}); 
+</script>
+
+</head>
+<body>
 	<div class="container" align="center">
 		<h3 class="text-primary">상품 문의</h3>
 		<div class="vf-wide700-card">
-		<form id="insert_form" method="post" onsubmit="javascript:qnaInsert()">
+		<form id="insert_form" method="post">
 			<input type="hidden" name="p_no" value="${product.p_no}">
 			<input type="hidden" name="op_no" value="213">
 			<input type="hidden" name="m_email" value="${sessionScope.m_email }">
@@ -31,35 +50,11 @@
 
 				<tr>
 					<td colspan="2" align="center">
-					<input type="submit" value="확인" class="insert_btn btn btn-success"></td>
+					<input type="button" value="문의하기" class="insert_btn btn btn-success"></td>
 				</tr>
 			</table>
 		</form>
 		</div>
 	</div>
-<script type="text/javascript">
-//삭제 버튼
-/* function qnaInsert(){
-
- 		var formData = $('#insert_form').serialize();
-		$.post("${path}/qnaInsert.do",formData, function(data) {
-			$('#slist').html(data);
-		});
-
-} */
-  $(function() {
-
-	$(".insert_btn").click(function() {
-		
-		var formData = $('#insert_form').serialize();
-	 	$.post('${path}/qnaInsert.do', formData, function(data) {
-			$('#slist').html(data); 
-			
-			$("#home").attr('class', 'container tab-pane fade'); 
-			$("#menu2").attr('class', 'container tab-pane active');
-		});		
-	 	
-	}); 
-
-});
-</script>
+</body>
+</html>

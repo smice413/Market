@@ -133,14 +133,7 @@ public class QnaController {
 		qs.insert(qna);
 		
 		if (p_no !=18) {	
-			// 상품이름 공유
-			model.addAttribute("search", "p_no");
-			model.addAttribute("keyword", p_no);
-			
-			System.out.println("search:" + "p_no");
-			System.out.println("keyword:" + p_no);
-			
-			return "redirect:qnaMainList.do";
+			return "redirect:qnaMainList.do?search=p_no&keyword=" + p_no;
 		} else 
 			return "redirect:qnaList.do?search=m_email&keyword=" + m_email;
 	}

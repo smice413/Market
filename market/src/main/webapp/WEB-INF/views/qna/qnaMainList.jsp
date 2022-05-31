@@ -93,11 +93,11 @@
 		       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f8f8f8">
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>Q</b></td>
-						<td style="padding:10 10 0 10;"><pre>${qna.qna_question}</pre></td>
+						<td style="padding:10 10 0 10;"><pre style="font-size: 15px; font-family: 'Nanum Gothic', sans-serif;">${qna.qna_question}</pre></td>
 					</tr>
 					<tr>
 						<td style="font-size:20px; padding:9 0 0 20; width:40px; vertical-align: top;"><b>A</b></td>
-						<td style="padding:0 10 0 10;"><pre>${qna.qna_answer}</pre></td>
+						<td style="padding:0 10 0 10;"><pre style="font-size: 15px; font-family: 'Nanum Gothic', sans-serif;">${qna.qna_answer}</pre></td>
 					</tr>
 					<c:if test="${qna.m_email eq sessionScope.m_email}">
 					<tr>
