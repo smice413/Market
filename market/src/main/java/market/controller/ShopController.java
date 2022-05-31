@@ -574,26 +574,17 @@ public class ShopController {
 
 	// 체크박스로 강제폐점
 	@RequestMapping(value = "shopList_del.do", method = RequestMethod.POST)
-	// @ResponseBody @RequestBody
-//	 public String shopList_check(Map<String, Object> arr) throws Exception{
-//		 public String shopList_check(HttpServletRequest request) throws Exception{
+
 	public String shopList_del(@RequestParam(value = "arrdel[]") List<String> arrdelList, Model model)
 			throws Exception {
 
-//		 String[] str = request.getParameterValues("arr");
 		System.out.println(arrdelList);
 
 		int result = 0;
 		for (String e : arrdelList) {
 			result = shopService.shopList_del(e);
 		}
-//		 Map<String, String> param = new HashMap<String,String>();
-//		 param.putAll(paramMap);
-//		 System.out.println(paramMap.entrySet());
-//		 System.out.println("arr:"+ arr); 
-//		 System.out.println("arr:"+paramMap.get("arr")); 
 
-		// shopService.shopList_check(param);
 		model.addAttribute("result", result);
 
 		return "shop/shopList_checkResult";

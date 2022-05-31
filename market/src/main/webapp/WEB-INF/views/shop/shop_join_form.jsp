@@ -24,7 +24,7 @@ function openDaumPostcode() {
 }
 </script>
 <script>
- // 단일 파일 업로드
+ // 단일 파일 업로드 미리보기
  function readImage(input) {
     if (input.files && input.files[0]) {
       //  const reader = new FileReader();
@@ -36,6 +36,20 @@ function openDaumPostcode() {
         reader.readAsDataURL(input.files[0]);
     }
 } 
+// 첨부파일 버튼 클릭시 이벤트(파일명을 보여주기위한 함수)
+$( document ).ready(function() {
+	$("#showfileBtn").click(function(e){
+		//e.stopPropagation();
+		$("#s_file").click();
+	});
+	
+	$("#s_file").change(function(){
+		var fileNm = $(this).val();
+		var index = fileNm.lastIndexOf("\\"); 
+		fileNm = fileNm.substring(index+1);
+		$("#s_file_nm").val(fileNm);
+	});
+});
 /*  // 다중 파일 업로드 미리보기
 	var img_files = [];
 function readImage(n){
@@ -52,19 +66,6 @@ function readImage(n){
 		});
 } */
 
-$( document ).ready(function() {
-	$("#showfileBtn").click(function(e){
-		//e.stopPropagation();
-		$("#s_file").click();
-	});
-	
-	$("#s_file").change(function(){
-		var fileNm = $(this).val();
-		var index = fileNm.lastIndexOf("\\");
-		fileNm = fileNm.substring(index+1);
-		$("#s_file_nm").val(fileNm);
-	});
-});
 
 </script>
 
