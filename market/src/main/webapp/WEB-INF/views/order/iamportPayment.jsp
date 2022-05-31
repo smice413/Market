@@ -29,7 +29,8 @@
  
 	// iamport API
 	function payment(data) {
-
+		var o_no = ${orderNo};
+		
 		IMP.init('imp45689700');               //아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
 	    IMP.request_pay({                      // param
 	        pg: "${otd.o_pay_type}",                //pg사명 or pg사명.CID (잘못 입력할 경우, 기본 PG사가 띄워짐)
@@ -46,15 +47,13 @@
 	        
 	    }, function (rsp) {         // callback
 	        if (rsp.success) {     // 결제 성공 시 
-	        	var otd = "${otd}";
-	    		var senddata = {"otd":otd};
 	        	$.ajax({
 	        		url : 'orderInsert.do',
 	        		type : 'post',
 	        		dataType : 'json',
-	        		data : senddata,
+	        		data :{"o_no":o_no},
 	        		success : function(result){
-	        			if(result == 1){
+	        			if(result == 2){
 	        				var msg = "결제가 완료되었습니다.";
 	        			    alert(msg);
 	        			    location.href="orderMail.do";
@@ -62,20 +61,23 @@
 	        		}
 	        	}); // ajax() end
 	        
-	        
-	        
-/* 	        	$.post("orderInsert.do", {"otd" : otd}, function(result) {
-		        	if(result==4){ 
-						var msg = "결제가 완료되었습니다.";
-			            alert(msg);	
-			            location.href="orderMail.do";
- 		        	}
-				});  //post() end */
+
 	        } else {               // 결제 실패 시
-	        	var msg = "결제에 실패하였습니다.";
-	        	msg += '에러내용 : '+rsp.error_msg;
-				alert(msg);
-		        location.href="main.do";	        	
+	        	$.ajax({
+	        		url : 'orderDelete.do',
+	        		type : 'post',
+	        		dataType : 'json',
+	        		data : {"o_no":o_no},
+	        		success : function(result){
+	        			if(result == 1){
+	        				var msg = "결제에 실패하였습니다.";
+	        	        	msg += '에러내용 : '+rsp.error_msg;
+	        				alert(msg);
+	        		        location.href="main.do";
+	        			}
+	        		}
+	        	}); // ajax() end
+	        	
 	        }
 	   });
     }

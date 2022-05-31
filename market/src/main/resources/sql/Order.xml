@@ -103,6 +103,10 @@
  		(order_product_seq.nextval,#{o_no},#{p_no},#{op_type}, #{op_qty},#{op_price},#{op_refund},
 		#{op_calc},3,#{d_no},#{s_no},#{m_email},sysdate) 
 	</insert>
+	
+	<select id="getPNo" resultType="order_product">
+		select p_no from order_product where o_no = #{o_no}
+	</select>
 
 	<!-- 상품 재고 조회 -->
 	<select id="productInfo" resultType="product">
@@ -114,5 +118,13 @@
 		update product set p_stock = #{p_stock} where p_no = #{p_no}
 	</update>
 	
+	<!-- 주문 취소 시 주문내역 삭제 -->
+	<delete id="orderProductDelete">
+		delete from order_product where o_no = #{o_no}
+	</delete>
+	
+	<delete id="orderDelete">
+		delete from order_tab where o_no = #{o_no}
+	</delete>
 	
 </mapper>

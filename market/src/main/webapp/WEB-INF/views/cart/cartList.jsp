@@ -24,7 +24,7 @@
 	margin-right:0;	
 }
 .qty_modify_btn{
-	margin-top:35px;
+	margin-top:0px;
 	margin-left:2px;
 	height:33px;
 }
@@ -195,9 +195,9 @@ input[type="checkbox"]{
 									<button class="minus_btn btn btn-default">-</button>
 									<input type="text" name="cart_qty" value="${cl.cart_qty}" class="cart_qty_input form-control">
 									<button class="plus_btn btn btn-default" >+</button>
-									<a class="qty_modify_btn btn btn-default" data-cart_no="${cl.cart_no}">변경</a>
 								</div>
 								</c:if>
+									<a class="qty_modify_btn btn btn-default" data-cart_no="${cl.cart_no}">변경</a>
 								<!-- 품절된 상품 -->
 								<c:if test="${cl.p_stock == 0 }"> 
 									<label style="margin-top:35px;margin-left:40px; color:red;">품절</label>

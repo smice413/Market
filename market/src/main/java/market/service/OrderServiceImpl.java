@@ -85,51 +85,60 @@ public class OrderServiceImpl implements OrdereService{
 
 	@Override
 	public DeliveryDTO getDelivery(int d_no) {
-		// TODO Auto-generated method stub
 		return od.getDelivery(d_no);
 	}
 
 	@Override
 	public Order_productDTO getOrderInfo(int p_no) {
-		// TODO Auto-generated method stub
 		return od.getOrderInfo(p_no);
 	}
 	
 	@Override
 	public Order_tabDTO getOrderNo(Order_tabDTO otd) {
-		// TODO Auto-generated method stub
 		return od.getOrderNo(otd);
 	}
 
 	@Override
 	public int orderInsert(Order_tabDTO otd) {
-		// TODO Auto-generated method stub
 		return od.orderInsert(otd);
 	}
 
 	@Override
 	public int orderGroupProductInsert(Order_productDTO opd) {
-		// TODO Auto-generated method stub
 		return od.orderGroupProductInsert(opd);
 	}
 
 	@Override
 	public int orderProductInsert(Order_productDTO opd) {
-		// TODO Auto-generated method stub
 		return od.orderProductInsert(opd);
 	}
 
 	@Override
+	public List<Order_productDTO> getPNo(int o_no) {
+		return od.getPNo(o_no);
+	}
+	
+	@Override
 	public ProductDTO productInfo(int p_no) {
-		// TODO Auto-generated method stub
 		return od.productInfo(p_no);
 	}
 
 	@Override
 	public int updateStock(ProductDTO product) {
-		// TODO Auto-generated method stub
 		return od.updateStock(product);
 	}
+
+	@Override
+	public int orderProductDelete(int o_no) {
+		return od.orderProductDelete(o_no);
+	}
+
+	@Override
+	public int orderDelete(int o_no) {
+		return od.orderDelete(o_no);
+	}
+
+
 
 
 

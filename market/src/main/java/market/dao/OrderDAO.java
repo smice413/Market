@@ -31,7 +31,10 @@ public interface OrderDAO {
 	Order_tabDTO getOrderNo(Order_tabDTO otd); 
 	int orderGroupProductInsert(Order_productDTO opd);
 	int orderProductInsert(Order_productDTO opd);
+	List<Order_productDTO> getPNo(int o_no);
 	ProductDTO productInfo(int p_no);
 	int updateStock(ProductDTO product);
+	int orderProductDelete(int o_no);
+	int orderDelete(int o_no);
 	
 }

@@ -105,6 +105,12 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 	
 	@Override
+	public List<Order_productDTO> getPNo(int o_no) {
+		// TODO Auto-generated method stub
+		return sst.selectList("orderpagens.getPNo", o_no);
+	}
+	
+	@Override
 	public ProductDTO productInfo(int p_no) {
 		return sst.selectOne("orderpagens.productInfo", p_no);
 	}
@@ -113,6 +119,18 @@ public class OrderDAOImpl implements OrderDAO{
 	public int updateStock(ProductDTO product) {
 		return sst.update("orderpagens.updateStock", product);
 	}
+
+	@Override
+	public int orderProductDelete(int o_no) {
+		return sst.delete("orderpagens.orderProductDelete", o_no);
+	}
+
+	@Override
+	public int orderDelete(int o_no) {
+		return sst.delete("orderpagens.orderDelete", o_no);
+	}
+
+
 
 
 

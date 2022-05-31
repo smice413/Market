@@ -282,6 +282,35 @@ public class OrderController {
 		MemberDTO memberList = ms.select(m_email);
 		DeliveryDTO deliveryInfo = os.getDeliveryInfo(m_email);
 		
+		// 주문,주문상품 테이블에 저장
+		int result1 = os.orderInsert(otd);  // order_tab 등록
+		System.out.println("order_tab입력 :"+result1);
+
+		if(result1 == 1) {
+			for(Order_productDTO opd : otd.getOrders()) {
+										
+				Order_tabDTO orderNo = os.getOrderNo(otd);
+				System.out.println("orderNo:"+orderNo);
+										
+				opd.setO_no(orderNo.getO_no());			
+				System.out.println("opd:"+opd);
+							
+				opd.setM_email(m_email);
+				int result2 = 0;	
+							
+				if(opd.getOp_type().equals("3")) {
+					result2 = os.orderGroupProductInsert(opd); // 공동구매 상품 order_product 등록
+				}else {
+					result2 = os.orderProductInsert(opd); // 일반 상품 / 팔로우 특가 상품 order_product 등록
+				}
+							
+				System.out.println("order_product입력"+result2); 
+							
+				model.addAttribute("orderNo", orderNo.getO_no());
+			}
+		} 
+		
+		
 		model.addAttribute("ml", memberList);
 		model.addAttribute("di", deliveryInfo);
 		model.addAttribute("otd", otd);
@@ -292,15 +321,47 @@ public class OrderController {
 	}
 	
 	@RequestMapping("orderInsert.do")
-	public String orderInsert(Order_tabDTO otd) {
-		System.out.println("insert otd:"+otd);
+	public String orderInsert(int o_no, Model model, HttpSession session) {
+		System.out.println("결제 성공 orderInsert");
+		System.out.println("o_no:"+o_no);
 		
+		String m_email = (String)session.getAttribute("m_email");
+		int result=0, result1=0, result2=0;
+				
+		List<Order_productDTO> orderProduct = os.getPNo(o_no);	
 		
+				// 재고 변동 적용
+				for(Order_productDTO opd : orderProduct) {
+					// 변동 재고 값 구하기
+					ProductDTO product = os.productInfo(opd.getP_no());
+					System.out.println("변경 전 재고:"+product.getP_stock());
+							
+					product.setP_stock(product.getP_stock()-opd.getOp_qty());
+					System.out.println("변경 후 재고:"+product.getP_stock());
+							
+					result1 = os.updateStock(product);
+					System.out.println("재고 변동 :"+result1);
+				}
+								
+				// 장바구니 제거
+				for(Order_productDTO opd :orderProduct) {
+					CartDTO cart = new CartDTO();
+					cart.setM_email(m_email);
+					cart.setP_no(opd.getP_no());
+									
+					result2 = cs.deleteOrderCart(cart);
+					System.out.println("장바구니 제거"+result2);
+				}			
+		
+		result = result1 + result2;
+		
+		model.addAttribute("result", result);
 		return "order/orderInsertResult";
 	}
 	
 	@RequestMapping("orderMail.do")
 	public String orderMail(HttpSession session) throws Exception {
+		System.out.println("orderMail");
 		String m_email = (String)session.getAttribute("m_email");
 		
 		MemberDTO member = ms.select(m_email);
@@ -333,7 +394,9 @@ public class OrderController {
 				email.setFrom(fromEmail, fromName, charSet);
 				email.setSubject(subject);
 				email.setHtmlMsg("<p align = 'center'>안녕하세요. 신선한 농산물을 직거래하는 과채마켓입니다.</p><br>" + 
-				"<div align='center'>저희 과채마켓을 이용해주셔서 진심으로 감사드립니다.</div>");
+				"<div align='center'>주문하신 상품의 결제가 정상적으로 완료했습니다.<br>"
+				+ "자세한 주문내역은 마이페이지>주문내역 을 확인해주시기 바랍니다.<br>"
+				+ "저희 과채마켓을 이용해주셔서 진심으로 감사드립니다.</div>");
 				email.send();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -342,4 +405,18 @@ public class OrderController {
 		return "redirect:orderList.do";
 	}
 
+	@RequestMapping("orderDelete.do")
+	public String orderDelete(int o_no, Model model, HttpSession session) {
+		System.out.println("결제 취소 orderDelete");
+		System.out.println("o_no:"+o_no);
+		
+		int result1 = os.orderProductDelete(o_no);
+		
+		int result2 = os.orderDelete(o_no);
+		System.out.println("result2:"+result2);
+		
+		model.addAttribute("result", result2);
+		
+		return "order/orderDeleteResult";
+	}
 }
