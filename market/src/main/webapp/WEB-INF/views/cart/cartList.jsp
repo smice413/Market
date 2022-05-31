@@ -59,6 +59,9 @@ input[type="checkbox"]{
 .totalPrice_div{
 	width:80%;
 	font-size:16px;
+	font-weight:bold;
+	margin-left:30px;
+	margin-top:20px; 
 }
 .order_btn_div{
 	float:right;
@@ -119,12 +122,19 @@ input[type="checkbox"]{
 			
 			<!-- 장바구니 리스트 -->
 	        <c:forEach var="sn" items="${shopNo}">
+	        
+<script>
+$(document).ready(function(){
+	itemSum(${sn.s_no});
+});        	
+</script>
+	        
 			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5;mar">
 				<thead>	
 					<tr>
 						<th colspan="6">
 							<!-- 한번에 전체 상품을 체크하는 체크박스 -->
-							<input type="checkbox" name="checkbox" class="allCheck_input_${sn.s_no}" id="checkbox" 
+							<input type="checkbox" name="allCheck" class="allCheck_input_${sn.s_no}" id="checkbox" 
 							      onclick="allCheck(${sn.s_no});" checked style="margin-right:5px;">
 							<img src="${path}/images/shop.png" style="width:30px; height:30px; margin-bottom:7px;">
 							<label style="font-size:20px; margin-left:5px;">${sn.s_name}</label>
@@ -145,7 +155,7 @@ input[type="checkbox"]{
 							<td class="cart_info_td">
 							<c:if test="${cl.p_stock != 0}">
 								<!-- 개별 체크박스 -->
-								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="cart_no" checked
+								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="chkbox_${sn.s_no}" checked
 								       onclick="check(${sn.s_no});" value="${cl.cart_no}">
 								<input type="hidden" class="p_sell_price_input" name="p_sell_price" value="${cl.p_sell_price}">
 								<input type="hidden" class="cart_qty_input" name="cart_qty" value="${cl.cart_qty}">
@@ -173,7 +183,7 @@ input[type="checkbox"]{
 							  <c:if test="${cl.op_type == 2}">
 							  	<label id="follow_sale">※팔로우 특가※</label> <br>
 							  </c:if>
-								${cl.p_name} 재고 : ${cl.p_stock }<br>
+								${cl.p_name} (재고 : ${cl.p_stock})<br>
 								<div style="font-size:13px;">
 									<!-- 일반 판매 상품 -->
 									<c:if test="${cl.op_type == 1}">									
@@ -235,8 +245,8 @@ input[type="checkbox"]{
 				<label id="d_msg">※ 3만원 이상 구매 시 무료 배송 ※</label>				
 			  </div>
 		      <div class="order_btn_div">	
-					<a id="order_btn" class="btn btn-success order_btn" 
-					   onClick="order_btn(${sn.s_no})" style="margin-top:10px;">주문하기</a>
+				<button id="order_btn" class="btn btn-success order_btn_${sn.s_no}" 
+					   onClick="order_btn(${sn.s_no});" style="margin-top:10px;">주문하기</button>
 			  </div>
 			</div>
 		    </c:forEach>
@@ -268,10 +278,6 @@ input[type="checkbox"]{
 
 <script>
 
-	$(document).ready(function(){
-		itemSum();
-	});
-
 	// 쇼핑계속하기 버튼
 	$(".shoping_btn").on("click", function(){
 		location.href="main.do"
@@ -298,7 +304,7 @@ input[type="checkbox"]{
 		let p_stock = $("input[name=p_stock_"+n+"]").val();
 		
 		// 상품 재고 유효성 검사
-		if(cart_qty >= p_stock) {  
+		if(cart_qty > p_stock) {  
 		    alert("재고가 없습니다. 선택할 수 있는 최대 상품 수량은 "+p_stock+"개 입니다.");
 		    $("input[name=cart_qty_"+n+"]").val(1);
 		}else{
@@ -350,11 +356,11 @@ input[type="checkbox"]{
 		let deliveryFee = 0;
 		let finalPrice = 0;
 			
-		 $(".cart_info_td").each(function(index, element){
-			if($(element).find(".chkbox_input_"+n).is(":checked")===true){
-				// 총 결제 예상 금액
-				totalPrice += parseInt($(element).find(".total_price_input").val()); 
-			}
+	    $(".cart_info_td").each(function(index, element){
+				if($(element).find(".chkbox_input_"+n).is(":checked")==true){
+					// 총 결제 예상 금액
+					totalPrice += parseInt($(element).find(".total_price_input").val()); 
+				}
 			// 배송비
 			if(totalPrice>=30000){
 				deliveryFee = 0;
@@ -364,7 +370,7 @@ input[type="checkbox"]{
 				deliveryFee = 3000;
 			}		 
 			
-		 });
+	   });
 				 
 		 $(".totalPrice_span_"+n).text(totalPrice.toLocaleString()+"원");
 		 $(".deliveryFee_span_"+n).text(deliveryFee.toLocaleString()+"원");
@@ -372,14 +378,12 @@ input[type="checkbox"]{
 			
 	// 주문 페이지 이동
  	function order_btn(n){
-		var cnt = $("input[name=checkbox]:checkbox:checked").length;
-		console.log(cnt);
+		var chk = $(".chkbox_input_"+n).is(":checked") 
+		console.log(chk);
 		let form_contents = '';
 		let orderNumber = 0;
 		
-		if(cnt<1){
-			alert("주문하실 상품을 선택해주세요.");
-		}else{
+		if(chk){
 			$(".cart_info_td").each(function(index, element){
 				
 				if($(element).find(".chkbox_input_"+n).is(":checked") === true){
@@ -402,10 +406,11 @@ input[type="checkbox"]{
 			});
 			
 			$(".order_form").html(form_contents);
-			$(".order_form").submit(); 
+			$(".order_form").submit(); 			
+		}else{
+			alert("주문하실 상품을 선택해주세요.");
 		}
-	}	
-		
+	}		
 	
 
 </script>
