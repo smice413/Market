@@ -53,14 +53,12 @@
 			<tr>
 				<td>
 					<font>일반 구매가 : ${product.p_sell_price}원</font><br>
-					<c:forEach var="followShop" items="${followShop}">
-					<c:if test="${product.p_follow_sale == 'Y' and followShop.m_email eq sessionScope.m_email}">
+					<c:if test="${product.p_follow_sale == 'Y'}">
 						<b>팔로워 할인가 : <font style="font-size:20px;"> ${product.p_follow_price}원</font> </b><br>
 						<font color=blue size=2>팔로잉하고 팔로워 할인가로 구매하세요 
 						<a href="${path}/followInsert.do?s_no=${product.s_no}">>>팔로잉하기</a></font><br>
 						<font size=2>※ 팔로워 할인을 받으려면 "팔로워상품담기"버튼을 클릭하셔야 합니다.</font> <br>
 					</c:if>
-					</c:forEach>
 					<c:if test="${product.p_group_buying == 'Y'}"> 
 						<b>공동구매가 : <font style="font-size:20px;">${product.p_group_price}원</font></b><br>
 						<font color=red size=2>공동구매로 더 저렴하게 구매하세요</font>
