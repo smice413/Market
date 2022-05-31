@@ -109,7 +109,7 @@
                 </c:if>
 				</td>
 			</tr>
-			<c:if test="${group != null }">
+			<c:if test="${group != null and product.p_stock > 0}">
 			<c:forEach var = "group" items="${group }">
 			<tr>
 				<td>
