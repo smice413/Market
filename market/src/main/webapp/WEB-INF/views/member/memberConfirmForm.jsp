@@ -22,8 +22,8 @@
 	<%@ include file="../common/header.jsp"%>
 	<%@ include file="../common/menuMyPage.jsp"%>
 	<div class="container" align=center>
-		<div class="vf-wide700-card">
-			<div id="join_wrap">
+		<div class="vf-wide300-card">
+			<div id="join_wrap" class="form-group">
 				<h2 class="join_title">회원정보확인</h2>
 				<form method="get" name="c" action="memberUpdateForm.do" onSubmit="return confirm()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
@@ -38,7 +38,7 @@
 						<tr>
 							<th>현재 비밀번호</th>
 							<td><input type="password" name="m_passwd2" id="m_passwd2"
-								size="14" class="input_box" /></td>
+								size="14" class="form-control" /></td>
 						</tr>
 					</table>
 

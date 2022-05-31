@@ -12,8 +12,8 @@
 	<%@ include file="../common/header.jsp"%>
 	<%@ include file="../common/menuMyPage.jsp"%>
 	<div class="container" align=center>
-		<div class="vf-wide700-card">
-			<div id="join_wrap">
+		<div class="vf-wide300-card">
+			<div id="join_wrap" class="form-group">
 				<h2 class="join_title">아이디(이메일) 찾기</h2>
 				<form method="post" action="emailSearch.do" name="frm" onsubmit="return emailsearch()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
@@ -23,12 +23,12 @@
 						<tr>
 							<th>회원이름</th>
 							<td><input name="m_name" id="m_name" size="14"
-								class="input_box" /></td>
+								class="form-control" /></td>
 						</tr>
 						<tr>
 							<th>핸드폰번호</th>
 							<td><input name="m_tel" id="m_tel" size="14"
-								class="input_box" /></td>
+								class="form-control" /></td>
 						</tr>
 					</table>
 

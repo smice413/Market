@@ -114,7 +114,33 @@ public class MemberController {
 
 		}
 	}
-
+	//카카오톡 로그인 
+	@RequestMapping("kakaologin.do")
+	public String kakaologin(@RequestParam("email") String m_email, HttpSession session)throws Exception {
+		System.out.println("m_email:"+m_email);
+		
+		MemberDTO logink = ms.loginCheck(m_email);
+		
+		if(logink==null) {
+			int result = 0;
+			
+			MemberDTO kakao = new MemberDTO();
+			kakao.setM_email(m_email);
+			result = ms.kakaologin(kakao);
+			
+			MemberDTO logink2 = ms.loginCheck(m_email);
+			
+			session.setAttribute("m_email",logink2.getM_email());
+			
+			return "redirect:main.do";
+		
+		}else if(logink.getM_email().equals(m_email)) { // 등록되어 있는 회원
+			session.setAttribute("m_email", m_email);
+			return "redirect:main.do";
+		}
+		
+		return "";
+	}
 	// 회원정보 확인 폼
 	@RequestMapping(value = "/memberConfirmForm.do", method = RequestMethod.GET)
 	public String memberConfirmForm(HttpSession session, Model model) throws Exception {
@@ -152,7 +178,7 @@ public class MemberController {
 		}
 	
 	//	회원정보 수정 
-	@RequestMapping(value ="/memberUpdate", method = RequestMethod.POST)
+	@RequestMapping(value ="/memberUpdate.do", method = RequestMethod.POST)
 	public String memberUpdate(@RequestParam("m_passwd2")String passwd2, 
 								@RequestParam("m_passwd3") String passwd3, 
 								HttpSession session, MemberDTO old, Model model,

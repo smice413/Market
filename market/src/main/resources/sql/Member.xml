@@ -62,5 +62,11 @@
    <update id="deleteMember" parameterType="member">
   	update member set m_delstatus='Y', m_deldate = sysdate where m_email = #{m_email} and m_passwd = #{m_passwd} and m_del_why=#{m_del_why}
    </update>
-   
+
+  <!-- 카카오 email DB저장 -->
+   <insert id="kakaoinsert" parameterType="member">
+   insert into member (m_email, m_passwd, m_seckey, m_name, m_tel, m_regdate, m_delstatus)
+                values(#{m_email}, '0', '1111', '홍수진', '01011111111', sysdate, 'N')
+   </insert>
+      
      </mapper>

@@ -65,8 +65,12 @@ public class MemberServiceImpl {
 	public int memberListCheck(String email)throws Exception{
 		return md.memberListCheck(email);
 	}
-//총 데이터 갯수 구하기 
+	//총 데이터 갯수 구하기 
 		public int getTotal(MemberDTO member)throws Exception{
 			return md.getTotal(member);
 		}
+		//카카오로그인할때 db에 이메일저장 
+	public int kakaologin(MemberDTO kakao)throws Exception{
+		return md.kakaologin(kakao);
+		}	
 	}

@@ -95,4 +95,9 @@ public class MemberDAOImpl {
 	public int memberListCheck(String email)throws Exception{
 		return sqlSession.update("memberns.memberListCheck", email);
 	}
+	//카카오로그인시 email DB저장
+	public int kakaologin(MemberDTO kakao)throws Exception{
+		return sqlSession.insert("memberns.kakaoinsert",kakao);
+	}
+	
 }

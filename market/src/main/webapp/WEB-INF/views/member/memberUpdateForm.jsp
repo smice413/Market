@@ -28,8 +28,8 @@
 	<%@ include file="../common/header.jsp"%>
 	<%@ include file="../common/menuMyPage.jsp"%>
 	<div class="container" align=center>
-		<div class="vf-wide700-card">
-			<div id="join_wrap">
+		<div class="vf-wide500-card">
+			<div id="join_wrap" class="form-group">
 				<h2 class="join_title">회원정보수정</h2>
 				<form  name="u" method="post" action="memberUpdate.do" onSubmit="return update()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
@@ -44,27 +44,27 @@
 						<tr>
 							<th>현재 비밀번호</th>
 							<td><input type="password" name="m_passwd2" id="m_passwd2"
-								size="14" class="input_box" /></td>
+								size="14" class="form-control" /></td>
 						</tr>
 						<tr>
 							<th>변경 비밀번호</th>
 							<td><input type="password" name="m_passwd3" id="m_passwd3"
-								size="14" class="input_box" /></td>
+								size="14" class="form-control" /></td>
 						</tr>
 						<tr>
 							<th>변경 비밀번호 재입력</th>
 							<td><input type="password" name="m_passwd4" id="m_passwd4"
-								size="14" class="input_box" /></td>
+								size="14" class="form-control" /></td>
 						</tr>
 						<tr>
 							<th>회원이름</th>
 							<td><input name="m_name" id="m_name" size="14"
-								class="input_box" value="${old.m_name}" /></td>
+								class="form-control" value="${old.m_name}" /></td>
 						</tr>
 						<tr>
 							<th>핸드폰번호</th>
 							<td><input name="m_tel" id="m_tel" size="14"
-								class="input_box" value="${old.m_tel}" /></td>
+								class="form-control" value="${old.m_tel}" /></td>
 						</tr>
 					</table>
 

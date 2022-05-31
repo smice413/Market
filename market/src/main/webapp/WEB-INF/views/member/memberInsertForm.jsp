@@ -18,12 +18,13 @@
 				<h2 class="join_title">회원가입</h2>
 				<form name="f" method="post" action="memberInsert.do" onSubmit="return insert()">
 					<input type="hidden" id="m_seckey" name="m_seckey" value="111">
-					<table id="memberjoin" class="table">
+					<table id="memberjoin" class="table" style="width : 70%">
+						  <div class="form-group">
 						<tr>
 							<th>회원가입 메일</th>
-							<td>
+							<td style= "display: flex;">
 							<input type ="text"  id="m_email" name="m_email" size="14" 
-								class="input_box" size="14" placeholder="ex)market@naver.com">
+								class="form-control" size="14" placeholder="ex)market@naver.com">
 							
 							<input type="button" id="emailcheckb" value="이메일 중복체크" class="input_button" 
 							onclick="emailcheck1()" />
@@ -33,18 +34,18 @@
 						<tr>
 							<th>회원 비밀번호</th>
 							<td><input type="password" name="m_passwd" id="m_passwd"
-								size="14" class="input_box" /></td>
+								size="14" class="form-control" /></td>
 						</tr>
 
 						<tr>
 							<th>회원이름</th>
 							<td><input name="m_name" id="m_name" size="14"
-								class="input_box" /></td>
+								class="form-control" /></td>
 						</tr>
 						<tr>
 							<th>핸드폰번호</th>
 							<td><input name="m_tel" id="m_tel" size="14"
-								class="input_box" placeholder="숫자만 입력하세요" /></td>
+								class="form-control" placeholder="숫자만 입력하세요" /></td>
 						</tr>
 					</table>
 
@@ -57,6 +58,6 @@
 				</form>
 			</div>
 		</div>
-<!-- 	</div> -->
+
 </body>
 </html>
