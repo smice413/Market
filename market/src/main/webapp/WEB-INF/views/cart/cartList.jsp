@@ -24,7 +24,7 @@
 	margin-right:0;	
 }
 .qty_modify_btn{
-	margin-top:0px;
+	margin-top:35px;
 	margin-left:2px;
 	height:33px;
 }
@@ -152,7 +152,7 @@ input[type="checkbox"]{
 								<input type="hidden" class="cart_no_input" name="cart_no" value="${cl.cart_no}">
 								<input type="hidden" class="p_no_input" name="p_no" value="${cl.p_no}">
 								<input type="hidden" class="op_type_input" name="op_type" value="${cl.op_type}">
-								<input type="hidden" class="p_stock_input" name="p_stock" value="${cl.p_stock}">
+								<input type="hidden" class="p_stock_input" name="p_stock_${cl.cart_no}" value="${cl.p_stock}">
 								<input type="hidden" class="p_follow_price_input" name="p_follow_price" value="${cl.p_follow_price}">
 								<!-- 일반 판매 상품 -->
 								<c:if test="${cl.op_type == 1}">
@@ -193,11 +193,11 @@ input[type="checkbox"]{
 								<c:if test="${cl.p_stock != 0}"> 
 								<div class="table_text_align_center cart_qty_div" style="display:flex;">
 									<button class="minus_btn btn btn-default">-</button>
-									<input type="text" name="cart_qty" value="${cl.cart_qty}" class="cart_qty_input form-control">
+									<input type="text" name="cart_qty_${cl.cart_no}" value="${cl.cart_qty}" class="cart_qty_input form-control">
 									<button class="plus_btn btn btn-default" >+</button>
+									<button class="qty_modify_btn btn btn-default" name="qty_modify_btn_${cl.cart_no}" data-cart_no="${cl.cart_no}" onclick="update(${cl.cart_no});">변경</button>
 								</div>
 								</c:if>
-									<a class="qty_modify_btn btn btn-default" data-cart_no="${cl.cart_no}">변경</a>
 								<!-- 품절된 상품 -->
 								<c:if test="${cl.p_stock == 0 }"> 
 									<label style="margin-top:35px;margin-left:40px; color:red;">품절</label>
@@ -292,21 +292,21 @@ input[type="checkbox"]{
 	}); 
 	
 	// 상품 수량 수정 버튼
- 	$(".qty_modify_btn").on("click", function(){
-		let cart_no = $(this).data("cart_no");
-		let cart_qty = $(this).parent("td").find("input").val();
-		let p_stock = $("input[name=p_stock]").val();
+ 	function update(n){
+		let cart_no = $("button[name=qty_modify_btn_"+n+"]").data("cart_no");
+		let cart_qty = $("input[name=cart_qty_"+n+"]").val();
+		let p_stock = $("input[name=p_stock_"+n+"]").val();
 		
 		// 상품 재고 유효성 검사
 		if(cart_qty >= p_stock) {  
 		    alert("재고가 없습니다. 선택할 수 있는 최대 상품 수량은 "+p_stock+"개 입니다.");
-		    $(".cart_qty_input").val(1);
+		    $("input[name=cart_qty_"+n+"]").val(1);
 		}else{
 			$(".update_cart_no").val(cart_no);
 			$(".update_cart_qty").val(cart_qty);
 			$(".qty_update_form").submit();
 		}
-	}); 
+	} 
 	
 	// 장바구니 개별 상품 삭제 버튼
 	$(".delete_btn").on("click",function(e){
