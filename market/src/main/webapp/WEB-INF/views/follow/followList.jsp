@@ -28,7 +28,8 @@ input[type="checkbox"]{
 </header>
 
 
-   <div class="container">
+<div class="container" align=center>
+   	<div class="vf-wide500-card">
 		<div class="row qnas" style="text-align: center;">
 			<h2 class="page-header">
 				<img src="${path}/images/house-heart.svg" style="width:30px; height:30px; margin-bottom:5px;">
@@ -52,7 +53,7 @@ input[type="checkbox"]{
 			<c:if test="${not empty followList}">
 			
 			<!-- 팔로우 상점 리스트 -->
-			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5;">
+			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5; width:90%">
 				<thead>	
 					<tr>
 						<th colspan="3">
@@ -77,7 +78,7 @@ input[type="checkbox"]{
 							<td class="table_text_align_center">
 								<input type="hidden" name="f_no" value="${fl.f_no}">
 								<button class="delete_btn btn btn-default" data-f_no="${fl.f_no}"
-								         style="margin-right:100px; float:right;">삭제</button>
+								         style="float:right;">삭제</button>
 							</td>
 						</tr>
 
@@ -91,7 +92,7 @@ input[type="checkbox"]{
 		</c:if>
       </div>
     </div>
-
+</div>
 	<!-- 삭제 form -->
     <form action="followDelete.do" method="post" class="delete_form">
  		<input type="hidden" name="f_no" class="delete_f_no">

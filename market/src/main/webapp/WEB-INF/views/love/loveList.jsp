@@ -28,7 +28,7 @@ input[type="checkbox"]{
 </header>
 
 
-   <div class="container">
+   <div class="container" align=center>
 		<div class="row qnas" style="text-align: center;">
 			<h2 class="page-header">
 				<img src="${path}/images/heart-fill.svg" style="width:30px; height:30px; margin-bottom:5px;">
@@ -53,7 +53,7 @@ input[type="checkbox"]{
 			
 			<!-- 관심상품 리스트 -->
 	        <c:forEach var="sn" items="${shopNo}">
-			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5;">
+			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5; width:90%">
 				<thead>	
 					<tr>
 						<th colspan="6">
@@ -68,7 +68,7 @@ input[type="checkbox"]{
 					<c:forEach var="ll" items="${loveList}" >
 						<c:if test="${sn.s_no eq ll.s_no}">
 						<tr>
-							<td class="love_info_td">
+							<td class="love_info_td" style="padding:0px;">
 							<%-- <c:if test="${ll.p_stock != 0}"> --%>
 								<!-- 개별 체크박스 -->
 								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="love_no" checked="checked" value="${ll.love_no}">
@@ -81,29 +81,28 @@ input[type="checkbox"]{
 							<td width=105px>
 								<a href="productView.do?p_no=${ll.p_no}">
 								<img src="${path}/upload/product/${ll.p_img}" width=100px></a></td>
-							<td align="left">
-							  <div style="margin-top:28px;">
-							  	<a href="productView.do?p_no=${ll.p_no}" style="text-decoration:none; color:black;">${ll.p_name}</a><br>
-								<div style="font-size:13px;">
-									<label style="color:red"><fmt:formatNumber pattern="#,###,###" value="${ll.p_sell_price}"/>&nbsp;원</label>
-								    | ${ll.s_name} 
+							<td align="left" style="vertical-align: middle;">
+							  	<div style="font-size:13px;">[${ll.s_name}]</div>
+							  	<div ><a href="productView.do?p_no=${ll.p_no}" style="text-decoration:none; color:black;">${ll.p_name}</a></div>
+								<div style="font-size:13px; color:red;">
+									<b><fmt:formatNumber pattern="#,###,###" value="${ll.p_sell_price}"/>&nbsp;원</b>
 							    </div>
 							  </div>  
 							</td>
-							<td>
+							<td style="vertical-align: middle;">
 								<c:if test="${ll.p_stock == 0 }">
-									<label style="margin-top:35px;margin-left:40px; color:red;">품절</label>
+									<label style="color:red;">품절</label>
 								</c:if>
 							</td >
-							<td class="table_text_align_center">
-							  <div style="margin-top:37px;">	
+							<td class="table_text_align_center" style="vertical-align: middle;">
+							  <div>	
 								<fmt:formatNumber value="${ll.p_sell_price}" pattern="#,###,### 원" />
 							  </div>
 							</td>
-							<td class="table_text_align_center">
+							<td class="table_text_align_center" style="vertical-align: middle;">
 								<input type="hidden" name="love_no" value="${ll.love_no}">
 								<button class="delete_btn btn btn-default" data-love_no="${ll.love_no}"
-								         style="margin-top:35px; margin-right:35px; float:right;">삭제</button>
+								         style="float:right;">삭제</button>
 							</td>
 						</tr>
 						</c:if>
