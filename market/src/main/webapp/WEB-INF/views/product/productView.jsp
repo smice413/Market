@@ -40,18 +40,18 @@
 	<div class="vf-right">
 		<table class="table" style="font-size:15px; margin:0px;">
 			<tr>
-				<td colspan=2  style="font-size:15px;">
+				<td style="font-size:15px;">
 					<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${product.s_name}">
 						[${product.s_name}]</a>&nbsp;&nbsp;&nbsp;
 					<a href=""><img src="${path }/images/house-heart.svg" id="follow" alt="상점을 팔로잉하세요~" height=30px></a></td>
 			</tr>
 			<tr>
-				<td colspan=2>
+				<td>
 					<font style="font-size:20px;">${product.p_name}</font>&nbsp;&nbsp;
 					<a href="${path}/loveInsert.do?p_no=${product.p_no}">>>관심상품 등록</a></td>
 			</tr>
 			<tr>
-				<td colspan=2>
+				<td>
 					<font>일반 구매가 : ${product.p_sell_price}원</font><br>
 					<c:forEach var="followShop" items="${followShop}">
 					<c:if test="${product.p_follow_sale == 'Y' and followShop.m_email eq sessionScope.m_email}">
@@ -70,7 +70,7 @@
 				<td align=left>배송비 : 3000원 (3만원 이상 무료배송)</td>
 			</tr>
 			<tr>
-				<td class="cart_qty_td" colspan=2 align="left">
+				<td class="cart_qty_td" align="left">
 					<!-- 재고가 없을 경우 -->
 					<c:if test="${product.p_stock < 1}">
 						해당 제품이 품절되었습니다 .
@@ -87,7 +87,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan=2 align=center>
+				<td align=center>
 				<c:if test="${product.p_stock < 1}">
 					<a href="${path}/restockInsert.do?p_no=${product.p_no}" class="btn btn-success">재입고 신청하기</a>
 				</c:if>
@@ -109,6 +109,25 @@
                 </c:if>
 				</td>
 			</tr>
+			<c:if test="${group != null }">
+			<c:forEach var = "group" items="${group }">
+			<tr>
+				<td>
+					<table width=380px align=center>
+						<tr>
+							<td><b>${group.m_email }</b></td>
+							<td align=right width=60px style=" font-size:13px;"><font style="color:red;">1명</font> 남음</td>
+							<td align="center" width=150px>						
+								<a href="javascript:order(${group.op_no}, 2)" class="btn btn-danger">
+									<b>함께 공동구매 하기</b>
+								</a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			</c:forEach>
+			</c:if>
 		</table>
 	</div>
 </div>
@@ -147,6 +166,8 @@
 	<input type="hidden" name="orders[0].p_no" value="${product.p_no}">
 	<input type="hidden" name="orders[0].cart_qty" value="">
 	<input type="hidden" name="orders[0].op_type" value="">
+	<input type="hidden" name="orders[0].group_op_no" value="">
+	<input type="hidden" name="orders[0].group_order" value="">
 </form>
 	
 </div>
@@ -190,8 +211,21 @@
 		var op_type = "3"; 
 		$(".order_form").find("input[name='orders[0].cart_qty']").val(cart_qty);
 		$(".order_form").find("input[name='orders[0].op_type']").val(op_type);
+		$(".order_form").find("input[name='orders[0].group_op_no']").val(0);
+		$(".order_form").find("input[name='orders[0].group_order']").val(1);
 		$(".order_form").submit();
 	});
+	
+	// 공동 구매 두 번째 주문 (첫 번째 사람 op_no 가지고 감)
+ 	function order(group_op_no, group_order){
+		var cart_qty = $(".cart_qty").val();
+		var op_type = "3";
+		$(".order_form").find("input[name='orders[0].cart_qty']").val(cart_qty);
+		$(".order_form").find("input[name='orders[0].op_type']").val(op_type);
+		$(".order_form").find("input[name='orders[0].group_op_no']").val(group_op_no);
+		$(".order_form").find("input[name='orders[0].group_order']").val(group_order);
+		$(".order_form").submit();
+	}
 		
 	$(document).ready(function(){
 

@@ -59,6 +59,10 @@ public class Order_productDTO {
 	private int startRow;
 	private int endRow;
 	
+	// 공동구매
+	private int group_op_no;
+	private int group_order;
+	
 	// getters and setters
 	public int getOp_no() {
 		return op_no;
@@ -304,16 +308,29 @@ public class Order_productDTO {
 		this.endRow = endRow;
 	}
 
+	public int getGroup_op_no() {
+		return group_op_no;
+	}
+	public void setGroup_op_no(int group_op_no) {
+		this.group_op_no = group_op_no;
+	}
+	public int getGroup_order() {
+		return group_order;
+	}
+	public void setGroup_order(int group_order) {
+		this.group_order = group_order;
+	}
 	public void total() {
 		this.op_refund = this.op_price * this.op_qty;
 	}
+	
 	@Override
 	public String toString() {
-		return "Order_productDTO [op_no=" + op_no + ", o_no=" + o_no + ", p_no=" + p_no + ", op_type=" + op_type
+		return "Order_productDTO [group_op_no=" + group_op_no + ", group_order=" + group_order + " ,op_no=" + op_no + ", o_no=" + o_no + ", p_no=" + p_no + ", op_type=" + op_type
 				+ ", op_qty=" + op_qty + ", op_price=" + op_price + ", op_refund=" + op_refund + ", op_calc=" + op_calc
 				+ ", op_status=" + op_status + ", d_no=" + d_no + ", s_no=" + s_no + ", m_email=" + m_email
 				+ ", cart_qty=" + cart_qty + ", p_sell_price=" + p_sell_price + ", p_follow_price=" + p_follow_price 
-				+ ", p_group_price=" + p_group_price + "]";
+				+ ", p_group_price=" + p_group_price + "]"; 
 	}
 	
 	

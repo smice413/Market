@@ -59,8 +59,7 @@
 	.vf-footer  {padding: 10px;	text-align: center;	background: white;	margin-top: 20px; }
 
 /* 부트스트랩  버튼변형 */
-	.btn-outline-success{ border-color:#218838; color:#218838; background-color:#fff;}  
-
+	.btn-outline-success{ border-color:#218838; color:#218838; background-color:#fff;}
 
 
 /******************** 반응형 웹에 필요한 내용 ********************/

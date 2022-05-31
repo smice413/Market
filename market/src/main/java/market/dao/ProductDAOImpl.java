@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import market.model.CategoryDTO;
 import market.model.FollowDTO;
+import market.model.Order_productDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
 import market.model.ShopDTO;
@@ -96,5 +97,14 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<FollowDTO> getFollowShopNo(int s_no) {
 		return sst.selectList("productns.getFollowShopNo", s_no);
+	}
+	
+	public List<Order_productDTO> getGroup(ProductDTO pdto){
+		return sst.selectList("productns.getGroup", pdto);
+	}
+	
+	@Override
+	public int updateGroupOrder(Order_productDTO opdto) {
+		return sst.update("productns.updateGroupOrder", opdto);
 	}
 }

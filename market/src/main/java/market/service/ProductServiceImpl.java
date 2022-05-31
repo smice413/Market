@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import market.dao.ProductDAO;
 import market.model.CategoryDTO;
 import market.model.FollowDTO;
+import market.model.Order_productDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
 import market.model.ShopDTO;
@@ -97,4 +98,14 @@ public class ProductServiceImpl implements ProductService {
 	public List<FollowDTO> getFollowShopNo(int s_no) {
 		return pd.getFollowShopNo(s_no);
 	}
+	
+	public List<Order_productDTO> getGroup(ProductDTO pdto){
+		return pd.getGroup(pdto);
+	}
+	
+	public int updateGroupOrder(Order_productDTO opdto) {
+		return pd.updateGroupOrder(opdto);
+	}
+	
+	
 }

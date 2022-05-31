@@ -4,6 +4,7 @@ import java.util.List;
 
 import market.model.CategoryDTO;
 import market.model.FollowDTO;
+import market.model.Order_productDTO;
 import market.model.ProductDTO;
 import market.model.Product_imgDTO;
 import market.model.ShopDTO;
@@ -49,4 +50,8 @@ public interface ProductDAO {
 	ShopDTO getShopInfo(ProductDTO product);
 	
 	List<FollowDTO> getFollowShopNo(int s_no);
+	
+	List<Order_productDTO> getGroup(ProductDTO pdto);
+	
+	int updateGroupOrder(Order_productDTO opdto);
 }

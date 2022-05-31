@@ -142,6 +142,8 @@
 						<input type="hidden" class="op_type_input" value="${pi.op_type}">
 						<input type="hidden" name="s_no" class="s_no_input" value="${pi.s_no}">
 						<input type="hidden" name="s_name" class="s_name_input" value="${pi.s_name}">
+						<input type="hidden" name="group_op_no" class="group_op_no_input" value="${pi.group_op_no}">
+						<input type="hidden" name="group_order" class="group_order_input" value="${pi.group_order}">
 					</td>
 				</tr>	
 				</c:forEach>
@@ -372,6 +374,8 @@
 			let p_no = $(element).find(".p_no_input").val();
 			let cart_qty = $(element).find(".cart_qty_input").val();
 			let op_type = $(element).find(".op_type_input").val();
+			let group_op_no = $(element).find(".group_op_no_input").val();
+			let group_order = $(element).find(".group_order_input").val();
 			
 			let p_no_input = "<input name='orders[" + index + "].p_no' type='hidden' value='" + p_no + "'>";
 			form_contents += p_no_input;
@@ -381,6 +385,12 @@
 			
 			let op_type_input = "<input name='orders[" + index + "].op_type' type='hidden' value='" + op_type + "'>";
 			form_contents += op_type_input;
+			
+			let group_op_no_input = "<input name='orders[" + index + "].group_op_no' type='hidden' value='" + group_op_no + "'>";
+			form_contents += group_op_no_input; 
+			
+			let group_order_input = "<input name='orders[" + index + "].group_order' type='hidden' value='" + group_order + "'>";
+			form_contents += group_order_input; 
 		});	
 		
 		$(".order_form").append(form_contents);	

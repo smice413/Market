@@ -337,4 +337,15 @@
 	<select id="getFollowShopNo" resultType="follow">
 		select distinct f.* from follow f, product p where f.s_no=p.s_no and f.s_no=#{s_no}
 	</select>
+	
+	<!-- 공동구매 팀 정보 불러오기 -->
+	<select id="getGroup" parameterType="product" resultType="order_product">
+	select * from order_product
+	where p_no = #{p_no} and op_status = '1'
+	</select>
+
+	<!-- 공동구매 첫 번째 사람 상태 업데이트 -->
+	<update id="updateGroupOrder" parameterType="order_product">
+	update order_product set op_status = '3' where op_no = #{group_op_no}
+	</update>
 </mapper>

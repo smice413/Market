@@ -35,6 +35,7 @@ import market.model.ProductDTO;
 import market.service.CartService;
 import market.service.MemberServiceImpl;
 import market.service.OrdereService;
+import market.service.ProductService;
 import scala.PartialFunction.OrElse;
 
 @Controller
@@ -48,6 +49,9 @@ public class OrderController {
 	
 	@Autowired
 	private CartService cs;
+	
+	@Autowired
+	private ProductService ps;
 	
 	// 주문페이지
 	@RequestMapping("order.do")
@@ -67,6 +71,8 @@ public class OrderController {
 
 			product.setCart_qty(ord.getCart_qty());    // 주문 수량
 			product.setOp_type(ord.getOp_type());      // 상품 타입(일반/팔로워/공동구매)
+			product.setGroup_op_no(ord.getGroup_op_no());	// 공동구매 첫 번째 사람 op_no
+			product.setGroup_order(ord.getGroup_order());	// 공동구매 순서
 			
 			if(product.getOp_type().equals("1")) {           // 일반 판매 상품
 				product.setP_sell_price(product.getP_sell_price());
@@ -255,6 +261,9 @@ public class OrderController {
 			orderProduct.setD_no(otd.getD_no());
 			orderProduct.setM_email(otd.getM_email());
 			orderProduct.setOp_type(opd.getOp_type());
+			orderProduct.setGroup_op_no(opd.getGroup_op_no());
+			orderProduct.setGroup_order(opd.getGroup_order());
+			
 			opds.add(orderProduct);
 			
 			System.out.println("p_no:"+orderProduct.getP_no());
@@ -266,7 +275,8 @@ public class OrderController {
 			System.out.println("M_email:"+orderProduct.getM_email());
 			System.out.println("op_refund:"+orderProduct.getOp_refund());
 			System.out.println("Op_type:"+orderProduct.getOp_type());
-		
+			System.out.println("group_op_no: "+opd.getGroup_op_no());
+			System.out.println("group_order: "+ opd.getGroup_order());
 		}		
 		System.out.println("opds:"+opds);
 		
@@ -300,6 +310,7 @@ public class OrderController {
 							
 				if(opd.getOp_type().equals("3")) {
 					result2 = os.orderGroupProductInsert(opd); // 공동구매 상품 order_product 등록
+					ps.updateGroupOrder(opd);
 				}else {
 					result2 = os.orderProductInsert(opd); // 일반 상품 / 팔로우 특가 상품 order_product 등록
 				}

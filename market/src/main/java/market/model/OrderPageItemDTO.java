@@ -22,6 +22,10 @@ public class OrderPageItemDTO {
 	// product_img
 	private String p_img;
 	
+	// 공동구매
+	private int group_op_no;
+	private int group_order;
+	
 	// 만들어 낼 값
 	private int total_price;
 
@@ -121,6 +125,22 @@ public class OrderPageItemDTO {
 		this.p_img = p_img;
 	}
 
+	public int getGroup_op_no() {
+		return group_op_no;
+	}
+
+	public void setGroup_op_no(int group_op_no) {
+		this.group_op_no = group_op_no;
+	}
+
+	public int getGroup_order() {
+		return group_order;
+	}
+
+	public void setGroup_order(int group_order) {
+		this.group_order = group_order;
+	}
+
 	public int getTotal_price() {
 		return total_price;
 	}
@@ -139,8 +159,9 @@ public class OrderPageItemDTO {
 		return "OrderPageItemDTO [cart_no=" + cart_no + ", p_no=" + p_no + ", cart_qty=" + cart_qty + ", m_email="
 				+ m_email + ", op_type=" + op_type + ", p_name=" + p_name + ", p_sell_price=" + p_sell_price
 				+ ", p_group_price=" + p_group_price + ", p_follow_price=" + p_follow_price + ", s_no=" + s_no
-				+ ", s_name=" + s_name + ", p_img=" + p_img + ", total_price=" + total_price + "]";
+				+ ", s_name=" + s_name + ", p_img=" + p_img + ",group_op_no="+ group_op_no + ",group_order="+ group_order + ", total_price=" + total_price + "]";
 	}
+
 
 
 	
