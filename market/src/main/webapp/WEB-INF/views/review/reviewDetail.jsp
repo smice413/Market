@@ -50,14 +50,7 @@
 		
 		<tr>
 			<td colspan="4">
-				<c:if test="${img != null }">
-					<c:forEach var="img" items="${img }">
-						<img src="${path}/upload/review/${img }" width="200px">
-					</c:forEach>
-				<br>
-				</c:if>
-				${content }
-			
+				${review.r_content}
 			</td>
 		</tr>
 		<tr>

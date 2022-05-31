@@ -74,7 +74,11 @@
 		       <div class="card-body" style="margin:0px; padding:0px;">
 		       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f3f3f3">
 		       		<tr>
-						<td style="padding:10 10 0 10;"><pre>${review.r_content}</pre></td>
+						<td style="padding:10 10 0 10;">
+							<pre style="font-size: 15px; font-family: 'Nanum Gothic', sans-serif;">
+								${review.r_content}
+							</pre>
+						</td>
 					</tr>
 				</table>
 		       </div>
