@@ -18,17 +18,71 @@
 	
 	<!-- Interceptor설정 -->	
 	<beans:bean id="lc" class="market.controller.LoginCheck"/>
+	<beans:bean id="ShopLoginCheck" class="market.controller.ShopLoginCheck"/>
+	<beans:bean id="AjaxLoginCheck" class="market.controller.AjaxLoginCheck"/>
 	<interceptors>
 		<interceptor>
 			<mapping path="/loveInsert.do"/>
+			<mapping path="/loveList.do"/>
+			<mapping path="/loveDelete.do"/>
+			<mapping path="/allLoveDelete.do"/>
 			<mapping path="/restockInsert.do"/>
+			<mapping path="/restockList.do"/>
+			<mapping path="/restockDelete.do"/>
+			<mapping path="/allRestockDelete.do"/>
 			<mapping path="/followInsert.do"/>
+			<mapping path="/followList.do"/>
+			<mapping path="/followDelete.do"/>
+			<mapping path="/allFollowDelete.do"/>
+			<mapping path="/cartList.do"/>
+			<mapping path="/cartQtyUpdate.do"/>
+			<mapping path="/cartDelete.do"/>
+			<mapping path="/allCartDelete.do"/>
+			<mapping path="/order.do"/>
+			<mapping path="/deliveryInsertForm.do"/>
+			<mapping path="/deliveryListPop.do"/>
+			<mapping path="/deliveryUpdateForm.do"/>
+			<mapping path="/orderRequest.do"/>
+			<mapping path="/orderInsert.do"/>
+			<mapping path="/orderList.do"/>
+			<mapping path="/orderDetail.do"/>
+			<mapping path="/cancel.do"/>
+			<mapping path="/refund.do"/>
+			<mapping path="/refundForm.do"/>
+			<mapping path="/confirm.do"/>
+			<mapping path="/myPage.do"/>
+			<mapping path="/memberConfirmForm.do"/>
+			<mapping path="/memberUpdateForm.do"/>
+			<mapping path="/memberUpdate.do"/>
+			<mapping path="/memberDeleteForm.do"/>
+			<mapping path="/memberDelete.do"/>
+			<mapping path="/reviewForm.do"/>
+			<mapping path="/reviewInsert.do"/>
+			<mapping path="/myReviewList.do"/>
+			<mapping path="/reviewDetail.do"/>
+			<mapping path="/reviewDelete.do"/>
 			<beans:ref bean="lc"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/cartList.do"/>
+			<mapping path="/shop_info.do"/>
+			<mapping path="/shop_info_edit_form.do"/>
+			<mapping path="/shop_info_edit.do"/>
+			<mapping path="/shop_del_form.do"/>
+			<mapping path="/shop_del.do"/>
+			<mapping path="/productInsertForm.do"/>
+			<mapping path="/productUpdateForm.do"/>
+			<mapping path="/productUpdate.do"/>
+			<mapping path="/productDelete.do"/>
+			<mapping path="/productManagerList.do"/>
+			<beans:ref bean="ShopLoginCheck"/>
+		</interceptor>
+		<interceptor>
 			<mapping path="/cartInsert.do"/>
-			<beans:bean id="CartInterceptor" class="market.interceptor.CartInterceptor"></beans:bean>
+			<mapping path="/deliveryInsert.do"/>
+			<mapping path="/updateDefaultAddr.do"/>
+			<mapping path="/deliveryUpdate.do"/>
+			<mapping path="/deliveryDelete.do"/>
+			<beans:ref bean="AjaxLoginCheck"/>
 		</interceptor>
 	</interceptors>
 

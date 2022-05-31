@@ -12,7 +12,7 @@
 <c:if test="${result == 1}">
   <script>
  alert("입점승인자가 아닙니다");
- location.href="";
+ location.href="main.do";
  </script>
 </c:if>
 <c:if test="${result == 2}">

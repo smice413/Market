@@ -77,10 +77,10 @@
 	 	 
  }
 
-function button(){
+/*function button(){
 	$("#submit").attr("disabled", true);
 	alert("email중복검사를 해주세요!");
-}
+}*/
 
 
 

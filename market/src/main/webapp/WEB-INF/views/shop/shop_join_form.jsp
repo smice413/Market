@@ -83,9 +83,9 @@ function readImage(n){
 				<tr>
 					<th>email</th>
 					<td>
-					<input type="text" id="s_email" name="s_email" onClick="button()">
+					<input type="text" id="s_email" name="s_email">
 					<input type="button" id="emailck" value="email중복체크" class="input_button"
-      				onclick="email_check()" />
+      				onclick="email_check()" /><font color="red">아이디 중복 검사를 해주세요</font>
       				<div id="emailcheck"></div>
 					</td>
 				</tr>
