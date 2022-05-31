@@ -130,9 +130,9 @@
  	</c:if>
 </div>
 <!-- 페이징 -->
+<c:if test="${pp.endPage > 1}">	
 <div class="container" align="center">
 		<ul class="pagination">
-			<c:if test="${not empty keyword}">
 				<c:if test="${pp.startPage > pp.pagePerBlk }">
 					<li><a href="${path }/productSearchList.do?pageNum=${pp.startPage - 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">이전</a></li>
 				</c:if>
@@ -143,22 +143,9 @@
 				<c:if test="${pp.endPage < pp.totalPage}">
 					<li><a href="${path }/productSearchList.do?pageNum=${pp.endPage + 1}&search=${search}&keyword=${keyword}&orderCond=${orderCond}">다음</a></li>
 				</c:if>
-			</c:if>
-			<c:if test="${empty keyword}">
-				<c:if test="${pp.startPage > pp.pagePerBlk }">
-					<li><a href="${path }/productSearchList.do?pageNum=${pp.startPage - 1}&&orderCond=${orderCond}">이전</a></li>
-				</c:if>
-				<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
-					<li <c:if test="${pp.currentPage==i}">class="active"</c:if>><a
-						href="${path }/productSearchList.do?pageNum=${i}&orderCond=${orderCond}">${i}</a></li>
-				</c:forEach>
-				<c:if test="${pp.endPage < pp.totalPage}">
-					<li><a href="${path }/productSearchList.do?pageNum=${pp.endPage + 1}&orderCond=${orderCond}">다음</a></li>
-				</c:if>
-		  </c:if>
 		</ul>
 </div>
-
+</c:if>
 <br><br><br><br>
 <%@ include file="../common/footer.jsp"%>
 </body>
