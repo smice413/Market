@@ -70,7 +70,7 @@ public class MemberServiceImpl {
 			return md.getTotal(member);
 		}
 		//카카오로그인할때 db에 이메일저장 
-	public int kakaologin(MemberDTO kakao)throws Exception{
-		return md.kakaologin(kakao);
+		public int kakaologin(MemberDTO kakao)throws Exception{
+			return md.kakaologin(kakao);
 		}	
 	}

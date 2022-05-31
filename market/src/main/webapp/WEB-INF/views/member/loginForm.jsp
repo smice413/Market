@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- 카카오 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
@@ -87,7 +86,7 @@ function kakaoLogout() {
 					</td>
 				</tr>
 				<tr>
-					<td style="padding:0 0 0 0">
+					<td style="padding:0 0 5 0">
 		<!-- 				<input type="button" value="아이디(이메일)찾기" class="btn btn-outline-warning" 
 							onClick ="location =''"/> -->
 							<a href="emailSearchForm.do"><small>아이디(이메일)찾기</small></a> |
@@ -96,13 +95,23 @@ function kakaoLogout() {
 							<a href="passwdSearchForm.do"><small>비밀번호 찾기</small></a>
 					</td>
 				</tr>
-				<tr>
-					<td height=70px ><a href=""  onclick="kakaoLogin();"><img src="${path}/images/kakao_login.png" class="btn-block"></a>
+				
+						
+						
+							<!-- <div onclick="kakaoLogout();"><a href="javascript:void(0)">
+									<span>카카오 로그아웃</span>
+							</a></div> -->
+						
+				
+					<%-- <td height=70px ><a href=""  onclick="kakaoLogin();"><img src="${path}/images/kakao_login.png" class="btn-block"></a>
 						<!--<a href="" onclick="kakaoLogout();"><span>카카오 로그아웃</span> </a>-->
-					</td>
-				</tr>
+					</td> --%>
+				
 						
 			</table>
+							<div onclick="kakaoLogin();"><a href="javascript:void(0)">
+									<a href="javascript:void(0)"><img src="${path}/images/kakao_login.png"></a>
+							</a></div>
 			</div>
 		</form>
 	</div>
