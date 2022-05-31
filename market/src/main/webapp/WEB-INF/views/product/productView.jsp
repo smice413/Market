@@ -202,6 +202,8 @@
 		var op_type = "1"; 
 		$(".order_form").find("input[name='orders[0].cart_qty']").val(cart_qty);
 		$(".order_form").find("input[name='orders[0].op_type']").val(op_type);
+		$(".order_form").find("input[name='orders[0].group_op_no']").val(0);
+		$(".order_form").find("input[name='orders[0].group_order']").val(1);
 		$(".order_form").submit();
 	});	
 	
