@@ -37,7 +37,7 @@
 						<div class="vf-right" style="text-align: center; padding:5px">
 							<table align=center width=100%>
 								<tr>
-									<td><img src="${path}/upload/shop/${s.s_profile}" width=100%></td>
+									<td><img src="${path}/upload/shop/${s.s_profile}" width=100% style=" border-radius: 7px;"></td>
 								</tr>
 							</table>
 						</div>
