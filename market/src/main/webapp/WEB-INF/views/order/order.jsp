@@ -43,12 +43,12 @@
 	float:left;
 	margin-right:2px;
 	margin-bottom:150px;
-	width:39%
+	width:48%
 }
 .payment_info_div{
 	float:right;
 	margin-bottom:150px;
-	width:59%;
+	width:48%;
 }
 .radio2{
 	margin-left:10px;
