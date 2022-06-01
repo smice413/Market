@@ -320,6 +320,20 @@
 			<version>4.5.2</version>
 		</dependency>
 		
+		<!-- 네이버아이디로그인 구현하기위한 scribejava 2.8.1 버전 -->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-core</artifactId>
+			<version>2.8.1</version>
+		</dependency> 		
+		
+		<!-- 네이버에서 받아온 회원정보를 파싱할 제이슨 파싱 -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

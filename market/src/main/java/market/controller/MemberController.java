@@ -1,15 +1,15 @@
 package market.controller;
 
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.mail.HtmlEmail;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +18,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import market.dao.MemberDAO;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
+import market.auth.NaverLoginBO;
 import market.model.MemberDTO;
 import market.service.MemberServiceImpl;
 import market.service.PagingPgm;
 
 @Controller
 public class MemberController {
+	
+	// NaverLoginBO 선언, 회원정보 받아올 apiResult 변수 초기화
+		private NaverLoginBO naverLoginBO;
+		private String apiResult = null;
+
+		// set 메소드로 naverLoginBO 객체 주입
+		@Autowired
+		private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+			this.naverLoginBO = naverLoginBO;
+		}
 
 	@Autowired
 	private MemberServiceImpl ms;
@@ -74,12 +86,78 @@ public class MemberController {
 		return "member/memberInsert";
 	}
 
-	// 로그인폼뷰
-	@RequestMapping(value = "/loginForm.do", method = RequestMethod.GET)
-	public String loginForm() {
-		return "member/loginForm";
-	}
+	// 로그인폼뷰, 네이버 인증 URL 생성
+		@RequestMapping(value = "/loginForm.do", method = { RequestMethod.GET, RequestMethod.POST })
+		public String loginForm(Model model, HttpSession session) {
+			
+			// 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의
+			// getAuthorizationUrl 메소드 호출 
+			String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+			
+			System.out.println("네이버:" + naverAuthUrl);
+			
+			// 네이버로그인인증 url을 가지고 로그인 폼으로 넘어간다
+			model.addAttribute("url", naverAuthUrl);
+			
+			return "member/loginForm";
+		}
+		
+		// 네이버 URL로 로그인 인증후 액세스 토큰을 발급받아 해당토큰으로 회원정보를 받아온다
+		@RequestMapping(value = "/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+		public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+				throws Exception {
+			System.out.println("여기는 callback 컨트롤러 들어왔냐?");
+			
+			//액세스 토큰을 저장할 객체 생성
+			OAuth2AccessToken oauthToken;
+			
+			// 액세스 토큰 받아오기
+			oauthToken = naverLoginBO.getAccessToken(session, code, state);
+			
+			//토큰으로 회원정보를 apiResult 변수에 json형태로 받아온다.
+			apiResult = naverLoginBO.getUserProfile(oauthToken);
+			
+			// 받아온 json 데이터를 파싱하여 원하는 요소만 추출
+			// 원칙적으로 컨트롤러는 간결해야 하기 때문에 컨트롤러에 파싱 코드를 넣는건 좋은 방법이 아님
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(apiResult);
+			JSONObject jsonObj = (JSONObject) obj;
 
+			JSONObject response_obj = (JSONObject) jsonObj.get("response");
+			
+			//회원이름
+			String name = (String) response_obj.get("name");
+			
+			//회원이메일
+			String email = (String) response_obj.get("email");
+
+			System.out.println(apiResult);
+			
+			MemberDTO loginNaver = ms.loginCheck(email);
+			
+			if(loginNaver==null) {
+				int result = 0;
+				
+				MemberDTO naver = new MemberDTO();
+				naver.setM_email(email);
+				naver.setM_name(name);
+				result = ms.naverlogin(naver);
+				
+				MemberDTO loginNaver2 = ms.loginCheck(email);
+				
+				session.setAttribute("m_email",loginNaver2.getM_email());
+				
+				return "redirect:main.do";
+			
+			}else if(loginNaver.getM_email().equals(email)) { // 등록되어 있는 회원
+				session.setAttribute("m_email", email);
+				return "redirect:main.do";
+			}
+			
+			return "";
+		}
+
+	
 	// 로그인인증
 	@RequestMapping(value = "/loginCheck.do", method = RequestMethod.POST)
 	public String loginCheck(String m_email, String m_passwd, HttpSession session, Model model) throws Exception {

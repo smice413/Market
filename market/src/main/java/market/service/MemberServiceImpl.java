@@ -73,4 +73,8 @@ public class MemberServiceImpl {
 		public int kakaologin(MemberDTO kakao)throws Exception{
 			return md.kakaologin(kakao);
 		}	
+		//네이버로 로그인할때 db에 이메일과 이름 저장 
+		public int naverlogin(MemberDTO naver)throws Exception{
+			return md.naverlogin(naver);
+		}	
 	}

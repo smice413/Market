@@ -99,5 +99,9 @@ public class MemberDAOImpl {
 	public int kakaologin(MemberDTO kakao)throws Exception{
 		return sqlSession.insert("memberns.kakaoinsert",kakao);
 	}
+	//네이버로 로그인할때 db에 이메일과 이름 저장 
+		public int naverlogin(MemberDTO naver)throws Exception{
+			return sqlSession.insert("memberns.naverinsert",naver);
+		}	
 	
 }
