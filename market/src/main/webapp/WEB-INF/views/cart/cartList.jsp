@@ -153,7 +153,7 @@ $(document).ready(function(){
 						<c:if test="${sn.s_no eq cl.s_no}">
 						<tr>
 							<td class="cart_info_td">
-							<c:if test="${cl.p_stock != 0}">
+							<c:if test="${cl.p_stock != 0 and cl.p_status == 1}">
 								<!-- 개별 체크박스 -->
 								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="chkbox_${sn.s_no}" checked
 								       onclick="check(${sn.s_no});" value="${cl.cart_no}">
@@ -200,7 +200,7 @@ $(document).ready(function(){
 							</td>
 							<td>
 								<!--상품 재고가 있는 경우 -->
-								<c:if test="${cl.p_stock != 0}"> 
+								<c:if test="${cl.p_stock != 0 and cl.p_status == 1}"> 
 								<div class="table_text_align_center cart_qty_div" style="display:flex;">
 									<button class="minus_btn btn btn-default">-</button>
 									<input type="text" name="cart_qty_${cl.cart_no}" value="${cl.cart_qty}" class="cart_qty_input form-control">
@@ -212,6 +212,23 @@ $(document).ready(function(){
 								<c:if test="${cl.p_stock == 0 }"> 
 									<label style="margin-top:35px;margin-left:40px; color:red;">품절</label>
 								</c:if>
+								<!-- 일시 판매 중지 -->
+								<c:if test="${cl.p_status == 2 }">
+									<label style="margin-top:35px;margin-left:40px; color:darkblue;">일시 판매 중지</label>
+								</c:if>
+								<!-- 판매완료 -->
+								<c:if test="${cl.p_status == 3 }">
+									<label style="margin-top:35px;margin-left:40px; color:darkblue;">판매 완료</label>
+								</c:if>
+								<!-- 판매 정지 -->
+								<c:if test="${cl.p_status == 4 }">
+									<label style="margin-top:35px;margin-left:40px; color:darkblue;">판매 정지</label>
+								</c:if>
+								<!-- 일시 판매 중지 -->
+								<c:if test="${cl.p_status == 5 }">
+									<label style="margin-top:35px;margin-left:40px; color:darkblue;">삭제된 상품</label>
+								</c:if>
+								
 							</td >
 							<td class="table_text_align_center">
 							  <div style="margin-top:37px;">
