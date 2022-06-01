@@ -67,7 +67,9 @@
 							<td>
 							<div style="display:flex;">
 								<input type="hidden" class="d_no" name="d_no" value="${dl.d_no}">
-								<button type="button" class="select_btn btn btn-success" onClick="select_check(${dl.d_no});" >선택</button>
+								<c:if test="${dl.d_default == 'N'}">
+									<button type="button" class="select_btn btn btn-success" onClick="select_check(${dl.d_no});" >선택</button>
+								</c:if>
 								<button type="button" class="update_btn btn btn-outline-success" onClick="update_check(${dl.d_no});">수정</button>
 								<button type="button" class="delete_btn btn btn-outline-success" onClick="delete_check(${dl.d_no});">삭제</button>
 							</div>
@@ -105,14 +107,19 @@
 		
 	    // 배송지 삭제 버튼
 		function delete_check(n){
-			$.post("deliveryDelete.do", {
-					"d_no" : n
-			}, function(result) {
-//				alert(result);
-				if(result==1){
-					location.reload();
-				}
-			}); //post() end
+			var check = confirm("해당 배송지를 삭제하시겠습니까?");
+			if(check){
+				$.post("deliveryDelete.do", {
+						"d_no" : n
+				}, function(result) {
+	//				alert(result);
+					if(result==1){
+						location.reload();
+					}
+				}); //post() end
+			}else{
+				return false;
+			}	
 		}
 		// 배송지 수정 버튼
 		function update_check(n){	

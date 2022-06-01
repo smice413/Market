@@ -154,7 +154,8 @@ table{
 			}, function(result) {
 			 	if(result==1){
 					alert("배송지가 등록되었습니다.");
-					location.href="deliveryListPop.do";
+					opener.document.location.reload();
+					self.close();
 			 	}
 			}); //post() end
 		});
