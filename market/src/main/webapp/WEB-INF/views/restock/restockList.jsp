@@ -28,7 +28,7 @@ input[type="checkbox"]{
 </header>
 
 
-   <div class="container">
+   <div class="container" align=center>
 		<div class="row qnas" style="text-align: center;">
 			<h2 class="page-header">
 				<img src="${path}/images/bell-fill.svg" style="width:30px; height:30px; margin-bottom:5px;">
@@ -53,10 +53,10 @@ input[type="checkbox"]{
 			
 			<!-- 재입고신청 상품 리스트 -->
 	        <c:forEach var="sn" items="${shopNo}">
-			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5;">
+			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5; width:90%">
 				<thead>	
 					<tr>
-						<th colspan="6">
+						<th colspan="6" style="padding: 10px 0px 10px 0px;">
 							<!-- 한번에 전체 상품을 체크하는 체크박스 -->
 							<input type="checkbox" class="allCheck_input_${sn.s_no}" id=checkbox checked="checked" style="margin-right:5px;">
 							<img src="${path}/images/shop.png" style="width:30px; height:30px; margin-bottom:7px;">
@@ -68,7 +68,7 @@ input[type="checkbox"]{
 					<c:forEach var="rl" items="${restockList}" >
 						<c:if test="${sn.s_no eq rl.s_no}">
 						<tr>
-							<td class="restock_info_td">
+							<td class="restock_info_td" style="padding:0px;">
 							<%-- <c:if test="${rl.p_stock != 0}"> --%>
 								<!-- 개별 체크박스 -->
 								<input type="checkbox" class="chkbox_input_${sn.s_no}" name="re_no" checked="checked" value="${rl.re_no}">
@@ -81,29 +81,27 @@ input[type="checkbox"]{
 							<td width=105px>
 								<a href="productView.do?p_no=${rl.p_no}">
 								<img src="${path}/upload/product/${rl.p_img}" width=100px></a></td>
-							<td align="left">
-							  <div style="margin-top:28px;">
-							  	<a href="productView.do?p_no=${rl.p_no}" style="text-decoration:none; color:black;">${rl.p_name}</a><br>
-								<div style="font-size:13px;">
-									<label style="color:red"><fmt:formatNumber pattern="#,###,###" value="${rl.p_sell_price}"/>&nbsp;원</label>
-								    | ${rl.s_name} 
-							    </div>
-							  </div>  
+							<td align="left" style="vertical-align: middle;">
+							  <div style="font-size:13px;">[${rl.s_name}]</div>
+							  <div><a href="productView.do?p_no=${rl.p_no}" style="text-decoration:none; color:black;">${rl.p_name}</a></div>
+							  <div style="font-size:13px; color:red;">
+							  	<b><fmt:formatNumber pattern="#,###,###" value="${rl.p_sell_price}"/>&nbsp;원</b>
+							  </div>
 							</td>
-							<td>
+							<td style="vertical-align: middle;">
 								<c:if test="${rl.p_stock == 0 }">
-									<label style="margin-top:35px;margin-left:40px; color:red;">품절</label>
+									<label style="color:red;">품절</label>
 								</c:if>
 							</td >
-							<td class="table_text_align_center">
-							  <div style="margin-top:37px;">	
+							<td class="table_text_align_center" style="vertical-align: middle;">
+							  <div>	
 								<fmt:formatNumber value="${rl.p_sell_price}" pattern="#,###,### 원" />
 							  </div>
 							</td>
-							<td class="table_text_align_center">
+							<td class="table_text_align_center" style="vertical-align: middle;">
 								<input type="hidden" name="re_no" value="${rl.re_no}">
 								<button class="delete_btn btn btn-default" data-re_no="${rl.re_no}"
-								         style="margin-top:35px; margin-right:35px; float:right;">삭제</button>
+								         style="float:right;">삭제</button>
 							</td>
 						</tr>
 						</c:if>

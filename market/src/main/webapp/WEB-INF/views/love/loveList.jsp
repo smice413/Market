@@ -56,7 +56,7 @@ input[type="checkbox"]{
 			<table class="table" style=" margin: auto; border-bottom: 1px solid #D5D5D5; width:90%">
 				<thead>	
 					<tr>
-						<th colspan="6">
+						<th colspan="6" style="padding: 10px 0px 10px 0px;">
 							<!-- 한번에 전체 상품을 체크하는 체크박스 -->
 							<input type="checkbox" class="allCheck_input_${sn.s_no}" id=checkbox checked="checked" style="margin-right:5px;">
 							<img src="${path}/images/shop.png" style="width:30px; height:30px; margin-bottom:7px;">
@@ -86,8 +86,7 @@ input[type="checkbox"]{
 							  	<div ><a href="productView.do?p_no=${ll.p_no}" style="text-decoration:none; color:black;">${ll.p_name}</a></div>
 								<div style="font-size:13px; color:red;">
 									<b><fmt:formatNumber pattern="#,###,###" value="${ll.p_sell_price}"/>&nbsp;원</b>
-							    </div>
-							  </div>  
+							    </div> 
 							</td>
 							<td style="vertical-align: middle;">
 								<c:if test="${ll.p_stock == 0 }">

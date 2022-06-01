@@ -186,7 +186,8 @@ function registerAction(){
 						<button id="btn-upload" type="button" class="btn btn-success" >파일 추가</button>
 						<button type="submit" class="btn btn-outline-success" >전송</button>
 						<input id="input_file" multiple="multiple" type="file" accept="image/*,video/*" style="display: none;">
-						<font style="font-size: 10px; color: gray;">※첨부파일은 최대 5개까지 등록이 가능합니다.</font>
+						<font style="font-size: 10px; color: gray;">※첨부파일은 최대 5개까지 등록이 가능합니다.<br>
+						※가능한 정사각형으로 등록해주시고 세로길이가 길지 않게 해주세요. </font>
 						
 						<div class="data_file_txt" id="data_file_txt" style="margin: 5px;">
 							<div id="articlefileChange" style="float: left; align:center; margin: 2px; border-style: dotted; border-width: 2px; border-radius: 5px; border-color: #bbb; height: auto; display: block;">
@@ -255,7 +256,8 @@ function registerAction(){
 				</tr>
 				<tr>
 					<td>상세설명</td>
-					<td><textarea rows="5" cols="30" name="p_detail" required="required">상품설명을 예쁘게 편집해서 입력하세요</textarea>
+					<td><textarea rows="5" cols="30" name="p_detail" required="required">상품설명을 예쁘게 편집해서 입력하세요<br>
+									                                                                                                  사진폭을 390px이하로 맞춰서 올려주세요</textarea>
 						<script>	// 글쓰기 editor 및 사진 업로드 기능
 							CKEDITOR.replace('p_detail',{filebrowserUploadUrl:'${path}/market/fileUpload.do'});
 						</script>

@@ -43,7 +43,7 @@
 				<td style="font-size:15px;">
 					<a href="${path}/productSearchList.do?pageNum=1&search=s_name&keyword=${product.s_name}">
 						[${product.s_name}]</a>&nbsp;&nbsp;&nbsp;
-					<a href=""><img src="${path }/images/house-heart.svg" id="follow" alt="상점을 팔로잉하세요~" height=30px></a></td>
+					<a href="${path}/followInsert.do?s_no=${product.s_no}"><img src="${path }/images/house-heart.svg" id="follow" alt="상점을 팔로잉하세요~" height=30px></a></td>
 			</tr>
 			<tr>
 				<td>
