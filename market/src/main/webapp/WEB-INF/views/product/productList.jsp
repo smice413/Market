@@ -165,7 +165,7 @@ $(function() {
 				<c:forEach var="p" items="${list }">
 					<tr>
 						<td>${p.p_no}</td>
-						<td><a href="productUpdateForm.do?p_no=${p.p_no}">${p.p_name}</a></td>
+						<td><a href="productView.do?p_no=${p.p_no}">${p.p_name}</a></td>
 						<td>${p.p_stock}</td>
 						<td>
 							<c:if test="${p.p_status =='1'}">판매중</c:if>

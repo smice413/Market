@@ -87,10 +87,16 @@ input[type="checkbox"]{
 							  <div style="font-size:13px; color:red;">
 							  	<b><fmt:formatNumber pattern="#,###,###" value="${rl.p_sell_price}"/>&nbsp;원</b>
 							  </div>
+							  <c:if test="${rl.p_stock > 0 }">
+									<label style="color:blue;">주문이 가능합니다.</label>
+							  </c:if>
 							</td>
 							<td style="vertical-align: middle;">
 								<c:if test="${rl.p_stock == 0 }">
 									<label style="color:red;">품절</label>
+								</c:if>
+								<c:if test="${rl.p_stock > 0 }">
+									<label style="color:blue;">${rl.p_stock}개</label>
 								</c:if>
 							</td >
 							<td class="table_text_align_center" style="vertical-align: middle;">
