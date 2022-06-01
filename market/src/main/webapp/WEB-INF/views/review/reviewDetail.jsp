@@ -50,7 +50,11 @@
 		
 		<tr>
 			<td colspan="4">
+			
+			<div class="vf-card" height=100px>
 				${review.r_content}
+			</div>
+				
 			</td>
 		</tr>
 		<tr>
@@ -65,6 +69,6 @@
 
 </div>
 </div>
-
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

@@ -12,12 +12,12 @@
 
 .delivery_info{
 	float:left;
-	width:40%
+	width:50%
 }
 
 .payment_info{
 	float:right;
-	width:50%;
+	width:45%;
 }
 
 </style>
@@ -29,7 +29,7 @@
 <%@ include file="../common/menuMyPage.jsp"%>
 
 <div class="container" align="center">
-<div class="vf-wide700-card" align="center" style="width: 800px;">
+<div class="vf-wide700-card" align="center" style="width: 900px;">
 <h3 style="font-weight: bold; margin: 30px 0px 30px 0px;">주문 내역 상세</h3>
 
 <div style="margin-bottom: 20px;">
@@ -129,6 +129,6 @@
 </div>
 </div>
 
-
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

@@ -142,6 +142,6 @@ function review_click(a,b){
 		 
 </ul>
 </div>
-
+<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

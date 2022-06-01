@@ -74,10 +74,13 @@
 		       <div class="card-body" style="margin:0px; padding:0px;">
 		       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f3f3f3">
 		       		<tr>
-						<td style="padding:10 10 0 10;">
-							<pre style="font-size: 15px; font-family: 'Nanum Gothic', sans-serif;">
+						<td style="padding:10 10 10 10;">
+							<%-- <pre style="font-size: 15px; font-family: 'Nanum Gothic', sans-serif;">
 								${review.r_content}
-							</pre>
+							</pre> --%>
+							<div class="vf-card" height=100px style="border-style:solid; border-color: black; border-radius: 10px;">
+									<font style="font-size: 14px;">${review.r_content}</font>
+							</div>
 						</td>
 					</tr>
 				</table>
