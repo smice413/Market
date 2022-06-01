@@ -704,8 +704,8 @@ public class ShopController {
 		shop.setS_tel(s_tel);
 
 		shop = shopService.shop_emailsearch(shop);
-		String s_email = shop.getS_email();
-		model.addAttribute("s_email", s_email);
+		
+		model.addAttribute("shop", shop);
 
 		return "shop/shop_emailsearchResult";
 	}
