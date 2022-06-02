@@ -7,16 +7,12 @@ update product_img set p_img_order=1
 update product_img set p_img_order=2 where p_img_no=13
 
 select * from product p inner join category c on p.cate_no = c.cate_no where c.cate_large='과일'
-
-select count(*) from product P
-			left outer join category C on P.cate_no = C.cate_no
-       		left outer join product_img PI on P.p_no = PI.p_no
        		
-		select count(*) from product P
-					left outer join category C on P.cate_no = C.cate_no
- 		       		left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
- 		       		left outer join shop S on P.s_no = S.s_no 		
-			where	p_status='1' and cate_large like '%과일%'
+select count(*) from product P
+	left outer join category C on P.cate_no = C.cate_no
+ 	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
+ 	left outer join shop S on P.s_no = S.s_no 		
+where	p_status='1' and cate_large like '%과일%'
        		
 select 
 	P.p_no as p_no,
@@ -36,12 +32,14 @@ select
 	C.cate_large as cate_large,
 	C.cate_small as cate_small,
 	PI.p_img as p_img,
-	S.s_name as s_name
+	S.s_name as s_name,
+	S.s_email as s_email
 from product P
    	left outer join category C on P.cate_no = C.cate_no
-   	left outer join product_img PI on P.p_no = PI.p_no
+   	left outer join product_img PI on P.p_no = PI.p_no and PI.p_img_order=1
    	left outer join shop S on P.s_no = S.s_no
-where p_group_buying = 'Y' order by p_group_price asc
+where s_name='당도최고 과일만수르'
+where p_status='1' and s_name='당도최고 과일만수르' order by p_group_price asc
    
 select cate_small from product P
 			left outer join category C on P.cate_no = C.cate_no

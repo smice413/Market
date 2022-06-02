@@ -181,14 +181,17 @@ function registerAction(){
 
 			<table class="table">
 				<tr>
-					<td width=130px>상품이미지</td>
+					<td width=115px>상품이미지</td>
 					<td>
-						<button id="btn-upload" type="button" class="btn btn-success" >파일 추가</button>
-						<button type="submit" class="btn btn-outline-success" >전송</button>
-						<input id="input_file" multiple="multiple" type="file" accept="image/*,video/*" style="display: none;">
-						<font style="font-size: 10px; color: gray;">※첨부파일은 최대 5개까지 등록이 가능합니다.<br>
-						※가능한 정사각형으로 등록해주시고 세로길이가 길지 않게 해주세요. </font>
-						
+						<table>
+							<tr>
+								<td><button id="btn-upload" type="button" class="btn btn-success" >파일 추가</button>
+									<input id="input_file" multiple="multiple" type="file" accept="image/*,video/*" style="display: none;"></td>
+								<td style="padding-left:5px"><font style="font-size: 10px; color: gray;">
+										※첨부파일은 최대 5개까지 등록이 가능합니다.<br>
+										※가능한 정사각형으로 등록해주시고 세로길이가 길지 않게 해주세요. </font></td>
+							</tr>
+						</table>
 						<div class="data_file_txt" id="data_file_txt" style="margin: 5px;">
 							<div id="articlefileChange" style="float: left; align:center; margin: 2px; border-style: dotted; border-width: 2px; border-radius: 5px; border-color: #bbb; height: auto; display: block;">
 								<font style="font-size: 10px; color: gray;">등록을 취소하시려면 사진을 클릭하세요</font><br>
@@ -237,7 +240,7 @@ function registerAction(){
 					</td>
 				</tr>
 				<tr>
-					<td>팔로워할인여부</td>
+					<td style="padding-right:0px">팔로워할인여부</td>
 					<td>
 						<input type="radio" name="p_follow_sale" value="Y">Y
 						<input type="radio" name="p_follow_sale" value="N" checked="checked">N
