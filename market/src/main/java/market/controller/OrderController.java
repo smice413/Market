@@ -310,7 +310,8 @@ public class OrderController {
 							
 				if(opd.getOp_type().equals("3")) {
 					result2 = os.orderGroupProductInsert(opd); // 공동구매 상품 order_product 등록
-					ps.updateGroupOrder(opd);
+					int result = ps.updateGroupOrder(opd);
+					System.out.println("공동구매 첫 번째 사람: "+result);
 				}else {
 					result2 = os.orderProductInsert(opd); // 일반 상품 / 팔로우 특가 상품 order_product 등록
 				}

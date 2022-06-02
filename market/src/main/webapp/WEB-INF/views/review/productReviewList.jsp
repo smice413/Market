@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/viewConfiguration.jsp"%>
 
-	<div class="container">
+<head>
+<script>
+
+//paging처리
+	function paging(pageNum) {
+		$('#slist').load('${path}/productReviewList.do?pageNum='+pageNum);
+	}
+	
+</script>
+</head>
+
+<div class="container">
 		<table style="width:100%; margin:0px 0px 20px 0px; padding:0px; font-size:13px;" align=left>
 			<tr>
 				<td><h4><b>PRODUCT REVIEW</b></h4></td>
@@ -31,7 +42,6 @@
 				<td width="100" align="center">별 점</td>
 				<td width="180" align="center">작성자</td>
 				<td width="120" align="center">작성일</td>
-				<td width="60" align="center">조회수</td>
 			</tr>
 		</table>
 		
@@ -63,13 +73,11 @@
 						
 						<td width="120" align="center"><fmt:formatDate value="${review.r_writedate }" pattern="yyyy-MM-dd"/></td>
 						
-						<td width="60" align="center">${review.r_hit }</td>
-						
 					</tr>
 				</table>
 		    </div>
 		    
-		<!--  문의글 상세내용    -->
+		<!--  리뷰 상세내용    -->
 			<div id="detail_${review.r_no}" class="collapse hide" data-parent="#accordion">
 		       <div class="card-body" style="margin:0px; padding:0px;">
 		       	<table style="width: 100%; margin:0px; padding:0px; background-color: #f3f3f3">
@@ -90,4 +98,21 @@
 		</c:forEach>
 		</div>
 		</c:if>
-		</div>
+</div>
+
+<div class="container" align="center">
+	<!-- 페이징 처리 -->
+	<ul class="pagination">
+		<c:if test="${pp.startPage > pp.pagePerBlk }">
+			<li><a href="javascript:paging(${pp.startPage - 1})">이전</a></li>
+		</c:if>
+		<c:forEach var="i" begin="${pp.startPage}" end="${pp.endPage}">
+			<li <c:if test="${pp.currentPage==i}">class="active"</c:if>>
+				<a href="javascript:paging(${i})">${i}</a></li>
+		</c:forEach>
+		<c:if test="${pp.endPage < pp.totalPage}">
+			<li><a href="javascript:paging(${pp.endPage + 1})">다음</a></li>
+		</c:if>
+	</ul>
+</div>		
+
