@@ -17,9 +17,9 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 public class NaverLoginBO {
 	
 	// 네이버 애플리케이션에서 가져온 기본정보를 전역변수로 설정
-	private final static String CLIENT_ID = "kIWHEpn_xCWKue99YT4J";
-	private final static String CLIENT_SECRET = "3KJu4imGvo";
-	private final static String REDIRECT_URI = "http://localhost:80/market/callback.do";
+	private final static String CLIENT_ID = "YuP9zVu5GOivsYv31zzW";
+	private final static String CLIENT_SECRET = "vEBdoAOHD5";
+	private final static String REDIRECT_URI = "http://54.180.153.210/callback.do";
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL */ 
 	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
