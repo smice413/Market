@@ -20,5 +20,11 @@
 	console.log();
 	</script>
 	</c:if>
+	<c:if test="${sessionScope.s_email != null && sessionScope.s_status == 'm' }">
+	<script>
+	location.href="<%=request.getContextPath()%>/memberList.do";
+	console.log();
+	</script>
+	</c:if>
 </body>
 </html>

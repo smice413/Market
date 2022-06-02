@@ -35,10 +35,9 @@
 					<a href="${path }/shop_join_form.do">입점신청</a> |
 				</c:if>	
 	<!-- 관리자 세션이 있는 경우 --> 
-				<%-- <c:if test="${sessionScope.id == 'admin'}">
-					<a href="${path }/view.do?num=1&pageNum=1">관리자페이지</a> | 
-				</c:if>--%>				
+				<c:if test="${!empty sessionScope.s_email && sessionScope.s_status =='m'}">
 				<a href="${path }/memberList.do">관리자페이지</a>
+				</c:if>			
 			</td>
 		</tr>
 	<!-- 로고 (이미지) --> 

@@ -11,7 +11,7 @@
 	</insert>
 	<!-- 판매자 정보구하기 s_email= #{s_email} and s_status='2' 로 수정해야함 -->
 	<select id="shop_select" parameterType="String" resultType="shop">
-		select * from shop where s_email= #{s_email} and s_status='2'
+		select * from shop where s_email= #{s_email} and s_status='2' or s_status='m'
 	</select>
 	<!-- 관리자 list view값 구하기 -->
 	<select id="shop_select1" parameterType="String" resultType="shop">
