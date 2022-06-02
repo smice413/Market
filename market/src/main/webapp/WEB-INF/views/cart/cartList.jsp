@@ -19,7 +19,7 @@
 	height:33px;
 }
 #cart_qty_input{
-	width:50px;
+	width:55px;
 	margin-top:35px;
 	margin-right:0;	
 }
@@ -126,7 +126,7 @@ input[type="checkbox"]{
 	        
 <script>
 $(document).ready(function(){
-	itemSum(${sn.s_no})
+	itemSum(${sn.s_no});
 });        	
 </script>
 	        
@@ -316,17 +316,14 @@ $(document).ready(function(){
 	});  */
 	// 상품 수량 버튼	
 	function plus(n){
-		let qty = $(".cart_qty_input_"+n).val();
-		let p_stock = $(".p_stock_input_"+n).val();
-		console.log(qty);
-		console.log(p_stock);
- 			console.log(qty < p_stock);
+		let qty = parseInt($(".cart_qty_input_"+n).val());
+		let p_stock = parseInt($(".p_stock_input_"+n).val());
  		if(qty < p_stock){ 
 			$(".cart_qty_input_"+n).val(++qty);
  		}	 
 	}
 	function minus(n){
-		let qty = $(".cart_qty_input_"+n).val();
+		let qty = parseInt($(".cart_qty_input_"+n).val());
 		if(qty > 1){
 			$(".cart_qty_input_"+n).val(--qty);
 		}
@@ -335,28 +332,19 @@ $(document).ready(function(){
 	
 	// 상품 수량 수정 버튼
  	function update(n){
-//		alert(n);
-		const cart_no = n
-		const c_qty = $(".cart_qty_input_"+n).val();
-		const stock = $(".p_stock_input_"+n).val();
-		console.log(c_qty);
-		console.log(stock);
-		console.log(c_qty > stock);
-		console.log(c_qty < stock);
-		
+		let cart_no = n
+		let c_qty = parseInt($(".cart_qty_input_"+n).val());
+		let stock = parseInt($(".p_stock_input_"+n).val());
+
 		// 상품 재고 유효성 검사
-/*  		if(c_qty > stock) {   
- 			alert(c_qty);
- 			alert(stock);
- 			alert(c_qty > stock);
+  		if(c_qty > stock) {   
 		    alert("재고가 없습니다. 선택할 수 있는 최대 상품 수량은 "+stock+"개 입니다.");
 		    $(".cart_qty_input_"+n).val(1);
 		}else{ 
-			alert(c_qty <= stock);*/
 			$(".update_cart_no").val(cart_no);
 			$(".update_cart_qty").val(c_qty);
 			$(".qty_update_form").submit();
- 		/* }  */
+ 	    }  
 	} 
 	
 	// 장바구니 개별 상품 삭제 버튼

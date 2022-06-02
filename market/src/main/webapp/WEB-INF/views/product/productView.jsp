@@ -78,7 +78,7 @@
 			    	<div class="table_text_align_center cart_qty_div" style="display:flex; margin:0;">
 						<label style="margin-top:5px;">구매 수량 :</label> 
 					   	<button class="minus_btn btn btn-default" style="margin-left:10px;">-</button>
-						<input type="text" class="cart_qty form-control" value="1" style="width:45px;">
+						<input type="text" class="cart_qty form-control" value="1" style="width:55px;">
 					   	<button class="plus_btn btn btn-default">+</button>
 					</div>
 					</c:if>
@@ -178,8 +178,8 @@
 <script>
 	// 구매 수량 버튼 
 	$(".plus_btn").on("click", function(){
-		let qty = $(this).parent("div").find("input").val();
-		let p_stock = ${product.p_stock}
+		let qty = parseInt($(this).parent("div").find("input").val());
+		let p_stock = parseInt(${product.p_stock});
 		$(this).parent("div").find("input").val(++qty);
 		// 상품 재고 유효성 검사
 		if(qty > p_stock){
@@ -188,7 +188,7 @@
 		}
 	});
 	$(".minus_btn").on("click", function(){
-		let qty = $(this).parent("div").find("input").val();
+		let qty = parseInt($(this).parent("div").find("input").val());
 		if(qty > 1){
 		$(this).parent("div").find("input").val(--qty);
 		}	
