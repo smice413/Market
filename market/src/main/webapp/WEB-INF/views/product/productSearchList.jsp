@@ -46,10 +46,9 @@
 								<tr>
 									<td><img src="${path}/images/shop.png" style="width:30px; height:30px; margin:2px;"></td>
 									<td><b><font style="font-size:20px;">&nbsp;${keyword}</font></b></td>
-									<td><font style="font-size:15px;" class="text-primary"><b>&nbsp;의  모든 상품이 검색되었습니다</b></font></td>
 								</tr>
 								<tr>
-									<td align=center colspan=3><a class="btn btn-success" style="width:120px; height:28px; padding:3px; margin:7px;" 
+									<td align=center colspan=2><a class="btn btn-success" style="width:120px; height:28px; padding:3px; margin:7px;" 
 							href="${path}/followInsert.do?s_no=${s.s_no}">>> 팔로잉하기</a></td>
 								</tr>
 							</table>

@@ -150,11 +150,9 @@ $(function() {
 			<tr>
 				<td>상품번호</td>
 				<td>상품명</td>
-				<td>재고</td>
 				<td>상품상태</td>
 				<td>상품수정</td>
 				<td>상품삭제</td>
-				<td>조회수</td>
 			</tr>
 			<c:if test="${empty list}">
 				<tr>
@@ -166,7 +164,6 @@ $(function() {
 					<tr>
 						<td>${p.p_no}</td>
 						<td><a href="productView.do?p_no=${p.p_no}">${p.p_name}</a></td>
-						<td>${p.p_stock}</td>
 						<td>
 							<c:if test="${p.p_status =='1'}">판매중</c:if>
 							<c:if test="${p.p_status =='2'}">일시판매중지</c:if>
@@ -179,7 +176,6 @@ $(function() {
 						<td>
 							<input type="button" value="상품삭제" class="btn btn-outline-success" onclick="location.href='${path}/productDelete.do?p_no=${p.p_no}&pageNum=1'">
 						</td>
-						<td>${p.p_hit}</td>
 					</tr>
 				</c:forEach>
 			</c:if>
