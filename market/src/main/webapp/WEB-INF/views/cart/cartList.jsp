@@ -18,7 +18,7 @@
 	outline:none;
 	height:33px;
 }
-.cart_qty_input{
+#cart_qty_input{
 	width:50px;
 	margin-top:35px;
 	margin-right:0;	
@@ -93,6 +93,7 @@ input[type="checkbox"]{
 </style>	
 
 
+
 </head>
 <body>
 
@@ -125,7 +126,7 @@ input[type="checkbox"]{
 	        
 <script>
 $(document).ready(function(){
-	itemSum(${sn.s_no});
+	itemSum(${sn.s_no})
 });        	
 </script>
 	        
@@ -162,7 +163,7 @@ $(document).ready(function(){
 								<input type="hidden" class="cart_no_input" name="cart_no" value="${cl.cart_no}">
 								<input type="hidden" class="p_no_input" name="p_no" value="${cl.p_no}">
 								<input type="hidden" class="op_type_input" name="op_type" value="${cl.op_type}">
-								<input type="hidden" class="p_stock_input" name="p_stock_${cl.cart_no}" value="${cl.p_stock}">
+								<input type="hidden" class="p_stock_input_${cl.cart_no}" name="p_stock" value="${cl.p_stock}">
 								<input type="hidden" class="p_follow_price_input" name="p_follow_price" value="${cl.p_follow_price}">
 								<!-- 일반 판매 상품 -->
 								<c:if test="${cl.op_type == 1}">
@@ -202,9 +203,9 @@ $(document).ready(function(){
 								<!--상품 재고가 있는 경우 -->
 								<c:if test="${cl.p_stock != 0 and cl.p_status == 1}"> 
 								<div class="table_text_align_center cart_qty_div" style="display:flex;">
-									<button class="minus_btn btn btn-default">-</button>
-									<input type="text" name="cart_qty_${cl.cart_no}" value="${cl.cart_qty}" class="cart_qty_input form-control">
-									<button class="plus_btn btn btn-default" >+</button>
+									<button class="minus_btn btn btn-default"  onClick="minus(${cl.cart_no});">-</button>
+									<input type="text" name="cart_qty" value="${cl.cart_qty}" id="cart_qty_input" class="cart_qty_input_${cl.cart_no} form-control">
+									<button class="plus_btn btn btn-default" onClick="plus(${cl.cart_no});">+</button>
 									<button class="qty_modify_btn btn btn-default" name="qty_modify_btn_${cl.cart_no}" data-cart_no="${cl.cart_no}" onclick="update(${cl.cart_no});">변경</button>
 								</div>
 								</c:if>
@@ -301,34 +302,61 @@ $(document).ready(function(){
 	});
 
 	// 상품 수량 버튼
- 	$(".plus_btn").on("click", function(){
+/*  	$(".plus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
 		
 		$(this).parent("div").find("input").val(++qty);
 		
-	});
-	$(".minus_btn").on("click", function(){
+	}); */
+/* 	$(".minus_btn").on("click", function(){
 		let qty = $(this).parent("div").find("input").val();
 		if(qty > 1){
 		$(this).parent("div").find("input").val(--qty);
 		}	
-	}); 
+	});  */
+	// 상품 수량 버튼	
+	function plus(n){
+		let qty = $(".cart_qty_input_"+n).val();
+		let p_stock = $(".p_stock_input_"+n).val();
+		console.log(qty);
+		console.log(p_stock);
+ 			console.log(qty < p_stock);
+ 		if(qty < p_stock){ 
+			$(".cart_qty_input_"+n).val(++qty);
+ 		}	 
+	}
+	function minus(n){
+		let qty = $(".cart_qty_input_"+n).val();
+		if(qty > 1){
+			$(".cart_qty_input_"+n).val(--qty);
+		}
+	}
+	
 	
 	// 상품 수량 수정 버튼
  	function update(n){
-		let cart_no = $("button[name=qty_modify_btn_"+n+"]").data("cart_no");
-		let cart_qty = $("input[name=cart_qty_"+n+"]").val();
-		let p_stock = $("input[name=p_stock_"+n+"]").val();
+//		alert(n);
+		const cart_no = n
+		const c_qty = $(".cart_qty_input_"+n).val();
+		const stock = $(".p_stock_input_"+n).val();
+		console.log(c_qty);
+		console.log(stock);
+		console.log(c_qty > stock);
+		console.log(c_qty < stock);
 		
 		// 상품 재고 유효성 검사
-		if(cart_qty > p_stock) {  
-		    alert("재고가 없습니다. 선택할 수 있는 최대 상품 수량은 "+p_stock+"개 입니다.");
-		    $("input[name=cart_qty_"+n+"]").val(1);
-		}else{
+/*  		if(c_qty > stock) {   
+ 			alert(c_qty);
+ 			alert(stock);
+ 			alert(c_qty > stock);
+		    alert("재고가 없습니다. 선택할 수 있는 최대 상품 수량은 "+stock+"개 입니다.");
+		    $(".cart_qty_input_"+n).val(1);
+		}else{ 
+			alert(c_qty <= stock);*/
 			$(".update_cart_no").val(cart_no);
-			$(".update_cart_qty").val(cart_qty);
+			$(".update_cart_qty").val(c_qty);
 			$(".qty_update_form").submit();
-		}
+ 		/* }  */
 	} 
 	
 	// 장바구니 개별 상품 삭제 버튼

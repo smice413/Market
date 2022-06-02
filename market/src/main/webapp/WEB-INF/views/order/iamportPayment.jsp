@@ -44,7 +44,7 @@
 	        buyer_tel : "${ml.m_tel}",
 	        buyer_postcode : "${di.d_post}",
 	        buyer_addr : "${di.d_address} ${di.d_detail_address}"
-	        
+	       
 	    }, function (rsp) {         // callback
 	        if (rsp.success) {     // 결제 성공 시 
 	        	$.ajax({
