@@ -93,7 +93,7 @@
 					<a class="order_btn btn btn-success" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
                   		    <b>${product.p_sell_price}원<b><br>바로 구매하기</a>
                   	<c:forEach var="followShop" items="${followShop}">	    
-					<c:if test="${product.s_no == followShop.s_no and followShop.m_email eq sessionScope.m_email}">
+					<c:if test="${product.s_no == followShop.s_no and followShop.m_email eq sessionScope.m_email and product.p_follow_sale == 'Y'}">
 					<a  class="follow_btn btn btn-warning" style="width:90px; height:45px; font-size:12px; padding:4px; margin:2px;">
 						<b>${product.p_follow_price}원<b><br>팔로워상품담기</a>
 					</c:if>
