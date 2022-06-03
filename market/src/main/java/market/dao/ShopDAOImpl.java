@@ -21,6 +21,10 @@ public class ShopDAOImpl {
 	// 로그인 인증
 	public ShopDTO userCheck(String s_email) throws Exception {
 		return sqlsession.selectOne("shopns.shop_select", s_email);
+		
+//		List list  = sqlsession.selectList("shopns.shop_select", s_email);
+//		System.out.println(list.get(1));
+//		return (ShopDTO)list.get(0);
 	}
 
 	// email 중복검사
